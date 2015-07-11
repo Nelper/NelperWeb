@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "TARGET=build webpack",
-    "start": "TARGET=dev webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback"
+    "start": "TARGET=dev webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
+    "clean": "rm -rf ./build"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "babel-eslint": "^3.1.23",
     "eslint": "^0.24.1",
+    "eslint-loader": "^0.14.1",
     "eslint-plugin-react": "^2.6.4",
     "react-hot-loader": "^1.2.8",
     "webpack-dev-server": "^1.10.1"
