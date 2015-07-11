@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {RouteHandler} from 'react-router';
 
 import NavBar from './NavBar';
 
@@ -8,7 +7,7 @@ export default class AppHandler extends Component {
     return (
       <div style={styles.app}>
         <NavBar />
-        <RouteHandler />
+        {this.props.children}
       </div>
     );
   }

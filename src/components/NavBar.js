@@ -6,11 +6,7 @@ import ParseComponent from 'parse-react/class';
 export default class NavBar extends ParseComponent {
 
   static contextTypes = {
-    router: React.PropTypes.func.isRequired,
-  }
-
-  state = {
-    selected: '/',
+    router: React.PropTypes.object.isRequired,
   }
 
   observe() {
@@ -20,21 +16,44 @@ export default class NavBar extends ParseComponent {
   }
 
   render() {
+    let brand = <span onClick={this._goHome.bind(this)}>Nelper</span>;
     return (
-      <Navbar brand='Nelper' toggleNavKey={0}>
+      <Navbar brand={brand} toggleNavKey={0}>
         <Nav right eventKey={0}>
         { !this.data.user ? [
-          <NavItem eventKey={1} href='#/login'>Login</NavItem>,
-          <NavItem eventKey={2} href='#/register'>Register</NavItem>,
+          this._renderNavItem('Login', '/login', 1),
+          this._renderNavItem('Register', '/register', 2),
         ] : [
-          <NavItem eventKey={1} href='#/nelp'>Nelp</NavItem>,
+          this._renderNavItem('Nelp', '/nelp', 3),
+          this._renderNavItem('Get Nelp', '/getnelp', 4),
+          this._renderNavItem('Profile', '/profile', 5),
         ]}
         </Nav>
       </Navbar>
     );
   }
 
-  _onActive(route) {
-    this.context.router.transitionTo(route);
+  _renderNavItem(title, href, key) {
+    let active = this.context.router.isActive(href);
+    return (
+      <NavItem
+        className={active ? 'active' : ''}
+        key={key}
+        eventKey={key}
+        onClick={this._onActive.bind(this)}
+        href={href}>
+        {title}
+      </NavItem>
+    );
+  }
+
+  _onActive(event) {
+    // Use the router instead of the normal link behavior.
+    event.preventDefault();
+    this.context.router.transitionTo(event.target.pathname);
+  }
+
+  _goHome() {
+    this.context.router.transitionTo('/');
   }
 }
