@@ -28,12 +28,13 @@ if(TARGET === 'build') {
     module: {
       loaders: [
         {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css'),
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract('style', 'css', 'sass?sourceMap=true&includePaths[]=' +
+            path.resolve(__dirname, './node_modules')),
         },
         {
           test: /\.jsx?$/,
-          loader: 'babel?stage=1',
+          loader: 'babel?stage=0',
           include: path.resolve(ROOT_PATH, 'src'),
         },
       ],
@@ -72,16 +73,17 @@ if(TARGET === 'dev') {
           include: path.resolve(ROOT_PATH, 'app'),
         },
       ],*/
-      loaders: [
-        {
-          test: /\.css$/,
-          loaders: ['style', 'css'],
-        },
-        {
+      loaders: [{
+          test: /\.scss$/,
+          loaders: ['style', 'css', 'sass?sourceMap=true&includePaths[]=' +
+            path.resolve(__dirname, './node_modules')],
+        }, {
           test: /\.jsx?$/,
-          loaders: ['react-hot', 'babel?stage=1'],
+          loaders: ['react-hot', 'babel?stage=0'],
           include: path.resolve(ROOT_PATH, 'src'),
         },
+        {test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },
+        {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
       ],
     },
   });

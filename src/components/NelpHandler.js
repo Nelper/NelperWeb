@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-export default class HomeHandler extends Component {
+export default class NelpHandler extends Component {
   render() {
     return (
       <div className="container">
-        <h2>Hello</h2>
+        <h2>Nelp</h2>
       </div>
     );
   }

@@ -27,7 +27,7 @@
     "dot-notation": [0],
     "no-unused-vars": [1],
     "strict": [0],
-    "no-shadow": [0],
+    "no-trailing-spaces": [0],
     "react/display-name": 0,
     "react/jsx-quotes": 1,
     "react/jsx-no-undef": 1,
@@ -38,7 +38,7 @@
     "react/no-did-update-set-state": 1,
     "react/no-multi-comp": 0,
     "react/no-unknown-property": 1,
-    "react/prop-types": 0,
+    "react/prop-types": 1,
     "react/react-in-jsx-scope": 1,
     "react/self-closing-comp": 1,
     "react/wrap-multilines": 1
