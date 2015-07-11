@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "TARGET=build webpack",
-    "start": "TARGET=dev webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
+    "start": "SET TARGET=build&& webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
     "clean": "rm -rf ./build"
   },
   "repository": {

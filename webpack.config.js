@@ -8,7 +8,7 @@ var TARGET = process.env.TARGET;
 var ROOT_PATH = path.resolve(__dirname);
 
 var common = {
-  entry: [path.resolve(ROOT_PATH, 'src/index')],
+  entry: [path.resolve(ROOT_PATH, 'src/app')],
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
@@ -18,7 +18,8 @@ var common = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Nelper',
+      template: './src/index.html',
+      inject: 'body',
     }),
   ],
 };

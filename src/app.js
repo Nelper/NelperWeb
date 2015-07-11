@@ -34,4 +34,4 @@ React.render((
   <Router history={history}>
     {routes}
   </Router>
-), document.body);
+), document.getElementById('app'));

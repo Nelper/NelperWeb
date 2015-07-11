@@ -1,5 +1,9 @@
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 
+
+$brand-primary: #157955;
+$brand-success: #2d0402;
+
 @import "./_variables.scss";
 @import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 @import "./_bootswatch.scss";
