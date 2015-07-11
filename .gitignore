@@ -1,0 +1,8 @@
+.idea/
+**/node_modules/**
+build/
+*.log
+*.map
+.DS_Store
+*.sublime-project
+*.sublime-workspace
