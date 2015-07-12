@@ -7,9 +7,11 @@ import HomeHandler from './components/HomeHandler';
 import LoginHandler from './components/LoginHandler';
 import RegisterHandler from './components/RegisterHandler';
 import NelpHandler from './components/NelpHandler';
-import GetNelpHandler from './components/GetNelpHandler';
+import FindNelpHandler from './components/FindNelpHandler';
 import ProfileHandler from './components/ProfileHandler';
 import PageNotFoundHandler from './components/PageNotFoundHandler';
+import AddNelpRequestHandler from './components/AddNelpRequestHandler';
+import NelpRequestDetailHandler from './components/NelpRequestDetailHandler';
 
 // Pass this function to onEnter for a route that needs
 // authentication to make sure the user is logged in.
@@ -26,7 +28,9 @@ export default (
     <Route path="/login" component={LoginHandler} />
     <Route path="/register" component={RegisterHandler} />
     <Route path="/nelp" component={NelpHandler} onEnter={requireAuth} />
-    <Route path="/getnelp" component={GetNelpHandler} onEnter={requireAuth} />
+    <Route path="/findnelp" component={FindNelpHandler} onEnter={requireAuth} />
+    <Route path="/findnelp/add" component={AddNelpRequestHandler} />
+    <Route path="/findnelp/detail/:id" component={NelpRequestDetailHandler} />
     <Route path="/profile" component={ProfileHandler} onEnter={requireAuth} />
     <Route path="*" component={PageNotFoundHandler} />
   </Route>

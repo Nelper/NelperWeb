@@ -19,7 +19,7 @@ var common = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      inject: 'body',
+      inject: false,
     }),
   ],
 };

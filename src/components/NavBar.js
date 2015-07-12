@@ -25,7 +25,7 @@ export default class NavBar extends ParseComponent {
           this._renderNavItem('Register', '/register', 2),
         ] : [
           this._renderNavItem('Nelp', '/nelp', 3),
-          this._renderNavItem('Get Nelp', '/getnelp', 4),
+          this._renderNavItem('Find Nelp', '/findnelp', 4),
           this._renderNavItem('Profile', '/profile', 5),
         ]}
         </Nav>

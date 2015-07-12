@@ -4,8 +4,9 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
+    "start-server": "iojs ./src/server.js",
     "build": "TARGET=build webpack",
-    "start": "SET TARGET=build&& webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
+    "watch": "TARGET=dev webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
     "clean": "rm -rf ./build"
   },
   "repository": {
@@ -30,6 +31,7 @@
     "node-sass": "^3.2.0",
     "parse": "^1.4.2",
     "parse-react": "^0.4.2",
+    "radium": "^0.13.2",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.7",
     "react-router": "^1.0.0-beta3",
