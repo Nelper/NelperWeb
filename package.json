@@ -9,16 +9,9 @@
     "watch": "TARGET=dev webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
     "clean": "rm -rf ./build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Nelper/NelperWeb.git"
+  "engines": {
+    "iojs": "^2.3.0"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Nelper/NelperWeb/issues"
-  },
-  "homepage": "https://github.com/Nelper/NelperWeb#readme",
   "dependencies": {
     "babel-core": "^5.6.17",
     "babel-loader": "^5.3.1",
