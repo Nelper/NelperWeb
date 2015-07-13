@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, ButtonToolbar, Input} from 'react-bootstrap';
+import {Button, ButtonToolbar} from 'react-bootstrap';
 import {Parse} from 'parse';
 import ParseReact from 'parse-react';
 
@@ -10,8 +10,8 @@ export default class FindNelpDetailHandler extends Component {
   }
 
   state = {
-    applied: this.props.location.state.task.applications &&
-      this.props.location.state.task.applications.length > 0,
+    applied: this.props.location.state.task.application
+      && this.props.location.state.task.application.state === 0,
   }
 
   render() {
@@ -39,15 +39,39 @@ export default class FindNelpDetailHandler extends Component {
 
   _apply() {
     this.setState({applied: true});
-    ParseReact.Mutation.Add(this.props.location.state.task, 'applications', {
-      state: 0,
-      user: Parse.User.current(),
-      task: this.props.location.state.task,
-    }).dispatch();
+    if(this.props.location.state.task.application) {
+      this._setTaskApplicationState(0);
+    } else {
+      let Task = new Parse.Object.extend({
+          className: 'Task',
+      });
+      let task = new Task();
+      task.id = this.props.location.state.task.objectId;
+      let TaskApplication = new Parse.Object.extend({
+          className: 'TaskApplication',
+      });
+      let taskApplication = new TaskApplication();
+      taskApplication.set('state', 0);
+      taskApplication.set('user', Parse.User.current());
+      taskApplication.set('task', task);
+      taskApplication.save();
+      this.props.location.state.task.application = taskApplication.toPlainObject();
+    }
   }
 
   _cancelApplication() {
     this.setState({applied: false});
+    this._setTaskApplicationState(1);
+  }
+
+  _setTaskApplicationState(state) {
+    let TaskApplication = new Parse.Object.extend({
+        className: 'TaskApplication',
+    });
+    let taskApplication = new TaskApplication();
+    taskApplication.id = this.props.location.state.task.application.objectId;
+    taskApplication.set('state', state);
+    taskApplication.save();
   }
 
   _back() {

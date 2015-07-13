@@ -1,3 +1,5 @@
+@import "./_variables.scss";
+
 html, body, #app {
   height: 100%;
   width: 100%;
@@ -5,5 +7,14 @@ html, body, #app {
 }
 
 body {
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+  color: $color-text;
+}
+
+h1, h2 {
+  color: $color-nelp-blue;
+}
+
+p {
+
 }

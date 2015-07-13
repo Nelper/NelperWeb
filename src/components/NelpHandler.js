@@ -1,23 +1,32 @@
-import React from 'react';
-import {Parse} from 'parse';
-import ParseComponent from 'parse-react/class';
+import React, {Component} from 'react';
+import connectToStores from 'alt/utils/connectToStores';
 
-export default class NelpHandler extends ParseComponent {
+import NelpActions from '../actions/NelpActions';
+import NelpStore from '../stores/NelpStore';
+
+@connectToStores
+export default class NelpHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
   }
 
-  observe() {
-    return {
-      tasks: (new Parse.Query('Task')),
-    };
+  static getStores() {
+    return [NelpStore];
+  }
+
+  static getPropsFromStores() {
+    return NelpStore.getState();
+  }
+
+  componentDidMount() {
+    NelpActions.refreshTasks();
   }
 
   render() {
-    let tasks = this.data.tasks.map((t) => {
+    let tasks = this.props.tasks.map((t) => {
       return (
-        <div onClick={this._taskDetail.bind(this, t)}>{t.title} - {t.applications}</div>
+        <div key={t.objectId} onClick={this._taskDetail.bind(this, t)}>{t.title}</div>
       );
     });
     return (
