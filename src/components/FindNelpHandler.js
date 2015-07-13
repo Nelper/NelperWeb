@@ -12,7 +12,7 @@ export default class FindNelpHandler extends ParseComponent {
 
   observe() {
     return {
-      requests: (new Parse.Query('Offer')).equalTo('user', Parse.User.current()),
+      requests: (new Parse.Query('Task')).equalTo('user', Parse.User.current()),
     };
   }
 
@@ -23,7 +23,7 @@ export default class FindNelpHandler extends ParseComponent {
           key={r.objectId}
           title={r.title}
           desc={r.desc}
-          onClick={this._showRequestDetail.bind(this, r)} />
+          onClick={this._taskDetail.bind(this, r)} />
       );
     });
     return (
@@ -36,7 +36,7 @@ export default class FindNelpHandler extends ParseComponent {
             title="New Nelp request"
             image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/VisualEditor_-_Icon_-_Add-item.svg/2000px-VisualEditor_-_Icon_-_Add-item.svg.png"
             style={styles.addCard}
-            onClick={this._addNelpRequest.bind(this)} />
+            onClick={this._addNelpTask.bind(this)} />
           {requests}
         </div>
         <h3>Recommended Nelpers</h3>
@@ -51,12 +51,12 @@ export default class FindNelpHandler extends ParseComponent {
     );
   }
 
-  _addNelpRequest() {
+  _addNelpTask() {
     this.context.router.transitionTo('/findnelp/add');
   }
 
-  _showRequestDetail(request) {
-    this.context.router.transitionTo(`/findnelp/detail/${request.objectId}`, null, {request});
+  _taskDetail(task) {
+    this.context.router.transitionTo(`/findnelp/detail/${task.objectId}`, null, {task});
   }
 }
 

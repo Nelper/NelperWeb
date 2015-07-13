@@ -3,15 +3,15 @@ import {Button, ButtonToolbar, Input} from 'react-bootstrap';
 import {Parse} from 'parse';
 import ParseReact from 'parse-react';
 
-export default class NelpRequestDetailHandler extends Component {
+export default class FindNelpDetailHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
   }
 
   state = {
-    title: this.props.location.state.request.title, //euhhh
-    desc: this.props.location.state.request.desc,
+    title: this.props.location.state.task.title, //euhhh
+    desc: this.props.location.state.task.desc,
   }
 
   render() {
@@ -58,7 +58,7 @@ export default class NelpRequestDetailHandler extends Component {
   }
 
   _create() {
-    ParseReact.Mutation.Create('Offer', {
+    ParseReact.Mutation.Create('Task', {
       title: this.state.title,
       desc: this.state.desc,
       user: Parse.User.current(),

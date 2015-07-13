@@ -16,7 +16,12 @@ export default class NavBar extends ParseComponent {
   }
 
   render() {
-    let brand = <span onClick={this._goHome.bind(this)}>Nelper</span>;
+    let brand = (
+      <div onClick={this._goHome.bind(this)}>
+        <img style={styles.logo} src={require('../images/logo-nobg-sm.png')}/>
+        <span style={styles.title}>Nelper</span>
+      </div>
+    );
     return (
       <Navbar brand={brand} toggleNavKey={0}>
         <Nav right eventKey={0}>
@@ -57,3 +62,14 @@ export default class NavBar extends ParseComponent {
     this.context.router.transitionTo('/');
   }
 }
+
+const styles = {
+  title: {
+
+  },
+  logo: {
+    height: 48,
+    display: 'inline-block',
+    marginRight: 16,
+  },
+};

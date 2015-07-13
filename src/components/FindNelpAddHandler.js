@@ -3,7 +3,7 @@ import {Button, ButtonToolbar, Input} from 'react-bootstrap';
 import {Parse} from 'parse';
 import ParseReact from 'parse-react';
 
-export default class AddNelpRequestHandler extends Component {
+export default class FindNelpAddHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -17,7 +17,7 @@ export default class AddNelpRequestHandler extends Component {
   render() {
     return (
       <div className="container">
-        <h2>Create Nelp request</h2>
+        <h2>Ask for Nelp</h2>
         <Input
           type='text'
           value={this.state.title}
@@ -58,7 +58,7 @@ export default class AddNelpRequestHandler extends Component {
   }
 
   _create() {
-    ParseReact.Mutation.Create('Offer', {
+    ParseReact.Mutation.Create('Task', {
       title: this.state.title,
       desc: this.state.desc,
       user: Parse.User.current(),

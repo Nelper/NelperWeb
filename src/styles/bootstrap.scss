@@ -1,13 +1,18 @@
+@import "./_variables.scss";
+
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 
+$brand-primary: $color-nelp-orange;
+$brand-success: $color-nelp-blue;
 
-$brand-primary: #157955;
-$brand-success: #2d0402;
-
-@import "./_variables.scss";
+@import "./lib/_variables.scss";
 @import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
-@import "./_bootswatch.scss";
+@import "./lib/_bootswatch.scss";
 
 .navbar {
   border-radius: 0;
+}
+
+.navbar-brand {
+  padding: 6px 16px;
 }
