@@ -61,6 +61,9 @@ if(TARGET === 'build') {
 
 if(TARGET === 'dev') {
   module.exports = merge(common, {
+    debug: true,
+    devtool: 'source-map',
+    cache: true,
     entry: [
       'webpack/hot/dev-server',
     ],

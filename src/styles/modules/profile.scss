@@ -1,0 +1,71 @@
+@import '../_variables.scss';
+
+#page-profile {
+  .header {
+    background-color: $color-nelp-orange-light;
+    color: $color-white;
+
+    .container {
+      padding-top: 32px;
+      padding-bottom: 32px;
+
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .info-container {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .user-name {
+      font-size: 28px;
+    }
+
+    .user-picture {
+      height: 180px;
+      border-radius: 50%;
+      width: 180px;
+      border: solid 4px $color-white;
+      margin-right: 32px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .rating {
+
+    }
+
+    .tasks-summary {
+
+    }
+  }
+
+  .tabs {
+    height: 64px;
+    background-color: $color-nelp-orange;
+    color: $color-white;
+    font-size: 18px;
+
+    .container {
+      height: 100%;
+      display: flex;
+    }
+
+    .tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+
+      &.active {
+        color: $color-nelp-orange-light;
+      }
+    }
+  }
+
+  .content {
+
+  }
+}

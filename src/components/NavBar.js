@@ -18,7 +18,7 @@ export default class NavBar extends ParseComponent {
   render() {
     let brand = (
       <div onClick={this._goHome.bind(this)}>
-        <img style={styles.logo} src={require('../images/logo-nobg-sm.png')}/>
+        <img style={styles.logo} src={`/${require('../images/logo-nobg-sm.png')}`}/>
         <span style={styles.title}>Nelper</span>
       </div>
     );

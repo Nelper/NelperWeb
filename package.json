@@ -7,7 +7,7 @@
     "deploy": "npm run build && npm run start-server",
     "start-server": "iojs ./src/server.js",
     "build": "TARGET=build webpack",
-    "watch": "TARGET=dev webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
+    "watch": "TARGET=dev webpack-dev-server --progress --colors --hot --inline --history-api-fallback",
     "clean": "rm -rf ./build"
   },
   "engines": {

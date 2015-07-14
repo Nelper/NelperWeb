@@ -38,7 +38,8 @@ export default class FindNelpDetailHandler extends Component {
           <Button
             disabled={!this.state.title || !this.state.desc}
             onClick={this._create.bind(this)}
-            bsStyle='primary'>Create</Button>
+            bsStyle='success'>Update</Button>
+          <Button bsStyle='danger' onClick={this._delete.bind(this)}>Delete</Button>
           <Button onClick={this._cancel.bind(this)}>Cancel</Button>
         </ButtonToolbar>
       </div>
@@ -64,6 +65,10 @@ export default class FindNelpDetailHandler extends Component {
       user: Parse.User.current(),
     }).dispatch();
     this.context.router.goBack();
+  }
+
+  _delete() {
+
   }
 
   _cancel() {

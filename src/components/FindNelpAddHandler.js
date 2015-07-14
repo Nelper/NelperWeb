@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, ButtonToolbar, Input} from 'react-bootstrap';
-import {Parse} from 'parse';
-import ParseReact from 'parse-react';
+
+import FindNelpActions from '../actions/FindNelpActions';
 
 export default class FindNelpAddHandler extends Component {
 
@@ -58,11 +58,10 @@ export default class FindNelpAddHandler extends Component {
   }
 
   _create() {
-    ParseReact.Mutation.Create('Task', {
+    FindNelpActions.addTask({
       title: this.state.title,
       desc: this.state.desc,
-      user: Parse.User.current(),
-    }).dispatch();
+    });
     this.context.router.goBack();
   }
 

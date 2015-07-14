@@ -1,23 +1,31 @@
-import React from 'react';
-import {Parse} from 'parse';
-import ParseComponent from 'parse-react/class';
+import React, {Component} from 'react';
+import connectToStores from 'alt/utils/connectToStores';
 
+import FindNelpActions from '../actions/FindNelpActions';
+import FindNelpStore from '../stores/FindNelpStore';
 import NelperCard from './NelperCard';
 
-export default class FindNelpHandler extends ParseComponent {
+@connectToStores
+export default class FindNelpHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
   }
 
-  observe() {
-    return {
-      requests: (new Parse.Query('Task')).equalTo('user', Parse.User.current()),
-    };
+  static getStores() {
+    return [FindNelpStore];
+  }
+
+  static getPropsFromStores() {
+    return FindNelpStore.getState();
+  }
+
+  componentDidMount() {
+    FindNelpActions.refreshMyTasks();
   }
 
   render() {
-    let requests = this.data.requests.map((r) => {
+    let requests = this.props.myTasks.map((r) => {
       return (
         <NelperCard
           key={r.objectId}
@@ -33,7 +41,7 @@ export default class FindNelpHandler extends ParseComponent {
         <div style={styles.cardRow}>
           <NelperCard
             key={0}
-            title="New Nelp request"
+            title="Ask for Nelp"
             image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/VisualEditor_-_Icon_-_Add-item.svg/2000px-VisualEditor_-_Icon_-_Add-item.svg.png"
             style={styles.addCard}
             onClick={this._addNelpTask.bind(this)} />

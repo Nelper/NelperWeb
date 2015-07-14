@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 import {Parse} from 'parse';
-import ParseReact from 'parse-react';
 
 export default class FindNelpDetailHandler extends Component {
 

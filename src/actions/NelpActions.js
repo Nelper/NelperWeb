@@ -4,18 +4,14 @@ import ApiUtils from '../utils/ApiUtils';
 class NelpActions {
 
   constructor() {
-    this.generateActions('updateCity', 'updateCountry');
+    this.generateActions('receivedTasks');
   }
 
   refreshTasks() {
-    return ApiUtils.listNelpTasks()
+    ApiUtils.listNelpTasks()
       .then((tasks) => {
         this.actions.receivedTasks(tasks);
       });
-  }
-
-  receivedTasks(tasks) {
-    return tasks;
   }
 }
 
