@@ -76,7 +76,7 @@ if(TARGET === 'dev') {
       loaders: [{
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass?sourceMap=true&includePaths[]=' +
-        path.resolve(__dirname, './node_modules')],
+          path.resolve(__dirname, './node_modules')],
       }, {
         test: /\.jsx?$/,
         loaders: ['react-hot', 'babel?stage=0'],
