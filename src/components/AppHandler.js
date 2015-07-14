@@ -15,8 +15,6 @@ export default class AppHandler extends Component {
 
 const styles = {
   app: {
-    display: 'flex',
-    flexDirection: 'column',
     height: '100%',
   },
 };
