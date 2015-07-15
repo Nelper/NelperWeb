@@ -36,6 +36,9 @@ if(TARGET === 'build') {
   module.exports = merge(common, {
     module: {
       loaders: [{
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+      }, {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass?sourceMap&' + sassNeatPaths),
       }, {
