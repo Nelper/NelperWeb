@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import {Button} from 'react-bootstrap';
-
-import '../styles/modules/profile.scss';
 
 export default class ProfileHandler extends Component {
   render() {
@@ -18,7 +15,7 @@ export default class ProfileHandler extends Component {
               <div className="rating">*****</div>
               <div className="tasks-summary">8 Tasks Completed</div>
             </div>
-            <Button bsStyle="primary">Settings</Button>
+            <button>Settings</button>
           </div>
         </div>
         <div className="tabs">

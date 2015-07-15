@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Button, ButtonToolbar} from 'react-bootstrap';
 import {Parse} from 'parse';
 
 export default class FindNelpDetailHandler extends Component {
@@ -20,18 +19,18 @@ export default class FindNelpDetailHandler extends Component {
       <div className="container">
         <h2>{title}</h2>
         <p>{desc}</p>
-        <ButtonToolbar>
+        <div>
           {
             this.state.applied ?
-            <Button onClick={this._cancelApplication.bind(this)} bsStyle="warning">
+            <button onClick={this._cancelApplication.bind(this)}>
               Cancel application
-            </Button> :
-            <Button onClick={this._apply.bind(this)} bsStyle="primary">
+            </button> :
+            <button onClick={this._apply.bind(this)}>
               Apply
-            </Button>
+            </button>
           }
-          <Button onClick={this._back.bind(this)}>Back</Button>
-        </ButtonToolbar>
+          <button onClick={this._back.bind(this)}>Back</button>
+        </div>
       </div>
     );
   }

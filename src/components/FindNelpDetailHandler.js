@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, ButtonToolbar, Input} from 'react-bootstrap';
+
 import {Parse} from 'parse';
 import ParseReact from 'parse-react';
 
@@ -18,7 +18,7 @@ export default class FindNelpDetailHandler extends Component {
     return (
       <div className="container">
         <h2>Nelp request</h2>
-        <Input
+        <input
           type='text'
           value={this.state.title}
           placeholder='Title'
@@ -26,7 +26,7 @@ export default class FindNelpDetailHandler extends Component {
           groupClassName='group-class'
           labelClassName='label-class'
           onChange={this._onTitleChanged.bind(this)} />
-        <Input
+        <input
           type='text'
           value={this.state.desc}
           placeholder='Description'
@@ -34,14 +34,14 @@ export default class FindNelpDetailHandler extends Component {
           groupClassName='group-class'
           labelClassName='label-class'
           onChange={this._onDescChanged.bind(this)} />
-        <ButtonToolbar>
-          <Button
+        <div>
+          <button
             disabled={!this.state.title || !this.state.desc}
             onClick={this._create.bind(this)}
-            bsStyle='success'>Update</Button>
-          <Button bsStyle='danger' onClick={this._delete.bind(this)}>Delete</Button>
-          <Button onClick={this._cancel.bind(this)}>Cancel</Button>
-        </ButtonToolbar>
+            bsStyle='success'>Update</button>
+          <button bsStyle='danger' onClick={this._delete.bind(this)}>Delete</button>
+          <button onClick={this._cancel.bind(this)}>Cancel</button>
+        </div>
       </div>
     );
   }

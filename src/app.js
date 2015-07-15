@@ -1,12 +1,12 @@
 import React from 'react';
 import {Router} from 'react-router';
-import { history } from 'react-router/lib/BrowserHistory';
+import {history} from 'react-router/lib/BrowserHistory';
 import {Parse} from 'parse';
 
 import routes from './routes';
 
-import './styles/bootstrap.scss';
-import './styles/global.scss';
+import 'normalize.css/normalize.css';
+import './styles/app.scss';
 
 // Initialize Parse
 Parse.initialize('w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN', 'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si');
