@@ -28,7 +28,7 @@ export default class NavBar extends ParseComponent {
           </div>
           <div className="navbar-menu-button" onClick={this._toggleMenu.bind(this)}>MENU</div>
           <nav role="navigation">
-            <ul id="js-navigation-menu" className={'navbar-menu' + (this.state.collapsed ? '' : ' show')}>
+            <ul className={'navbar-menu' + (this.state.collapsed ? '' : ' show')}>
               { !this.data.user ? [
                 this._renderNavItem('Login', '/login', 1),
                 this._renderNavItem('Register', '/register', 2),

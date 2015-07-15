@@ -53,7 +53,6 @@ header.navbar {
   // Mobile view
 
   .navbar-menu-button {
-    //background-color: $color-nelp-orange-light;
     color: $navigation-color;
     display: block;
     float: right;
@@ -95,6 +94,7 @@ header.navbar {
     padding: 0;
     width: 100%;
     z-index: 9999;
+    background-color: $color-nelp-orange-light;
 
     &.show {
       display: flex;
