@@ -13,7 +13,7 @@ export default class RegisterHandler extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="page-container">
         <h2>Register</h2>
         <input
           type='text'

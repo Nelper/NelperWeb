@@ -15,7 +15,7 @@ export default class FindNelpAddHandler extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="page-container">
         <h2>Ask for Nelp</h2>
         <input
           type='text'

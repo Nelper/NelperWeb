@@ -35,7 +35,7 @@ export default class FindNelpHandler extends Component {
       );
     });
     return (
-      <div className="container">
+      <div className="page-container">
         <h2>Find Nelp</h2>
         <h3>My Nelp requests</h3>
         <div style={styles.cardRow}>

@@ -21,6 +21,8 @@ header.navbar {
   .navbar-wrapper {
     @include clearfix;
     @include outer-container;
+    padding-left: 1em;
+    padding-right: 1em;
     position: relative;
     z-index: 9999;
   }
@@ -36,6 +38,7 @@ header.navbar {
     color: $navigation-color;
     font-weight: 400;
     font-size: 1.4em;
+    cursor: pointer;
 
     &:focus,
     &:hover {
@@ -94,7 +97,6 @@ header.navbar {
     padding: 0;
     width: 100%;
     z-index: 9999;
-    background-color: $color-nelp-orange-light;
 
     &.show {
       display: flex;
@@ -127,6 +129,7 @@ header.navbar {
 
     color: $navigation-color;
     font-weight: 400;
+    cursor: pointer;
 
     &:focus,
     &:hover {

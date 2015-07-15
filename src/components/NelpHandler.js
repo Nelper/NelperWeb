@@ -30,7 +30,7 @@ export default class NelpHandler extends Component {
       );
     });
     return (
-      <div className="container">
+      <div className="page-container">
         <h2>Nelp</h2>
         <div>
           {tasks}

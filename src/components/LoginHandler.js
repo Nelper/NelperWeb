@@ -14,7 +14,7 @@ export default class LoginHandler extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="page-container">
         <h2>Login</h2>
         <input
           type='text'

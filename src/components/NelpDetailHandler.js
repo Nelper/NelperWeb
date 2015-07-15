@@ -16,7 +16,7 @@ export default class FindNelpDetailHandler extends Component {
     let {title, desc} = this.props.location.state.task;
 
     return (
-      <div className="container">
+      <div className="page-container">
         <h2>{title}</h2>
         <p>{desc}</p>
         <div>

@@ -1,14 +1,14 @@
 #page-profile {
+
   .header {
     background-color: $color-nelp-orange-light;
     color: $color-white;
 
-    .container {
-      padding-top: 32px;
-      padding-bottom: 32px;
-
+    .page-container {
       display: flex;
       align-items: flex-start;
+      padding-top: 2em;
+      padding-bottom: 2em;
     }
 
     .info-container {
@@ -46,7 +46,7 @@
     color: $color-white;
     font-size: 18px;
 
-    .container {
+    .page-container {
       height: 100%;
       display: flex;
     }
