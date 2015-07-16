@@ -3,10 +3,10 @@ var express = require('express'),
   app = express(),
   port = process.env.PORT || 4000;
 
-app.use(express.static(path.resolve(__dirname, './../build')));
+app.use(express.static(path.resolve(__dirname, '../../build')));
 
 app.use(function(req, res, next) {
-  res.sendFile('index.html', {root: path.resolve(__dirname, './../build')});
+  res.sendFile('index.html', {root: path.resolve(__dirname, '../../build')});
 });
 
 app.listen(port);
