@@ -5,9 +5,10 @@ var neat = require('node-neat');
 var ROOT_PATH = path.resolve(__dirname);
 
 var common = {
-  entry: [path.resolve(ROOT_PATH, 'src/app')],
+  entry: [path.resolve(ROOT_PATH, 'src/app/main')],
   resolve: {
     extensions: ['', '.js', '.jsx'],
+    root: path.resolve(ROOT_PATH, 'src'),
   },
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
@@ -15,14 +16,14 @@ var common = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/app/index.html',
       inject: false,
     }),
   ],
 };
 
 var sassNeatPaths = neat.with([
-  path.resolve(ROOT_PATH, './src/styles'),
+  path.resolve(ROOT_PATH, './src'),
   path.resolve(ROOT_PATH, './node_modules'),
 ]).map(function(neatPath) {
     return 'includePaths[]=' + neatPath;

@@ -1,5 +1,5 @@
-import alt from '../alt';
-import NelpActions from '../actions/NelpActions';
+import alt from 'app/alt';
+import NelpActions from 'actions/NelpActions';
 
 class NelpStore {
 

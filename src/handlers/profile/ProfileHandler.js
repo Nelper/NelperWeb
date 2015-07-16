@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 export default class ProfileHandler extends Component {
   render() {
     return (
-      <div id="page-profile">
+      <div id="profile-handler">
         <div className="header">
-          <div className="page-container">
+          <div className="container pad-all">
             <div style={{backgroundImage: 'url(http://www.independent.co.uk/incoming/article8465213.ece/alternates/w620/v2-cute-cat-picture.jpg)'}}
                   className="user-picture" />
             <div className="info-container">
@@ -19,12 +19,12 @@ export default class ProfileHandler extends Component {
           </div>
         </div>
         <div className="tabs">
-          <div className="page-container">
+          <div className="container pad-hor">
             <div className="tab active">Active Tasks</div>
             <div className="tab">Completed Tasks</div>
           </div>
         </div>
-        <div className="page-container">
+        <div className="container pad-all">
           Task list
         </div>
       </div>

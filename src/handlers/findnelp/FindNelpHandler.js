@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
-import FindNelpActions from '../actions/FindNelpActions';
-import FindNelpStore from '../stores/FindNelpStore';
-import NelperCard from './NelperCard';
+import FindNelpActions from 'actions/FindNelpActions';
+import FindNelpStore from 'stores/FindNelpStore';
+import NelperCard from 'components/NelperCard';
 
 @connectToStores
 export default class FindNelpHandler extends Component {
@@ -35,7 +35,7 @@ export default class FindNelpHandler extends Component {
       );
     });
     return (
-      <div className="page-container">
+      <div className="container pad-all">
         <h2>Find Nelp</h2>
         <h3>My Nelp requests</h3>
         <div style={styles.cardRow}>

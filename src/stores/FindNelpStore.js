@@ -1,5 +1,5 @@
-import alt from '../alt';
-import FindNelpActions from '../actions/FindNelpActions';
+import alt from 'app/alt';
+import FindNelpActions from 'actions/FindNelpActions';
 
 class FindNelpStore {
 

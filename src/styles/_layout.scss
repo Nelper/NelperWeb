@@ -1,0 +1,14 @@
+$container-padding: 1em;
+
+.container {
+  @include outer-container;
+
+  &.pad-all {
+    padding: $container-padding;
+  }
+
+  &.pad-hor {
+    padding-left: $container-padding;
+    padding-right: $container-padding;
+  }
+}

@@ -6,7 +6,7 @@ import {Parse} from 'parse';
 import routes from './routes';
 
 import 'normalize.css/normalize.css';
-import './styles/app.scss';
+import 'styles/common.scss';
 
 // Initialize Parse
 Parse.initialize('w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN', 'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si');

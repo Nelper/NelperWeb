@@ -1,14 +1,26 @@
-#page-profile {
+#profile-handler {
 
   .header {
     background-color: $color-nelp-orange-light;
     color: $color-white;
 
-    .page-container {
-      display: flex;
-      align-items: flex-start;
-      padding-top: 2em;
-      padding-bottom: 2em;
+    .container {
+      @include display(flex);
+      @include flex-direction(column);
+      @include align-items(center);
+
+      > * {
+        margin-bottom: 1em;
+      }
+
+      @include media($medium-screen) {
+        @include flex-direction(row);
+        @include align-items(flex-start);
+
+        > * {
+          margin-bottom: 0;
+        }
+      }
     }
 
     .info-container {
@@ -26,9 +38,12 @@
       border-radius: 50%;
       width: 180px;
       border: solid 4px $color-white;
-      margin-right: 32px;
       background-size: cover;
       background-position: center;
+
+      @include media($medium-screen) {
+        margin-right: 32px;
+      }
     }
 
     .rating {
@@ -46,7 +61,7 @@
     color: $color-white;
     font-size: 18px;
 
-    .page-container {
+    .container {
       height: 100%;
       display: flex;
     }

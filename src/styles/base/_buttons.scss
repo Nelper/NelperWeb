@@ -5,6 +5,8 @@ button {
   background-color: $action-color;
   border-radius: $base-border-radius;
   border: none;
+  border-top: solid 3px transparent;
+  border-bottom: solid 3px darken($action-color, 15%);
   color: #fff;
   cursor: pointer;
   display: inline-block;
@@ -27,5 +29,13 @@ button {
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+}
+
+.btn-group {
+  @include display(flex);
+
+  button {
+    margin-right: 0.75em;
   }
 }

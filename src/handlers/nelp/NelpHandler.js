@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
-import NelpActions from '../actions/NelpActions';
-import NelpStore from '../stores/NelpStore';
+import NelpActions from 'actions/NelpActions';
+import NelpStore from 'stores/NelpStore';
 
 @connectToStores
 export default class NelpHandler extends Component {
@@ -30,7 +30,7 @@ export default class NelpHandler extends Component {
       );
     });
     return (
-      <div className="page-container">
+      <div className="container pad-all">
         <h2>Nelp</h2>
         <div>
           {tasks}

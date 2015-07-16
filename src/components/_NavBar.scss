@@ -21,8 +21,6 @@ header.navbar {
   .navbar-wrapper {
     @include clearfix;
     @include outer-container;
-    padding-left: 1em;
-    padding-right: 1em;
     position: relative;
     z-index: 9999;
   }

@@ -2,20 +2,21 @@ import React from 'react';
 import {Route} from 'react-router';
 import {Parse} from 'parse';
 
-import AppHandler from './components/AppHandler';
-import HomeHandler from './components/HomeHandler';
-import LoginHandler from './components/LoginHandler';
-import RegisterHandler from './components/RegisterHandler';
-import PageNotFoundHandler from './components/PageNotFoundHandler';
+import AppHandler from 'handlers/AppHandler';
+import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
 
-import NelpHandler from './components/NelpHandler';
-import NelpDetailHandler from './components/NelpDetailHandler';
+import HomeHandler from 'handlers/home/HomeHandler';
+import LoginHandler from 'handlers/login/LoginHandler';
+import RegisterHandler from 'handlers/login/RegisterHandler';
 
-import FindNelpHandler from './components/FindNelpHandler';
-import FindNelpAddHandler from './components/FindNelpAddHandler';
-import FindNelpDetailHandler from './components/FindNelpDetailHandler';
+import NelpHandler from 'handlers/nelp/NelpHandler';
+import NelpDetailHandler from 'handlers/nelp/NelpDetailHandler';
 
-import ProfileHandler from './components/ProfileHandler';
+import FindNelpHandler from 'handlers/findnelp/FindNelpHandler';
+import FindNelpAddHandler from 'handlers/findnelp/FindNelpAddHandler';
+import FindNelpDetailHandler from 'handlers/findnelp/FindNelpDetailHandler';
+
+import ProfileHandler from 'handlers/profile/ProfileHandler';
 
 
 

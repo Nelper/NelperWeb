@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import {Parse} from 'parse';
 
-export default class RegisterHandler extends Component {
+export default class LoginHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -13,8 +14,8 @@ export default class RegisterHandler extends Component {
 
   render() {
     return (
-      <div className="page-container">
-        <h2>Register</h2>
+      <div className="container pad-all">
+        <h2>Login</h2>
         <input
           type='text'
           value={this.state.email}
@@ -25,8 +26,9 @@ export default class RegisterHandler extends Component {
           value={this.state.password}
           placeholder='Password'
           onChange={this._onPasswordChanged.bind(this)} />
-        <div>
+        <div className="btn-group">
           <button>Submit</button>
+          <button onClick={this._loginWithFacebook.bind(this)}>Login with Facebook</button>
         </div>
       </div>
     );
@@ -44,7 +46,22 @@ export default class RegisterHandler extends Component {
     });
   }
 
-  _registerSuccess() {
+  _loginWithFacebook() {
+    Parse.FacebookUtils.logIn(null, {
+      success: (user) => {
+        if (!user.existed()) {
+          this._loginSuccess();
+        } else {
+          this._loginSuccess();
+        }
+      },
+      error: (user, error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  _loginSuccess() {
     if (location.state && location.state.nextPathname) {
       this.context.router.replaceWith(location.state.nextPathname);
     } else {

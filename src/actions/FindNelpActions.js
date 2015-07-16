@@ -1,5 +1,5 @@
-import alt from '../alt';
-import ApiUtils from '../utils/ApiUtils';
+import alt from 'app/alt';
+import ApiUtils from 'utils/ApiUtils';
 
 class FindNelpActions {
 
