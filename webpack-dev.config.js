@@ -22,7 +22,7 @@ module.exports = merge(shared.config, {
       loaders: ['style', 'css'],
     }, {
       test: /\.scss$/,
-      loaders: ['style', 'css?sourceMap', 'sass?sourceMap&' + shared.sassPaths],
+      loaders: ['style', 'css', 'sass?' + shared.sassPaths],
     }, {
       test: /\.jsx?$/,
       loaders: ['react-hot', 'babel?stage=0'],
@@ -31,8 +31,11 @@ module.exports = merge(shared.config, {
       test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url-loader?limit=10000&minetype=application/font-woff',
     }, {
-      test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'file-loader',
+    }, {
+      test: /\.svg$/,
+      loader: 'svg-inline',
     }, {
       test: /\.(png|jpg)$/,
       loader: 'url-loader?limit=8192',

@@ -1,11 +1,26 @@
+// Gotta use relative paths here otherwise hot reload doesnt work :(
+//https://github.com/jtangelder/sass-loader/issues/107
+
 @import "bourbon";
-@import "styles/base/base";
+
+// Gotta import everything individually here too for hot reload to work :/
+//@import "base/base";
+@import "./base/variables";
+@import "./base/grid-settings";
+@import "./base/buttons";
+@import "./base/forms";
+@import "./base/lists";
+@import "./base/tables";
+@import "./base/typography";
+
 @import "neat";
 
-@import "layout";
+@import "./layout";
 
-@import "components/NavBar.scss";
+@import "../components/NavBar.scss";
+@import "../components/Rating.scss";
 
-@import "handlers/nelp/NelpHandler.scss";
-@import "handlers/findnelp/FindNelpHandler.scss";
-@import "handlers/profile/ProfileHandler.scss";
+@import "../handlers/nelp/NelpHandler.scss";
+@import "../handlers/findnelp/FindNelpHandler.scss";
+@import "../handlers/findnelp/FindNelpAddHandler.scss";
+@import "../handlers/profile/ProfileHandler.scss";

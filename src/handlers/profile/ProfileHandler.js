@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Rating from 'components/Rating';
 
 export default class ProfileHandler extends Component {
   render() {
@@ -12,7 +13,7 @@ export default class ProfileHandler extends Component {
               <div className="user-name">
                 Jane Mills
               </div>
-              <div className="rating">*****</div>
+              <Rating rating={4} />
               <div className="tasks-summary">8 Tasks Completed</div>
             </div>
             <button>Settings</button>

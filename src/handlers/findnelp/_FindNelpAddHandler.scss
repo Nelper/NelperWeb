@@ -1,0 +1,25 @@
+#find-nelp-add-handler {
+  h3 {
+    margin-top: 2rem;
+  }
+
+  .categories {
+    @include display(flex);
+    @include flex-wrap(wrap);
+
+    .category {
+      @include flex-basis(20rem);
+      @include flex-grow(1);
+      padding: 1rem;
+      text-align: center;
+
+      @include media($medium-screen) {
+        @include flex-grow(0);
+      }
+
+      &.active {
+        color: $color-nelp-orange;
+      }
+    }
+  }
+}

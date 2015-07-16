@@ -10,25 +10,47 @@ export default class FindNelpAddHandler extends Component {
 
   state = {
     title: '',
+    amount: '',
     desc: '',
   }
 
   render() {
     return (
-      <div className="container pad-all">
+      <div id="find-nelp-add-handler" className="container pad-all">
         <h2>Ask for Nelp</h2>
         <input
           type='text'
           value={this.state.title}
           placeholder='Title'
           onChange={this._onTitleChanged.bind(this)} />
+        <h3>Select a Category</h3>
+        <div className="categories">
+          <div className="category active">Technology</div>
+          <div className="category">Gardening</div>
+          <div className="category">Handyman</div>
+          <div className="category">Cooking</div>
+          <div className="category">Housecleaning</div>
+        </div>
+        <h3>How much are you paying?</h3>
         <input
           type='text'
+          value={this.state.amount}
+          placeholder='amount'
+          onChange={this._onAmountChanged.bind(this)} />
+        <h3>Enter your Postal Code</h3>
+        <input
+          type='text'
+          value={this.state.postalCode}
+          placeholder='amount'
+          onChange={this._onPostalCodeChanged.bind(this)} />
+        <h3>Briefly describe what you are looking for</h3>
+        <textarea
           value={this.state.desc}
           placeholder='Description'
           onChange={this._onDescChanged.bind(this)} />
         <div className="btn-group">
           <button
+            className="primary"
             disabled={!this.state.title || !this.state.desc}
             onClick={this._create.bind(this)}>Create</button>
           <button onClick={this._cancel.bind(this)}>Cancel</button>
@@ -40,6 +62,18 @@ export default class FindNelpAddHandler extends Component {
   _onTitleChanged(event) {
     this.setState({
       title: event.target.value,
+    });
+  }
+
+  _onAmountChanged(event) {
+    this.setState({
+      amount: event.target.value,
+    });
+  }
+
+  _onPostalCodeChanged(event) {
+    this.setState({
+      postalCode: event.target.value,
     });
   }
 
