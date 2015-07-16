@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "deploy": "npm run build && npm run start-server",
-    "start-server": "iojs ./src/server.js",
+    "start-server": "iojs ./src/app/server.js",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack-dev-server --progress --colors --hot --inline --history-api-fallback --config webpack-dev.config.js",
     "clean": "rm -rf ./build"
