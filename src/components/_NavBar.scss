@@ -90,7 +90,7 @@ header.navbar {
     -webkit-transform-style: preserve-3d; // stop webkit flicker
     clear: both;
     display: none;
-    flex-direction: column;
+    @include flex-direction(column);
     margin: 0 auto;
     overflow: visible;
     padding: 0;
