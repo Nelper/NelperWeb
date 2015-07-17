@@ -62,6 +62,7 @@ header.navbar {
     margin: 0;
     padding-right: 1em;
     text-transform: uppercase;
+    cursor: pointer;
 
     @include media ($horizontal-bar-mode) {
       display: none;
