@@ -41,12 +41,12 @@ export default class FindNelpDetailHandler extends Component {
       this._setTaskApplicationState(0);
     } else {
       let Task = new Parse.Object.extend({
-          className: 'Task',
+          className: 'NelpTask',
       });
       let task = new Task();
       task.id = this.props.location.state.task.objectId;
       let TaskApplication = new Parse.Object.extend({
-          className: 'TaskApplication',
+          className: 'NelpTaskApplication',
       });
       let taskApplication = new TaskApplication();
       taskApplication.set('state', 0);
@@ -64,7 +64,7 @@ export default class FindNelpDetailHandler extends Component {
 
   _setTaskApplicationState(state) {
     let TaskApplication = new Parse.Object.extend({
-        className: 'TaskApplication',
+        className: 'NelpTaskApplication',
     });
     let taskApplication = new TaskApplication();
     taskApplication.id = this.props.location.state.task.application.objectId;

@@ -29,7 +29,7 @@ export default class FindNelpHandler extends Component {
       return (
         <NelperCard
           key={r.objectId}
-          title={r.title}
+          title={r.title + ' - ' + r.applications.filter(a => a.state === 0).length}
           desc={r.desc}
           onClick={this._taskDetail.bind(this, r)} />
       );

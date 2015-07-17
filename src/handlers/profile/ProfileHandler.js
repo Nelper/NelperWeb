@@ -1,13 +1,27 @@
 import React, {Component} from 'react';
+import connectToStores from 'alt/utils/connectToStores';
+
+import UserStore from 'stores/UserStore';
 import Rating from 'components/Rating';
 
+@connectToStores
 export default class ProfileHandler extends Component {
+
+  static getStores() {
+    return [UserStore];
+  }
+
+  static getPropsFromStores() {
+    return UserStore.getState();
+  }
+
   render() {
+
     return (
       <div id="profile-handler">
         <div className="header">
           <div className="container pad-all">
-            <div style={{backgroundImage: 'url(http://www.independent.co.uk/incoming/article8465213.ece/alternates/w620/v2-cute-cat-picture.jpg)'}}
+            <div style={{backgroundImage: `url('${this.props.user.pictureURL}')`}}
                   className="user-picture" />
             <div className="info-container">
               <div className="user-name">

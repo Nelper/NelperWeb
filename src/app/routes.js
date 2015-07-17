@@ -1,6 +1,7 @@
 import React from 'react';
 import {Route} from 'react-router';
-import {Parse} from 'parse';
+
+import UserStore from 'stores/UserStore';
 
 import AppHandler from 'handlers/AppHandler';
 import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
@@ -23,7 +24,7 @@ import ProfileHandler from 'handlers/profile/ProfileHandler';
 // Pass this function to onEnter for a route that needs
 // authentication to make sure the user is logged in.
 function requireAuth(nextState, transition) {
-  if (!Parse.User.current()) {
+  if (!UserStore.state.user) {
     transition.to('/login', null, { nextPathname: nextState.location.pathname });
   }
 }
