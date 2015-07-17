@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Parse} from 'parse';
+
+import UserActions from 'actions/UserActions';
+import UserStore from 'stores/UserStore';
 
 export default class LoginHandler extends Component {
 
@@ -10,6 +12,15 @@ export default class LoginHandler extends Component {
   state = {
     email: '',
     password: '',
+  }
+  userStoreListener = this._onUserChanged.bind(this)
+
+  componentDidMount() {
+    UserStore.listen(this.userStoreListener);
+  }
+
+  componentWillUnmount() {
+    UserStore.unlisten(this.userStoreListener);
   }
 
   render() {
@@ -47,18 +58,13 @@ export default class LoginHandler extends Component {
   }
 
   _loginWithFacebook() {
-    Parse.FacebookUtils.logIn(null, {
-      success: (user) => {
-        if (!user.existed()) {
-          this._loginSuccess();
-        } else {
-          this._loginSuccess();
-        }
-      },
-      error: (user, error) => {
-        console.log(error);
-      },
-    });
+    UserActions.loginWithFacebook();
+  }
+
+  _onUserChanged(state) {
+    if(state.user) {
+      this._loginSuccess();
+    }
   }
 
   _loginSuccess() {
