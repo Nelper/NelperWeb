@@ -27,8 +27,8 @@ header.navbar {
 
   .logo {
     float: left;
-    display: flex;
-    align-items: center;
+    @include display(flex);
+    @include align-items(center);
     max-height: $navigation-height;
     padding-left: $navigation-padding;
     padding-right: 2em;
@@ -98,12 +98,12 @@ header.navbar {
     z-index: 9999;
 
     &.show {
-      display: flex;
+      @include display(flex);
     }
 
     @include media ($horizontal-bar-mode) {
-      display: flex;
-      flex-direction: row;
+      @include display(flex);
+      @include flex-direction(row);
       margin: 0;
       padding: 0;
     }
@@ -120,7 +120,6 @@ header.navbar {
     z-index: 9999;
 
     @include media ($horizontal-bar-mode) {
-      flex-direction: column;
       width: auto;
       padding: 0 1em;
       background: transparent;
