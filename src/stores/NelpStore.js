@@ -20,4 +20,4 @@ class NelpStore {
   }
 }
 
-export default alt.createStore(NelpStore);
+export default alt.createStore(NelpStore, 'NelpStore');

@@ -29,4 +29,4 @@ class FindNelpStore {
   }
 }
 
-export default alt.createStore(FindNelpStore);
+export default alt.createStore(FindNelpStore, 'FindNelpStore');
