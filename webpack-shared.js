@@ -12,12 +12,13 @@ var common = {
   },
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
+    publicPath: '/',
     filename: 'bundle.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/app/index.html',
-      inject: false,
+      inject: 'body',
     }),
   ],
 };

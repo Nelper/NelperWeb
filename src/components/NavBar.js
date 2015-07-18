@@ -23,7 +23,7 @@ export default class NavBar extends ParseComponent {
       <header className="navbar" role="banner">
         <div className="navbar-wrapper">
           <div className="logo" onClick={this._goHome.bind(this)}>
-            <img src={`/${require('../images/logo-nobg-sm.png')}`}/>
+            <img src={require('images/logo-nobg-sm.png')}/>
             <span>Nelper</span>
           </div>
           <div className="navbar-menu-button" onClick={this._toggleMenu.bind(this)}>MENU</div>

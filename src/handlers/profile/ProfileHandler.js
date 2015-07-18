@@ -16,18 +16,20 @@ export default class ProfileHandler extends Component {
   }
 
   render() {
+    let {user} = this.props;
 
     return (
       <div id="profile-handler">
         <div className="header">
           <div className="container pad-all">
-            <div style={{backgroundImage: `url('${this.props.user.pictureURL}')`}}
-                  className="user-picture" />
+            <div
+                style={{backgroundImage: `url('${user.pictureURL}')`}}
+                className="user-picture" />
             <div className="info-container">
               <div className="user-name">
-                Jane Mills
+                {user.firstName + ' ' + user.lastName}
               </div>
-              <Rating rating={4} />
+              <Rating rating={4}/>
               <div className="tasks-summary">8 Tasks Completed</div>
             </div>
             <button>Settings</button>

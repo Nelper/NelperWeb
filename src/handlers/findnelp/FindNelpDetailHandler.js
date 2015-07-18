@@ -1,77 +1,58 @@
 import React, {Component} from 'react';
+import connectToStores from 'alt/utils/connectToStores';
 
-import {Parse} from 'parse';
-import ParseReact from 'parse-react';
+import Progress from 'components/Progress';
+import FindNelpActions from 'actions/FindNelpActions';
+import FindNelpStore from 'stores/FindNelpStore';
 
+@connectToStores
 export default class FindNelpDetailHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
   }
 
-  state = {
-    title: this.props.location.state.task.title, //euhhh
-    desc: this.props.location.state.task.desc,
+  static getStores() {
+    return [FindNelpStore];
+  }
+
+  static getPropsFromStores(props) {
+    let tasks = FindNelpStore.getState().myTasks;
+    let task = tasks.find(t => t.objectId === props.params.id);
+    if(!task) {
+      FindNelpActions.refreshMyTasks();
+      return {
+        isLoading: true,
+        task: null,
+      };
+    }
+    return {
+      isLoading: false,
+      task: task,
+    };
   }
 
   render() {
+    let {task, isLoading} = this.props;
+    if(true || isLoading) {
+      return (
+        <div className="container pad-all center">
+          <Progress />
+        </div>
+      );
+    }
     return (
       <div className="container pad-all">
-        <h2>Nelp request</h2>
-        <input
-          type='text'
-          value={this.state.title}
-          placeholder='Title'
-          hasFeedback
-          groupClassName='group-class'
-          labelClassName='label-class'
-          onChange={this._onTitleChanged.bind(this)} />
-        <input
-          type='text'
-          value={this.state.desc}
-          placeholder='Description'
-          hasFeedback
-          groupClassName='group-class'
-          labelClassName='label-class'
-          onChange={this._onDescChanged.bind(this)} />
+        <h2>{task.title}</h2>
+        <p>{task.desc}</p>
         <div className="btn-group">
-          <button
-            disabled={!this.state.title || !this.state.desc}
-            onClick={this._create.bind(this)}
-            bsStyle='success'>Update</button>
-          <button bsStyle='danger' onClick={this._delete.bind(this)}>Delete</button>
-          <button onClick={this._cancel.bind(this)}>Cancel</button>
+          <button onClick={this._back.bind(this)}>Back</button>
         </div>
       </div>
     );
   }
 
-  _onTitleChanged(event) {
-    this.setState({
-      title: event.target.value,
-    });
-  }
-
-  _onDescChanged(event) {
-    this.setState({
-      desc: event.target.value,
-    });
-  }
-
-  _create() {
-    ParseReact.Mutation.Create('Task', {
-      title: this.state.title,
-      desc: this.state.desc,
-      user: Parse.User.current(),
-    }).dispatch();
-    this.context.router.goBack();
-  }
-
-  _delete() {
-
-  }
-
-  _cancel() {
+  _back() {
     this.context.router.goBack();
   }
 }

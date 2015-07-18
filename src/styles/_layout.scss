@@ -2,6 +2,8 @@ $container-padding: 1em;
 
 .container {
   @include outer-container;
+  @include display(flex);
+  @include flex-direction(column);
 
   &.pad-all {
     padding: $container-padding;
@@ -10,5 +12,9 @@ $container-padding: 1em;
   &.pad-hor {
     padding-left: $container-padding;
     padding-right: $container-padding;
+  }
+
+  &.center {
+    @include align-items(center);
   }
 }

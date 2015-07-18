@@ -1,0 +1,25 @@
+.progress {
+  padding: 8px;
+  background-color: $color-nelp-orange;
+  border-radius: 50%;
+
+  @include animation(rotate 1.0s linear infinite);
+
+  .image {
+    width: 56px;
+    height: 56px;
+    background-image: url('~images/logo-nobg-sm.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+
+  }
+
+  @include keyframes(rotate) {
+    from {
+      @include transform(rotate(0deg));
+    }
+    to {
+      @include transform(rotate(359deg));
+    }
+  }
+}

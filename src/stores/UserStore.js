@@ -1,5 +1,3 @@
-import ParseReact from 'parse-react';
-
 import alt from 'app/alt';
 import Storage from 'utils/Storage';
 import UserActions from 'actions/UserActions';
