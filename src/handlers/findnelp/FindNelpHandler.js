@@ -47,14 +47,6 @@ export default class FindNelpHandler extends Component {
             onClick={this._addNelpTask.bind(this)} />
           {requests}
         </div>
-        <h3>Recommended Nelpers</h3>
-        <div style={styles.cardRow}>
-          <NelperCard title="Jean" image="http://static1.squarespace.com/static/546f7219e4b0e2711c68a320/t/54c68230e4b0455a4f9fed46/1422295600616/" />
-          <NelperCard title="Marie" image="http://static1.squarespace.com/static/546f7219e4b0e2711c68a320/t/54c68230e4b0455a4f9fed46/1422295600616/" />
-          <NelperCard title="Dawg" image="http://static1.squarespace.com/static/546f7219e4b0e2711c68a320/t/54c68230e4b0455a4f9fed46/1422295600616/" />
-          <NelperCard title="Jane" image="http://static1.squarespace.com/static/546f7219e4b0e2711c68a320/t/54c68230e4b0455a4f9fed46/1422295600616/" />
-          <NelperCard title="Mill" image="http://static1.squarespace.com/static/546f7219e4b0e2711c68a320/t/54c68230e4b0455a4f9fed46/1422295600616/" />
-        </div>
       </div>
     );
   }

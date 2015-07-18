@@ -1,7 +1,7 @@
 import {Parse} from 'parse';
 
 const NelpTask = new Parse.Object.extend({className: 'NelpTask'});
-const TaskApplication = new Parse.Object.extend({className: 'NelpTaskApplication'});
+const NelpTaskApplication = new Parse.Object.extend({className: 'NelpTaskApplication'});
 
 class ApiUtils {
 
@@ -50,8 +50,9 @@ class ApiUtils {
       .limit(20)
       .find()
       .then((tasks) => {
-        return new Parse.Query(TaskApplication)
+        return new Parse.Query(NelpTaskApplication)
           .equalTo('user', Parse.User.current())
+          .equalTo('state', 0)
           .containedIn('task', tasks)
           .find()
           .then((applications) => {
@@ -61,7 +62,7 @@ class ApiUtils {
                 objectId: t.id,
                 title: t.get('title'),
                 desc: t.get('desc'),
-                application: application && application.toPlainObject(),
+                application: application && application.toJSON(),
               };
             });
           });
@@ -73,7 +74,7 @@ class ApiUtils {
       .equalTo('user', Parse.User.current())
       .find()
       .then((tasks) => {
-        return new Parse.Query(TaskApplication)
+        return new Parse.Query(NelpTaskApplication)
           .containedIn('task', tasks)
           .find()
           .then((applications) => {
@@ -85,7 +86,7 @@ class ApiUtils {
                 objectId: t.id,
                 title: t.get('title'),
                 desc: t.get('desc'),
-                applications: taskApplications.map(a => a.toPlainObject()),
+                applications: taskApplications.map(a => a.toJSON()),
               };
             });
           });
@@ -100,8 +101,22 @@ class ApiUtils {
     parseTask.save();
   }
 
-  applyTask() {
+  applyForTask(task) {
+    let parseTask = new NelpTask();
+    parseTask.id = task.objectId;
+    let taskApplication = new NelpTaskApplication();
+    taskApplication.set('state', 0);
+    taskApplication.set('user', Parse.User.current());
+    taskApplication.set('task', parseTask);
+    task.application = taskApplication.toJSON(); // TODO(janic): remove this side effect hack.
+    taskApplication.save();
+  }
 
+  cancelApplyForTask(task) {
+    let taskApplication = new NelpTaskApplication();
+    taskApplication.id = task.application.objectId;
+    taskApplication.set('state', 1);
+    taskApplication.save();
   }
 }
 

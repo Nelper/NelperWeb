@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
-import {Parse} from 'parse';
+import connectToStores from 'alt/utils/connectToStores';
 
+import NelpActions from 'actions/NelpActions';
+import NelpStore from 'stores/NelpStore';
+import Progress from 'components/Progress';
+
+@connectToStores
 export default class FindNelpDetailHandler extends Component {
 
   static contextTypes = {
@@ -8,17 +13,45 @@ export default class FindNelpDetailHandler extends Component {
   }
 
   state = {
-    applied: this.props.location.state.task.application
-      && this.props.location.state.task.application.state === 0,
+    applied: this.props.task &&
+      this.props.task.application &&
+      this.props.task.application.state === 0,
+  }
+
+  static getStores() {
+    return [NelpStore];
+  }
+
+  static getPropsFromStores(props) {
+    let tasks = NelpStore.getState().tasks;
+    let task = tasks.find(t => t.objectId === props.params.id);
+    if(!task) {
+      NelpActions.refreshTasks();
+      return {
+        isLoading: true,
+        task: null,
+      };
+    }
+    return {
+      isLoading: false,
+      task: task,
+    };
   }
 
   render() {
-    let {title, desc} = this.props.location.state.task;
+    let {task, isLoading} = this.props;
+    if(isLoading) {
+      return (
+        <div className="container pad-all center">
+          <Progress />
+        </div>
+      );
+    }
 
     return (
       <div className="container pad-all">
-        <h2>{title}</h2>
-        <p>{desc}</p>
+        <h2>{task.title}</h2>
+        <p>{task.desc}</p>
         <div>
           {
             this.state.applied ?
@@ -37,39 +70,12 @@ export default class FindNelpDetailHandler extends Component {
 
   _apply() {
     this.setState({applied: true});
-    if(this.props.location.state.task.application) {
-      this._setTaskApplicationState(0);
-    } else {
-      let Task = new Parse.Object.extend({
-          className: 'NelpTask',
-      });
-      let task = new Task();
-      task.id = this.props.location.state.task.objectId;
-      let TaskApplication = new Parse.Object.extend({
-          className: 'NelpTaskApplication',
-      });
-      let taskApplication = new TaskApplication();
-      taskApplication.set('state', 0);
-      taskApplication.set('user', Parse.User.current());
-      taskApplication.set('task', task);
-      taskApplication.save();
-      this.props.location.state.task.application = taskApplication.toPlainObject();
-    }
+    NelpActions.applyForTask(this.props.task);
   }
 
   _cancelApplication() {
     this.setState({applied: false});
-    this._setTaskApplicationState(1);
-  }
-
-  _setTaskApplicationState(state) {
-    let TaskApplication = new Parse.Object.extend({
-        className: 'NelpTaskApplication',
-    });
-    let taskApplication = new TaskApplication();
-    taskApplication.id = this.props.location.state.task.application.objectId;
-    taskApplication.set('state', state);
-    taskApplication.save();
+    NelpActions.cancelApplyForTask(this.props.task);
   }
 
   _back() {

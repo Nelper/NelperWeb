@@ -34,7 +34,7 @@ export default class FindNelpDetailHandler extends Component {
 
   render() {
     let {task, isLoading} = this.props;
-    if(true || isLoading) {
+    if(isLoading) {
       return (
         <div className="container pad-all center">
           <Progress />

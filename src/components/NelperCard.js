@@ -41,6 +41,7 @@ const styles = {
     minWidth: 200,
     maxWidth: 300,
     flex: '1',
+    overflow: 'hidden',
     backgroundColor: '#f1f1f1',
     margin: 8,
   },

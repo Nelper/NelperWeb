@@ -13,6 +13,14 @@ class NelpActions {
         this.actions.receivedTasks(tasks);
       });
   }
+
+  applyForTask(task) {
+    ApiUtils.applyForTask(task);
+  }
+
+  cancelApplyForTask(task) {
+    ApiUtils.cancelApplyForTask(task);
+  }
 }
 
 export default alt.createActions(NelpActions);

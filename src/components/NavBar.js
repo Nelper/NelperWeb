@@ -1,21 +1,13 @@
-import React from 'react';
-import ParseReact from 'parse-react';
-import ParseComponent from 'parse-react/class';
+import React, {Component} from 'react';
 
-export default class NavBar extends ParseComponent {
-
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-  }
+export default class NavBar extends Component {
 
   state = {
     collapsed: true,
   }
 
-  observe() {
-    return {
-      user: ParseReact.currentUser,
-    };
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired,
   }
 
   render() {
@@ -29,7 +21,7 @@ export default class NavBar extends ParseComponent {
           <div className="navbar-menu-button" onClick={this._toggleMenu.bind(this)}>MENU</div>
           <nav role="navigation">
             <ul className={'navbar-menu' + (this.state.collapsed ? '' : ' show')}>
-              { !this.data.user ? [
+              { !this.props.user ? [
                 this._renderNavItem('Login', '/login', 1),
                 this._renderNavItem('Register', '/register', 2),
               ] : [
