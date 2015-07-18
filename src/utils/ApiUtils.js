@@ -75,18 +75,27 @@ class ApiUtils {
       .find()
       .then((tasks) => {
         return new Parse.Query(NelpTaskApplication)
+          .include('user')
           .containedIn('task', tasks)
           .find()
           .then((applications) => {
             return tasks.map((t) => {
               let taskApplications = applications.filter((a) => {
                 return a.get('task').id === t.id;
-              });
+              })
+              .sort((ta1, ta2) => ta1.createdAt < ta2.createdAt ? 1 : -1);
               return {
                 objectId: t.id,
                 title: t.get('title'),
                 desc: t.get('desc'),
-                applications: taskApplications.map(a => a.toJSON()),
+                applications: taskApplications.map(a => {
+                  return {
+                    objectId: a.id,
+                    createdAt: a.createdAt,
+                    state: a.get('state'),
+                    user: a.get('user').toJSON(),
+                  };
+                }),
               };
             });
           });
@@ -117,6 +126,14 @@ class ApiUtils {
     taskApplication.id = task.application.objectId;
     taskApplication.set('state', 1);
     taskApplication.save();
+  }
+
+  acceptApplication(application) {
+
+  }
+
+  denyApplication(application) {
+    
   }
 }
 

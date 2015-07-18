@@ -4,6 +4,7 @@ $container-padding: 1em;
   @include outer-container;
   @include display(flex);
   @include flex-direction(column);
+  @include align-items(flex-start);
 
   &.pad-all {
     padding: $container-padding;

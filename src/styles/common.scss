@@ -1,6 +1,10 @@
+@font-face {
+  font-family: Railway;
+  src: url('~styles/fonts/Railway.otf');
+}
+
 // Gotta use relative paths here otherwise hot reload doesnt work :(
 //https://github.com/jtangelder/sass-loader/issues/107
-
 @import "bourbon";
 
 // Gotta import everything individually here too for hot reload to work :/
@@ -24,4 +28,5 @@
 @import "../handlers/nelp/NelpHandler.scss";
 @import "../handlers/findnelp/FindNelpHandler.scss";
 @import "../handlers/findnelp/FindNelpAddHandler.scss";
+@import "../handlers/findnelp/FindNelpDetailHandler.scss";
 @import "../handlers/profile/ProfileHandler.scss";

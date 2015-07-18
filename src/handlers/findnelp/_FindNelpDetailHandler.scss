@@ -1,0 +1,35 @@
+#find-nelp-detail-handler {
+  .applications {
+    @include display(flex);
+    @include flex-direction(column);
+    padding: 1em;
+    background-color: $color-nelp-orange-light;
+    color: #fff;
+
+    .application {
+      @include display(flex);
+      @include align-items(center);
+      margin: 0.5rem 0;
+
+      .user-picture {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        margin: 0 1rem;
+        border: 2px solid #fff;
+        background-size: cover;
+      }
+
+      .username {
+        font-size: 1.25em;
+        font-weight: 500;
+      }
+
+      .state-badge {
+        padding: 0.2rem 0.5rem;
+        margin: 0 1rem;
+        border-radius: 6px;
+      }
+    }
+  }
+}
