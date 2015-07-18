@@ -46,7 +46,7 @@ export default class FindNelpDetailHandler extends Component {
       return (
         <div key={a.objectId} className="application">
           <div className="user-picture" style={{backgroundImage: `url('${a.user.pictureURL}')`}} />
-          <div className="username">{a.user.name}</div>
+          <div className="username">{a.user.firstName + ' ' + a.user.lastName}</div>
           {this._renderStateBadge(a.state)}
           {a.state === 0 ? (
             <div className="btn-group">

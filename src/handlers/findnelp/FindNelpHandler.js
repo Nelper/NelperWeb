@@ -31,6 +31,7 @@ export default class FindNelpHandler extends Component {
           key={r.objectId}
           title={r.title + ' - ' + r.applications.filter(a => a.state === 0).length}
           desc={r.desc}
+          style={{cursor: 'pointer'}}
           onClick={this._taskDetail.bind(this, r)} />
       );
     });
@@ -67,5 +68,6 @@ const styles = {
   },
   addCard: {
     maxWidth: 200,
+    cursor: 'pointer',
   },
 };

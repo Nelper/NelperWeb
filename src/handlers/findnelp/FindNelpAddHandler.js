@@ -41,7 +41,7 @@ export default class FindNelpAddHandler extends Component {
         <input
           type='text'
           value={this.state.postalCode}
-          placeholder='amount'
+          placeholder='postal code'
           onChange={this._onPostalCodeChanged.bind(this)} />
         <h3>Briefly describe what you are looking for</h3>
         <textarea
