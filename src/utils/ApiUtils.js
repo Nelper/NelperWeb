@@ -26,7 +26,7 @@ class ApiUtils {
           user.set('lastName', fbUser.last_name);
           user.set('pictureURL', fbUser.picture.data.url);
           user.save();
-          return user.toPlainObject();
+          return user.toJSON();
         });
     });
   }
@@ -133,7 +133,7 @@ class ApiUtils {
   }
 
   denyApplication(application) {
-    
+
   }
 }
 
