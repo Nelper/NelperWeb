@@ -1,3 +1,67 @@
-#page-find-nelp {
+#find-nelp-handler {
+  .header-section {
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(center);
+    background-color: $color-nelp-orange-light;
+
+    .add-task {
+      @include display(flex);
+      @include flex-direction(column);
+      @include align-items(center);
+
+      cursor: pointer;
+
+      .add-image {
+        width: em(256px);
+        height: em(256px);
+      }
+
+      .add-title {
+        color: $color-white;
+      }
+    }
+  }
+
+  .title-section {
+    background-color: $color-nelp-orange;
+    color: $color-white;
+
+    .title {
+      font-size: 1.3em;
+    }
+  }
+
+  .tasks {
+    @include display(flex);
+    @include flex-direction(column);
+
+    .task {
+      @include display(flex);
+      margin: 1em;
+      cursor: pointer;
+
+      .new {
+        width: 3em;
+        color: $color-nelp-orange;
+      }
+
+      .icon {
+        width: 1.5em;
+        height: 1.5em;
+        margin-right: 1em;
+        background-image: url('~images/icons/info.png');
+        background-size: cover;
+
+        &.active {
+          background-image: url('~images/icons/info-active.png');
+        }
+      }
+
+      .title {
+
+      }
+    }
+  }
 
 }

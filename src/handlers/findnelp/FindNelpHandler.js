@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import classNames from 'classnames';
 
 import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
-import NelperCard from 'components/NelperCard';
 
 @connectToStores
 export default class FindNelpHandler extends Component {
@@ -26,26 +26,32 @@ export default class FindNelpHandler extends Component {
 
   render() {
     let requests = this.props.myTasks.map((r) => {
+      let hasActiveApplications = r.applications.filter(a => a.state === 0).length > 0;
       return (
-        <NelperCard
-          key={r.objectId}
-          title={r.title + ' - ' + r.applications.filter(a => a.state === 0).length}
-          desc={r.desc}
-          style={{cursor: 'pointer'}}
-          onClick={this._taskDetail.bind(this, r)} />
+        <div className="task" key={r.objectId} onClick={this._taskDetail.bind(this, r)}>
+          <div className="new">{hasActiveApplications ? 'new!' : ''}</div>
+          <div className={classNames(
+            'icon',
+            {'active': hasActiveApplications}
+          )} />
+          <div className="title">{r.title}</div>
+        </div>
       );
     });
     return (
-      <div className="container pad-all">
-        <h2>Find Nelp</h2>
-        <h3>My Nelp requests</h3>
-        <div style={styles.cardRow}>
-          <NelperCard
-            key={0}
-            title="Ask for Nelp"
-            image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/VisualEditor_-_Icon_-_Add-item.svg/2000px-VisualEditor_-_Icon_-_Add-item.svg.png"
-            style={styles.addCard}
-            onClick={this._addNelpTask.bind(this)} />
+      <div id="find-nelp-handler">
+        <div className="header-section">
+          <div className="add-task" onClick={this._addNelpTask.bind(this)}>
+            <img className="add-image" src={require('images/plus-512-white.png')} />
+            <h2 className="add-title">Ask for Nelp!</h2>
+          </div>
+        </div>
+        <div className="title-section">
+          <div className="container pad-all">
+            <div className="title">My Nelp Requests</div>
+          </div>
+        </div>
+        <div className="container pad-all tasks">
           {requests}
         </div>
       </div>
@@ -60,14 +66,3 @@ export default class FindNelpHandler extends Component {
     this.context.router.transitionTo(`/findnelp/detail/${task.objectId}`, null, {task});
   }
 }
-
-const styles = {
-  cardRow: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  addCard: {
-    maxWidth: 200,
-    cursor: 'pointer',
-  },
-};
