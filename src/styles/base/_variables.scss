@@ -24,7 +24,7 @@ $light-gray: #ddd;
 $color-nelp-green: #44b762;
 $color-nelp-blue: #4e72b7;
 $color-nelp-orange-light: #d98b30;
-$color-nelp-orange: #d95330;
+$color-nelp-orange: #db412a;
 
 $color-gray-darker: #212121;
 $color-gray-dark: #424242;
@@ -36,7 +36,7 @@ $color-white: #eaeaea;
 $color-white-light: #FFF8EB;
 
 // Font Colors
-$base-background-color: #fff;
+$base-background-color: $color-white;
 $base-font-color: $dark-gray;
 $action-color: $blue;
 

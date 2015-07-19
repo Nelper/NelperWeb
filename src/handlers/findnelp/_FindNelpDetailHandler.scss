@@ -4,7 +4,7 @@
     @include flex-direction(column);
     padding: 1em;
     background-color: $color-nelp-orange-light;
-    color: #fff;
+    color: $color-white;
 
     .application {
       @include display(flex);

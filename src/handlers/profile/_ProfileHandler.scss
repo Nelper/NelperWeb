@@ -65,14 +65,16 @@
 
     .container {
       height: 100%;
-      display: flex;
+      @include display(flex);
+      @include flex-direction(row);
+      @include align-items(center);
     }
 
     .tab {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
+      @include display(flex);
+      @include align-items(center);
+      @include justify-content(center);
+      @include flex(1);
 
       &.active {
         color: $color-nelp-orange-light;

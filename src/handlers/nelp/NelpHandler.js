@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import {GoogleMaps, Marker} from 'react-google-maps';
 
 import NelpActions from 'actions/NelpActions';
 import NelpStore from 'stores/NelpStore';
@@ -21,6 +22,12 @@ export default class NelpHandler extends Component {
 
   componentDidMount() {
     NelpActions.refreshTasks();
+    navigator.geolocation.getCurrentPosition((pos) => {
+      this.refs.map.panTo({
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude
+      });
+    });
   }
 
   render() {
@@ -30,9 +37,23 @@ export default class NelpHandler extends Component {
       );
     });
     return (
-      <div className="container pad-all">
-        <h2>Nelp</h2>
-        <div>
+      <div id="nelp-handler">
+        <div className="header-section">
+          <div className="container">
+            <GoogleMaps containerProps={{
+                style: {
+                  width: '100%',
+                  height: 500,
+                },
+              }}
+              ref="map"
+              googleMapsApi={google.maps}
+              zoom={11}
+              center={{lat: 0, lng: 0}} />
+          </div>
+        </div>
+        <div className="header-border" />
+        <div className="container pad-all">
           {tasks}
         </div>
       </div>

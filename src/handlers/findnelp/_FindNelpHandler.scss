@@ -38,7 +38,7 @@
 
     .task {
       @include display(flex);
-      margin: 1em;
+      padding: 1em;
       cursor: pointer;
 
       .new {

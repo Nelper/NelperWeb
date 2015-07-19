@@ -12,7 +12,8 @@
   },
 
   "globals": {
-    "FB"
+    "FB": true,
+    "google": true
   },
 
   "plugins": [
