@@ -42,21 +42,26 @@ export default class FindNelpDetailHandler extends Component {
       );
     }
 
-    let applications = task.applications.map((a) => {
-      return (
-        <div key={a.objectId} className="application">
-          <div className="user-picture" style={{backgroundImage: `url('${a.user.pictureURL}')`}} />
-          <div className="username">{a.user.firstName + ' ' + a.user.lastName}</div>
-          {this._renderStateBadge(a.state)}
-          {a.state === 0 ? (
-            <div className="btn-group">
-              <button onClick={this._accept.bind(this, a)}>Accept</button>
-              <button onClick={this._deny.bind(this, a)}>Deny</button>
-            </div>
-          ) : null}
-        </div>
-      );
-    });
+    let applications;
+    if(task.applications.length === 0) {
+      applications = <div>No applications yet!</div>;
+    } else {
+      applications = task.applications.map((a) => {
+        return (
+          <div key={a.objectId} className="application">
+            <div className="user-picture" style={{backgroundImage: `url('${a.user.pictureURL}')`}} />
+            <div className="username">{a.user.firstName + ' ' + a.user.lastName}</div>
+            {this._renderStateBadge(a.state)}
+            {a.state === 0 ? (
+              <div className="btn-group">
+                <button onClick={this._accept.bind(this, a)}>Accept</button>
+                <button onClick={this._deny.bind(this, a)}>Deny</button>
+              </div>
+            ) : null}
+          </div>
+        );
+      });
+    }
 
     return (
       <div id="find-nelp-detail-handler" className="container pad-all">
@@ -84,6 +89,15 @@ export default class FindNelpDetailHandler extends Component {
       case 1:
         text = 'Canceled';
         color = '#654321';
+        break;
+      case 2:
+        text = 'Accepted';
+        color = '#00FF00';
+        break;
+      case 3:
+        text = 'Denied';
+        color = '#FF0000';
+        break;
     }
     return (
       <div className="state-badge" style={{backgroundColor: color}}>{text}</div>

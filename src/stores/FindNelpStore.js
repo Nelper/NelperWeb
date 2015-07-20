@@ -11,6 +11,8 @@ class FindNelpStore {
     this.bindListeners({
       handleReceivedMyTasks: FindNelpActions.RECEIVED_MY_TASKS,
       handleAddTask: FindNelpActions.ADD_TASK,
+      handleAcceptApplication: FindNelpActions.ACCEPT_APPLICATION,
+      handleDenyApplication: FindNelpActions.DENY_APPLICATION,
     });
   }
 
@@ -26,6 +28,16 @@ class FindNelpStore {
     this.setState({
       myTasks: newTasks,
     });
+  }
+
+  handleAcceptApplication(application) {
+    application.state = 2;
+    this.emitChange();
+  }
+
+  handleDenyApplication(application) {
+    application.state = 3;
+    this.emitChange();
   }
 }
 

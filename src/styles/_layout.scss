@@ -1,5 +1,10 @@
 $container-padding: 1rem;
 
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
+
 .container {
   @include outer-container;
   @include display(flex);

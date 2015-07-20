@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Spring} from 'react-motion';
 
 export default class NavBar extends Component {
 
@@ -11,6 +12,17 @@ export default class NavBar extends Component {
   }
 
   render() {
+    let menuItems = !this.props.user ? [
+      this._renderNavItem('Login', '/login', 1),
+      this._renderNavItem('Register', '/register', 2),
+    ] : [
+      this._renderNavItem('Nelp', '/nelp', 3),
+      this._renderNavItem('Find Nelp', '/findnelp', 4),
+      this._renderNavItem('Profile', '/profile', 5),
+    ];
+
+    const NAVBAR_ITEM_HEIGHT = 60;
+
     return (
       <header className="navbar" role="banner">
         <div className="navbar-wrapper">
@@ -20,16 +32,16 @@ export default class NavBar extends Component {
           </div>
           <div className="navbar-menu-button" onClick={this._toggleMenu.bind(this)}>MENU</div>
           <nav role="navigation">
-            <ul className={'navbar-menu' + (this.state.collapsed ? '' : ' show')}>
-              { !this.props.user ? [
-                this._renderNavItem('Login', '/login', 1),
-                this._renderNavItem('Register', '/register', 2),
-              ] : [
-                this._renderNavItem('Nelp', '/nelp', 3),
-                this._renderNavItem('Find Nelp', '/findnelp', 4),
-                this._renderNavItem('Profile', '/profile', 5),
-              ]}
-            </ul>
+          <Spring endValue={{val: this.state.collapsed ? 0 : menuItems.length * NAVBAR_ITEM_HEIGHT}}>
+            {interpolated =>
+              <ul className={'navbar-menu'}
+                  style={{
+                    height: interpolated.val,
+                  }}>
+                {menuItems}
+              </ul>
+            }
+          </Spring>
           </nav>
         </div>
       </header>
@@ -55,11 +67,11 @@ export default class NavBar extends Component {
   }
 
   _onActive(url) {
-    if(!this.state.collapsed) {
+    /*if(!this.state.collapsed) {
       this.setState({
         collapsed: true,
       });
-    }
+    }*/
     this.context.router.transitionTo(url);
   }
 

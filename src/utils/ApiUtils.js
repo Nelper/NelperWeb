@@ -84,19 +84,21 @@ class ApiUtils {
                 return a.get('task').id === t.id;
               })
               .sort((ta1, ta2) => ta1.createdAt < ta2.createdAt ? 1 : -1);
-              return {
+              let task = {
                 objectId: t.id,
                 title: t.get('title'),
                 desc: t.get('desc'),
-                applications: taskApplications.map(a => {
-                  return {
-                    objectId: a.id,
-                    createdAt: a.createdAt,
-                    state: a.get('state'),
-                    user: a.get('user').toJSON(),
-                  };
-                }),
               };
+              task.applications = taskApplications.map(a => {
+                return {
+                  objectId: a.id,
+                  createdAt: a.createdAt,
+                  state: a.get('state'),
+                  user: a.get('user').toJSON(),
+                  task: task,
+                };
+              });
+              return task;
             });
           });
       });
@@ -129,11 +131,17 @@ class ApiUtils {
   }
 
   acceptApplication(application) {
-
+    let taskApplication = new NelpTaskApplication();
+    taskApplication.id = application.objectId;
+    taskApplication.set('state', 2);
+    taskApplication.save();
   }
 
   denyApplication(application) {
-
+    let taskApplication = new NelpTaskApplication();
+    taskApplication.id = application.objectId;
+    taskApplication.set('state', 3);
+    taskApplication.save();
   }
 }
 

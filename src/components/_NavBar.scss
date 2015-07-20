@@ -89,22 +89,18 @@ header.navbar {
 
   ul.navbar-menu {
     -webkit-transform-style: preserve-3d; // stop webkit flicker
-    clear: both;
-    display: none;
+    @include display(flex);
     @include flex-direction(column);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     padding: 0;
     width: 100%;
     z-index: 9999;
 
-    &.show {
-      @include display(flex);
-    }
-
     @include media ($horizontal-bar-mode) {
       @include display(flex);
       @include flex-direction(row);
+      height: auto !important; // Overwrite the inline style
       margin: 0;
       padding: 0;
     }
@@ -112,6 +108,7 @@ header.navbar {
 
   // The nav items
   ul li.nav-link {
+    @include flex-shrink(0);
     background: $navigation-background;
     line-height: $navigation-height;
     overflow: hidden;

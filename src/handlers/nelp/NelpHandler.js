@@ -23,9 +23,12 @@ export default class NelpHandler extends Component {
   componentDidMount() {
     NelpActions.refreshTasks();
     navigator.geolocation.getCurrentPosition((pos) => {
+      if(!this.refs.map) {
+        return;
+      }
       this.refs.map.panTo({
         lat: pos.coords.latitude,
-        lng: pos.coords.longitude
+        lng: pos.coords.longitude,
       });
     });
   }
@@ -43,7 +46,7 @@ export default class NelpHandler extends Component {
             <GoogleMaps containerProps={{
                 style: {
                   width: '100%',
-                  height: 500,
+                  height: 300,
                 },
               }}
               ref="map"
