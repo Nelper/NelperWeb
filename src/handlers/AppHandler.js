@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
 import UserStore from 'stores/UserStore';
+import UserActions from 'actions/UserActions';
 import NavBar from 'components/NavBar';
 
 @connectToStores
@@ -13,6 +14,13 @@ export default class AppHandler extends Component {
 
   static getPropsFromStores() {
     return UserStore.getState();
+  }
+
+  componentDidMount() {
+    // If the user is logged in update its info from the server.
+    if(this.props.user) {
+      UserActions.update();
+    }
   }
 
   render() {

@@ -24,7 +24,7 @@ class FindNelpStore {
 
   handleAddTask(task) {
     let newTasks = this.state.myTasks; // Should use immutable data.
-    newTasks.push(task);
+    newTasks.unshift(task);
     this.setState({
       myTasks: newTasks,
     });

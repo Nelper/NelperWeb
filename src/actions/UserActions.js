@@ -25,6 +25,17 @@ class UserActions {
     ApiUtils.logout();
     this.actions.receivedUser(null);
   }
+
+  setLocation(loc) {
+    ApiUtils.setUserLocation(loc);
+  }
+
+  update() {
+    ApiUtils.updateUser()
+      .then((user) => {
+        this.actions.receivedUser(user);
+      });
+  }
 }
 
 export default alt.createActions(UserActions);

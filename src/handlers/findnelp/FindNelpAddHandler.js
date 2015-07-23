@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import UserStore from 'stores/UserStore';
 import FindNelpActions from 'actions/FindNelpActions';
 
 export default class FindNelpAddHandler extends Component {
@@ -34,9 +35,9 @@ export default class FindNelpAddHandler extends Component {
         <h3>How much are you paying?</h3>
         <input
           type='text'
-          value={this.state.amount}
+          value={this.state.priceOffered}
           placeholder='amount'
-          onChange={this._onAmountChanged.bind(this)} />
+          onChange={this._onPriceOfferedChanged.bind(this)} />
         <h3>Enter your Postal Code</h3>
         <input
           type='text'
@@ -65,9 +66,9 @@ export default class FindNelpAddHandler extends Component {
     });
   }
 
-  _onAmountChanged(event) {
+  _onPriceOfferedChanged(event) {
     this.setState({
-      amount: event.target.value,
+      priceOffered: event.target.value,
     });
   }
 
@@ -87,6 +88,9 @@ export default class FindNelpAddHandler extends Component {
     FindNelpActions.addTask({
       title: this.state.title,
       desc: this.state.desc,
+      priceOffered: this.state.priceOffered,
+      state: 0,
+      location: UserStore.state.user.location,
     });
     this.context.router.goBack();
   }

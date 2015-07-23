@@ -3,7 +3,11 @@ import connectToStores from 'alt/utils/connectToStores';
 import {GoogleMaps, Marker} from 'react-google-maps';
 
 import NelpActions from 'actions/NelpActions';
+import UserActions from 'actions/UserActions';
 import NelpStore from 'stores/NelpStore';
+import UserStore from 'stores/UserStore';
+
+const GoogleMapsAPI = window.google.maps;
 
 @connectToStores
 export default class NelpHandler extends Component {
@@ -20,17 +24,31 @@ export default class NelpHandler extends Component {
     return NelpStore.getState();
   }
 
+  state = {
+    mapLocation: new GoogleMapsAPI.LatLng(0, 0),
+  }
+
   componentDidMount() {
     NelpActions.refreshTasks();
-    navigator.geolocation.getCurrentPosition((pos) => {
-      if(!this.refs.map) {
-        return;
-      }
-      this.refs.map.panTo({
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
+    // TODO(janic): this logic should be elsewhere.
+    if(!UserStore.state.user.location) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        UserActions.setLocation(pos.coords);
+        if(!this.refs.map) {
+          return;
+        }
+        this.setState({mapLocation: new GoogleMapsAPI.LatLng(
+          pos.coords.latitude,
+          pos.coords.longitude,
+        )});
       });
-    });
+    } else {
+      let loc = UserStore.state.user.location;
+      this.setState({mapLocation: new GoogleMapsAPI.LatLng(
+        loc.latitude,
+        loc.longitude,
+      )});
+    }
   }
 
   render() {
@@ -39,6 +57,18 @@ export default class NelpHandler extends Component {
         <div key={t.objectId} onClick={this._taskDetail.bind(this, t)}>{t.title}</div>
       );
     });
+
+    let markers = this.props.tasks
+      .filter(t => t.location)
+      .map(t => {
+        return (
+          <Marker position={new GoogleMapsAPI.LatLng(
+            t.location.latitude,
+            t.location.longitude,
+           )} />
+        );
+      });
+
     return (
       <div id="nelp-handler">
         <div className="header-section">
@@ -50,9 +80,11 @@ export default class NelpHandler extends Component {
                 },
               }}
               ref="map"
-              googleMapsApi={google.maps}
+              googleMapsApi={GoogleMapsAPI}
               zoom={11}
-              center={{lat: 0, lng: 0}} />
+              center={this.state.mapLocation}>
+              {markers}
+            </GoogleMaps>
           </div>
         </div>
         <div className="header-border" />

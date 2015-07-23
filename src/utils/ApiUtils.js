@@ -5,9 +5,9 @@ const NelpTaskApplication = new Parse.Object.extend({className: 'NelpTaskApplica
 
 class ApiUtils {
 
-  login(email, password) {
+  /*login(email, password) {
 
-  }
+  }*/
 
   loginWithFacebook() {
     return new Promise((resolve, reject) => {
@@ -43,6 +43,18 @@ class ApiUtils {
     });
   }
 
+  updateUser() {
+    return Parse.User.current().fetch()
+      .then((user) => user.toJSON());
+  }
+
+  setUserLocation(loc) {
+    let pt = new Parse.GeoPoint(loc.latitude, loc.longitude);
+    let user = Parse.User.current();
+    user.set('location', pt);
+    user.save();
+  }
+
   logout() {
     Parse.User.logOut();
   }
@@ -50,7 +62,7 @@ class ApiUtils {
   listNelpTasks() {
     return new Parse.Query(NelpTask)
       //.notEqualTo('user', Parse.User.current())
-      .descending('dateCreated')
+      .descending('createdAt')
       .limit(20)
       .find()
       .then((tasks) => {
@@ -66,6 +78,9 @@ class ApiUtils {
                 objectId: t.id,
                 title: t.get('title'),
                 desc: t.get('desc'),
+                priceOffered: t.get('priceOffered'),
+                state: t.get('state'),
+                location: t.get('location'),
                 application: application && application.toJSON(),
               };
             });
@@ -76,6 +91,8 @@ class ApiUtils {
   listMyNelpTasks() {
     return new Parse.Query(NelpTask)
       .equalTo('user', Parse.User.current())
+      .descending('createdAt')
+      .limit(20)
       .find()
       .then((tasks) => {
         return new Parse.Query(NelpTaskApplication)
@@ -92,6 +109,9 @@ class ApiUtils {
                 objectId: t.id,
                 title: t.get('title'),
                 desc: t.get('desc'),
+                priceOffered: t.get('priceOffered'),
+                location: t.get('location'),
+                state: t.get('state'),
               };
               task.applications = taskApplications.map(a => {
                 return {
@@ -112,6 +132,9 @@ class ApiUtils {
     let parseTask = new NelpTask();
     parseTask.set('title', task.title);
     parseTask.set('desc', task.desc);
+    parseTask.set('priceOffered', task.priceOffered);
+    parseTask.set('state', task.state);
+    parseTask.set('location', new Parse.GeoPoint(task.location));
     parseTask.set('user', Parse.User.current());
     parseTask.save();
   }
