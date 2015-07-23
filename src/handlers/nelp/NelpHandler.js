@@ -106,7 +106,17 @@ export default class NelpHandler extends Component {
         </div>
         <div className="header-border" />
         <div className="container pad-all">
+          {
+            this.state.taskFilter ?
+            <div>
+              <div>Tasks near {this.state.taskFilter}</div>
+              <button onClick={::this._resetFilter}>Reset</button>
+            </div> :
+            null
+          }
+          <div className="tasks">
           {displayedTasks}
+          </div>
         </div>
       </div>
     );
@@ -115,6 +125,12 @@ export default class NelpHandler extends Component {
   _onMarkerClick(filterKey) {
     this.setState({
       taskFilter: filterKey,
+    });
+  }
+
+  _resetFilter() {
+    this.setState({
+      taskFilter: null,
     });
   }
 
