@@ -82,7 +82,7 @@ export default class NelpHandler extends Component {
       this.props.tasks;
     let displayedTasks = filteredTasks.map((t) => {
       return (
-        <div key={t.objectId} onClick={this._taskDetail.bind(this, t)}>{t.title}</div>
+        <div key={t.objectId} className="task" onClick={this._taskDetail.bind(this, t)}>{t.title}</div>
       );
     });
 
