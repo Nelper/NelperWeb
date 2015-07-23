@@ -26,6 +26,7 @@ export default class NelpHandler extends Component {
 
   state = {
     mapLocation: new GoogleMapsAPI.LatLng(0, 0),
+    taskFilter: null,
   }
 
   componentDidMount() {
@@ -52,22 +53,38 @@ export default class NelpHandler extends Component {
   }
 
   render() {
-    let tasks = this.props.tasks.map((t) => {
+    let taskGroups = this.props.tasks
+      .filter(t => t.location)
+      .reduce((prev, cur) => {
+        let mapKey = `${cur.location.latitude}:${cur.location.longitude}`;
+        if(prev[mapKey]) {
+          prev[mapKey].push(cur);
+        } else {
+          prev[mapKey] = [cur];
+        }
+        return prev;
+      }, {});
+
+    let markers = Object.keys(taskGroups)
+      .map(k => {
+        let cur = taskGroups[k];
+        return (
+          <Marker position={new GoogleMapsAPI.LatLng(
+            cur[0].location.latitude,
+            cur[0].location.longitude,
+           )}
+          onClick={() => this._onMarkerClick(k)}/>
+        );
+      });
+
+    let filteredTasks = this.state.taskFilter ?
+      taskGroups[this.state.taskFilter] :
+      this.props.tasks;
+    let displayedTasks = filteredTasks.map((t) => {
       return (
         <div key={t.objectId} onClick={this._taskDetail.bind(this, t)}>{t.title}</div>
       );
     });
-
-    let markers = this.props.tasks
-      .filter(t => t.location)
-      .map(t => {
-        return (
-          <Marker position={new GoogleMapsAPI.LatLng(
-            t.location.latitude,
-            t.location.longitude,
-           )} />
-        );
-      });
 
     return (
       <div id="nelp-handler">
@@ -89,10 +106,16 @@ export default class NelpHandler extends Component {
         </div>
         <div className="header-border" />
         <div className="container pad-all">
-          {tasks}
+          {displayedTasks}
         </div>
       </div>
     );
+  }
+
+  _onMarkerClick(filterKey) {
+    this.setState({
+      taskFilter: filterKey,
+    });
   }
 
   _taskDetail(task) {
