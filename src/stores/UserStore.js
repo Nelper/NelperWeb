@@ -11,6 +11,7 @@ class UserStore {
   constructor() {
     this.bindListeners({
       handleReceivedUser: UserActions.RECEIVED_USER,
+      handleSetLoc: UserActions.SET_LOCATION,
     });
   }
 
@@ -19,6 +20,12 @@ class UserStore {
     this.setState({
       user: user,
     });
+  }
+
+  handleSetLoc(loc) {
+    let user = this.state.user;
+    user.location = loc;
+    this.setState({user});
   }
 }
 
