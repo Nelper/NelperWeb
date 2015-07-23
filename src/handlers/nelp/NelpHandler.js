@@ -73,7 +73,7 @@ export default class NelpHandler extends Component {
             cur[0].location.latitude,
             cur[0].location.longitude,
            )}
-          onClick={() => this._onMarkerClick(k)}/>
+          onClick={(event) => this._onMarkerClick(event, k)}/>
         );
       });
 
@@ -122,10 +122,11 @@ export default class NelpHandler extends Component {
     );
   }
 
-  _onMarkerClick(filterKey) {
+  _onMarkerClick(event, filterKey) {
     this.setState({
       taskFilter: filterKey,
     });
+    this.refs.map.panTo(event.latLng);
   }
 
   _resetFilter() {
