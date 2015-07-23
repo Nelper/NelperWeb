@@ -20,6 +20,11 @@ class UserActions {
         this.actions.receivedUser(user);
       });
   }
+
+  logout() {
+    ApiUtils.logout();
+    this.actions.receivedUser(null);
+  }
 }
 
 export default alt.createActions(UserActions);

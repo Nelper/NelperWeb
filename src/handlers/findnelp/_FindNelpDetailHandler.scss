@@ -9,6 +9,7 @@
     .application {
       @include display(flex);
       @include align-items(center);
+      @include flex-wrap(wrap);
       margin: 0.5rem 0;
 
       .user-picture {

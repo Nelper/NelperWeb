@@ -19,7 +19,9 @@ export default class AppHandler extends Component {
     return (
       <div style={styles.app}>
         <NavBar user={this.props.user} />
-        {this.props.children}
+        <div id="app-content">
+          {this.props.children}
+        </div>
       </div>
     );
   }

@@ -43,6 +43,10 @@ class ApiUtils {
     });
   }
 
+  logout() {
+    Parse.User.logOut();
+  }
+
   listNelpTasks() {
     return new Parse.Query(NelpTask)
       //.notEqualTo('user', Parse.User.current())

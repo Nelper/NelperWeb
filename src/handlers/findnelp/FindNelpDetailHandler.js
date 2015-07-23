@@ -5,6 +5,8 @@ import Progress from 'components/Progress';
 import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
 
+import FindNelpProfileHandler from './FindNelpProfileHandler';
+
 @connectToStores
 export default class FindNelpDetailHandler extends Component {
 
@@ -32,6 +34,10 @@ export default class FindNelpDetailHandler extends Component {
     };
   }
 
+  state = {
+    selectedUser: null,
+  }
+
   render() {
     let {task, isLoading} = this.props;
     if(isLoading) {
@@ -49,8 +55,8 @@ export default class FindNelpDetailHandler extends Component {
       applications = task.applications.map((a) => {
         return (
           <div key={a.objectId} className="application">
-            <div className="user-picture" style={{backgroundImage: `url('${a.user.pictureURL}')`}} />
-            <div className="username">{a.user.firstName + ' ' + a.user.lastName}</div>
+            <div className="user-picture" onClick={this._viewProfile.bind(this, a.user)} style={{backgroundImage: `url('${a.user.pictureURL}')`}} />
+            <div className="username" onClick={this._viewProfile.bind(this, a.user)}>{a.user.firstName + ' ' + a.user.lastName}</div>
             {this._renderStateBadge(a.state)}
             {a.state === 0 ? (
               <div className="btn-group">
@@ -75,6 +81,7 @@ export default class FindNelpDetailHandler extends Component {
         <div className="btn-group">
           <button onClick={this._back.bind(this)}>Back</button>
         </div>
+        <FindNelpProfileHandler user={this.state.selectedUser} onClose={::this._onProfileClose} />
       </div>
     );
   }
@@ -102,6 +109,14 @@ export default class FindNelpDetailHandler extends Component {
     return (
       <div className="state-badge" style={{backgroundColor: color}}>{text}</div>
     );
+  }
+
+  _viewProfile(user) {
+    this.setState({selectedUser: user});
+  }
+
+  _onProfileClose() {
+    this.setState({selectedUser: null});
   }
 
   _accept(application) {

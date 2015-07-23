@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
+import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import Rating from 'components/Rating';
 
 @connectToStores
 export default class ProfileHandler extends Component {
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired,
+  }
 
   static getStores() {
     return [UserStore];
@@ -33,6 +38,7 @@ export default class ProfileHandler extends Component {
               <div className="tasks-summary">8 Tasks Completed</div>
             </div>
             <button>Settings</button>
+            <button onClick={::this._logout}>Logout</button>
           </div>
         </div>
         <div className="tabs">
@@ -46,5 +52,10 @@ export default class ProfileHandler extends Component {
         </div>
       </div>
     );
+  }
+
+  _logout() {
+    UserActions.logout();
+    this.context.router.transitionTo('/login');
   }
 }

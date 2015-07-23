@@ -5,6 +5,10 @@ html, body, #app {
   margin: 0;
 }
 
+#app-content {
+  padding-top: $navbar-height;
+}
+
 .container {
   @include outer-container;
   @include display(flex);
