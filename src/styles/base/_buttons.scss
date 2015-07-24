@@ -38,6 +38,10 @@ button {
   &.primary {
     @include btn-color($color-nelp-orange);
   }
+
+  &.blue {
+    @include btn-color($color-nelp-blue);
+  }
 }
 
 .btn-group {
@@ -45,5 +49,9 @@ button {
 
   button {
     margin-right: 0.75em;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

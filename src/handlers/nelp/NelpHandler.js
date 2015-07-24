@@ -25,7 +25,6 @@ export default class NelpHandler extends Component {
   }
 
   state = {
-    mapLocation: new GoogleMapsAPI.LatLng(0, 0),
     taskFilter: null,
   }
 

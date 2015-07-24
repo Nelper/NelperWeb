@@ -37,8 +37,12 @@ export default class ProfileHandler extends Component {
               <Rating rating={4}/>
               <div className="tasks-summary">8 Tasks Completed</div>
             </div>
-            <button>Settings</button>
-            <button onClick={::this._logout}>Logout</button>
+            <div>
+            <div className="btn-group">
+              <button className="blue">Settings</button>
+              <button className="blue" onClick={::this._logout}>Logout</button>
+            </div>
+            </div>
           </div>
         </div>
         <div className="tabs">
