@@ -6,7 +6,7 @@
   min-height: 100%;
   padding: 1em;
 
-  // Bug in bourbon linear-gradient
+  // Bug in bourbon linear-gradient.
   background-image: -webkit-linear-gradient(#d95330, #de1f1f);
   background-image: linear-gradient(#d95330, #de1f1f);
   //@include linear-gradient($color-nelp-red-1, $color-nelp-red-2);
