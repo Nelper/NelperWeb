@@ -10,7 +10,7 @@ module.exports = merge(shared.config, {
   module: {
     loaders: [{
       test: /\.css$/,
-      loaders: ['style', 'css'],
+      loader: ExtractTextPlugin.extract('style', 'css'),
     }, {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass?sourceMap&' + shared.sassPaths),
