@@ -67,11 +67,13 @@ export default class NavBar extends Component {
   }
 
   _onActive(url) {
-    if(!this.state.collapsed) {
-      this.setState({
-        collapsed: true,
-      });
-    }
+    setTimeout(() => {
+      if(!this.state.collapsed) {
+        this.setState({
+          collapsed: true,
+        });
+      }
+    }, 200);
     this.context.router.transitionTo(url);
   }
 }
