@@ -26,7 +26,7 @@ export default class NavBar extends Component {
     return (
       <header className="navbar" role="banner">
         <div className="navbar-wrapper">
-          <div className="logo" onClick={this._goHome.bind(this)}>
+          <div className="logo">
             <img src={require('images/logo-nobg-sm.png')}/>
             <span>Nelper</span>
           </div>
@@ -73,9 +73,5 @@ export default class NavBar extends Component {
       });
     }
     this.context.router.transitionTo(url);
-  }
-
-  _goHome() {
-    this.context.router.transitionTo('/');
   }
 }

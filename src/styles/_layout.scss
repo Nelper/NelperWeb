@@ -3,7 +3,13 @@ $container-padding: 1rem;
 html, body, #app {
   height: 100%;
   margin: 0;
+}
 
+body {
+  background-color: $base-background-color;
+
+  // not sure about that
+  //@include user-select(none);
   -webkit-tap-highlight: rgba(0, 0, 0, 0);
 }
 

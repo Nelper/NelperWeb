@@ -6,7 +6,10 @@
   min-height: 100%;
   padding: 1em;
 
-  @include linear-gradient($color-nelp-red-1, $color-nelp-red-2);
+  // Bug in bourbon linear-gradient
+  background-image: -webkit-linear-gradient(#d95330, #de1f1f);
+  background-image: linear-gradient(#d95330, #de1f1f);
+  //@include linear-gradient($color-nelp-red-1, $color-nelp-red-2);
 
   .content {
     @include display(flex);
