@@ -1,0 +1,84 @@
+#login-handler {
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(stretch);
+  min-height: 100%;
+  padding: 1em;
+
+  @include linear-gradient($color-nelp-red-1, $color-nelp-red-2);
+
+  .content {
+    @include display(flex);
+    @include flex-direction(column);
+    max-width: em(300px);
+
+    .nelpy {
+      padding: 1em;
+    }
+
+    input {
+      border: $color-black solid 2px;
+      margin-bottom:0.5em;
+      background-color: transparent;
+      color: $color-white;
+
+      @include placeholder {
+        color: transparentize($color-white, 0.3);
+      }
+    }
+
+    button {
+      border: $color-black solid 2px;
+      margin-bottom:0.5em;
+
+      &.login {
+        background: none;
+        color: $color-black;
+        border: none;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+        font-size: 1.5em;
+        font-weight: lighter;
+
+        &:hover,
+        &:focus {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      &.facebook {
+        $facebook-blue: #3b5998;
+        background-color: $facebook-blue;
+        background-image: url('~images/facebook-white.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: 0.5rem bottom;
+
+        &:hover,
+        &:focus {
+          background-color: darken($facebook-blue, 10%);
+        }
+      }
+
+      &.register {
+        background-color: $color-nelp-orange-light;
+
+        &:hover,
+        &:focus {
+          background-color: darken($color-nelp-orange-light, 10%);
+        }
+      }
+    }
+
+    .forgot {
+      text-align: center;
+      color: $color-black;
+      text-decoration: underline;
+
+      &:hover {
+        color: $color-gray-dark;
+      }
+    }
+  }
+}

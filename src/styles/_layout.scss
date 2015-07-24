@@ -3,10 +3,16 @@ $container-padding: 1rem;
 html, body, #app {
   height: 100%;
   margin: 0;
+
+  -webkit-tap-highlight: rgba(0, 0, 0, 0);
 }
 
 #app-content {
-  padding-top: $navbar-height;
+  height: 100%;
+
+  &.has-navbar {
+    padding-top: $navbar-height;
+  }
 }
 
 .container {

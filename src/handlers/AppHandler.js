@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import classNames from 'classnames';
 
 import UserStore from 'stores/UserStore';
 import UserActions from 'actions/UserActions';
@@ -24,11 +25,17 @@ export default class AppHandler extends Component {
   }
 
   render() {
+    let {children, user} = this.props;
+    let showNavBar = !children.type.showNavBar || children.type.showNavBar();
     return (
       <div style={styles.app}>
-        <NavBar user={this.props.user} />
-        <div id="app-content">
-          {this.props.children}
+        {
+          showNavBar ?
+          <NavBar user={user} /> :
+          null
+        }
+        <div id="app-content" className={classNames({'has-navbar': showNavBar})}>
+          {children}
         </div>
       </div>
     );

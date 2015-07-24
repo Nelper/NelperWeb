@@ -6,7 +6,6 @@ import UserStore from 'stores/UserStore';
 import AppHandler from 'handlers/AppHandler';
 import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
 
-import HomeHandler from 'handlers/home/HomeHandler';
 import LoginHandler from 'handlers/login/LoginHandler';
 import RegisterHandler from 'handlers/login/RegisterHandler';
 
@@ -29,10 +28,18 @@ function requireAuth(nextState, transition) {
   }
 }
 
+function rootRedirect(nextState, transition) {
+  if (!UserStore.state.user) {
+    transition.to('/login');
+  } else {
+    transition.to('/nelp');
+  }
+}
+
 // Routes.
 export default (
-  <Route name="app" component={AppHandler}>
-    <Route path="/" component={HomeHandler} />
+  <Route component={AppHandler}>
+    <Route path="/" onEnter={rootRedirect} />
     <Route path="/login" component={LoginHandler} />
     <Route path="/register" component={RegisterHandler} />
     <Route path="/nelp" component={NelpHandler} onEnter={requireAuth} />

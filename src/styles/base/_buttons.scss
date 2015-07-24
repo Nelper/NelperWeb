@@ -27,6 +27,8 @@ button {
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
+  outline: none;
+  @include transition(background-color 250ms linear);
 
   @include btn-color($color-gray-medium);
 

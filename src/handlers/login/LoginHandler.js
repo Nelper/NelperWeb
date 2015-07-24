@@ -9,6 +9,10 @@ export default class LoginHandler extends Component {
     router: React.PropTypes.object.isRequired,
   }
 
+  static showNavBar() {
+    return false;
+  }
+
   state = {
     email: '',
     password: '',
@@ -25,21 +29,32 @@ export default class LoginHandler extends Component {
 
   render() {
     return (
-      <div className="container pad-all">
-        <h2>Login</h2>
-        <input
-          type='text'
-          value={this.state.email}
-          placeholder='Email'
-          onChange={this._onEmailChanged.bind(this)} />
-        <input
-          type='password'
-          value={this.state.password}
-          placeholder='Password'
-          onChange={this._onPasswordChanged.bind(this)} />
-        <div className="btn-group">
-          <button>Submit</button>
-          <button onClick={this._loginWithFacebook.bind(this)}>Login with Facebook</button>
+      <div id="login-handler">
+        <div className="content">
+          <img
+              className="nelpy"
+              src={require('images/logo-nobg-lg.png')} />
+          <input
+            type='text'
+            value={this.state.email}
+            placeholder='Email'
+            onChange={this._onEmailChanged.bind(this)} />
+          <input
+            type='password'
+            value={this.state.password}
+            placeholder='Password'
+            onChange={this._onPasswordChanged.bind(this)} />
+          <button className="login">Login</button>
+          <button className="facebook"
+              onClick={this._loginWithFacebook.bind(this)}>
+            Sign in with Facebook
+          </button>
+          <button
+              onClick={::this._register}
+              className="register">
+            Register with Email
+          </button>
+          <a className="forgot" href="/">I forgot my password</a>
         </div>
       </div>
     );
@@ -59,6 +74,10 @@ export default class LoginHandler extends Component {
 
   _loginWithFacebook() {
     UserActions.loginWithFacebook();
+  }
+
+  _register() {
+    this.context.router.transitionTo('/register');
   }
 
   _onUserChanged(state) {
