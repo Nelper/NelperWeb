@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {FormattedDate} from 'react-intl';
 import connectToStores from 'alt/utils/connectToStores';
 
 import UserActions from 'actions/UserActions';
@@ -35,6 +36,14 @@ export default class ProfileHandler extends Component {
                 {user.firstName + ' ' + user.lastName}
               </div>
               <Rating rating={4}/>
+              <div className="member-since">
+                <span>Member since </span>
+                <FormattedDate
+                    value={new Date(user.createdAt)}
+                    day="numeric"
+                    month="long"
+                    year="numeric" />
+              </div>
               <div className="tasks-summary">8 Tasks Completed</div>
             </div>
             <div>
