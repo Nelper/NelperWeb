@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 import {GoogleMaps, Marker} from 'react-google-maps';
+import classNames from 'classnames';
 
 import NelpActions from 'actions/NelpActions';
 import UserActions from 'actions/UserActions';
 import NelpStore from 'stores/NelpStore';
 import UserStore from 'stores/UserStore';
+import NelpTaskDetail from './NelpTaskDetail';
 
 const GoogleMapsAPI = window.google.maps;
 
@@ -26,6 +28,8 @@ export default class NelpHandler extends Component {
 
   state = {
     taskFilter: null,
+    selectedTask: null,
+    taskCollapsed: true,
   }
 
   componentDidMount() {
@@ -46,6 +50,8 @@ export default class NelpHandler extends Component {
   }
 
   render() {
+    let {taskFilter, selectedTask, taskCollapsed} = this.state;
+
     let taskGroups = this.props.tasks
       .filter(t => t.location)
       .reduce((prev, cur) => {
@@ -70,7 +76,7 @@ export default class NelpHandler extends Component {
         );
       });
 
-    let filteredTasks = this.state.taskFilter ?
+    let filteredTasks = taskFilter ?
       taskGroups[this.state.taskFilter] :
       this.props.tasks;
     let displayedTasks = filteredTasks.map((t) => {
@@ -90,11 +96,11 @@ export default class NelpHandler extends Component {
     return (
       <div id="nelp-handler">
         <div className="header-section">
-          <div className="container">
+          <div className="container map">
             <GoogleMaps containerProps={{
                 style: {
                   width: '100%',
-                  height: 300,
+                  height: '100%',
                 },
               }}
               ref="map"
@@ -106,17 +112,36 @@ export default class NelpHandler extends Component {
           </div>
         </div>
         <div className="header-border" />
-        <div className="container pad-all">
+        <div className="task-section">
+          <div className={classNames('task-detail', {'collapsed': taskCollapsed})}>
           {
-            this.state.taskFilter ?
-            <div>
-              <div>Tasks near {this.state.taskFilter}</div>
-              <button onClick={::this._resetFilter}>Reset</button>
+            selectedTask ?
+            <div className="container pad-all">
+              <NelpTaskDetail
+                  task={selectedTask}
+                  onClose={::this._closeDetail} />
             </div> :
             null
           }
-          <div className="tasks">
-          {displayedTasks}
+          </div>
+          <div className="filters">
+            <div className="container pad-hor">
+              <div className="title">Sort tasks by:</div>
+              <div className="value">Distance</div>
+            </div>
+          </div>
+          <div className="container pad-all">
+            {
+              taskFilter ?
+              <div>
+                <div>Tasks near {taskFilter}</div>
+                <button onClick={::this._resetFilter}>Reset</button>
+              </div> :
+              null
+            }
+            <div className="tasks">
+            {displayedTasks}
+            </div>
           </div>
         </div>
       </div>
@@ -137,6 +162,20 @@ export default class NelpHandler extends Component {
   }
 
   _taskDetail(task) {
-    this.context.router.transitionTo(`/nelp/detail/${task.objectId}`, null, {task});
+    this.setState({
+      taskCollapsed: false,
+      selectedTask: task,
+    });
+    this.refs.map.panTo(new GoogleMapsAPI.LatLng(
+      task.location.latitude,
+      task.location.longitude,
+    ));
+    //this.context.router.transitionTo('/nelp/detail/' + task.objectId);
+  }
+
+  _closeDetail() {
+    this.setState({
+      taskCollapsed: true,
+    });
   }
 }

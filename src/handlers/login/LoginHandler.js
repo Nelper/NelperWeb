@@ -35,15 +35,15 @@ export default class LoginHandler extends Component {
               className="nelpy"
               src={require('images/logo-nobg-lg.png')} />
           <input
-            type='text'
-            value={this.state.email}
-            placeholder='Email'
-            onChange={this._onEmailChanged.bind(this)} />
+              type='text'
+              value={this.state.email}
+              placeholder='Email'
+              onChange={this._onEmailChanged.bind(this)} />
           <input
-            type='password'
-            value={this.state.password}
-            placeholder='Password'
-            onChange={this._onPasswordChanged.bind(this)} />
+              type='password'
+              value={this.state.password}
+              placeholder='Password'
+              onChange={this._onPasswordChanged.bind(this)} />
           <button className="login">Login</button>
           <button className="facebook"
               onClick={this._loginWithFacebook.bind(this)}>
