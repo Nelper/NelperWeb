@@ -76,7 +76,9 @@ export default class NelpHandler extends Component {
       .map(k => {
         let cur = taskGroups[k];
         return (
-          <Marker position={new GoogleMapsUtils.LatLng(
+          <Marker
+          key={k} 
+          position={new GoogleMapsUtils.LatLng(
             cur[0].location.latitude,
             cur[0].location.longitude,
            )}

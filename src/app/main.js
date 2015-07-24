@@ -17,7 +17,7 @@ window.fbAsyncInit = function() {
     appId: '1446755655626296',  // Facebook App ID
     cookie: true,               // enable cookies to allow Parse to access the session
     xfbml: true,                // initialize Facebook social plugins on the page
-    version: 'v2.4',
+    version: 'v2.3',
   });
 };
 

@@ -19,6 +19,7 @@ var common = {
     new HtmlWebpackPlugin({
       template: './src/app/index.html',
       inject: 'body',
+      favicon: './src/images/favicon.ico',
     }),
   ],
 };
