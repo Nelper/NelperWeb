@@ -28,6 +28,7 @@ class UserActions {
 
   setLocation(loc) {
     ApiUtils.setUserLocation(loc);
+    return loc;
   }
 
   update() {

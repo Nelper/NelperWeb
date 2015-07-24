@@ -38,17 +38,11 @@ export default class NelpHandler extends Component {
         if(!this.refs.map) {
           return;
         }
-        this.setState({mapLocation: new GoogleMapsAPI.LatLng(
+        this.refs.map.panTo(new GoogleMapsAPI.LatLng(
           pos.coords.latitude,
           pos.coords.longitude,
-        )});
+        ));
       });
-    } else {
-      let loc = UserStore.state.user.location;
-      this.setState({mapLocation: new GoogleMapsAPI.LatLng(
-        loc.latitude,
-        loc.longitude,
-      )});
     }
   }
 
@@ -82,10 +76,18 @@ export default class NelpHandler extends Component {
       this.props.tasks;
     let displayedTasks = filteredTasks.map((t) => {
       return (
-        <div key={t.objectId} className="task" onClick={this._taskDetail.bind(this, t)}>{t.title}</div>
+        <div key={t.objectId}
+        className="task"
+        onClick={this._taskDetail.bind(this, t)}>
+          {t.title}
+        </div>
       );
     });
 
+    let pos = UserStore.state.user.location;
+    let center = pos ?
+      new GoogleMapsAPI.LatLng(pos.latitude, pos.longitude) :
+      new GoogleMapsAPI.LatLng(0, 0);
     return (
       <div id="nelp-handler">
         <div className="header-section">
@@ -99,7 +101,7 @@ export default class NelpHandler extends Component {
               ref="map"
               googleMapsApi={GoogleMapsAPI}
               zoom={11}
-              center={this.state.mapLocation}>
+              center={center}>
               {markers}
             </GoogleMaps>
           </div>
