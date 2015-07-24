@@ -10,7 +10,7 @@ npm install
 
 ## Local dev server
 ```
-npm run start
+npm run watch
 ```
 
 The site will be available at http://localhost:8080/
@@ -18,4 +18,9 @@ The site will be available at http://localhost:8080/
 ## Production build
 ```
 npm run build
+```
+
+## Production server
+```
+npm run start-server
 ```
