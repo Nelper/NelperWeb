@@ -40,3 +40,8 @@ body {
     @include align-items(center);
   }
 }
+
+.section-separator {
+  height: 0.5rem;
+  background-color: $color-nelp-orange;
+}

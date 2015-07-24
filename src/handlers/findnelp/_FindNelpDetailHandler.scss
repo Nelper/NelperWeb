@@ -1,37 +1,64 @@
 #find-nelp-detail-handler {
+
+  .task-detail {
+    margin-left: 1.5em;
+
+    > div {
+      margin-bottom: 0.5em;
+    }
+  }
+
   .applications {
     @include display(flex);
     @include flex-direction(column);
+    width: 100%;
     padding: 1em;
-    background-color: $color-nelp-orange-light;
-    color: $color-white;
+    color: $color-black;
 
     .application {
       @include display(flex);
-      @include align-items(center);
+      @include align-items(flex-start);
       @include flex-wrap(wrap);
-      margin: 0.5rem 0;
+
+      > div, > button {
+        margin: 0.5em;
+      }
 
       .user-picture {
-        width: 3rem;
-        height: 3rem;
+        width: 4.3rem;
+        height: 4.3rem;
         border-radius: 50%;
-        margin: 0 1rem;
-        border: 2px solid $color-white;
+        border: 2px solid $color-black;
         background-size: cover;
         background-position: center;
       }
 
-      .username {
-        font-size: 1.25em;
-        font-weight: 500;
+      .user-info {
+        @include flex-grow(1);
+
+        .username-row {
+          @include display(flex);
+          @include align-items(center);
+          @include flex-wrap(wrap);
+        }
+
+        .username {
+          font-size: 1.25em;
+          font-weight: 500;
+          margin-right: 1rem;
+        }
+
+        .tasks-completed {
+          font-size: 0.8em;
+        }
+
+        .member-since {
+          font-size: 0.8em;
+        }
+
       }
 
-      .state-badge {
-        padding: 0.2rem 0.5rem;
-        margin: 0 1rem;
-        border-radius: 6px;
-      }
+
     }
   }
 }

@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import moment from 'moment';
 
 import Progress from 'components/Progress';
+import Rating from 'components/Rating';
 import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
 
@@ -56,12 +58,19 @@ export default class FindNelpDetailHandler extends Component {
         return (
           <div key={a.objectId} className="application">
             <div className="user-picture" onClick={this._viewProfile.bind(this, a.user)} style={{backgroundImage: `url('${a.user.pictureURL}')`}} />
-            <div className="username" onClick={this._viewProfile.bind(this, a.user)}>{a.user.firstName + ' ' + a.user.lastName}</div>
-            {this._renderStateBadge(a.state)}
+            <div className="user-info">
+              <div className="username-row">
+                <div className="username">{a.user.firstName + ' ' + a.user.lastName}</div>
+                <div className="rating"><Rating rating="3" dark={true} small={true} /></div>
+              </div>
+              <div className="tasks-completed">8 tasks completed</div>
+              <div className="member-since">Member since {moment(a.user.createdAt).format('MMMM Do YYYY')}</div>
+            </div>
+            <button className="blue" onClick={this._viewProfile.bind(this, a.user)}>View profile</button>
             {a.state === 0 ? (
               <div className="btn-group">
-                <button onClick={this._accept.bind(this, a)}>Accept</button>
-                <button onClick={this._deny.bind(this, a)}>Deny</button>
+                <button className="primary" onClick={this._accept.bind(this, a)}>Accept</button>
+                <button className="primary" onClick={this._deny.bind(this, a)}>Deny</button>
               </div>
             ) : null}
           </div>
@@ -70,18 +79,27 @@ export default class FindNelpDetailHandler extends Component {
     }
 
     return (
-      <div id="find-nelp-detail-handler" className="container pad-all">
-        <h2>{task.title}</h2>
-        <p>{task.desc}</p>
-        <button>Edit</button>
-        <h3>Applications</h3>
-        <div className="applications">
-          {applications}
+      <div id="find-nelp-detail-handler">
+        <div className="container pad-all">
+          <h2>{task.title}</h2>
+          <div className="task-detail">
+            <div>Description: {task.desc}</div>
+            <div>Offer: {task.priceOffered}</div>
+            <div className="btn-group">
+              <button className="blue" onClick={::this._edit}>Edit</button>
+              <button onClick={::this._delete}>Delete</button>
+              <button onClick={::this._back}>Back</button>
+            </div>
+          </div>
         </div>
-        <div className="btn-group">
-          <button onClick={this._back.bind(this)}>Back</button>
+        <div className="section-separator"/>
+        <div className="container pad-all">
+          <h2>Applicants</h2>
+          <div className="applications">
+            {applications}
+          </div>
+          <FindNelpProfileHandler user={this.state.selectedUser} onClose={::this._onProfileClose} />
         </div>
-        <FindNelpProfileHandler user={this.state.selectedUser} onClose={::this._onProfileClose} />
       </div>
     );
   }
@@ -109,6 +127,14 @@ export default class FindNelpDetailHandler extends Component {
     return (
       <div className="state-badge" style={{backgroundColor: color}}>{text}</div>
     );
+  }
+
+  _edit() {
+
+  }
+
+  _delete() {
+
   }
 
   _viewProfile(user) {

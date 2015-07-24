@@ -9,6 +9,11 @@ export default class Rating extends Component {
     rating: React.PropTypes.number,
   }
 
+  static defaultProps = {
+    dark: false,
+    small: false,
+  }
+
   render() {
     let items = [];
     for(let i = 0; i < 5; i++) {
@@ -21,7 +26,11 @@ export default class Rating extends Component {
     }
 
     return (
-      <div className="rating">
+      <div className={classNames(
+        'rating',
+        {'dark': this.props.dark},
+        {'small': this.props.small},
+      )}>
         {items}
       </div>
     );

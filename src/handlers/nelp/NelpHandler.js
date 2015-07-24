@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
-import {GoogleMaps, Marker} from 'react-google-maps';
 import classNames from 'classnames';
 
 import NelpActions from 'actions/NelpActions';
@@ -8,6 +7,7 @@ import UserActions from 'actions/UserActions';
 import NelpStore from 'stores/NelpStore';
 import UserStore from 'stores/UserStore';
 import NelpTaskDetail from './NelpTaskDetail';
+import MapView from './MapView';
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
 @connectToStores
@@ -29,18 +29,9 @@ export default class NelpHandler extends Component {
     taskFilter: null,
     selectedTask: null,
     taskCollapsed: true,
-    googleMapsAPI: GoogleMapsUtils.get(),
   }
 
   componentDidMount() {
-    if(!GoogleMapsUtils.get()) {
-      GoogleMapsUtils.load(() => {
-        this.setState({
-          googleMapsAPI: GoogleMapsUtils.get(),
-        });
-      });
-    }
-
     NelpActions.refreshTasks();
     // TODO(janic): this logic should be elsewhere.
     if(!UserStore.state.user.location) {
@@ -75,15 +66,14 @@ export default class NelpHandler extends Component {
     let markers = Object.keys(taskGroups)
       .map(k => {
         let cur = taskGroups[k];
-        return (
-          <Marker
-          key={k} 
-          position={new GoogleMapsUtils.LatLng(
+        return {
+          key: k,
+          position: new GoogleMapsUtils.LatLng(
             cur[0].location.latitude,
             cur[0].location.longitude,
-           )}
-          onClick={(event) => this._onMarkerClick(event, k)}/>
-        );
+          ),
+          onClick: (event) => this._onMarkerClick(event, k),
+        };
       });
 
     let filteredTasks = taskFilter ?
@@ -107,22 +97,14 @@ export default class NelpHandler extends Component {
       <div id="nelp-handler">
         <div className="header-section">
           <div className="container map">
-            <GoogleMaps containerProps={{
-                style: {
-                  width: '100%',
-                  height: '100%',
-                },
-              }}
-              ref="map"
-              googleMapsApi={this.state.googleMapsAPI}
-              zoom={12}
-              center={center}>
-              {markers}
-            </GoogleMaps>
+            <MapView
+              markers={markers}
+              initialCenter={center}
+              ref="map" />
           </div>
         </div>
-        <div className="header-border" />
-        <div className="task-section">
+        <div className="section-separator" />
+        <div className="task-section" ref="taskScroll">
           <div className={classNames('task-detail', {'collapsed': taskCollapsed})}>
           {
             selectedTask ?
@@ -141,16 +123,8 @@ export default class NelpHandler extends Component {
             </div>
           </div>
           <div className="container pad-all">
-            {
-              taskFilter ?
-              <div>
-                <div>Tasks near {taskFilter}</div>
-                <button onClick={::this._resetFilter}>Reset</button>
-              </div> :
-              null
-            }
             <div className="tasks">
-            {displayedTasks}
+              {displayedTasks}
             </div>
           </div>
         </div>
@@ -176,10 +150,12 @@ export default class NelpHandler extends Component {
       taskCollapsed: false,
       selectedTask: task,
     });
+    this.refs.taskScroll.getDOMNode().scrollTop = 0;
     this.refs.map.panTo(new GoogleMapsUtils.LatLng(
       task.location.latitude,
       task.location.longitude,
     ));
+
     //this.context.router.transitionTo('/nelp/detail/' + task.objectId);
   }
 

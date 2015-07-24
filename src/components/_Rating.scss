@@ -11,4 +11,22 @@
       fill: rgba(255, 255, 255, 0.9);
     }
   }
+
+  &.small {
+    .rating-item {
+      width: em(16px);
+      height: em(16px);
+      margin: 0.05em;
+    }
+  }
+
+  &.dark {
+    .rating-item {
+      fill: rgba(0, 0, 0, 0.3);
+
+      &.active {
+        fill: rgba(0, 0, 0, 0.9);
+      }
+    }
+  }
 }

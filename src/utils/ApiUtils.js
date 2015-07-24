@@ -98,6 +98,7 @@ class ApiUtils {
         return new Parse.Query(NelpTaskApplication)
           .include('user')
           .containedIn('task', tasks)
+          .notEqualTo('state', 1)
           .find()
           .then((applications) => {
             return tasks.map((t) => {
