@@ -31,10 +31,10 @@ export default class LoginHandler extends Component {
     return (
       <div id="login-handler">
         <div className="content">
-          <h2 className="title">Nelper</h2>
           <img
               className="nelpy"
               src={require('images/logo-nobg-lg.png')} />
+          <h2 className="title">Nelper</h2>
           <input
               type='text'
               value={this.state.email}

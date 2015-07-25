@@ -17,7 +17,7 @@
   .content {
     @include display(flex);
     @include flex-direction(column);
-    width: 100%;
+    width: 90%;
 
     @include media($medium-screen) {
       width: 300px;
@@ -31,7 +31,7 @@
 
     .nelpy {
       padding: 1em;
-      width: em(200px);
+      width: em(250px);
       @include align-self(center);
     }
 
