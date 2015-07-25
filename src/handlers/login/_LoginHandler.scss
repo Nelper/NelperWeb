@@ -1,4 +1,7 @@
 #login-handler {
+
+  $controls-border-width: 1.5px;
+
   @include display(flex);
   @include flex-direction(column);
   @include align-items(center);
@@ -14,25 +17,31 @@
   .content {
     @include display(flex);
     @include flex-direction(column);
-    max-width: em(300px);
+    width: 100%;
+
+    @include media($medium-screen) {
+      width: 300px;
+    }
+
+    .title {
+      font-size: 2.5em;
+      color: $color-white;
+      text-align: center;
+    }
 
     .nelpy {
       padding: 1em;
+      width: em(200px);
+      @include align-self(center);
     }
 
     input {
-      border: $color-black solid 2px;
+      border: $color-black solid $controls-border-width;
       margin-bottom:0.5em;
-      background-color: transparent;
-      color: $color-white;
-
-      @include placeholder {
-        color: transparentize($color-white, 0.3);
-      }
     }
 
     button {
-      border: $color-black solid 2px;
+      border: $color-black solid $controls-border-width;
       margin-bottom:0.5em;
 
       &.login {

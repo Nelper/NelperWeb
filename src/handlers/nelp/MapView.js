@@ -64,6 +64,7 @@ export default class MapView extends Component {
   }
 
   _onZoom() {
+    //Causes lag, find a way to save zoom position.
     this.setState({
       zoom: this.refs.map.getZoom(),
     });

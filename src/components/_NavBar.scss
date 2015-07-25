@@ -17,6 +17,8 @@ header.navbar {
   z-index: 999;
   position: fixed;
 
+  font-family: $heading-font-family;
+
   .navbar-wrapper {
     @include clearfix;
     @include outer-container;
