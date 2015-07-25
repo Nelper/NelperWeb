@@ -39,6 +39,11 @@ class FindNelpStore {
     application.state = 3;
     this.emitChange();
   }
+
+  handleSetTaskViewed(task) {
+    task.applications.forEach(a => a.isNew = false);
+    this.emitChange();
+  }
 }
 
 export default alt.createStore(FindNelpStore, 'FindNelpStore');

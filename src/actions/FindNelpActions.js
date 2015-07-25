@@ -15,7 +15,16 @@ class FindNelpActions {
   }
 
   addTask(task) {
+    task.applications = [];
+    task.isNew = true;
+    task.state = 0;
     ApiUtils.addTask(task);
+    return task;
+  }
+
+  setTaskViewed(task) {
+    ApiUtils.setTaskViewed(task);
+    return task;
   }
 
   acceptApplication(application) {

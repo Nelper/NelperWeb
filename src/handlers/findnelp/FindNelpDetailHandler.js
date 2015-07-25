@@ -30,6 +30,7 @@ export default class FindNelpDetailHandler extends Component {
         task: null,
       };
     }
+
     return {
       isLoading: false,
       task: task,
@@ -38,6 +39,20 @@ export default class FindNelpDetailHandler extends Component {
 
   state = {
     selectedUser: null,
+  }
+
+  _setTaskAsViewed = false
+
+  componentDidUpdate() {
+    // Mark the task as viewed once it's loaded.
+    if(!this._setTaskAsViewed && this.props.task) {
+      this._setTaskAsViewed = true;
+      // Have to do this to avoid fireing this action in the
+      // middle of a dispatch.
+      setTimeout(() => {
+        FindNelpActions.setTaskViewed(this.props.task);
+      }, 0);
+    }
   }
 
   render() {
@@ -61,7 +76,7 @@ export default class FindNelpDetailHandler extends Component {
             <div className="user-info">
               <div className="username-row">
                 <div className="username">{a.user.firstName + ' ' + a.user.lastName}</div>
-                <div className="rating"><Rating rating="3" dark={true} small={true} /></div>
+                <div className="rating"><Rating rating={3} dark={true} small={true} /></div>
               </div>
               <div className="tasks-completed">8 tasks completed</div>
               <div className="member-since">Member since {moment(a.user.createdAt).format('MMMM Do YYYY')}</div>

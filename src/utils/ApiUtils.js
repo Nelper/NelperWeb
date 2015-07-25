@@ -1,6 +1,7 @@
 import {Parse} from 'parse';
 
 const NelpTask = new Parse.Object.extend({className: 'NelpTask'});
+
 const NelpTaskApplication = new Parse.Object.extend({className: 'NelpTaskApplication'});
 
 class ApiUtils {
@@ -118,6 +119,7 @@ class ApiUtils {
                 return {
                   objectId: a.id,
                   createdAt: a.createdAt,
+                  isNew: a.get('isNew'),
                   state: a.get('state'),
                   user: a.get('user').toJSON(),
                   task: task,
@@ -147,6 +149,7 @@ class ApiUtils {
     taskApplication.set('state', 0);
     taskApplication.set('user', Parse.User.current());
     taskApplication.set('task', parseTask);
+    taskApplication.set('isNew', true);
     task.application = taskApplication.toJSON(); // TODO(janic): remove this side effect hack.
     taskApplication.save();
   }
@@ -170,6 +173,23 @@ class ApiUtils {
     taskApplication.id = application.objectId;
     taskApplication.set('state', 3);
     taskApplication.save();
+  }
+
+  /**
+   * Mark the task as viewed.
+   * @param {NelpTask} applications applications to mark.
+   */
+  setTaskViewed(task) {
+    let parseApplications = task.applications
+      .filter(a => a.isNew)
+      .map(a => {
+        let parseApplication = new NelpTaskApplication();
+        parseApplication.id = a.objectId;
+        parseApplication.set('isNew', false);
+        return parseApplication;
+      });
+
+    Parse.Object.saveAll(parseApplications);
   }
 }
 
