@@ -72,7 +72,9 @@ export default class FindNelpDetailHandler extends Component {
       applications = task.applications.map((a) => {
         return (
           <div key={a.objectId} className="application">
-            <div className="user-picture" onClick={this._viewProfile.bind(this, a.user)} style={{backgroundImage: `url('${a.user.pictureURL}')`}} />
+            <div className="user-picture" onClick={this._viewProfile.bind(this, a.user)} style={{backgroundImage: `url('${a.user.pictureURL}')`}}>
+            {this._renderStateBadge(a.state)}
+            </div>
             <div className="user-info">
               <div className="username-row">
                 <div className="username">{a.user.firstName + ' ' + a.user.lastName}</div>
@@ -81,13 +83,15 @@ export default class FindNelpDetailHandler extends Component {
               <div className="tasks-completed">8 tasks completed</div>
               <div className="member-since">Member since {moment(a.user.createdAt).format('MMMM Do YYYY')}</div>
             </div>
+            {
+              a.state === 0 ?
+                <div className="btn-group">
+                  <button className="green" onClick={this._accept.bind(this, a)}>Accept</button>
+                  <button className="primary" onClick={this._deny.bind(this, a)}>Deny</button>
+                </div> :
+                null
+            }
             <button className="blue" onClick={this._viewProfile.bind(this, a.user)}>View profile</button>
-            {a.state === 0 ? (
-              <div className="btn-group">
-                <button className="primary" onClick={this._accept.bind(this, a)}>Accept</button>
-                <button className="primary" onClick={this._deny.bind(this, a)}>Deny</button>
-              </div>
-            ) : null}
           </div>
         );
       });
@@ -102,7 +106,7 @@ export default class FindNelpDetailHandler extends Component {
             <div>Offer: {task.priceOffered}</div>
             <div className="btn-group">
               <button className="blue" onClick={::this._edit}>Edit</button>
-              <button onClick={::this._delete}>Delete</button>
+              <button className="primary" onClick={::this._delete}>Delete</button>
               <button onClick={::this._back}>Back</button>
             </div>
           </div>
@@ -120,27 +124,20 @@ export default class FindNelpDetailHandler extends Component {
   }
 
   _renderStateBadge(state) {
-    let text, color;
+    let icon;
     switch (state) {
       case 0:
-        text = 'Applied';
-        color = '#123456';
-        break;
-      case 1:
-        text = 'Canceled';
-        color = '#654321';
+        icon = require('images/icons/pending-yellow.png');
         break;
       case 2:
-        text = 'Accepted';
-        color = '#00FF00';
+        icon = require('images/icons/accepted-green.png');
         break;
       case 3:
-        text = 'Denied';
-        color = '#FF0000';
+        icon = require('images/icons/denied-red.png');
         break;
     }
     return (
-      <div className="state-badge" style={{backgroundColor: color}}>{text}</div>
+      <div className="state-badge" style={{backgroundImage: `url('${icon}')`}} />
     );
   }
 

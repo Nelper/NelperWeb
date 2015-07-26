@@ -104,8 +104,8 @@ export default class NelpHandler extends Component {
               ref="map" />
           </div>
         </div>
-        <div className="section-separator" />
         <div className="task-section" ref="taskScroll">
+          <div className="section-separator" />
           <div className={classNames('task-detail', {'collapsed': taskCollapsed})}>
           {
             selectedTask ?

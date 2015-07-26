@@ -13,7 +13,7 @@ export default class NelpTaskFilterView extends Component {
         name: 'Sort tasks by:',
         options: [{
           name: 'Distance',
-          value: 'distance'
+          value: 'distance',
         }],
       }, {
         id: 'region',

@@ -1,0 +1,19 @@
+.nelp-task-filter-view {
+
+  @include display(flex);
+  @include flex-wrap(wrap);
+  width: 100%;
+
+  .filter {
+    @include flex(1);
+    margin: 0 1em;
+
+    .title {
+
+    }
+
+    .value {
+      font-size: 0.8em;
+    }
+  }
+}
