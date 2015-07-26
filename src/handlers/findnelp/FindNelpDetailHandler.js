@@ -6,6 +6,7 @@ import Progress from 'components/Progress';
 import Rating from 'components/Rating';
 import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
+import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 import FindNelpProfileHandler from './FindNelpProfileHandler';
 
@@ -69,7 +70,9 @@ export default class FindNelpDetailHandler extends Component {
     if(task.applications.length === 0) {
       applications = <div>No applications yet!</div>;
     } else {
-      applications = task.applications.map((a) => {
+      applications = task.applications
+      .sort(this._sortTasks)
+      .map(a => {
         return (
           <div key={a.objectId} className="application">
             <div className="user-picture" onClick={this._viewProfile.bind(this, a.user)} style={{backgroundImage: `url('${a.user.pictureURL}')`}}>
@@ -184,5 +187,20 @@ export default class FindNelpDetailHandler extends Component {
 
   _back() {
     this.context.router.goBack();
+  }
+
+  _sortTasks(a, b) {
+    function toOrder(ele) {
+      switch(ele.state) {
+      case NELP_TASK_APPLICATION_STATE.ACCEPTED:
+        return 10;
+      case NELP_TASK_APPLICATION_STATE.PENDING:
+        return 20;
+      case NELP_TASK_APPLICATION_STATE.DENIED:
+        return 30;
+      }
+    }
+
+    return toOrder(a) > toOrder(b) ? 1 : -1;
   }
 }
