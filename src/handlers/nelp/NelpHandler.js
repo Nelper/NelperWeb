@@ -7,6 +7,7 @@ import UserActions from 'actions/UserActions';
 import NelpStore from 'stores/NelpStore';
 import UserStore from 'stores/UserStore';
 import NelpTaskDetail from './NelpTaskDetail';
+import NelpTaskFilterView from './NelpTaskFilterView';
 import MapView from './MapView';
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
@@ -118,8 +119,7 @@ export default class NelpHandler extends Component {
           </div>
           <div className="filters">
             <div className="container pad-hor">
-              <div className="title">Sort tasks by:</div>
-              <div className="value">Distance</div>
+              <NelpTaskFilterView onFilterChanged={::this._onFilterChanged} />
             </div>
           </div>
           <div className="container pad-all">
@@ -137,6 +137,10 @@ export default class NelpHandler extends Component {
       taskFilter: filterKey,
     });
     this.refs.map.panTo(event.latLng);
+  }
+
+  _onFilterChanged(filter) {
+
   }
 
   _resetFilter() {

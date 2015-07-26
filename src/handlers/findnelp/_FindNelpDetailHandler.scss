@@ -20,6 +20,8 @@
       @include align-items(flex-start);
       @include flex-wrap(wrap);
 
+      margin-bottom: 1em;
+
       > div, > button {
         margin: 0.5em;
       }
@@ -55,10 +57,7 @@
         .member-since {
           font-size: 0.8em;
         }
-
       }
-
-
     }
   }
 }

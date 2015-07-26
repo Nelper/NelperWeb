@@ -89,7 +89,6 @@ export default class FindNelpAddHandler extends Component {
       title: this.state.title,
       desc: this.state.desc,
       priceOffered: this.state.priceOffered,
-      state: 0,
       location: UserStore.state.user.location,
     });
     this.context.router.goBack();

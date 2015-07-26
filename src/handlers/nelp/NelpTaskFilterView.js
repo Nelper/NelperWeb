@@ -9,14 +9,14 @@ export default class NelpTaskFilterView extends Component {
   render() {
     let filtersData = [
       {
-        id: 'sort'
+        id: 'sort',
         name: 'Sort tasks by:',
         options: [{
           name: 'Distance',
           value: 'distance'
         }],
       }, {
-        id: 'region'
+        id: 'region',
         name: 'Region:',
         options: [{
           name: 'Canada',
@@ -26,7 +26,7 @@ export default class NelpTaskFilterView extends Component {
           value: 'usa',
         }],
       }, {
-        id: 'category'
+        id: 'category',
         name: 'Category:',
         options: [{
           name: 'All',
@@ -57,7 +57,7 @@ export default class NelpTaskFilterView extends Component {
   _showOptions(filters) {
 
   }
-  
+
   _onOptionClick(option) {
   }
 }
