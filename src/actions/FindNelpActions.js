@@ -1,5 +1,6 @@
 import alt from 'app/alt';
 import ApiUtils from 'utils/ApiUtils';
+import {NELP_TASK_STATE} from 'utils/constants';
 
 class FindNelpActions {
 
@@ -17,8 +18,13 @@ class FindNelpActions {
   addTask(task) {
     task.applications = [];
     task.isNew = true;
-    task.state = 0;
+    task.state = NELP_TASK_STATE.PENDING;
     ApiUtils.addTask(task);
+    return task;
+  }
+
+  deleteTask(task) {
+    ApiUtils.deleteTask(task);
     return task;
   }
 

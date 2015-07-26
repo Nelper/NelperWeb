@@ -1,5 +1,7 @@
 import {Parse} from 'parse';
 
+import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
+
 const NelpTask = new Parse.Object.extend({className: 'NelpTask'});
 
 const NelpTaskApplication = new Parse.Object.extend({className: 'NelpTaskApplication'});
@@ -63,13 +65,14 @@ class ApiUtils {
   listNelpTasks() {
     return new Parse.Query(NelpTask)
       //.notEqualTo('user', Parse.User.current())
+      .equalTo('state', NELP_TASK_STATE.PENDING)
       .descending('createdAt')
       .limit(20)
       .find()
       .then((tasks) => {
         return new Parse.Query(NelpTaskApplication)
           .equalTo('user', Parse.User.current())
-          .equalTo('state', 0)
+          .equalTo('state', NELP_TASK_APPLICATION_STATE.PENDING)
           .containedIn('task', tasks)
           .find()
           .then((applications) => {
@@ -92,6 +95,7 @@ class ApiUtils {
   listMyNelpTasks() {
     return new Parse.Query(NelpTask)
       .equalTo('user', Parse.User.current())
+      .containedIn('state', [NELP_TASK_STATE.PENDING, NELP_TASK_STATE.ACCEPTED])
       .descending('createdAt')
       .limit(20)
       .find()
@@ -99,7 +103,7 @@ class ApiUtils {
         return new Parse.Query(NelpTaskApplication)
           .include('user')
           .containedIn('task', tasks)
-          .notEqualTo('state', 1)
+          .notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED)
           .find()
           .then((applications) => {
             return tasks.map((t) => {
@@ -142,36 +146,47 @@ class ApiUtils {
     parseTask.save();
   }
 
+  deleteTask(task) {
+    let parseTask = new NelpTask();
+    parseTask.id = task.objectId;
+    parseTask.set('state', NELP_TASK_STATE.DELETED);
+    parseTask.save();
+  }
+
   applyForTask(task) {
     let parseTask = new NelpTask();
     parseTask.id = task.objectId;
-    let taskApplication = new NelpTaskApplication();
-    taskApplication.set('state', 0);
-    taskApplication.set('user', Parse.User.current());
-    taskApplication.set('task', parseTask);
-    taskApplication.set('isNew', true);
-    task.application = taskApplication.toJSON(); // TODO(janic): remove this side effect hack.
-    taskApplication.save();
+    let parseApplication = new NelpTaskApplication();
+    parseApplication.set('state', NELP_TASK_APPLICATION_STATE.PENDING);
+    parseApplication.set('user', Parse.User.current());
+    parseApplication.set('task', parseTask);
+    parseApplication.set('isNew', true);
+    task.application = parseApplication.toJSON(); // TODO(janic): remove this side effect hack.
+    parseApplication.save();
   }
 
   cancelApplyForTask(task) {
     let taskApplication = new NelpTaskApplication();
     taskApplication.id = task.application.objectId;
-    taskApplication.set('state', 1);
+    taskApplication.set('state', NELP_TASK_APPLICATION_STATE.CANCELED);
     taskApplication.save();
   }
 
   acceptApplication(application) {
-    let taskApplication = new NelpTaskApplication();
-    taskApplication.id = application.objectId;
-    taskApplication.set('state', 2);
-    taskApplication.save();
+    let parseApplication = new NelpTaskApplication();
+    parseApplication.id = application.objectId;
+    parseApplication.set('state', NELP_TASK_APPLICATION_STATE.ACCEPTED);
+    let parseTask = new NelpTask();
+    parseTask.id = application.task.objectId;
+    parseTask.set('state', NELP_TASK_STATE.ACCEPTED);
+
+    Parse.Object.saveAll([parseApplication, parseTask]);
   }
 
   denyApplication(application) {
     let taskApplication = new NelpTaskApplication();
     taskApplication.id = application.objectId;
-    taskApplication.set('state', 3);
+    taskApplication.set('state', NELP_TASK_APPLICATION_STATE.DENIED);
     taskApplication.save();
   }
 

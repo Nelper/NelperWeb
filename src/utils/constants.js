@@ -1,0 +1,12 @@
+export const NELP_TASK_STATE = {
+  PENDING: 0,
+  ACCEPTED: 1,
+  DELETED: 2,
+};
+
+export const NELP_TASK_APPLICATION_STATE = {
+  PENDING: 0,
+  CANCELED: 1,
+  ACCEPTED: 2,
+  DENIED: 3,
+};

@@ -140,7 +140,7 @@ export default class FindNelpDetailHandler extends Component {
     return (
       <div className="state-badge" style={{backgroundImage: `url('${icon}')`}} />
     );
-  } 
+  }
 
   _renderStatus() {
     let hasAcceptedApplication = this.props.task.applications.some(a => a.state === 2);
@@ -162,7 +162,8 @@ export default class FindNelpDetailHandler extends Component {
   }
 
   _delete() {
-
+    FindNelpActions.deleteTask(this.props.task);
+    this.context.router.goBack();
   }
 
   _viewProfile(user) {
