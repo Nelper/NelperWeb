@@ -102,6 +102,7 @@ export default class FindNelpDetailHandler extends Component {
         <div className="container pad-all">
           <h2>{task.title}</h2>
           <div className="task-detail">
+            {this._renderStatus()}
             <div>Description: {task.desc}</div>
             <div>Offer: {task.priceOffered}</div>
             <div className="btn-group">
@@ -138,6 +139,21 @@ export default class FindNelpDetailHandler extends Component {
     }
     return (
       <div className="state-badge" style={{backgroundImage: `url('${icon}')`}} />
+    );
+  } 
+
+  _renderStatus() {
+    let hasAcceptedApplication = this.props.task.applications.some(a => a.state === 2);
+    let icon = !hasAcceptedApplication ?
+      require('images/icons/pending-yellow.png') :
+      require('images/icons/accepted-green.png');
+    let text = !hasAcceptedApplication ? 'Pending' : 'Accepted';
+    return (
+      <div className="status">
+        <div>Status: </div>
+        <div className="status-icon" style={{backgroundImage: `url('${icon}')`}} />
+        <div>{text}</div>
+      </div>
     );
   }
 

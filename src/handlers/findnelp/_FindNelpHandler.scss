@@ -56,6 +56,10 @@
         &.active {
           background-image: url('~images/icons/info-active.png');
         }
+
+        &.accepted {
+          background-image: url('~images/icons/accepted-green.png');
+        }
       }
 
       .title {

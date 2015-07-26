@@ -6,6 +6,19 @@
     > div {
       margin-bottom: 0.5em;
     }
+
+    .status {
+      @include display(flex);
+      @include align-items(center);
+
+      .status-icon {
+        width: rem(26px);
+        height: rem(26px);
+        margin: 0 0.5em;
+        background-position: center;
+        background-size: contain;
+      }
+    }
   }
 
   .applications {

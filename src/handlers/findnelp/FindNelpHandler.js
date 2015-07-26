@@ -28,12 +28,14 @@ export default class FindNelpHandler extends Component {
     let requests = this.props.myTasks.map((r) => {
       let hasActiveApplications = r.applications.some(a => a.state === 0);
       let hasNewApplications = r.applications.some(a => a.state === 0 && a.isNew);
+      let hasAcceptedApplication = r.applications.some(a => a.state === 2);
       return (
         <div className="task" key={r.objectId} onClick={this._taskDetail.bind(this, r)}>
           <div className="new">{hasNewApplications ? 'new!' : ''}</div>
           <div className={classNames(
             'icon',
-            {'active': hasActiveApplications}
+            {'active': hasActiveApplications},
+            {'accepted': hasAcceptedApplication}
           )} />
           <div className="title">{r.title}</div>
         </div>
