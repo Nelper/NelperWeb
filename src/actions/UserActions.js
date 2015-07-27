@@ -11,6 +11,9 @@ class UserActions {
     ApiUtils.login(email, password)
       .then((user) => {
         this.actions.receivedUser(user);
+      })
+      .fail(err => {
+        console.log(err);
       });
   }
 
@@ -18,6 +21,9 @@ class UserActions {
     ApiUtils.register(email, password, name)
       .then((user) => {
         this.actions.receivedUser(user);
+      })
+      .fail(err => {
+        console.log(err);
       });
   }
 

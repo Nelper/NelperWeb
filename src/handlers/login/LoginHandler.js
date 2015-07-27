@@ -36,7 +36,7 @@ export default class LoginHandler extends Component {
               src={require('images/logo-nobg-lg.png')} />
           <h2 className="title">Nelper</h2>
           <input
-              type='text'
+              type='email'
               value={this.state.email}
               placeholder='Email'
               onChange={this._onEmailChanged.bind(this)} />
@@ -45,7 +45,7 @@ export default class LoginHandler extends Component {
               value={this.state.password}
               placeholder='Password'
               onChange={this._onPasswordChanged.bind(this)} />
-          <button className="login">Login</button>
+          <button className="login" onClick={::this._login}>Login</button>
           <button className="facebook"
               onClick={this._loginWithFacebook.bind(this)}>
             Sign in with Facebook
@@ -71,6 +71,10 @@ export default class LoginHandler extends Component {
     this.setState({
       password: event.target.value,
     });
+  }
+
+  _login() {
+    UserActions.login(this.state.email, this.state.password);
   }
 
   _loginWithFacebook() {
