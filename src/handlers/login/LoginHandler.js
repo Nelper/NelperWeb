@@ -29,23 +29,25 @@ export default class LoginHandler extends Component {
 
   render() {
     return (
-      <div id="login-handler">
+      <div id="login-handler" className="login-common">
         <div className="content">
           <img
               className="nelpy"
               src={require('images/logo-nobg-lg.png')} />
           <h2 className="title">Nelper</h2>
-          <input
-              type='email'
-              value={this.state.email}
-              placeholder='Email'
-              onChange={this._onEmailChanged.bind(this)} />
-          <input
-              type='password'
-              value={this.state.password}
-              placeholder='Password'
-              onChange={this._onPasswordChanged.bind(this)} />
-          <button className="login" onClick={::this._login}>Login</button>
+          <form onSubmit={::this._onSubmit}>
+            <input
+                type='email'
+                value={this.state.email}
+                placeholder='Email'
+                onChange={this._onEmailChanged.bind(this)} />
+            <input
+                type='password'
+                value={this.state.password}
+                placeholder='Password'
+                onChange={this._onPasswordChanged.bind(this)} />
+            <button className="login" onClick={::this._login}>Login</button>
+          </form>
           <button className="facebook"
               onClick={this._loginWithFacebook.bind(this)}>
             Sign in with Facebook
@@ -71,6 +73,11 @@ export default class LoginHandler extends Component {
     this.setState({
       password: event.target.value,
     });
+  }
+
+  _onSubmit(event) {
+    event.preventDefault();
+    this._login();
   }
 
   _login() {

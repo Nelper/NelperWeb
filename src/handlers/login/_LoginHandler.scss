@@ -1,96 +1,53 @@
 #login-handler {
 
-  $controls-border-width: 1.5px;
+  button {
 
-  @include display(flex);
-  @include flex-direction(column);
-  @include align-items(center);
-  @include justify-content(stretch);
-  min-height: 100%;
-  padding: 1em;
-
-  // Bug in bourbon linear-gradient.
-  background-image: -webkit-linear-gradient(#d95330, #de1f1f);
-  background-image: linear-gradient(#d95330, #de1f1f);
-  //@include linear-gradient($color-nelp-red-1, $color-nelp-red-2);
-
-  .content {
-    @include display(flex);
-    @include flex-direction(column);
-    width: 90%;
-
-    @include media($medium-screen) {
-      width: 300px;
-    }
-
-    .title {
-      font-size: 2.5em;
-      color: $color-white;
-      text-align: center;
-    }
-
-    .nelpy {
-      padding: 1em;
-      width: em(250px);
-      @include align-self(center);
-    }
-
-    input {
-      border: $color-black solid $controls-border-width;
-      margin-bottom:0.5em;
-    }
-
-    button {
-      border: $color-black solid $controls-border-width;
-      margin-bottom:0.5em;
-
-      &.login {
-        background: none;
-        color: $color-black;
-        border: none;
-        padding-top: 0.2em;
-        padding-bottom: 0.2em;
-        font-size: 1.5em;
-        font-weight: lighter;
-
-        &:hover,
-        &:focus {
-          background-color: rgba(0, 0, 0, 0.1);
-        }
-      }
-
-      &.facebook {
-        $facebook-blue: #3b5998;
-        background-color: $facebook-blue;
-        background-image: url('~images/facebook-white.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: 0.5rem bottom;
-
-        &:hover,
-        &:focus {
-          background-color: darken($facebook-blue, 10%);
-        }
-      }
-
-      &.register {
-        background-color: $color-nelp-orange-light;
-
-        &:hover,
-        &:focus {
-          background-color: darken($color-nelp-orange-light, 10%);
-        }
-      }
-    }
-
-    .forgot {
-      text-align: center;
+    &.login {
+      background: none;
       color: $color-black;
-      text-decoration: underline;
+      border: none;
+      padding-top: 0.2em;
+      padding-bottom: 0.2em;
+      font-size: 1.5em;
+      font-weight: lighter;
 
-      &:hover {
-        color: $color-gray-dark;
+      &:hover,
+      &:focus {
+        background-color: rgba(0, 0, 0, 0.1);
       }
+    }
+
+    &.facebook {
+      $facebook-blue: #3b5998;
+      background-color: $facebook-blue;
+      background-image: url('~images/facebook-white.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 0.5rem bottom;
+
+      &:hover,
+      &:focus {
+        background-color: darken($facebook-blue, 10%);
+      }
+    }
+
+    &.register {
+      background-color: $color-nelp-orange-light;
+
+      &:hover,
+      &:focus {
+        background-color: darken($color-nelp-orange-light, 10%);
+      }
+    }
+  }
+
+  .forgot {
+    text-align: center;
+    color: $color-black;
+    text-decoration: underline;
+
+    &:hover {
+      color: $color-gray-dark;
     }
   }
 }
