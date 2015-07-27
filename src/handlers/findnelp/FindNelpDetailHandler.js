@@ -80,7 +80,7 @@ export default class FindNelpDetailHandler extends Component {
             </div>
             <div className="user-info">
               <div className="username-row">
-                <div className="username">{a.user.firstName + ' ' + a.user.lastName}</div>
+                <div className="username">{a.user.name}</div>
                 <div className="rating"><Rating rating={3} dark={true} small={true} /></div>
               </div>
               <div className="tasks-completed">8 tasks completed</div>

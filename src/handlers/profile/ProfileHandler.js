@@ -33,7 +33,7 @@ export default class ProfileHandler extends Component {
                 className="user-picture" />
             <div className="info-container">
               <div className="user-name">
-                {user.firstName + ' ' + user.lastName}
+                {user.name}
               </div>
               <Rating rating={4}/>
               <div className="member-since">
