@@ -8,9 +8,20 @@ const NelpTaskApplication = new Parse.Object.extend({className: 'NelpTaskApplica
 
 class ApiUtils {
 
-  /*login(email, password) {
+  login(email, password) {
+    return Parse.User.logIn(email, password)
+      .then(u => u.toJSON());
+  }
 
-  }*/
+  register(email, password, name) {
+    let user = new Parse.User();
+    user.set('username', email);
+    user.set('email', email);
+    user.set('password', password);
+    user.set('name', name);
+    return user.signUp()
+      .then(u => u.toJSON());
+  }
 
   loginWithFacebook() {
     return new Promise((resolve, reject) => {
@@ -25,8 +36,7 @@ class ApiUtils {
     }).then((user) => {
       return this.getUserInfoFromFacebook()
         .then((fbUser) => {
-          user.set('firstName', fbUser.first_name);
-          user.set('lastName', fbUser.last_name);
+          user.set('name', fbUser.name);
           user.set('pictureURL', fbUser.picture.data.url);
           user.save();
           return user.toJSON();
@@ -36,7 +46,7 @@ class ApiUtils {
 
   getUserInfoFromFacebook() {
     return new Promise((resolve, reject) => {
-      FB.api('me?fields=first_name,last_name,picture.type(large)', (response) => {
+      FB.api('me?fields=name,picture.type(large)', (response) => {
         if(response.error) {
           reject(response.error);
           return;

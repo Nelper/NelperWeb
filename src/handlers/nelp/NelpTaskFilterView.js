@@ -40,7 +40,7 @@ export default class NelpTaskFilterView extends Component {
 
     let filters = filtersData.map(f => {
       return (
-        <div className="filter" onClick={this._showOptions.bind(this, f)}>
+        <div key={f.id} className="filter" onClick={this._showOptions.bind(this, f)}>
           <div className="title">{f.name}</div>
           <div className="value">{f.options[0].name}</div>
         </div>

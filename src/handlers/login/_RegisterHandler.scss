@@ -1,0 +1,24 @@
+#register-handler {
+
+  button {
+
+    &.register {
+      background: none;
+      color: $color-black;
+      border: none;
+      padding-top: 0.2em;
+      padding-bottom: 0.2em;
+      font-size: 1.5em;
+      font-weight: lighter;
+
+      &:hover,
+      &:focus {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    &.back {
+      @include align-self(flex-end);
+    }
+  }
+}

@@ -1,0 +1,52 @@
+.login-common {
+  $controls-border-width: 1.5px;
+
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(stretch);
+  min-height: 100%;
+  padding: 1em;
+
+  // Bug in bourbon linear-gradient.
+  background-image: -webkit-linear-gradient(#d95330, #de1f1f);
+  background-image: linear-gradient(#d95330, #de1f1f);
+  //@include linear-gradient($color-nelp-red-1, $color-nelp-red-2);
+
+  .content {
+    @include display(flex);
+    @include flex-direction(column);
+    width: 90%;
+
+    @include media($medium-screen) {
+      width: 300px;
+    }
+
+    .title {
+      font-size: 2.5em;
+      color: $color-white;
+      text-align: center;
+    }
+
+    .nelpy {
+      padding: 1em;
+      width: em(250px);
+      @include align-self(center);
+    }
+
+    form {
+      @include display(flex);
+      @include flex-direction(column);
+    }
+
+    input {
+      border: $color-black solid $controls-border-width;
+      margin-bottom:0.5em;
+    }
+
+    button {
+      border: $color-black solid $controls-border-width;
+      margin-bottom:0.5em;
+    }
+  }
+}
