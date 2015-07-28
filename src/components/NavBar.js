@@ -13,12 +13,15 @@ export default class NavBar extends Component {
 
   render() {
     let menuItems = !this.props.user ? [
-      this._renderNavItem('Login', '/login', 1),
-      this._renderNavItem('Register', '/register', 2),
+      this._renderNavItem('Nelp', '/nelp', 10),
+      this._renderNavItem('Find Nelp', '/findnelp', 20),
+      this._renderNavItem('About', '/about', 40),
+      this._renderNavItem('Login', '/login', 30),
     ] : [
-      this._renderNavItem('Nelp', '/nelp', 3),
-      this._renderNavItem('Find Nelp', '/findnelp', 4),
-      this._renderNavItem('Profile', '/profile', 5),
+      this._renderNavItem('Nelp', '/nelp', 10),
+      this._renderNavItem('Find Nelp', '/findnelp', 20),
+      this._renderNavItem('Profile', '/profile', 30),
+      this._renderNavItem('About', '/about', 40),
     ];
 
     const NAVBAR_ITEM_HEIGHT = 60;

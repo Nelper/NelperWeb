@@ -35,9 +35,12 @@ export default class NelpHandler extends Component {
   componentDidMount() {
     NelpActions.refreshTasks();
     // TODO(janic): this logic should be elsewhere.
-    if(!UserStore.state.user.location) {
+    if(!UserStore.state.user || !UserStore.state.user.location) {
       navigator.geolocation.getCurrentPosition((pos) => {
-        UserActions.setLocation(pos.coords);
+        if(UserStore.state.user) {
+          UserActions.setLocation(pos.coords);
+        }
+
         if(!this.refs.map) {
           return;
         }
@@ -90,7 +93,7 @@ export default class NelpHandler extends Component {
       );
     });
 
-    let pos = UserStore.state.user.location;
+    let pos = UserStore.state.user && UserStore.state.user.location;
     let center = pos ?
       new GoogleMapsUtils.LatLng(pos.latitude, pos.longitude) :
       new GoogleMapsUtils.LatLng(0, 0);
@@ -155,10 +158,12 @@ export default class NelpHandler extends Component {
       selectedTask: task,
     });
     this.refs.taskScroll.getDOMNode().scrollTop = 0;
-    this.refs.map.panTo(new GoogleMapsUtils.LatLng(
-      task.location.latitude,
-      task.location.longitude,
-    ));
+    if(task.location) {
+      this.refs.map.panTo(new GoogleMapsUtils.LatLng(
+        task.location.latitude,
+        task.location.longitude,
+      ));
+    }
 
     //this.context.router.transitionTo('/nelp/detail/' + task.objectId);
   }

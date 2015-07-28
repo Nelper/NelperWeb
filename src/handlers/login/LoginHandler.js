@@ -10,7 +10,7 @@ export default class LoginHandler extends Component {
   }
 
   static showNavBar() {
-    return false;
+    return true;
   }
 
   state = {
