@@ -6,6 +6,8 @@ import UserStore from 'stores/UserStore';
 import AppHandler from 'handlers/AppHandler';
 import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
 
+import HomeHandler from 'handlers/home/HomeHandler';
+
 import LoginHandler from 'handlers/login/LoginHandler';
 import RegisterHandler from 'handlers/login/RegisterHandler';
 
@@ -18,36 +20,30 @@ import FindNelpDetailHandler from 'handlers/findnelp/FindNelpDetailHandler';
 
 import ProfileHandler from 'handlers/profile/ProfileHandler';
 
+import AboutHandler from 'handlers/about/AboutHandler';
 
 
 // Pass this function to onEnter for a route that needs
 // authentication to make sure the user is logged in.
 function requireAuth(nextState, transition) {
-  /*if (!UserStore.state.user) {
+  if (!UserStore.state.user) {
     transition.to('/login', null, { nextPathname: nextState.location.pathname });
-  }*/
-}
-
-function rootRedirect(nextState, transition) {
-  /*if (!UserStore.state.user) {
-    transition.to('/login');
-  } else {
-    transition.to('/nelp');
-  }*/
+  }
 }
 
 // Routes.
 export default (
   <Route component={AppHandler}>
-    <Route path="/" onEnter={rootRedirect} />
+    <Route path="/" component={HomeHandler} />
     <Route path="/login" component={LoginHandler} />
     <Route path="/register" component={RegisterHandler} />
-    <Route path="/nelp" component={NelpHandler} onEnter={requireAuth} />
+    <Route path="/nelp" component={NelpHandler} />
     <Route path="/nelp/detail/:id" component={NelpDetailHandler} />
-    <Route path="/findnelp" component={FindNelpHandler} onEnter={requireAuth} />
-    <Route path="/findnelp/add" component={FindNelpAddHandler} />
+    <Route path="/findnelp" component={FindNelpHandler} />
+    <Route path="/findnelp/add" component={FindNelpAddHandler} onEnter={requireAuth} />
     <Route path="/findnelp/detail/:id" component={FindNelpDetailHandler} />
     <Route path="/profile" component={ProfileHandler} onEnter={requireAuth} />
+    <Route path="/about" component={AboutHandler} />
     <Route path="*" component={PageNotFoundHandler} />
   </Route>
 );

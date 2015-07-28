@@ -10,7 +10,7 @@ export default class RegisterHandler extends Component {
   }
 
   static showNavBar() {
-    return false;
+    return true;
   }
 
   state = {
@@ -94,7 +94,12 @@ export default class RegisterHandler extends Component {
 
   _onUserChanged(user) {
     if(user) {
-      this.context.router.replaceWith('/nelp');
+      let {state} = this.props.location;
+      if (state && state.nextPathname) {
+        this.context.router.replaceWith(state.nextPathname);
+      } else {
+        this.context.router.replaceWith('/nelp');
+      }
     }
   }
 }

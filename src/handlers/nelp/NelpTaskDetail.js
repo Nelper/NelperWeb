@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 
 import NelpActions from 'actions/NelpActions';
+import UserStore from 'stores/UserStore';
 
 export default class NelpTaskDetail extends Component {
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired,
+  }
 
   static propTypes = {
     onClose: React.PropTypes.func.isRequired,
@@ -44,6 +49,11 @@ export default class NelpTaskDetail extends Component {
   }
 
   _apply() {
+    // Make sure the user is logged to apply on a task.
+    if(!UserStore.state.user) {
+      this.context.router.transitionTo('/login', null, { nextPathname: '/nelp' });
+      return;
+    }
     this.setState({applied: true});
     NelpActions.applyForTask(this.props.task);
   }

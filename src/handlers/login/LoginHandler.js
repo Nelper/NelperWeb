@@ -89,7 +89,7 @@ export default class LoginHandler extends Component {
   }
 
   _register() {
-    this.context.router.transitionTo('/register');
+    this.context.router.transitionTo('/register', null, { nextPathname: this.props.location.state.nextPathname });
   }
 
   _onUserChanged(state) {
@@ -99,8 +99,9 @@ export default class LoginHandler extends Component {
   }
 
   _loginSuccess() {
-    if (location.state && location.state.nextPathname) {
-      this.context.router.replaceWith(location.state.nextPathname);
+    let {state} = this.props.location;
+    if (state && state.nextPathname) {
+      this.context.router.replaceWith(state.nextPathname);
     } else {
       this.context.router.replaceWith('/nelp');
     }

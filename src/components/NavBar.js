@@ -29,7 +29,7 @@ export default class NavBar extends Component {
     return (
       <header className="navbar" role="banner">
         <div className="navbar-wrapper">
-          <div className="logo">
+          <div className="logo" onClick={::this._goHome}>
             <img src={require('images/logo-nobg-sm.png')}/>
             <span>Nelper</span>
           </div>
@@ -49,6 +49,10 @@ export default class NavBar extends Component {
         </div>
       </header>
     );
+  }
+
+  _goHome() {
+    this.context.router.transitionTo('/');
   }
 
   _toggleMenu() {
