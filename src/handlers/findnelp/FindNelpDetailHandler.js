@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import Progress from 'components/Progress';
 import Rating from 'components/Rating';
+import Dialog from 'components/Dialog';
 import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
@@ -40,6 +41,7 @@ export default class FindNelpDetailHandler extends Component {
 
   state = {
     selectedUser: null,
+    confirmDeleteOpened: false,
   }
 
   _setTaskAsViewed = false
@@ -58,6 +60,7 @@ export default class FindNelpDetailHandler extends Component {
 
   render() {
     let {task, isLoading} = this.props;
+    let {confirmDeleteOpened} = this.state;
     if(isLoading) {
       return (
         <div className="container pad-all center">
@@ -102,6 +105,16 @@ export default class FindNelpDetailHandler extends Component {
 
     return (
       <div id="find-nelp-detail-handler">
+        <Dialog opened={confirmDeleteOpened}>
+          <div className="pad-all">
+            <h1>Warning!</h1>
+            <p>Are your sure you want to delete the task {task.title}?</p>
+            <div className="btn-group">
+              <button onClick={::this._confirmDelete} className="green">Ok</button>
+              <button onClick={::this._cancelDelete}>Cancel</button>
+            </div>
+          </div>
+        </Dialog>
         <div className="container pad-all">
           <h2>{task.title}</h2>
           <div className="task-detail">
@@ -165,8 +178,16 @@ export default class FindNelpDetailHandler extends Component {
   }
 
   _delete() {
+    this.setState({confirmDeleteOpened: true});
+  }
+
+  _confirmDelete() {
     FindNelpActions.deleteTask(this.props.task);
     this.context.router.goBack();
+  }
+
+  _cancelDelete() {
+    this.setState({confirmDeleteOpened: false});
   }
 
   _viewProfile(user) {

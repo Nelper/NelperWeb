@@ -27,18 +27,18 @@ body {
   @include flex-direction(column);
   @include align-items(flex-start);
 
-  &.pad-all {
-    padding: $container-padding;
-  }
-
-  &.pad-hor {
-    padding-left: $container-padding;
-    padding-right: $container-padding;
-  }
-
   &.center {
     @include align-items(center);
   }
+}
+
+&.pad-all {
+  padding: $container-padding;
+}
+
+&.pad-hor {
+  padding-left: $container-padding;
+  padding-right: $container-padding;
 }
 
 .section-separator {

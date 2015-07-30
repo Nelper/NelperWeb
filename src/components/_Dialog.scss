@@ -1,0 +1,24 @@
+#dialog {
+  @include position(fixed, 0);
+  display: none;
+  @include align-items(center);
+  @include justify-content(center);
+  z-index: 999999;
+
+  @include transition(opacity 500ms linear);
+  opacity: 0;
+  background-color: transparentize($color-black, 0.4);
+
+  &.opened {
+    @include display(flex);
+    opacity: 1;
+  }
+
+  .content {
+    background-color: $color-white;
+    box-shadow: 0px 2px 16px 2px transparentize($color-black, 0.4);
+    border-radius: 3px;
+    width: 90%;
+    min-height: em(250px);
+  }
+}
