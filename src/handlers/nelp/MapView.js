@@ -1,9 +1,14 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {GoogleMaps, Marker} from 'react-google-maps';
 
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
 export default class MapView extends Component {
+
+  static propTypes = {
+    initialCenter: PropTypes.object,
+    initialZoom: PropTypes.object,
+  }
 
   state = {
     googleMapsAPI: GoogleMapsUtils.get(),
@@ -44,6 +49,7 @@ export default class MapView extends Component {
         ref="map"
         googleMapsApi={this.state.googleMapsAPI}
         zoom={this.state.zoom}
+        onZoomChanged={::this._onZoom}
         onDragend={::this._onDragEnd}
         center={this.state.location}>
         {markers}
@@ -64,9 +70,11 @@ export default class MapView extends Component {
   }
 
   _onZoom() {
-    //Causes lag, find a way to save zoom position.
-    this.setState({
-      zoom: this.refs.map.getZoom(),
-    });
+    let zoom = this.refs.map.getZoom();
+    if(zoom !== this.state.zoom) {
+      this.setState({
+        zoom,
+      });
+    }
   }
 }
