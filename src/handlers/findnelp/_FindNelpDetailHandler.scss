@@ -64,7 +64,7 @@
 
         .username-row {
           @include display(flex);
-          @include align-items(center);
+          @include align-items(baseline);
           @include flex-wrap(wrap);
         }
 

@@ -25,19 +25,21 @@ export default class FindNelpHandler extends Component {
   }
 
   render() {
-    let requests = this.props.myTasks.map((r) => {
-      let hasActiveApplications = r.applications.some(a => a.state === 0);
-      let hasNewApplications = r.applications.some(a => a.state === 0 && a.isNew);
-      let hasAcceptedApplication = r.applications.some(a => a.state === 2);
+    let tasks = this.props.myTasks
+    .sort(this._sortTasks)
+    .map((t) => {
+      let hasActiveApplications = t.applications.some(a => a.state === 0);
+      let hasNewApplications = t.applications.some(a => a.state === 0 && a.isNew);
+      let hasAcceptedApplication = t.applications.some(a => a.state === 2);
       return (
-        <div className="task" key={r.objectId} onClick={this._taskDetail.bind(this, r)}>
+        <div className="task" key={t.objectId} onClick={this._taskDetail.bind(this, t)}>
           <div className="new">{hasNewApplications ? 'new!' : ''}</div>
           <div className={classNames(
             'icon',
             {'active': hasActiveApplications},
             {'accepted': hasAcceptedApplication}
           )} />
-          <div className="title">{r.title}</div>
+          <div className="title">{t.title}</div>
         </div>
       );
     });
@@ -55,10 +57,28 @@ export default class FindNelpHandler extends Component {
           </div>
         </div>
         <div className="container pad-all tasks">
-          {requests}
+          {tasks}
         </div>
       </div>
     );
+  }
+
+  /**
+   * Sort tasks with isNew first
+   */
+  _sortTasks(t1, t2) {
+    function hasNew(t) {
+      return t.applications.some(a => a.state === 0 && a.isNew);
+    }
+
+    let [n1, n2] = [hasNew(t1), hasNew(t2)];
+    if(n1 === n2) {
+      return 0;
+    } else if(n1 > n2) {
+      return -1;
+    } else {
+      return 1;
+    }
   }
 
   _addNelpTask() {
