@@ -2,7 +2,7 @@
 
   $color-price-green: #7fae79;
   $category-image-size: 64px;
-  $collapse-image-size: 32px;
+  $collapse-image-size: 26px;
 
   width: 100%;
 
@@ -11,10 +11,16 @@
 
     .header {
       @include display(flex);
-      @include align-items(flex-start);
 
-      > div {
-        margin: 0.5em 1em;
+      .content {
+        @include display(flex);
+        @include align-items(flex-start);
+        @include flex-wrap(wrap);
+        @include flex(1);
+
+        > div {
+          margin: 0.5em 1em;
+        }
       }
 
       .category-icon {
@@ -25,7 +31,7 @@
       }
 
       .title-col {
-        @include flex(1);
+        @include flex-grow(1);
 
         .title {
           font-size: 1.2em;
@@ -59,9 +65,21 @@
       }
 
       .collapse-icon {
+        @include align-self(center);
         width: $collapse-image-size;
         height: $collapse-image-size;
+        margin: 0 1em;
 
+        background-image: url('~images/icons/expand.png');
+        background-size: contain;
+        background-position: center;
+
+        @include transition(transform 250ms ease-in-out);
+        @include transform(rotate(180deg));
+
+        &.collapsed {
+          @include transform(rotate(0deg));
+        }
       }
     }
 

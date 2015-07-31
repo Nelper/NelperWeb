@@ -16,24 +16,26 @@ export default class NelpTaskListView extends Component {
         <div key={t.objectId}
         className="task">
           <div className="header" onClick={() => this._taskDetail(t)}>
-            <div className="category-icon" style={{backgroundImage: `url('${this._getTaskImage(t)}')`}} />
-            <div className="title-col">
-              <div className="title">
-                {t.title}
+            <div className="content">
+              <div className="category-icon" style={{backgroundImage: `url('${this._getTaskImage(t)}')`}} />
+              <div className="title-col">
+                <div className="title">
+                  {t.title}
+                </div>
+                <div className="date">
+                  {moment(t.createdAt).format('MMMM Do YYYY')}
+                </div>
               </div>
-              <div className="date">
-                {moment(t.createdAt).format('MMMM Do YYYY')}
+              <div className="price">
+                {t.priceOffered || 'N/A'}
               </div>
-            </div>
-            <div className="price">
-              {t.priceOffered || 'N/A'}
-            </div>
-            <div className="location-col">
-              <div className="city">
-                Montreal
-              </div>
-              <div className="distance">
-                16 km from me
+              <div className="location-col">
+                <div className="city">
+                  Montreal
+                </div>
+                <div className="distance">
+                  16 km from me
+                </div>
               </div>
             </div>
             <div className={classNames('collapse-icon', {'collapsed': t !== this.state.selectedTask})} />
@@ -42,9 +44,13 @@ export default class NelpTaskListView extends Component {
             'detail',
             {'collapsed': t !== this.state.selectedTask},
           )}>
+            <div>
+
+            </div>
             <div className="desc">
               {t.desc}
             </div>
+
 
           </div>
         </div>
