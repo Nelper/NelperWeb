@@ -75,7 +75,7 @@ class ApiUtils {
   listNelpTasks() {
     return new Parse.Query(NelpTask)
       //.notEqualTo('user', Parse.User.current())
-      //.equalTo('state', NELP_TASK_STATE.PENDING)
+      .equalTo('state', NELP_TASK_STATE.PENDING)
       .descending('createdAt')
       .limit(20)
       .find()
