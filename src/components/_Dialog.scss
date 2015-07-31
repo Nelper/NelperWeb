@@ -1,24 +1,54 @@
 #dialog {
-  @include position(fixed, 0);
-  display: none;
+  @include display(flex);
   @include align-items(center);
   @include justify-content(center);
   z-index: 999999;
+  position: fixed;
+  top: 0;
+  left: -9999px;
+  width: 100%;
+  height: 100%;
 
-  @include transition(opacity 500ms linear);
+  @include transition(opacity 250ms linear);
   opacity: 0;
   background-color: transparentize($color-black, 0.4);
 
   &.opened {
-    @include display(flex);
+    left: 0;
     opacity: 1;
+
+    .content {
+      transform: translateY(0px);
+    }
+  }
+
+  &.closing {
+    left: 0;
+
+    .content {
+      transform: translateY(100px);
+    }
   }
 
   .content {
+    @include outer-container;
+    @include display(flex);
+    @include flex-direction(column);
     background-color: $color-white;
     box-shadow: 0px 2px 16px 2px transparentize($color-black, 0.4);
     border-radius: 3px;
-    width: 90%;
-    min-height: em(250px);
+    min-height: em(200px);
+    padding: 1em;
+
+    @include transition(transform 250ms ease-in-out);
+    transform: translateY(100px);
+
+    .dialog-text {
+      @include flex(1);
+    }
+
+    .dialog-buttons {
+      align-self: flex-end;
+    }
   }
 }
