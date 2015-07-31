@@ -1,0 +1,76 @@
+.nelp-task-list-view {
+
+  $color-price-green: #7fae79;
+  $category-image-size: 64px;
+  $collapse-image-size: 32px;
+
+  width: 100%;
+
+  .task {
+    width: 100%;
+
+    .header {
+      @include display(flex);
+      @include align-items(flex-start);
+
+      > div {
+        margin: 0.5em 1em;
+      }
+
+      .category-icon {
+        width: em($category-image-size);
+        height: em($category-image-size);
+        background-position: center;
+        background-size: contain;
+      }
+
+      .title-col {
+        @include flex(1);
+
+        .title {
+          font-size: 1.2em;
+        }
+
+        .date {
+          font-size: 0.7em;
+
+          @include media($medium-screen) {
+            margin-left: 1rem;
+          }
+        }
+      }
+
+      .price {
+        padding: 0.3em 1em;
+        border-radius: 3px;
+        background-color: $color-price-green;
+        color: $color-white;
+        font-size: 1.1em;
+      }
+
+      .location-col {
+        .city {
+
+        }
+
+        .distance {
+          font-size: 0.7em;
+        }
+      }
+
+      .collapse-icon {
+        width: $collapse-image-size;
+        height: $collapse-image-size;
+
+      }
+    }
+
+    .detail {
+      overflow: hidden;
+
+      &.collapsed {
+        height: 0;
+      }
+    }
+  }
+}

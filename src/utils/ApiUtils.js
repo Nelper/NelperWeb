@@ -90,6 +90,7 @@ class ApiUtils {
               let application = applications.find((a) => a.get('task').id === t.id);
               return {
                 objectId: t.id,
+                createdAt: t.createdAt,
                 title: t.get('title'),
                 desc: t.get('desc'),
                 priceOffered: t.get('priceOffered'),

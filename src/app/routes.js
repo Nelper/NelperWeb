@@ -12,7 +12,6 @@ import LoginHandler from 'handlers/login/LoginHandler';
 import RegisterHandler from 'handlers/login/RegisterHandler';
 
 import NelpHandler from 'handlers/nelp/NelpHandler';
-import NelpDetailHandler from 'handlers/nelp/NelpDetailHandler';
 
 import FindNelpHandler from 'handlers/findnelp/FindNelpHandler';
 import FindNelpAddHandler from 'handlers/findnelp/FindNelpAddHandler';
@@ -38,7 +37,6 @@ export default (
     <Route path="/login" component={LoginHandler} />
     <Route path="/register" component={RegisterHandler} />
     <Route path="/nelp" component={NelpHandler} />
-    <Route path="/nelp/detail/:id" component={NelpDetailHandler} />
     <Route path="/findnelp" component={FindNelpHandler} />
     <Route path="/findnelp/add" component={FindNelpAddHandler} onEnter={requireAuth} />
     <Route path="/findnelp/detail/:id" component={FindNelpDetailHandler} />

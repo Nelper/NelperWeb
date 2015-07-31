@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import NelpActions from 'actions/NelpActions';
 import UserStore from 'stores/UserStore';
 
-export default class NelpTaskDetail extends Component {
+export default class NelpTaskDetailView extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,

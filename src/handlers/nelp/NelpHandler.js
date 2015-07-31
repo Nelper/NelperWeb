@@ -6,8 +6,9 @@ import NelpActions from 'actions/NelpActions';
 import UserActions from 'actions/UserActions';
 import NelpStore from 'stores/NelpStore';
 import UserStore from 'stores/UserStore';
-import NelpTaskDetail from './NelpTaskDetail';
+import NelpTaskDetailView from './NelpTaskDetailView';
 import NelpTaskFilterView from './NelpTaskFilterView';
+import NelpTaskListView from './NelpTaskListView';
 import MapView from './MapView';
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
@@ -83,15 +84,6 @@ export default class NelpHandler extends Component {
     let filteredTasks = taskFilter ?
       taskGroups[this.state.taskFilter] :
       this.props.tasks;
-    let displayedTasks = filteredTasks.map((t) => {
-      return (
-        <div key={t.objectId}
-        className="task"
-        onClick={this._taskDetail.bind(this, t)}>
-          {t.title}
-        </div>
-      );
-    });
 
     let pos = UserStore.state.user && UserStore.state.user.location;
     let center = pos ?
@@ -113,7 +105,7 @@ export default class NelpHandler extends Component {
           {
             selectedTask ?
             <div className="container pad-all">
-              <NelpTaskDetail
+              <NelpTaskDetailView
                   task={selectedTask}
                   onClose={::this._closeDetail} />
             </div> :
@@ -126,9 +118,7 @@ export default class NelpHandler extends Component {
             </div>
           </div>
           <div className="container pad-all">
-            <div className="tasks">
-              {displayedTasks}
-            </div>
+            <NelpTaskListView tasks={filteredTasks} />
           </div>
         </div>
       </div>
