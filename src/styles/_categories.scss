@@ -1,0 +1,25 @@
+$color-technology: #f7cc39;
+$color-housecleaning: #997dd9;
+$color-handywork: #4498d3;
+$color-gardening: #29b473;
+$color-cooking: #f0595a;
+
+.category-bg-technology {
+  background-color: lighten($color-technology, 15%);
+}
+
+.category-bg-housecleaning {
+  background-color: lighten($color-housecleaning, 20%);
+}
+
+.category-bg-handywork {
+  background-color: lighten($color-handywork, 30%);
+}
+
+.category-bg-gardening {
+  background-color: lighten($color-gardening, 30%);
+}
+
+.category-bg-cooking {
+  background-color: lighten($color-cooking, 25%);
+}

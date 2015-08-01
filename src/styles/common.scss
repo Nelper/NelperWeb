@@ -3,40 +3,30 @@
   src: url('~styles/fonts/Railway.otf');
 }
 
-// Gotta use relative paths here otherwise hot reload doesnt work :(
-//https://github.com/jtangelder/sass-loader/issues/107
 @import "bourbon";
-
-// Gotta import everything individually here too for hot reload to work :/
-//@import "base/base";
-@import "./base/variables";
-@import "./base/grid-settings";
-@import "./base/buttons";
-@import "./base/forms";
-@import "./base/lists";
-@import "./base/tables";
-@import "./base/typography";
-
+@import "base/base";
 @import "neat";
 
 @import "./layout";
+@import "./categories";
 
-@import "../components/NavBar.scss";
-@import "../components/Rating.scss";
-@import "../components/Progress.scss";
-@import "../components/Dialog.scss";
+@import "components/NavBar";
+@import "components/Rating";
+@import "components/Progress";
+@import "components/Dialog";
 
-@import "../handlers/nelp/NelpHandler.scss";
-@import "../handlers/nelp/NelpTaskDetail.scss";
-@import "../handlers/nelp/NelpTaskFilterView.scss";
-@import "../handlers/nelp/NelpTaskListView.scss";
+@import "handlers/nelp/NelpHandler";
+@import "handlers/nelp/NelpTaskDetail";
+@import "handlers/nelp/NelpTaskFilterView";
+@import "handlers/nelp/NelpTaskListView";
 
-@import "../handlers/findnelp/FindNelpHandler.scss";
-@import "../handlers/findnelp/FindNelpAddHandler.scss";
-@import "../handlers/findnelp/FindNelpDetailHandler.scss";
+@import "handlers/findnelp/FindNelpHandler";
+@import "handlers/findnelp/FindNelpAddHandler";
+@import "handlers/findnelp/FindNelpDetailHandler";
+@import "handlers/findnelp/FindNelpCardView";
 
-@import "../handlers/profile/ProfileHandler.scss";
+@import "handlers/profile/ProfileHandler";
 
-@import "../handlers/login/login-common.scss";
-@import "../handlers/login/LoginHandler.scss";
-@import "../handlers/login/RegisterHandler.scss";
+@import "handlers/login/login-common";
+@import "handlers/login/LoginHandler";
+@import "handlers/login/RegisterHandler";

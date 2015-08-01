@@ -1,0 +1,72 @@
+.find-nelp-card-view {
+  @include flex-basis(50em / 3);
+  @include flex-grow(1);
+  height: em(300px);
+  margin: 2em;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  border: 1px solid $color-gray-light;
+  border-radius: 3px;
+
+  .card-hover {
+    @include position(absolute, 0);
+    background-color: $color-black;
+    @include transition(opacity 250ms linear);
+    opacity: 0;
+
+    &:hover {
+      opacity: 0.2;
+    }
+  }
+
+  .card-image {
+    height: em(125px);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+
+    .image-overlay {
+      @include position(absolute, 0);
+      background-color: $color-black;
+      opacity: 0.4;
+    }
+
+    .category {
+      @include display(flex);
+      @include align-items(center);
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0.5rem;
+
+      .icon {
+        width: rem(32px);
+        height: rem(32px);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      .name {
+        margin-left: 0.5rem;
+        color: $color-white;
+      }
+    }
+  }
+
+  .card-content {
+
+    padding: 0.5em;
+
+    .title {
+      font-size: 1.2em;
+      @include ellipsis();
+    }
+
+    .desc {
+
+    }
+  }
+}

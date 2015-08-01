@@ -34,38 +34,8 @@
 
   .tasks {
     @include display(flex);
-    @include flex-direction(column);
-
-    .task {
-      @include display(flex);
-      padding: 1em;
-      cursor: pointer;
-
-      .new {
-        width: 3em;
-        color: $color-nelp-orange;
-      }
-
-      .icon {
-        width: 1.5em;
-        height: 1.5em;
-        margin-right: 1em;
-        background-image: url('~images/icons/info.png');
-        background-size: cover;
-
-        &.active {
-          background-image: url('~images/icons/info-active.png');
-        }
-
-        &.accepted {
-          background-image: url('~images/icons/accepted-green.png');
-        }
-      }
-
-      .title {
-
-      }
-    }
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
   }
 
 }

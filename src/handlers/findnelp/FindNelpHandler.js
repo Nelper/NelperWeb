@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
-import classNames from 'classnames';
 
+import FindNelpCardView from './FindNelpCardView';
 import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
 
@@ -28,25 +28,14 @@ export default class FindNelpHandler extends Component {
     let tasks = this.props.myTasks
     .sort(this._sortTasks)
     .map((t) => {
-      let hasActiveApplications = t.applications.some(a => a.state === 0);
-      let hasNewApplications = t.applications.some(a => a.state === 0 && a.isNew);
-      let hasAcceptedApplication = t.applications.some(a => a.state === 2);
       return (
-        <div className="task" key={t.objectId} onClick={this._taskDetail.bind(this, t)}>
-          <div className="new">{hasNewApplications ? 'new!' : ''}</div>
-          <div className={classNames(
-            'icon',
-            {'active': hasActiveApplications},
-            {'accepted': hasAcceptedApplication}
-          )} />
-          <div className="title">{t.title}</div>
-        </div>
+        <FindNelpCardView task={t} onClick={() => this._taskDetail(t)} />
       );
     });
     return (
       <div id="find-nelp-handler">
         <div className="header-section">
-          <div className="add-task" onClick={this._addNelpTask.bind(this)}>
+          <div className="add-task" onClick={::this._addNelpTask}>
             <img className="add-image" src={require('images/plus-512-white.png')} />
             <h2 className="add-title">Ask for Nelp!</h2>
           </div>

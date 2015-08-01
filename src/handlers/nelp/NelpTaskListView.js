@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
 
+import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+
 export default class NelpTaskListView extends Component {
 
   state = {
@@ -19,7 +21,7 @@ export default class NelpTaskListView extends Component {
         )}>
           <div className="header" onClick={() => this._taskDetail(t)}>
             <div className="content">
-              <div className="category-icon" style={{backgroundImage: `url('${this._getTaskImage(t)}')`}} />
+              <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(t)}')`}} />
               <div className="title-col">
                 <div className="title">
                   {t.title}
@@ -63,15 +65,6 @@ export default class NelpTaskListView extends Component {
         {displayedTasks}
       </div>
     );
-  }
-
-  _getTaskImage(task) {
-    if(!task.category) {
-      let categories = ['technology', 'housecleaning', 'handywork', 'gardening', 'cooking'];
-      task.category = categories[Math.floor(Math.random() * 1000) % categories.length];
-    }
-
-    return require(`images/icons/category-${task.category}.png`);
   }
 
   _taskDetail(task) {

@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
-import classNames from 'classnames';
 
 import NelpActions from 'actions/NelpActions';
 import UserActions from 'actions/UserActions';
 import NelpStore from 'stores/NelpStore';
 import UserStore from 'stores/UserStore';
-import NelpTaskDetailView from './NelpTaskDetailView';
 import NelpTaskFilterView from './NelpTaskFilterView';
 import NelpTaskListView from './NelpTaskListView';
 import MapView from './MapView';
