@@ -28,8 +28,10 @@ module.exports = merge(shared.config, {
       loader: 'svg-inline',
     }, {
       test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192',
-    },
-  ]},
+    }, {
+      test: /\.json$/,
+      loader: 'json-loader',
+    }]},
   plugins: [
     new ExtractTextPlugin('styles.css'),
     new webpack.DefinePlugin({

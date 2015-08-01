@@ -21,6 +21,7 @@ export default class NelpTaskListView extends Component {
     let {tasks} = this.props;
 
     let displayedTasks = tasks.map((t) => {
+      TaskCategoryUtils.setRandomCategory(t);
       return (
         <div key={t.objectId} className={classNames(
           'task',
@@ -29,7 +30,7 @@ export default class NelpTaskListView extends Component {
           <div className="header" onClick={() => this._taskDetail(t)}>
             <div className="content">
               <div className="user-picture" style={{backgroundImage: `url('${t.user.pictureURL}')`}}>
-                <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(t)}')`}} />
+                <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(t.category)}')`}} />
               </div>
               <div className="title-col">
                 <div className="title">

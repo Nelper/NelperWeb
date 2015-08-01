@@ -1,50 +1,73 @@
+import Color from 'color';
+
+const colors = {
+  yellow: '#f7cc39',
+  purple: '#997dd9',
+  blue: '#4498d3',
+  green: '#29b473',
+  pink: '#f0595a',
+};
+
 export default class TaskCategoryUtils {
 
   static _categories = {
     'technology': {
-      color: '#f7cc39',
+      color: colors.yellow,
+      colorLight: Color(colors.yellow).lighten(0.5),
+      colorDark: Color(colors.yellow).darken(0.5),
       name: 'Technology',
     },
     'housecleaning': {
-      color: '#997dd9',
-      name: 'Housecleaning',
+      color: colors.purple,
+      colorLight: Color(colors.purple).lighten(0.5),
+      colorDark: Color(colors.purple).darken(0.5),
+      name: 'Cleaning',
     },
     'handywork': {
-      color: '#4498d3',
+      color: colors.blue,
+      colorLight: Color(colors.blue).lighten(0.5),
+      colorDark: Color(colors.blue).darken(0.5),
       name: 'Handywork',
     },
     'gardening': {
-      color: '#29b473',
+      color: colors.green,
+      colorLight: Color(colors.green).lighten(0.5),
+      colorDark: Color(colors.green).darken(0.5),
       name: 'Gardening',
     },
     'cooking': {
-      color: '#f0595a',
+      color: colors.pink,
+      colorLight: Color(colors.pink).lighten(0.5),
+      colorDark: Color(colors.pink).darken(0.5),
       name: 'Cooking',
     },
   }
 
-  static getId(task) {
-    this._setRandomCategory(task);
-    return task.category;
+  static list() {
+    return Object.keys(this._categories);
   }
 
-  static getImage(task) {
-    this._setRandomCategory(task);
-
-    return require(`images/icons/category-${task.category}.png`);
+  static getImage(category) {
+    return require(`images/icons/category-${category}.png`);
   }
 
-  static getColor(task) {
-    this._setRandomCategory(task);
-    return this._categories[task.category].color;
+  static getColor(category) {
+    return this._categories[category].color;
   }
 
-  static getName(task) {
-    this._setRandomCategory(task);
-    return this._categories[task.category].name;
+  static getDarkColor(category) {
+    return this._categories[category].colorDark;
   }
 
-  static _setRandomCategory(task) {
+  static getLightColor(category) {
+    return this._categories[category].colorLight;
+  }
+
+  static getName(category) {
+    return this._categories[category].name;
+  }
+
+  static setRandomCategory(task) {
     if(!task.category) {
       let categories = Object.keys(this._categories);
       task.category = categories[Math.floor(Math.random() * 1000) % categories.length];

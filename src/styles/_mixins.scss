@@ -1,0 +1,13 @@
+@mixin image($width, $height) {
+  width: $width;
+  height: $height;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@mixin image-fill {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: fill;
+}

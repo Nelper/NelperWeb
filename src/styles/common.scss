@@ -3,6 +3,8 @@
   src: url('~styles/fonts/Railway.otf');
 }
 
+@import "./mixins";
+
 @import "bourbon";
 @import "base/base";
 @import "neat";

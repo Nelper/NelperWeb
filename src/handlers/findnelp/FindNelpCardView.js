@@ -12,17 +12,17 @@ export default class FindNelpCardView extends Component {
 
   render() {
     let {task, onClick} = this.props;
-
+    TaskCategoryUtils.setRandomCategory(task);
     return (
       <div
-          className={classNames('find-nelp-card-view', 'category-bg-' + TaskCategoryUtils.getId(task))}
+          className={classNames('find-nelp-card-view', 'category-bg-' + task.category)}
           onClick={onClick}>
         <div className="card-image" style={{backgroundImage: `url('http://www.dlink.com/-/media/Images/Products/DSR/500N/2%20DSR500NA1Image%20LSide.png')`}}>
           <div className="image-overlay" />
           <div className="category">
-            <div className="icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task)}')`}} />
+            <div className="icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
             <div className="name">
-              {TaskCategoryUtils.getName(task)}
+              {TaskCategoryUtils.getName(task.category)}
             </div>
           </div>
         </div>

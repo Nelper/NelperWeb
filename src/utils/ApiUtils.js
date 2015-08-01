@@ -93,6 +93,7 @@ class ApiUtils {
                 objectId: t.id,
                 createdAt: t.createdAt,
                 title: t.get('title'),
+                category: t.get('category'),
                 desc: t.get('desc'),
                 priceOffered: t.get('priceOffered'),
                 state: t.get('state'),
@@ -127,6 +128,7 @@ class ApiUtils {
               let task = {
                 objectId: t.id,
                 title: t.get('title'),
+                category: t.get('category'),
                 desc: t.get('desc'),
                 priceOffered: t.get('priceOffered'),
                 location: t.get('location'),
@@ -151,6 +153,7 @@ class ApiUtils {
   addTask(task) {
     let parseTask = new NelpTask();
     parseTask.set('title', task.title);
+    parseTask.set('category', task.category);
     parseTask.set('desc', task.desc);
     parseTask.set('priceOffered', task.priceOffered);
     parseTask.set('state', task.state);
