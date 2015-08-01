@@ -122,6 +122,15 @@
         }
 
         .desc {
+
+          margin-bottom: 1rem;
+
+          @include media($medium-screen) {
+            margin-left: 2rem;
+          }
+        }
+
+        .controls {
           @include media($medium-screen) {
             margin-left: 2rem;
           }

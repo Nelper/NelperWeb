@@ -1,10 +1,17 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
 
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 export default class NelpTaskListView extends Component {
+
+  static propTypes = {
+    onTaskSelected: PropTypes.func,
+    onApply: PropTypes.func,
+    onCancelApply: PropTypes.func,
+  }
 
   state = {
     selectedTask: null,
@@ -52,6 +59,18 @@ export default class NelpTaskListView extends Component {
               <div className="desc">
                 {t.desc}
               </div>
+              <div className="btn-group controls">
+                {
+                  t.application && t.application.state === NELP_TASK_APPLICATION_STATE.PENDING ?
+                  <button className="primary" onClick={() => this._cancelApplication(t)}>
+                    Cancel application
+                  </button> :
+                  <button className="primary" onClick={() => this._apply(t)}>
+                    Apply!
+                  </button>
+                }
+                <button className="blue">Make an offer</button>
+              </div>
             </div>
             <div className="task-image" style={{backgroundImage: `url('http://www.dlink.com/-/media/Images/Products/DSR/500N/2%20DSR500NA1Image%20LSide.png')`}} />
           </div>
@@ -77,6 +96,18 @@ export default class NelpTaskListView extends Component {
 
     if(this.props.onTaskSelected) {
       this.props.onTaskSelected.call(null, task);
+    }
+  }
+
+  _apply(task) {
+    if(this.props.onApply) {
+      this.props.onApply.call(null, task);
+    }
+  }
+
+  _cancelApplication(task) {
+    if(this.props.onCancelApply) {
+      this.props.onCancelApply.call(null, task);
     }
   }
 }

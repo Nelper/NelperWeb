@@ -16,10 +16,12 @@ class NelpActions {
 
   applyForTask(task) {
     ApiUtils.applyForTask(task);
+    return task;
   }
 
   cancelApplyForTask(task) {
     ApiUtils.cancelApplyForTask(task);
+    return task;
   }
 }
 

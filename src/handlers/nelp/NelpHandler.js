@@ -27,8 +27,6 @@ export default class NelpHandler extends Component {
 
   state = {
     taskFilter: null,
-    selectedTask: null,
-    taskCollapsed: true,
   }
 
   componentDidMount() {
@@ -52,7 +50,7 @@ export default class NelpHandler extends Component {
   }
 
   render() {
-    let {taskFilter, selectedTask, taskCollapsed} = this.state;
+    let {taskFilter} = this.state;
 
     let taskGroups = this.props.tasks
       .filter(t => t.location)
@@ -104,7 +102,11 @@ export default class NelpHandler extends Component {
             </div>
           </div>
           <div className="container pad-all">
-            <NelpTaskListView tasks={filteredTasks} />
+            <NelpTaskListView
+              tasks={filteredTasks}
+              onTaskSelected={::this._onTaskSelected}
+              onApply={::this._onApply}
+              onCancelApply={::this._onCancelApply} />
           </div>
         </div>
       </div>
@@ -128,20 +130,26 @@ export default class NelpHandler extends Component {
     });
   }
 
-  _taskDetail(task) {
-    this.setState({
-      taskCollapsed: false,
-      selectedTask: task,
-    });
-    this.refs.taskScroll.getDOMNode().scrollTop = 0;
+  _onTaskSelected(task) {
     if(task.location) {
       this.refs.map.panTo(new GoogleMapsUtils.LatLng(
         task.location.latitude,
         task.location.longitude,
       ));
     }
+  }
 
-    //this.context.router.transitionTo('/nelp/detail/' + task.objectId);
+  _onApply(task) {
+    // Make sure the user is logged to apply on a task.
+    if(!UserStore.state.user) {
+      this.context.router.transitionTo('/login', null, { nextPathname: '/nelp' });
+      return;
+    }
+    NelpActions.applyForTask(task);
+  }
+
+  _onCancelApply(task) {
+    NelpActions.cancelApplyForTask(task);
   }
 
   _closeDetail() {
