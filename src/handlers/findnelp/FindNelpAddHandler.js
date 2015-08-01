@@ -38,7 +38,7 @@ export default class FindNelpAddHandler extends Component {
           value={this.state.priceOffered}
           placeholder='amount'
           onChange={this._onPriceOfferedChanged.bind(this)} />
-        <h3>Enter your Postal Code</h3>
+        <h3>Location</h3>
         <input
           type='text'
           value={this.state.postalCode}

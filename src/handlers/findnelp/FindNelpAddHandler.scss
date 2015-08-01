@@ -4,6 +4,7 @@
   }
 
   .categories {
+    width: 100%;
     @include display(flex);
     @include flex-wrap(wrap);
 

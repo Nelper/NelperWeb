@@ -21,13 +21,16 @@ export default class NelpTaskListView extends Component {
         )}>
           <div className="header" onClick={() => this._taskDetail(t)}>
             <div className="content">
-              <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(t)}')`}} />
+              <div className="user-picture" style={{backgroundImage: `url('${t.user.pictureURL}')`}}>
+                <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(t)}')`}} />
+              </div>
               <div className="title-col">
                 <div className="title">
                   {t.title}
                 </div>
+                <div className="user-name">By {t.user.name}</div>
                 <div className="date">
-                  {moment(t.createdAt).format('MMMM Do YYYY')}
+                  Created {moment(t.createdAt).fromNow()}
                 </div>
               </div>
               <div className="price">
@@ -38,7 +41,7 @@ export default class NelpTaskListView extends Component {
                   Montreal
                 </div>
                 <div className="distance">
-                  16 km from me
+                  16 km from you
                 </div>
               </div>
             </div>
@@ -46,10 +49,6 @@ export default class NelpTaskListView extends Component {
           </div>
           <div className="detail">
             <div className="desc-col">
-              <div className="user-row">
-                <div className="user-picture" style={{backgroundImage: `url('${t.user.pictureURL}')`}} />
-                <div className="user-name">{t.user.name}</div>
-              </div>
               <div className="desc">
                 {t.desc}
               </div>

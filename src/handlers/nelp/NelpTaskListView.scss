@@ -1,7 +1,8 @@
 .nelp-task-list-view {
 
   $color-price-green: #7fae79;
-  $category-image-size: 64px;
+  $user-image-size: 86px;
+  $category-image-size: 38px;
   $collapse-image-size: 26px;
   $list-items-padding: 1rem;
 
@@ -27,11 +28,29 @@
         }
       }
 
-      .category-icon {
-        width: em($category-image-size);
-        height: em($category-image-size);
+      .user-picture {
+        width: rem($user-image-size);
+        height: rem($user-image-size);
+        position: relative;
+
         background-position: center;
-        background-size: contain;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%;
+        border: 1px solid $color-black;
+
+        .category-icon {
+          width: rem($category-image-size);
+          height: rem($category-image-size);
+          position: absolute;
+          bottom: rem(-5px);
+          right: rem(-5px);
+
+          border-radius: 50%;
+          border: 1px solid $color-black;
+          background-position: center;
+          background-size: contain;
+        }
       }
 
       .title-col {
@@ -41,11 +60,19 @@
           font-size: 1.2em;
         }
 
+        .user-name {
+          font-size: 0.9em;
+
+          @include media($medium-screen) {
+            margin-left: 2rem;
+          }
+        }
+
         .date {
           font-size: 0.7em;
 
           @include media($medium-screen) {
-            margin-left: 1rem;
+            margin-left: 2rem;
           }
         }
       }
@@ -80,7 +107,7 @@
 
       @include media($medium-screen) {
         @include flex-direction(row);
-        margin-left: rem(112px);
+        margin-left: rem(132px);
       }
 
       .desc-col {
@@ -92,26 +119,11 @@
           @include display(flex);
           @include align-items(center);
           margin-bottom: 0.5rem;
-
-          .user-picture {
-            width: rem(46px);
-            height: rem(46px);
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            border-radius: 50%;
-            border: 1px solid $color-black;
-          }
-
-          .user-name {
-            margin-left: 0.5rem;
-            font-size: 1.2em;
-          }
         }
 
         .desc {
           @include media($medium-screen) {
-            margin-left: rem(52px);
+            margin-left: 2rem;
           }
         }
       }
