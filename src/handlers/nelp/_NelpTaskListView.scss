@@ -3,23 +3,27 @@
   $color-price-green: #7fae79;
   $category-image-size: 64px;
   $collapse-image-size: 26px;
+  $list-items-padding: 1rem;
 
   width: 100%;
 
   .task {
     width: 100%;
+    border-bottom: 1px solid $color-gray-light;
+    padding: $list-items-padding;
 
     .header {
       @include display(flex);
+      cursor: pointer;
 
       .content {
         @include display(flex);
-        @include align-items(flex-start);
+        @include align-items(center);
         @include flex-wrap(wrap);
         @include flex(1);
 
         > div {
-          margin: 0.5em 1em;
+          margin: 0.5rem 1rem;
         }
       }
 
@@ -47,7 +51,7 @@
       }
 
       .price {
-        padding: 0.3em 1em;
+        padding: 0.3rem 1rem;
         border-radius: 3px;
         background-color: $color-price-green;
         color: $color-white;
@@ -63,31 +67,90 @@
           font-size: 0.7em;
         }
       }
-
-      .collapse-icon {
-        @include align-self(center);
-        width: $collapse-image-size;
-        height: $collapse-image-size;
-        margin: 0 1em;
-
-        background-image: url('~images/icons/expand.png');
-        background-size: contain;
-        background-position: center;
-
-        @include transition(transform 250ms ease-in-out);
-        @include transform(rotate(180deg));
-
-        &.collapsed {
-          @include transform(rotate(0deg));
-        }
-      }
     }
 
     .detail {
+      @include display(flex);
+      @include flex-direction(column);
       overflow: hidden;
+      @include transition(max-height 300ms ease-in-out);
+      max-height: 500px;
+      margin-left: 1rem;
+      margin-right: rem(58px);
 
-      &.collapsed {
-        height: 0;
+      @include media($medium-screen) {
+        @include flex-direction(row);
+        margin-left: rem(112px);
+      }
+
+      .desc-col {
+        @include flex(1);
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+
+        .user-row {
+          @include display(flex);
+          @include align-items(center);
+          margin-bottom: 0.5rem;
+
+          .user-picture {
+            width: rem(46px);
+            height: rem(46px);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 50%;
+            border: 1px solid $color-black;
+          }
+
+          .user-name {
+            margin-left: 0.5rem;
+            font-size: 1.2em;
+          }
+        }
+
+        .desc {
+          @include media($medium-screen) {
+            margin-left: rem(52px);
+          }
+        }
+      }
+
+      .task-image {
+        width: rem(200px);
+        height: rem(125px);
+        margin-bottom: 1rem;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: $color-gray-light;
+        border: 2px solid $color-gray-medium;
+        border-radius: 3px;
+      }
+    }
+
+    .collapse-icon {
+      @include align-self(center);
+      width: rem($collapse-image-size);
+      height: rem($collapse-image-size);
+      margin: 0 1rem;
+
+      background-image: url('~images/icons/expand.png');
+      background-size: contain;
+      background-position: center;
+
+      @include transition(transform 250ms ease-in-out);
+      @include transform(rotate(180deg));
+    }
+
+    &.collapsed {
+
+      .detail {
+        max-height: 0;
+      }
+
+      .collapse-icon {
+        @include transform(rotate(0deg));
       }
     }
   }

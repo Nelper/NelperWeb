@@ -22,24 +22,6 @@
   .task-section {
     @include flex(1.3);
     overflow: auto;
-
-    .section-separator {
-      position: fixed;
-      width: 100%;
-    }
-  }
-
-  .task {
-    padding: 1rem;
-    cursor: pointer;
-  }
-
-  .task-detail {
-    overflow: hidden;
-
-    &.collapsed {
-      height: 0;
-    }
   }
 
   .filters {

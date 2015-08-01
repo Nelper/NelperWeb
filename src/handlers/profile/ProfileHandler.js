@@ -64,6 +64,6 @@ export default class ProfileHandler extends Component {
 
   _logout() {
     UserActions.logout();
-    this.context.router.transitionTo('/login');
+    this.context.router.transitionTo('/');
   }
 }

@@ -74,6 +74,7 @@ class ApiUtils {
 
   listNelpTasks() {
     return new Parse.Query(NelpTask)
+      .include('user')
       //.notEqualTo('user', Parse.User.current())
       .equalTo('state', NELP_TASK_STATE.PENDING)
       .descending('createdAt')
@@ -96,6 +97,7 @@ class ApiUtils {
                 priceOffered: t.get('priceOffered'),
                 state: t.get('state'),
                 location: t.get('location'),
+                user: t.get('user').toJSON(),
                 application: application && application.toJSON(),
               };
             });

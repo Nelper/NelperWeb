@@ -100,18 +100,6 @@ export default class NelpHandler extends Component {
           </div>
         </div>
         <div className="task-section" ref="taskScroll">
-          <div className="section-separator" />
-          <div className={classNames('task-detail', {'collapsed': taskCollapsed})}>
-          {
-            selectedTask ?
-            <div className="container pad-all">
-              <NelpTaskDetailView
-                  task={selectedTask}
-                  onClose={::this._closeDetail} />
-            </div> :
-            null
-          }
-          </div>
           <div className="filters">
             <div className="container pad-hor">
               <NelpTaskFilterView onFilterChanged={::this._onFilterChanged} />

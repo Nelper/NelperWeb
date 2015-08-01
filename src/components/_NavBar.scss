@@ -39,7 +39,6 @@ header.navbar {
     color: $color-white;
     font-weight: 400;
     font-size: 1.4em;
-    cursor: pointer;
 
     img {
       max-height: $navigation-height;
@@ -52,7 +51,6 @@ header.navbar {
   // Mobile view
 
   .navbar-menu-button {
-    color: $navigation-color;
     display: block;
     float: right;
     font-weight: 700;
@@ -60,16 +58,17 @@ header.navbar {
     margin: 0;
     padding-right: 1em;
     padding-left: 1em;
-    text-transform: uppercase;
-    cursor: pointer;
 
-    @include media ($horizontal-bar-mode) {
-      display: none;
-    }
+    color: $navigation-color;
+    text-transform: uppercase;
 
     &:focus,
     &:hover {
       color: $navigation-color-hover;
+    }
+
+    @include media ($horizontal-bar-mode) {
+      display: none;
     }
   }
 
@@ -106,29 +105,35 @@ header.navbar {
 
   // The nav items
   ul li.nav-link {
+    @include display(flex);
     @include flex-shrink(0);
     background: $navigation-background;
     line-height: $navigation-height;
     overflow: hidden;
-    padding-right: 0.8em;
+
     text-align: right;
-    width: 100%;
     z-index: 9999;
 
     @include media ($horizontal-bar-mode) {
-      width: auto;
-      padding: 0 1em;
       background: transparent;
     }
 
-    color: $navigation-color;
-    font-weight: 400;
-    cursor: pointer;
+    a {
+      @include flex(1);
+      padding-right: 0.8em;
+      color: $navigation-color;
+      font-weight: 400;
 
-    &:focus,
-    &:hover {
-      color: $navigation-color-hover;
+      &:focus,
+      &:hover {
+        color: $navigation-color-hover;
+      }
+
+      @include media ($horizontal-bar-mode) {
+        padding: 0 1em;
+      }
     }
+
 
     &.active {
       background-color: darken($navigation-background, 10);

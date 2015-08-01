@@ -13,8 +13,10 @@ export default class NelpTaskListView extends Component {
 
     let displayedTasks = tasks.map((t) => {
       return (
-        <div key={t.objectId}
-        className="task">
+        <div key={t.objectId} className={classNames(
+          'task',
+          {'collapsed': t !== this.state.selectedTask},
+        )}>
           <div className="header" onClick={() => this._taskDetail(t)}>
             <div className="content">
               <div className="category-icon" style={{backgroundImage: `url('${this._getTaskImage(t)}')`}} />
@@ -38,20 +40,19 @@ export default class NelpTaskListView extends Component {
                 </div>
               </div>
             </div>
-            <div className={classNames('collapse-icon', {'collapsed': t !== this.state.selectedTask})} />
+            <div className="collapse-icon" />
           </div>
-          <div className={classNames(
-            'detail',
-            {'collapsed': t !== this.state.selectedTask},
-          )}>
-            <div>
-
+          <div className="detail">
+            <div className="desc-col">
+              <div className="user-row">
+                <div className="user-picture" style={{backgroundImage: `url('${t.user.pictureURL}')`}} />
+                <div className="user-name">{t.user.name}</div>
+              </div>
+              <div className="desc">
+                {t.desc}
+              </div>
             </div>
-            <div className="desc">
-              {t.desc}
-            </div>
-
-
+            <div className="task-image" style={{backgroundImage: `url('http://www.dlink.com/-/media/Images/Products/DSR/500N/2%20DSR500NA1Image%20LSide.png')`}} />
           </div>
         </div>
       );
@@ -65,12 +66,12 @@ export default class NelpTaskListView extends Component {
   }
 
   _getTaskImage(task) {
-    if(task.category) {
-      return require(`images/icons/category-${task.category}.png`);
+    if(!task.category) {
+      let categories = ['technology', 'housecleaning', 'handywork', 'gardening', 'cooking'];
+      task.category = categories[Math.floor(Math.random() * 1000) % categories.length];
     }
-    let categories = ['technology', 'housecleaning', 'handywork', 'gardening', 'cooking'];
-    let index = Math.floor(Math.random() * 1000) % categories.length;
-    return require(`images/icons/category-${categories[index]}.png`);
+
+    return require(`images/icons/category-${task.category}.png`);
   }
 
   _taskDetail(task) {

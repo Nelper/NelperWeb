@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 import {Spring} from 'react-motion';
 
 export default class NavBar extends Component {
@@ -29,10 +30,12 @@ export default class NavBar extends Component {
     return (
       <header className="navbar" role="banner">
         <div className="navbar-wrapper">
-          <div className="logo" onClick={::this._goHome}>
-            <img src={require('images/logo-nobg-sm.png')}/>
-            <span>Nelper</span>
-          </div>
+          <Link to="/">
+            <div className="logo">
+              <img src={require('images/logo-nobg-sm.png')}/>
+              <span>Nelper</span>
+            </div>
+          </Link>
           <div className="navbar-menu-button" onClick={this._toggleMenu.bind(this)}>MENU</div>
           <nav role="navigation">
           <Spring endValue={{val: this.state.collapsed ? 0 : menuItems.length * NAVBAR_ITEM_HEIGHT}}>
@@ -51,10 +54,6 @@ export default class NavBar extends Component {
     );
   }
 
-  _goHome() {
-    this.context.router.transitionTo('/');
-  }
-
   _toggleMenu() {
     this.setState({
       collapsed: !this.state.collapsed,
@@ -66,9 +65,10 @@ export default class NavBar extends Component {
     return (
       <li
         className={'nav-link' + (active ? ' active' : '')}
-        key={key}
-        onClick={this._onActive.bind(this, href)}>
-        {title}
+        key={key}>
+        <Link to={href}>
+          {title}
+        </Link>
       </li>
     );
   }
