@@ -94,10 +94,18 @@
   .price {
     @include display(flex);
     @include align-items(center);
+    position: relative;
 
     .currency {
+      position: absolute;
+      top: rem(3px);
+      left: rem(12px);
       font-size: 1.5em;
       margin-right: 0.5rem;
+    }
+
+    input {
+      padding-left: rem(25px);
     }
   }
 

@@ -31,6 +31,8 @@ class UserActions {
     ApiUtils.loginWithFacebook()
       .then((user) => {
         this.actions.receivedUser(user);
+      }).catch(err => {
+        console.log(err);
       });
   }
 
@@ -41,6 +43,11 @@ class UserActions {
 
   setLocation(loc) {
     ApiUtils.setUserLocation(loc);
+    return loc;
+  }
+
+  addLocation(loc) {
+    ApiUtils.addUserLocation(loc);
     return loc;
   }
 

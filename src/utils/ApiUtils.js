@@ -1,16 +1,17 @@
 import {Parse} from 'parse';
 
+import './ParsePatches';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
-const NelpTask = new Parse.Object.extend({className: 'NelpTask'});
-
-const NelpTaskApplication = new Parse.Object.extend({className: 'NelpTaskApplication'});
+const NelpTask = Parse.Object.extend({className: 'NelpTask'});
+const NelpTaskApplication = Parse.Object.extend({className: 'NelpTaskApplication'});
+const UserPrivateData = Parse.Object.extend({className: 'UserPrivateData'});
 
 class ApiUtils {
 
   login(email, password) {
     return Parse.User.logIn(email, password)
-      .then(u => u.toJSON());
+      .then(this._userFromParse);
   }
 
   register(email, password, name) {
@@ -19,8 +20,9 @@ class ApiUtils {
     user.set('email', email);
     user.set('password', password);
     user.set('name', name);
+    this._createUserPrivate(user);
     return user.signUp()
-      .then(u => u.toJSON());
+      .then(this._userFromParse);
   }
 
   loginWithFacebook() {
@@ -38,8 +40,11 @@ class ApiUtils {
         .then((fbUser) => {
           user.set('name', fbUser.name);
           user.set('pictureURL', fbUser.picture.data.url);
+          if(!user.get('privateData')) {
+            this._createUserPrivate(user);
+          }
           user.save();
-          return user.toJSON();
+          return this._userFromParse(user);
         });
     });
   }
@@ -58,7 +63,10 @@ class ApiUtils {
 
   updateUser() {
     return Parse.User.current().fetch()
-      .then((user) => user.toJSON());
+      .then((user) => {
+        return user.get('privateData').fetch();
+      })
+      .then(() => this._userFromParse(Parse.User.current()));
   }
 
   setUserLocation(loc) {
@@ -66,6 +74,12 @@ class ApiUtils {
     let user = Parse.User.current();
     user.set('location', pt);
     user.save();
+  }
+
+  addUserLocation(loc) {
+    let privateData = Parse.User.current().get('privateData');
+    privateData.add('locations', loc);
+    privateData.save();
   }
 
   logout() {
@@ -98,8 +112,8 @@ class ApiUtils {
                 priceOffered: t.get('priceOffered'),
                 state: t.get('state'),
                 location: t.get('location'),
-                user: t.get('user').toJSON(),
-                application: application && application.toJSON(),
+                user: t.get('user').toPlainObject(),
+                application: application && application.toPlainObject(),
               };
             });
           });
@@ -140,7 +154,7 @@ class ApiUtils {
                   createdAt: a.createdAt,
                   isNew: a.get('isNew'),
                   state: a.get('state'),
-                  user: a.get('user').toJSON(),
+                  user: a.get('user').toPlainObject(),
                   task: task,
                 };
               });
@@ -177,7 +191,7 @@ class ApiUtils {
     parseApplication.set('user', Parse.User.current());
     parseApplication.set('task', parseTask);
     parseApplication.set('isNew', true);
-    task.application = parseApplication.toJSON(); // TODO(janic): remove this side effect hack.
+    task.application = parseApplication.toPlainObject(); // TODO(janic): remove this side effect hack.
     parseApplication.save();
   }
 
@@ -221,6 +235,19 @@ class ApiUtils {
       });
 
     Parse.Object.saveAll(parseApplications);
+  }
+
+  _userFromParse(parseUser) {
+    let user = parseUser.toPlainObject();
+    user.privateData = parseUser.get('privateData').toPlainObject();
+    return user;
+  }
+
+  _createUserPrivate(user) {
+    let userPrivate = new UserPrivateData();
+    userPrivate.set('locations', []);
+    userPrivate.setACL(new Parse.ACL(Parse.User.current()));
+    user.set('privateData', userPrivate);
   }
 }
 

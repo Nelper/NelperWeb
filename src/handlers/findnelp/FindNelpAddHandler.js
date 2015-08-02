@@ -1,13 +1,27 @@
 import React, {Component} from 'react';
+import connectToStores from 'alt/utils/connectToStores';
 
 import AddLocationDialogView from './AddLocationDialogView';
 import FindNelpActions from 'actions/FindNelpActions';
+import UserActions from 'actions/UserActions';
+import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
+@connectToStores
 export default class FindNelpAddHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
+  }
+
+  static getStores() {
+    return [UserStore];
+  }
+
+  static getPropsFromStores() {
+    return {
+      locations: UserStore.getState().user.privateData.locations,
+    };
   }
 
   state = {
@@ -15,9 +29,8 @@ export default class FindNelpAddHandler extends Component {
     title: '',
     amount: '',
     desc: '',
-    location: null,
+    location: this.props.locations[0],
     openCreateLocation: false,
-    locations: [],
   }
 
   render() {
@@ -40,7 +53,7 @@ export default class FindNelpAddHandler extends Component {
       );
     });
 
-    let locations = this.state.locations.map((l, i) => {
+    let locations = this.props.locations.map((l, i) => {
       return (
         <option value={i} selected={l === this.state.location}>{l.name}</option>
       );
@@ -80,6 +93,8 @@ export default class FindNelpAddHandler extends Component {
                 <div className="currency">$</div>
                 <input
                   type="number"
+                  min="0"
+                  max="9999"
                   required={true}
                   value={this.state.priceOffered}
                   onChange={this._onPriceOfferedChanged.bind(this)} />
@@ -140,11 +155,9 @@ export default class FindNelpAddHandler extends Component {
   }
 
   _onAddLocation(location) {
-    let newLocations = this.state.locations;
-    newLocations.push(location);
+    UserActions.addLocation(location);
     this.setState({
       openCreateLocation: false,
-      locations: newLocations,
       location: location,
     });
   }
@@ -154,7 +167,7 @@ export default class FindNelpAddHandler extends Component {
   }
 
   _onLocationChanged(event) {
-    let location = this.state.locations[event.target.selectedIndex];
+    let location = this.props.locations[event.target.selectedIndex];
     this.setState({
       location,
     });
