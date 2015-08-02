@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import UserStore from 'stores/UserStore';
+import AddLocationDialogView from './AddLocationDialogView';
 import FindNelpActions from 'actions/FindNelpActions';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
@@ -15,6 +15,9 @@ export default class FindNelpAddHandler extends Component {
     title: '',
     amount: '',
     desc: '',
+    location: null,
+    openCreateLocation: false,
+    locations: [],
   }
 
   render() {
@@ -22,7 +25,7 @@ export default class FindNelpAddHandler extends Component {
       let active = this.state.category === c;
       let activeColor = TaskCategoryUtils.getDarkColor(c).hexString();
       return (
-        <div className="category" onClick={() => this._selectCategory(c)}>
+        <div key={c} className="category" onClick={() => this._selectCategory(c)}>
           <div className="icon" style={{
             backgroundImage: `url('${TaskCategoryUtils.getImage(c)}')`,
             borderColor: active ? activeColor : 'transparent',
@@ -37,8 +40,18 @@ export default class FindNelpAddHandler extends Component {
       );
     });
 
+    let locations = this.state.locations.map((l, i) => {
+      return (
+        <option value={i} selected={l === this.state.location}>{l.name}</option>
+      );
+    });
+
     return (
       <div id="find-nelp-add-handler" className="container pad-all">
+        <AddLocationDialogView
+          opened={this.state.openCreateLocation}
+          onLocationAdded={::this._onAddLocation}
+          onCancel={::this._onCancelAddLocation} />
         <form onSubmit={::this._onSubmit}>
           <div className="input-row">
             <div className="step">1</div>
@@ -52,7 +65,7 @@ export default class FindNelpAddHandler extends Component {
             <div className="input-content">
               <label className="title">Enter your Task Title</label>
               <input
-                type='text'
+                type="text"
                 required={true}
                 maxLength={72}
                 value={this.state.title}
@@ -63,11 +76,14 @@ export default class FindNelpAddHandler extends Component {
             <div className="step">3</div>
             <div className="input-content">
               <label className="title">How much are you offering?</label>
-              <input
-                type='number'
-                required={true}
-                value={this.state.priceOffered}
-                onChange={this._onPriceOfferedChanged.bind(this)} />
+              <div className="price">
+                <div className="currency">$</div>
+                <input
+                  type="number"
+                  required={true}
+                  value={this.state.priceOffered}
+                  onChange={this._onPriceOfferedChanged.bind(this)} />
+              </div>
             </div>
           </div>
           <div className="input-row">
@@ -75,10 +91,14 @@ export default class FindNelpAddHandler extends Component {
             <div className="input-content">
               <label className="title">Select your location</label>
               <div className="location">
-                <select>
-                  <option>Home</option>
-                </select>
-                <button>Add</button>
+                {
+                  locations.length ?
+                  <select onChange={::this._onLocationChanged}>
+                    {locations}
+                  </select> :
+                  null
+                }
+                <button className="blue" onClick={::this._onOpenAddLocation}>Add</button>
               </div>
             </div>
           </div>
@@ -114,6 +134,32 @@ export default class FindNelpAddHandler extends Component {
     this.setState({category: c});
   }
 
+  _onOpenAddLocation(event) {
+    event.preventDefault();
+    this.setState({openCreateLocation: true});
+  }
+
+  _onAddLocation(location) {
+    let newLocations = this.state.locations;
+    newLocations.push(location);
+    this.setState({
+      openCreateLocation: false,
+      locations: newLocations,
+      location: location,
+    });
+  }
+
+  _onCancelAddLocation() {
+    this.setState({openCreateLocation: false});
+  }
+
+  _onLocationChanged(event) {
+    let location = this.state.locations[event.target.selectedIndex];
+    this.setState({
+      location,
+    });
+  }
+
   _onTitleChanged(event) {
     this.setState({
       title: event.target.value,
@@ -139,8 +185,8 @@ export default class FindNelpAddHandler extends Component {
   }
 
   _validate() {
-    let {title, category} = this.state;
-    return title && category;
+    let {title, category, location} = this.state;
+    return title && category && location;
   }
 
   _onSubmit(e) {
@@ -155,7 +201,7 @@ export default class FindNelpAddHandler extends Component {
       category: this.state.category,
       desc: this.state.desc,
       priceOffered: this.state.priceOffered,
-      location: UserStore.state.user.location,
+      location: this.state.location.coords,
     });
     this.context.router.goBack();
   }

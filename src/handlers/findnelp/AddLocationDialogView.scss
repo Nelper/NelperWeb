@@ -1,0 +1,5 @@
+.add-location-dialog-view {
+  @include display(flex);
+  @include flex-direction(column);
+  min-width: rem(350px);
+}

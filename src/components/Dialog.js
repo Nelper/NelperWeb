@@ -5,6 +5,7 @@ export default class Collapse extends Component {
 
   static propTypes: {
     opened: PropTypes.boolean,
+    onClose: PropTypes.func,
   }
 
   state = {
@@ -15,12 +16,12 @@ export default class Collapse extends Component {
   _dialogNode = null
   _documentClickListener = this._onDocumentClick.bind(this)
 
-  componentWillMount() {
+  componentDidMount() {
     let node = document.getElementById('dialog');
     if(!node) {
       node = document.createElement('div');
       node.id = 'dialog';
-      document.getElementById('app').appendChild(node);
+      document.body.appendChild(node);
     }
     this._dialogNode = node;
     document.addEventListener('click', this._documentClickListener);
@@ -28,6 +29,8 @@ export default class Collapse extends Component {
 
     if(this.props.opened) {
       this._open();
+    } else {
+      this._renderPortal();
     }
   }
 
@@ -53,6 +56,14 @@ export default class Collapse extends Component {
   }
 
   componentDidUpdate() {
+    this._renderPortal();
+  }
+
+  render() {
+    return null;
+  }
+
+  _renderPortal() {
     this._dialogNode.className = classNames(
       {'opened': this.state.opened},
       {'closing': this.state.closing},
@@ -64,10 +75,6 @@ export default class Collapse extends Component {
       </div>,
       this._dialogNode
     );
-  }
-
-  render() {
-    return null;
   }
 
   _open() {
@@ -87,11 +94,16 @@ export default class Collapse extends Component {
       opened: false,
       closing: true,
     });
+
     // Restore scroll.
     document.body.style.overflow = '';
     setTimeout(() => {
       this.setState({closing: false});
     }, 251);
+
+    if(this.props.onClose) {
+      this.props.onClose.call(null);
+    }
   }
 
   _onDocumentClick(event) {

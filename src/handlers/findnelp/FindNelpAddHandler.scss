@@ -1,18 +1,29 @@
 #find-nelp-add-handler {
 
   $step-size: 46px;
-  $category-image-size: 56px;
+  $category-image-size: 64px;
 
-  padding: 1rem 4rem;
+  @include media($large-screen) {
+    padding: 1rem 8rem;
+  }
 
   form {
     width: 100%;
   }
 
+  label {
+    font-size: 1.2em;
+    font-weight: normal;
+  }
+
+  input, select {
+    margin: 0;
+  }
+
   .input-row {
     @include display(flex);
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 
     .step {
       @include display(flex);
@@ -80,8 +91,23 @@
     }
   }
 
+  .price {
+    @include display(flex);
+    @include align-items(center);
+
+    .currency {
+      font-size: 1.5em;
+      margin-right: 0.5rem;
+    }
+  }
+
   .location {
     @include display(flex);
     @include align-items(center);
+
+    select {
+      min-width: rem(200px);
+      margin-right: 0.5rem;
+    }
   }
 }

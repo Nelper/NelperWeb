@@ -107,10 +107,10 @@ export default class FindNelpDetailHandler extends Component {
       <div id="find-nelp-detail-handler">
         <Dialog opened={confirmDeleteOpened}>
           <h1>Warning!</h1>
-          <p className="dialog-text">Are your sure you want to delete the task {task.title}?</p>
+          <p className="dialog-text">Are your sure you want to delete the task '{task.title}'?</p>
           <div className="btn-group dialog-buttons">
             <button onClick={::this._cancelDelete}>Cancel</button>
-            <button onClick={::this._confirmDelete} className="green">Ok</button>
+            <button onClick={::this._confirmDelete} className="primary">Delete</button>
           </div>
         </Dialog>
         <div className="container pad-all">
