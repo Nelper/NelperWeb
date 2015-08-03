@@ -57,11 +57,13 @@
         @include flex-grow(1);
 
         .title {
+          font-weight: bold;
           font-size: 1.2em;
         }
 
         .user-name {
           font-size: 0.9em;
+          font-family: Roboto;
 
           @include media($medium-screen) {
             margin-left: 2rem;
@@ -70,7 +72,7 @@
 
         .date {
           font-size: 0.7em;
-
+          font-family: Roboto;
           @include media($medium-screen) {
             margin-left: 2rem;
           }
@@ -122,7 +124,7 @@
         }
 
         .desc {
-
+          font-family: $content-font-family;
           margin-bottom: 1rem;
 
           @include media($medium-screen) {
