@@ -138,6 +138,9 @@
   }
 
   .pictures {
+    @include display(flex);
+    @include flex-wrap(wrap);
+
     .add-picture {
       position: relative;
       overflow: hidden;
@@ -145,6 +148,7 @@
 
       width: rem(100px);
       height: rem(100px);
+      margin: 0.5em;
 
       .icon {
         @include image(100px, 100px);
@@ -166,6 +170,18 @@
         font-size: 1000px !important;
         cursor: pointer;
       }
+    }
+
+    .picture {
+      width: rem(100px);
+      height: rem(100px);
+      margin: 0.5rem;
+      padding: 0.5rem;
+      background-color: $color-gray-medium;
+      overflow: hidden;
+      color: $color-white;
+      font-size: 0.8em;
+      @include ellipsis;
     }
   }
 }

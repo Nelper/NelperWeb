@@ -243,6 +243,17 @@ class ApiUtils {
     Parse.Object.saveAll(parseApplications);
   }
 
+  uploadFile(name, file) {
+    let parseFile = new Parse.File(name, file);
+    return parseFile.save()
+      .then((f) => {
+        return {
+          url: f.url(),
+          objectId: f.name(),
+        };
+      });
+  }
+
   _userFromParse(parseUser) {
     let user = parseUser.toPlainObject();
     user.privateData = parseUser.get('privateData').toPlainObject();

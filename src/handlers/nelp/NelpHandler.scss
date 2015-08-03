@@ -8,7 +8,7 @@
   .header-section {
     @include flex(1);
     position: relative;
-    background-color: $color-nelp-orange-light;
+    min-height: rem(350px);
 
     .map {
       position: absolute;
@@ -16,6 +16,8 @@
       bottom: 0;
       left: 0;
       right: 0;
+      border-left: solid 2px $color-gray-medium;
+      border-right: solid 2px $color-gray-medium;
     }
   }
 
@@ -25,7 +27,7 @@
   }
 
   .filters {
-    background-color: $color-nelp-orange;
+    background-color: $color-blue-gray;
     color: $color-white;
     padding: 0.5rem 0;
   }

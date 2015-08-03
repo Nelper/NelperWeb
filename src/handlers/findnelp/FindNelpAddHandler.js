@@ -7,6 +7,7 @@ import FindNelpActions from 'actions/FindNelpActions';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+import ApiUtils from 'utils/ApiUtils';
 
 @connectToStores
 export default class FindNelpAddHandler extends Component {
@@ -60,7 +61,9 @@ export default class FindNelpAddHandler extends Component {
 
     let pictures = this.state.pictures.map(p => {
       return (
-        <div>Test {p.name}</div>
+        <div className={classNames('picture', {'loading': p.loading})} style={{backgroundImage: p.url}} key={p.name}>
+          {p.name}
+        </div>
       );
     });
 
@@ -140,12 +143,12 @@ export default class FindNelpAddHandler extends Component {
             <div className="step">6</div>
             <div className="input-content">
               <label className="title">Attach pictures (optional)</label>
-              <div className="pictures">
+              <div key="add" className="pictures">
                 <div className="add-picture">
                   <div className="icon" />
                   <input type="file" accept="image/*" onChange={::this._onFileChanged} />
-                  {pictures}
                 </div>
+                {pictures}
               </div>
             </div>
           </div>
@@ -225,7 +228,15 @@ export default class FindNelpAddHandler extends Component {
       this.setState({
         pictures: newPictures,
       });
-      //ApiUtils.uploadFile(name, file);
+      ApiUtils.uploadFile(picture.name, file)
+        .then(f => {
+          picture.loading = false;
+          picture.objectId = f.objectId;
+          picture.url = f.url;
+          this.setState({
+            pictures: this.state.pictures,
+          });
+        });
     }
   }
 
