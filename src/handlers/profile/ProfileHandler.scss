@@ -1,8 +1,7 @@
 #profile-handler {
 
   .header {
-    background-color: $color-nelp-orange-light;
-    color: $color-white;
+    color: $color-black;
 
     .container {
       @include display(flex);
@@ -59,7 +58,7 @@
 
   .tabs {
     height: 64px;
-    background-color: $color-nelp-orange;
+    background-color: $color-blue-gray;
     color: $color-white;
     font-size: 18px;
 
@@ -77,7 +76,7 @@
       @include flex(1);
 
       &.active {
-        color: $color-nelp-orange-light;
+        color: $color-nelp-orange;
       }
     }
   }

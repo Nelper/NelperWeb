@@ -3,7 +3,6 @@
     @include display(flex);
     @include flex-direction(column);
     @include align-items(center);
-    background-color: $color-nelp-orange-light;
 
     .add-task {
       @include display(flex);
@@ -18,13 +17,13 @@
       }
 
       .add-title {
-        color: $color-white;
+        color: $color-black;
       }
     }
   }
 
   .title-section {
-    background-color: $color-nelp-orange;
+    background-color: $color-blue-gray;
     color: $color-white;
 
     .title {

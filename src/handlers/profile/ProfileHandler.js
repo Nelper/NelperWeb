@@ -35,7 +35,7 @@ export default class ProfileHandler extends Component {
               <div className="user-name">
                 {user.name}
               </div>
-              <Rating rating={4}/>
+              <Rating rating={4} dark={true}/>
               <div className="member-since">
                 Member since {moment(user.createdAt).format('MMMM Do YYYY')}
               </div>
