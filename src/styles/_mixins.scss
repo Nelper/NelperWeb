@@ -9,5 +9,5 @@
 @mixin image-fill {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: fill;
+  background-size: cover;
 }

@@ -173,15 +173,32 @@
     }
 
     .picture {
+      position: relative;
       width: rem(100px);
       height: rem(100px);
       margin: 0.5rem;
       padding: 0.5rem;
       background-color: $color-gray-medium;
-      overflow: hidden;
-      color: $color-white;
-      font-size: 0.8em;
-      @include ellipsis;
+
+      @include image-fill;
+
+      .picture-name {
+        @include ellipsis;
+        font-size: 0.8em;
+        color: $color-white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0.2rem 0.5rem;
+        background-color: transparentize($color-black, 0.5);
+      }
+
+      .picture-overlay {
+        @include position(absolute, 0);
+        background-color: $color-black;
+        opacity: 0.3;
+      }
     }
   }
 }

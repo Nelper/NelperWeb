@@ -61,8 +61,9 @@ export default class FindNelpAddHandler extends Component {
 
     let pictures = this.state.pictures.map(p => {
       return (
-        <div className={classNames('picture', {'loading': p.loading})} style={{backgroundImage: p.url}} key={p.name}>
-          {p.name}
+        <div className={classNames('picture', {'loading': p.loading})} style={{backgroundImage: `url('${p.url}')`}} key={p.name}>
+          <div className="picture-overlay" />
+          <div className="picture-name">{p.name}</div>
         </div>
       );
     });
@@ -233,6 +234,7 @@ export default class FindNelpAddHandler extends Component {
           picture.loading = false;
           picture.objectId = f.objectId;
           picture.url = f.url;
+          picture.file = f.file;
           this.setState({
             pictures: this.state.pictures,
           });
@@ -258,6 +260,7 @@ export default class FindNelpAddHandler extends Component {
       desc: this.state.desc,
       priceOffered: this.state.priceOffered,
       location: this.state.location.coords,
+      pictures: this.state.pictures,
     });
     this.context.router.goBack();
   }

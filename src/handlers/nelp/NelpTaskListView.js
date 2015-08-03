@@ -73,7 +73,7 @@ export default class NelpTaskListView extends Component {
                 <button className="blue">Make an offer</button>
               </div>
             </div>
-            <div className="task-image" style={{backgroundImage: `url('http://www.dlink.com/-/media/Images/Products/DSR/500N/2%20DSR500NA1Image%20LSide.png')`}} />
+            <div className="task-image" style={{backgroundImage: `url('${this._taskImage(t)}')`}} />
           </div>
         </div>
       );
@@ -84,6 +84,13 @@ export default class NelpTaskListView extends Component {
         {displayedTasks}
       </div>
     );
+  }
+
+  _taskImage(t) {
+    if(!t.pictures || t.pictures.length === 0) {
+      return 'http://www.dlink.com/-/media/Images/Products/DSR/500N/2%20DSR500NA1Image%20LSide.png';
+    }
+    return t.pictures[0].url;
   }
 
   _taskDetail(task) {

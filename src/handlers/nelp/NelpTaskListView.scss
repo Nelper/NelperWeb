@@ -143,9 +143,7 @@
         width: rem(200px);
         height: rem(125px);
         margin-bottom: 1rem;
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
+        @include image-fill;
         background-color: $color-gray-light;
         border: 2px solid $color-gray-medium;
         border-radius: 3px;

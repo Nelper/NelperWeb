@@ -17,7 +17,7 @@ export default class FindNelpCardView extends Component {
       <div
           className={classNames('find-nelp-card-view', 'category-bg-' + task.category)}
           onClick={onClick}>
-        <div className="card-image" style={{backgroundImage: `url('http://www.dlink.com/-/media/Images/Products/DSR/500N/2%20DSR500NA1Image%20LSide.png')`}}>
+        <div className="card-image" style={{backgroundImage: `url('${this._taskImage(task)}')`}}>
           <div className="image-overlay" />
           <div className="category">
             <div className="icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
@@ -37,5 +37,12 @@ export default class FindNelpCardView extends Component {
         <div className="card-hover"/>
       </div>
     );
+  }
+
+  _taskImage(t) {
+    if(!t.pictures || t.pictures.length === 0) {
+      return 'http://www.dlink.com/-/media/Images/Products/DSR/500N/2%20DSR500NA1Image%20LSide.png';
+    }
+    return t.pictures[0].url;
   }
 }

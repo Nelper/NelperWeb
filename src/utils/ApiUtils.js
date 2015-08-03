@@ -109,6 +109,7 @@ class ApiUtils {
           .then((applications) => {
             return tasks.map((t) => {
               let application = applications.find((a) => a.get('task').id === t.id);
+
               return {
                 objectId: t.id,
                 createdAt: t.createdAt,
@@ -119,6 +120,7 @@ class ApiUtils {
                 state: t.get('state'),
                 location: t.get('location'),
                 user: t.get('user').toPlainObject(),
+                pictures: this._taskPictures(t),
                 application: application && application.toPlainObject(),
               };
             });
@@ -153,6 +155,7 @@ class ApiUtils {
                 priceOffered: t.get('priceOffered'),
                 location: t.get('location'),
                 state: t.get('state'),
+                pictures: this._taskPictures(t),
               };
               task.applications = taskApplications.map(a => {
                 return {
@@ -179,6 +182,13 @@ class ApiUtils {
     parseTask.set('state', task.state);
     parseTask.set('location', new Parse.GeoPoint(task.location));
     parseTask.set('user', Parse.User.current());
+    parseTask.set('pictures', task.pictures.map(p => {
+      return {
+        __type: 'File',
+        name: p.name,
+        url: p.url,
+      };
+    }));
     parseTask.save();
   }
 
@@ -249,6 +259,7 @@ class ApiUtils {
       .then((f) => {
         return {
           url: f.url(),
+          file: parseFile,
           objectId: f.name(),
         };
       });
@@ -258,6 +269,16 @@ class ApiUtils {
     let user = parseUser.toPlainObject();
     user.privateData = parseUser.get('privateData').toPlainObject();
     return user;
+  }
+
+  _taskPictures(parseTask) {
+    let pictures = parseTask.get('pictures');
+    return pictures && pictures.map(p => {
+      return {
+        url: p.url(),
+        name: p.name(),
+      };
+    });
   }
 
   _createUserPrivate(user) {
