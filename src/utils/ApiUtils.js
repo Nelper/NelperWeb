@@ -11,7 +11,10 @@ class ApiUtils {
 
   login(email, password) {
     return Parse.User.logIn(email, password)
-      .then(this._userFromParse);
+      .then((user) => {
+        return user.get('privateData').fetch();
+      })
+      .then(() => this._userFromParse(Parse.User.current()));
   }
 
   register(email, password, name) {
@@ -42,10 +45,13 @@ class ApiUtils {
           user.set('pictureURL', fbUser.picture.data.url);
           if(!user.get('privateData')) {
             this._createUserPrivate(user);
+            user.save();
+            return user;
+          } else {
+            return user.get('privateData').fetch();
           }
-          user.save();
-          return this._userFromParse(user);
-        });
+        })
+        .then(() => this._userFromParse(Parse.User.current()));
     });
   }
 

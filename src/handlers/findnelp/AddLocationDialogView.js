@@ -34,6 +34,12 @@ export default class FindNelpAddHandler extends Component {
     });
   }
 
+  componentWillUnmount() {
+    // Cleanup the autocomplete container.
+    let autocompleteNode = document.querySelector('.pac-container');
+    document.body.removeChild(autocompleteNode);
+  }
+
   render() {
     return (
       <Dialog
