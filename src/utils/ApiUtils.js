@@ -43,7 +43,7 @@ class ApiUtils {
         .then((fbUser) => {
           user.set('name', fbUser.name);
           user.set('pictureURL', fbUser.picture.data.url);
-          if(!user.get('privateData')) {
+          if(!user.has('privateData')) {
             this._createUserPrivate(user);
             user.save();
             return user;

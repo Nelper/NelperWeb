@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import classNames from 'classnames';
 
 import AddLocationDialogView from './AddLocationDialogView';
 import FindNelpActions from 'actions/FindNelpActions';
@@ -31,6 +32,7 @@ export default class FindNelpAddHandler extends Component {
     desc: '',
     location: this.props.locations[0],
     openCreateLocation: false,
+    pictures: [],
   }
 
   render() {
@@ -38,16 +40,13 @@ export default class FindNelpAddHandler extends Component {
       let active = this.state.category === c;
       let activeColor = TaskCategoryUtils.getDarkColor(c).hexString();
       return (
-        <div key={c} className="category" onClick={() => this._selectCategory(c)}>
+        <div key={c} className={classNames('category', {'active': active})} onClick={() => this._selectCategory(c)}>
           <div className="icon" style={{
             backgroundImage: `url('${TaskCategoryUtils.getImage(c)}')`,
             borderColor: active ? activeColor : 'transparent',
-          }}>
-            <div className="overlay" />
-          </div>
+          }} />
           <div className="title" style={{
             color: active ? activeColor : null,
-            fontWeight: active ? 'bold' : null,
           }}>{TaskCategoryUtils.getName(c)}</div>
         </div>
       );
@@ -56,6 +55,12 @@ export default class FindNelpAddHandler extends Component {
     let locations = this.props.locations.map((l, i) => {
       return (
         <option value={i} selected={l === this.state.location}>{l.name}</option>
+      );
+    });
+
+    let pictures = this.state.pictures.map(p => {
+      return (
+        <div>Test {p.name}</div>
       );
     });
 
@@ -71,6 +76,10 @@ export default class FindNelpAddHandler extends Component {
             <div className="input-content">
               <label className="title">Select your Task Category</label>
               <div className="category-picker">{categories}</div>
+              <input value={this.state.category ? '1' : ''}
+                className="category-input"
+                required={true}
+                onInvalid={(e) => e.target.setCustomValidity('Please select a category')} />
             </div>
           </div>
           <div className="input-row">
@@ -131,7 +140,13 @@ export default class FindNelpAddHandler extends Component {
             <div className="step">6</div>
             <div className="input-content">
               <label className="title">Attach pictures (optional)</label>
-              <input type="file" />
+              <div className="pictures">
+                <div className="add-picture">
+                  <div className="icon" />
+                  <input type="file" accept="image/*" onChange={::this._onFileChanged} />
+                  {pictures}
+                </div>
+              </div>
             </div>
           </div>
           <div className="btn-group">
@@ -195,6 +210,23 @@ export default class FindNelpAddHandler extends Component {
     this.setState({
       desc: event.target.value,
     });
+  }
+
+  _onFileChanged(event) {
+    let files = event.target.files;
+    if(files.length > 0) {
+      let file = files[0];
+      let picture = {
+        loading: true,
+        name: file.name,
+      };
+      let newPictures = this.state.pictures;
+      newPictures.push(picture);
+      this.setState({
+        pictures: newPictures,
+      });
+      //ApiUtils.uploadFile(name, file);
+    }
   }
 
   _validate() {

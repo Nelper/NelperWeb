@@ -26,7 +26,7 @@
     margin-bottom: 2rem;
 
     .step {
-      @include display(flex);
+      display: none;
       @include align-items(center);
       @include justify-content(center);
       width: rem($step-size);
@@ -36,11 +36,28 @@
       border-radius: 50%;
       border: 2px solid $color-black;
       font-size: 1.3em;
+
+      @include media($medium-screen) {
+        @include display(flex);
+      }
     }
 
     .input-content {
       @include flex(1);
+      position: relative;
     }
+  }
+
+  .category-input {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    z-index: -1;
+    position: absolute;
+    bottom: 25px;
+    left: 10px;
+    opacity: 0;
   }
 
   .category-picker {
@@ -55,13 +72,16 @@
       @include flex-direction(column);
       @include align-items(center);
       @include flex-grow(1);
-
       margin: 0.5rem;
-      padding: 1rem;
       cursor: pointer;
+
+      @include transition(all 250ms linear);
+      opacity: 0.7;
+      @include filter(grayscale(20%));
 
       @include media($medium-screen) {
         @include flex-grow(0);
+        padding: 1rem;
       }
 
       .icon {
@@ -71,22 +91,20 @@
         overflow: hidden;
         border-radius: 50%;
         border: 2px solid transparent;
-
-        .overlay {
-          @include position(absolute, 0);
-          border-radius: 50%;
-          background-color: $color-black;
-          @include transition(opacity 250ms linear);
-          opacity: 0;
-        }
       }
 
-      &:hover .icon .overlay {
-        opacity: 0.2;
+      &:hover {
+        @include filter(grayscale(0%));
+        opacity: 1;
       }
 
       .title {
         font-size: 1em;
+      }
+
+      &.active {
+        @include filter(grayscale(0%));
+        opacity: 1;
       }
     }
   }
@@ -116,6 +134,38 @@
     select {
       min-width: rem(200px);
       margin-right: 0.5rem;
+    }
+  }
+
+  .pictures {
+    .add-picture {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+
+      width: rem(100px);
+      height: rem(100px);
+
+      .icon {
+        @include image(100px, 100px);
+        background-image: url('~images/plus-512-white.png');
+        background-color: $color-gray-medium;
+        border-radius: 3px;
+        cursor: pointer;
+        z-index: 999;
+      }
+
+      input {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 300px;
+        padding: 0;
+        margin: 0;
+        opacity: 0;
+        font-size: 1000px !important;
+        cursor: pointer;
+      }
     }
   }
 }

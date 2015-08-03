@@ -1,7 +1,7 @@
 #nelp-handler {
 
   height: 100%;
-  overflow: hidden;
+  //overflow: hidden;
   @include display(flex);
   @include flex-direction(column);
 
@@ -21,7 +21,7 @@
 
   .task-section {
     @include flex(1.3);
-    overflow: auto;
+    //overflow: auto;
   }
 
   .filters {
