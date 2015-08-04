@@ -13,12 +13,10 @@
 
     .map {
       position: absolute;
-      top: 0;
-      bottom: 0;
+      top: 0.5rem;
+      bottom: 0.5rem;
       left: 0;
       right: 0;
-      border-left: solid 2px $color-gray-medium;
-      border-right: solid 2px $color-gray-medium;
     }
   }
 

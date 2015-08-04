@@ -76,7 +76,7 @@
       cursor: pointer;
 
       @include transition(all 250ms linear);
-      opacity: 0.7;
+      opacity: 0.65;
       @include filter(grayscale(20%));
 
       @include media($medium-screen) {
@@ -105,6 +105,7 @@
       &.active {
         @include filter(grayscale(0%));
         opacity: 1;
+        font-weight: bold;
       }
     }
   }
@@ -116,9 +117,9 @@
 
     .currency {
       position: absolute;
-      top: rem(3px);
+      top: rem(6px);
       left: rem(12px);
-      font-size: 1.5em;
+      font-size: 1.1em;
       margin-right: 0.5rem;
     }
 

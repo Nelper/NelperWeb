@@ -3,8 +3,15 @@
   src: url('~styles/fonts/Railway.otf');
 }
 
-@import url(http://fonts.googleapis.com/css?family=PT+Sans);
-@import url(http://fonts.googleapis.com/css?family=ABeeZee);
+@font-face {
+  font-family: ABeeZee;
+  src: url('~styles/fonts/ABeeZee-Regular.ttf');
+}
+
+@font-face {
+  font-family: PT Sans;
+  src: url('~styles/fonts/PT_Sans-Web-Regular.ttf');
+}
 
 @import "./mixins";
 

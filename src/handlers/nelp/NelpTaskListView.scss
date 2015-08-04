@@ -37,7 +37,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 50%;
-        border: 1px solid $color-black;
+        border: 2px solid $color-black;
 
         .category-icon {
           width: rem($category-image-size);
@@ -47,7 +47,7 @@
           right: rem(-5px);
 
           border-radius: 50%;
-          border: 1px solid $color-black;
+          border: 2px solid $color-black;
           background-position: center;
           background-size: contain;
         }
