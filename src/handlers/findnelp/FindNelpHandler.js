@@ -36,7 +36,7 @@ export default class FindNelpHandler extends Component {
       <div id="find-nelp-handler">
         <div className="header-section">
           <div className="add-task" onClick={::this._addNelpTask}>
-            <img className="add-image" src={require('images/plus-512-black.png')} />
+            <img className="add-image" src={require('images/plus-512-white.png')} />
             <h2 className="add-title">Ask for Nelp!</h2>
           </div>
         </div>

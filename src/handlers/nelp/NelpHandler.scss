@@ -9,6 +9,7 @@
     @include flex(1);
     position: relative;
     min-height: rem(350px);
+    background-color: $color-blue-gray;
 
     .map {
       position: absolute;
@@ -27,8 +28,9 @@
   }
 
   .filters {
-    background-color: $color-blue-gray;
-    color: $color-white;
+    background-color: $color-white;
+    border-bottom: 1px solid $color-gray-medium;
+    color: $color-black;
     padding: 0.5rem 0;
   }
 }

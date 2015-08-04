@@ -32,8 +32,10 @@ export default class NavBar extends Component {
         <div className="navbar-wrapper">
           <Link to="/">
             <div className="logo">
-              <img src={require('images/logo-nobg-sm.png')}/>
-              <span>Nelper</span>
+              <div className="logo-bg">
+                <img src={require('images/logo-nobg-sm.png')}/>
+              </div>
+              <span className="title">Nelper</span>
             </div>
           </Link>
           <div className="navbar-menu-button" onClick={this._toggleMenu.bind(this)}>MENU</div>

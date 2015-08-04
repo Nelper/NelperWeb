@@ -4,6 +4,8 @@
     @include flex-direction(column);
     @include align-items(center);
 
+    background-color: $color-blue-gray;
+
     .add-task {
       @include display(flex);
       @include flex-direction(column);
@@ -17,14 +19,15 @@
       }
 
       .add-title {
-        color: $color-black;
+        color: $text-light;
       }
     }
   }
 
   .title-section {
-    background-color: $color-blue-gray;
-    color: $color-white;
+    background-color: $color-white;
+    border-bottom: solid 1px $color-gray-medium;
+    color: $color-black;
 
     .title {
       font-size: 1.3em;
@@ -36,5 +39,4 @@
     @include flex-direction(row);
     @include flex-wrap(wrap);
   }
-
 }

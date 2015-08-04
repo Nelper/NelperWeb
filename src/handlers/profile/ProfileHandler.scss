@@ -1,7 +1,8 @@
 #profile-handler {
 
   .header {
-    color: $color-black;
+    background-color: $color-blue-gray;
+    color: $text-light;
 
     .container {
       @include display(flex);
@@ -58,8 +59,9 @@
 
   .tabs {
     height: 64px;
-    background-color: $color-blue-gray;
-    color: $color-white;
+    background-color: $color-white;
+    color: $color-black;
+    border-bottom: solid 1px $color-gray-medium;
     font-size: 18px;
 
     .container {
