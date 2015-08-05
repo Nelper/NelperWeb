@@ -5,7 +5,8 @@ const colors = {
   purple: '#997dd9',
   blue: '#4498d3',
   green: '#29b473',
-  pink: '#f0595a',
+  orange: '#f9a34b',
+  red: '#f0595a',
 };
 
 export default class TaskCategoryUtils {
@@ -13,33 +14,39 @@ export default class TaskCategoryUtils {
   static _categories = {
     'technology': {
       color: colors.yellow,
-      colorLight: Color(colors.yellow).lighten(0.5),
-      colorDark: Color(colors.yellow).darken(0.5),
-      name: 'Technology',
+      colorLight: Color(colors.yellow).lighten(0.4).hexString(),
+      colorDark: Color(colors.yellow).darken(0.5).hexString(),
+      name: 'Electronic & IT Support',
     },
     'housecleaning': {
       color: colors.purple,
-      colorLight: Color(colors.purple).lighten(0.5),
-      colorDark: Color(colors.purple).darken(0.5),
+      colorLight: Color(colors.purple).lighten(0.3).hexString(),
+      colorDark: Color(colors.purple).darken(0.5).hexString(),
       name: 'Cleaning',
     },
     'handywork': {
-      color: colors.blue,
-      colorLight: Color(colors.blue).lighten(0.5),
-      colorDark: Color(colors.blue).darken(0.5),
+      color: colors.orange,
+      colorLight: Color(colors.orange).lighten(0.3).hexString(),
+      colorDark: Color(colors.orange).darken(0.5).hexString(),
       name: 'Handywork',
     },
     'gardening': {
       color: colors.green,
-      colorLight: Color(colors.green).lighten(0.5),
-      colorDark: Color(colors.green).darken(0.5),
+      colorLight: Color(colors.green).lighten(0.4).hexString(),
+      colorDark: Color(colors.green).darken(0.5).hexString(),
       name: 'Gardening',
     },
-    'cooking': {
-      color: colors.pink,
-      colorLight: Color(colors.pink).lighten(0.5),
-      colorDark: Color(colors.pink).darken(0.5),
-      name: 'Cooking',
+    'business': {
+      color: colors.blue,
+      colorLight: Color(colors.pink).lighten(0.2).hexString(),
+      colorDark: Color(colors.pink).darken(0.5).hexString(),
+      name: 'Business & Admin',
+    },
+    'multimedia': {
+      color: colors.red,
+      colorLight: Color(colors.red).lighten(0.2).hexString(),
+      colorDark: Color(colors.red).darken(0.5).hexString(),
+      name: 'Multimedia & Design',
     },
   }
 
@@ -48,7 +55,10 @@ export default class TaskCategoryUtils {
   }
 
   static getImage(category) {
-    return require(`images/icons/category-${category}.png`);
+    if(!this._categories[category]) {
+      return null;
+    }
+    return require(`images/categories/${category}.png`);
   }
 
   static getColor(category) {

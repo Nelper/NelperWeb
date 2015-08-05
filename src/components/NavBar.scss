@@ -19,93 +19,109 @@ header.navbar {
   box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.13);
 
   @include user-select(none);
-
   font-family: $heading-font-family;
 
   .navbar-wrapper {
-    @include clearfix;
+    @include display(flex);
+    @include flex-direction(column);
     @include outer-container;
     position: relative;
     z-index: 9999;
-  }
-
-  .logo {
-    float: left;
-    @include display(flex);
-    @include align-items(center);
-    max-height: $navigation-height;
-    padding-left: $navigation-padding;
-    padding-right: 2em;
-    padding-top: 4px;
-
-    color: $color-black;
-    font-weight: 400;
-    font-size: 1.4em;
-
-    .logo-bg {
-      border-radius: 50%;
-      background-color: #F32A18;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 50px;
-      width: 50px;
-    }
-
-    img {
-      max-height: $navigation-height;
-      padding: 8px;
-      padding-top: 12px;
-    }
-
-    .title {
-      margin-left: 0.8rem;
-      color: $color-nelp-orange;
-
-      &:hover {
-        color: darken($color-nelp-orange, 5%);
-      }
-    }
-  }
-
-  // Mobile view
-
-  .navbar-menu-button {
-    display: block;
-    float: right;
-    font-weight: 700;
-    line-height: $navigation-height;
-    margin: 0;
-    padding-right: 1em;
-    padding-left: 1em;
-
-    color: $navigation-color;
-    text-transform: uppercase;
-
-    &:focus,
-    &:hover {
-      color: $navigation-color-hover;
-    }
 
     @include media ($horizontal-bar-mode) {
-      display: none;
+      @include flex-direction(row);
+    }
+  }
+
+  .menu-bar {
+    @include display(flex);
+    @include flex(1);
+    @include justify-content(space-between);
+
+    a {
+      @include display(flex);
+    }
+
+    .logo {
+      @include display(flex);
+      @include align-items(center);
+      @include flex(1);
+      max-height: $navigation-height;
+      padding-left: $navigation-padding;
+      padding-right: 2em;
+
+      color: $color-black;
+      font-weight: 400;
+      font-size: 1.4em;
+
+      .logo-bg {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        height: 50px;
+        width: 50px;
+
+        border-radius: 50%;
+        background-color: $color-nelp-orange;
+      }
+
+      img {
+        max-height: $navigation-height;
+        padding: 8px;
+        padding-top: 12px;
+      }
+
+      .title {
+        margin-left: 0.8rem;
+        color: $color-nelp-orange;
+
+        &:hover {
+          color: darken($color-nelp-orange, 5%);
+        }
+      }
+    }
+
+    // Mobile view
+
+    .navbar-menu-button {
+      display: block;
+      font-weight: 700;
+      line-height: $navigation-height;
+      margin: 0;
+      padding-right: 1em;
+      padding-left: 1em;
+
+      color: $navigation-color;
+      text-transform: uppercase;
+      cursor: pointer;
+
+      @include media ($horizontal-bar-mode) {
+        display: none;
+      }
+
+      &:focus,
+      &:hover {
+        color: $navigation-color-hover;
+      }
     }
   }
 
   // Nav menu
 
   nav {
-    float: none;
     min-height: $navigation-height;
-    z-index: 9999999;
+    z-index: 99999;
 
-    @include media ($horizontal-bar-mode) {
-      float: right;
+    &.collapsed {
+      display: none;
+
+      @include media ($horizontal-bar-mode) {
+        @include display(flex);
+      }
     }
   }
 
   ul.navbar-menu {
-    -webkit-transform-style: preserve-3d; // stop webkit flicker
     @include display(flex);
     @include flex-direction(column);
     margin: 0 auto;
@@ -117,7 +133,6 @@ header.navbar {
     @include media ($horizontal-bar-mode) {
       @include display(flex);
       @include flex-direction(row);
-      height: auto !important; // Overwrite the inline style
       margin: 0;
       padding: 0;
     }
@@ -140,7 +155,7 @@ header.navbar {
 
     a {
       @include flex(1);
-      padding-right: 0.8em;
+      padding-right: 1em;
       color: $navigation-color;
       font-weight: 400;
 

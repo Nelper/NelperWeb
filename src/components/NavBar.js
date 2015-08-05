@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import {Spring} from 'react-motion';
+import classNames from 'classnames';
 
 export default class NavBar extends Component {
 
@@ -25,41 +25,28 @@ export default class NavBar extends Component {
       this._renderNavItem('About', '/about', 40),
     ];
 
-    const NAVBAR_ITEM_HEIGHT = 60;
-
     return (
       <header className="navbar" role="banner">
         <div className="navbar-wrapper">
-          <Link to="/">
-            <div className="logo">
-              <div className="logo-bg">
-                <img src={require('images/logo-nobg-sm.png')}/>
+          <div className="menu-bar">
+            <Link to="/">
+              <div className="logo">
+                <div className="logo-bg">
+                  <img src={require('images/logo-nobg-sm.png')}/>
+                </div>
+                <span className="title">Nelper</span>
               </div>
-              <span className="title">Nelper</span>
-            </div>
-          </Link>
-          <div className="navbar-menu-button" onClick={this._toggleMenu.bind(this)}>MENU</div>
-          <nav role="navigation">
-          <Spring endValue={{val: this.state.collapsed ? 0 : menuItems.length * NAVBAR_ITEM_HEIGHT}}>
-            {interpolated =>
-              <ul className={'navbar-menu'}
-                  style={{
-                    height: interpolated.val,
-                  }}>
-                {menuItems}
-              </ul>
-            }
-          </Spring>
+            </Link>
+            <div className="navbar-menu-button" onClick={this._toggleMenu.bind(this)}>MENU</div>
+          </div>
+          <nav role="navigation" className={classNames({'collapsed': this.state.collapsed})}>
+            <ul className="navbar-menu">
+              {menuItems}
+            </ul>
           </nav>
         </div>
       </header>
     );
-  }
-
-  _toggleMenu() {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
   }
 
   _renderNavItem(title, href, key) {
@@ -73,6 +60,12 @@ export default class NavBar extends Component {
         </Link>
       </li>
     );
+  }
+
+  _toggleMenu() {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    });
   }
 
   _onActive(url) {

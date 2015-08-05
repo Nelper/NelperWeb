@@ -8,7 +8,7 @@
   .header-section {
     @include flex(1);
     position: relative;
-    min-height: rem(350px);
+    min-height: rem(250px);
     background-color: $color-blue-gray;
 
     .map {

@@ -39,7 +39,7 @@ export default class FindNelpAddHandler extends Component {
   render() {
     let categories = TaskCategoryUtils.list().map(c => {
       let active = this.state.category === c;
-      let activeColor = TaskCategoryUtils.getDarkColor(c).hexString();
+      let activeColor = TaskCategoryUtils.getDarkColor(c);
       return (
         <div key={c} className={classNames('category', {'active': active})} onClick={() => this._selectCategory(c)}>
           <div className="icon" style={{
