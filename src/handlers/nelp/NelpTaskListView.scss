@@ -1,6 +1,6 @@
 .nelp-task-list-view {
 
-  $color-price-green: #7fae79;
+  $color-price-green: $color-nelp-green;
   $user-image-size: 86px;
   $category-image-size: 38px;
   $collapse-image-size: 26px;
@@ -10,7 +10,7 @@
 
   .task {
     width: 100%;
-    border-bottom: 1px solid $color-gray-light;
+    border-bottom: 1px solid $color-gray-medium;
     padding: $list-items-padding;
 
     .header {
@@ -81,7 +81,7 @@
         padding: 0.3rem 1rem;
         border-radius: 3px;
         background-color: $color-price-green;
-        color: $text-light;
+        color: $text-dark;
         font-size: 1.1em;
       }
 

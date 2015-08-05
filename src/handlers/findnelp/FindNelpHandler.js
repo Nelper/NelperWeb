@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
 
 import FindNelpCardView from './FindNelpCardView';
@@ -35,10 +36,9 @@ export default class FindNelpHandler extends Component {
     return (
       <div id="find-nelp-handler">
         <div className="header-section">
-          <div className="add-task" onClick={::this._addNelpTask}>
-            <img className="add-image" src={require('images/plus-512-white.png')} />
-            <h2 className="add-title">Ask for Nelp!</h2>
-          </div>
+          <Link to="/findnelp/add">
+            <button className="add-task">Ask for Nelp!</button>
+          </Link>
         </div>
         <div className="title-section">
           <div className="container pad-all">
@@ -68,10 +68,6 @@ export default class FindNelpHandler extends Component {
     } else {
       return 1;
     }
-  }
-
-  _addNelpTask() {
-    this.context.router.transitionTo('/findnelp/add');
   }
 
   _taskDetail(task) {

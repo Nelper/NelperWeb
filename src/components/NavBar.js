@@ -55,7 +55,7 @@ export default class NavBar extends Component {
       <li
         className={'nav-link' + (active ? ' active' : '')}
         key={key}>
-        <Link to={href}>
+        <Link to={href} onClick={::this._onActive}>
           {title}
         </Link>
       </li>
@@ -68,7 +68,7 @@ export default class NavBar extends Component {
     });
   }
 
-  _onActive(url) {
+  _onActive() {
     setTimeout(() => {
       if(!this.state.collapsed) {
         this.setState({
@@ -76,6 +76,5 @@ export default class NavBar extends Component {
         });
       }
     }, 200);
-    this.context.router.transitionTo(url);
   }
 }

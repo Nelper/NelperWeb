@@ -3,23 +3,20 @@
     @include display(flex);
     @include flex-direction(column);
     @include align-items(center);
-
+    padding: 4rem 0;
     background-color: $color-blue-gray;
 
     .add-task {
-      @include display(flex);
-      @include flex-direction(column);
-      @include align-items(center);
+      background-color: $color-blue-gray;
+      border: 2px solid $color-gray-light;
+      border-radius: 8px;
+      padding: 1rem 4rem;
+      font-size: 1.5em;
+      @include transition(background-color 250ms linear, color 250ms linear);
 
-      cursor: pointer;
-
-      .add-image {
-        width: em(182px);
-        height: em(182px);
-      }
-
-      .add-title {
-        color: $text-light;
+      &:hover {
+        background-color: $color-gray-light;
+        color: $color-blue-gray;
       }
     }
   }

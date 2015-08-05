@@ -42,7 +42,7 @@ export default class NelpTaskListView extends Component {
                 </div>
               </div>
               <div className="price">
-                {t.priceOffered || 'N/A'}
+                {'$' + t.priceOffered}
               </div>
               <div className="location-col">
                 <div className="city">

@@ -36,9 +36,22 @@
       border-radius: 50%;
       border: 2px solid $color-black;
       font-size: 1.3em;
+      background-color: $color-gray-light;
+      @include transition(background-color 250ms linear);
 
       @include media($medium-screen) {
         @include display(flex);
+      }
+
+      &.done {
+        background-color: $color-nelp-green;
+      }
+
+      &.camera {
+        background-image: url('~images/icons/camera.png');
+        background-position: center;
+        background-size: rem(32px);
+        background-repeat: no-repeat;
       }
     }
 
@@ -181,6 +194,7 @@
       margin: 0.5rem;
       padding: 0.5rem;
       background-color: $color-gray-medium;
+      border-radius: 3px;
 
       @include image-fill;
 

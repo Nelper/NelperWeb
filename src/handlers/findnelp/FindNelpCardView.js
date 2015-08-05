@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 export default class FindNelpCardView extends Component {
 
@@ -31,6 +32,13 @@ export default class FindNelpCardView extends Component {
           <div className="title">
             {task.title}
           </div>
+          <div className="applicants-row">
+            {this._renderStatus()}
+            {this._renderApplicants()}
+            <div className="price">
+              {'$' + task.priceOffered}
+            </div>
+          </div>
           <div className="desc">
             {task.desc}
           </div>
@@ -38,6 +46,32 @@ export default class FindNelpCardView extends Component {
         <div className="card-hover"/>
       </div>
     );
+  }
+
+  _renderStatus() {
+    let icon = !this._hasAcceptedApplications() ?
+      require('images/icons/pending-yellow.png') :
+      require('images/icons/accepted-green.png');
+    return (
+      <div className="status-icon" style={{backgroundImage: `url('${icon}')`}} />
+    );
+  }
+
+  _renderApplicants() {
+    let pendingApplications = this.props.task.applications.filter(a => a.state === NELP_TASK_APPLICATION_STATE.PENDING);
+    return (
+      <div className="applicants">
+        {
+          !this._hasAcceptedApplications() ?
+          (pendingApplications.length + (pendingApplications.length > 1 ? ' applications' : ' application')) :
+          'Accepted'
+        }
+      </div>
+    );
+  }
+
+  _hasAcceptedApplications() {
+    return this.props.task.applications.some(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
   }
 
   _taskImage(t) {

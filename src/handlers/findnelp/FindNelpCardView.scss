@@ -56,6 +56,28 @@
     }
   }
 
+  .applicants-row {
+    @include display(flex);
+    @include align-items(center);
+    margin-bottom: 0.5rem;
+
+    .status-icon {
+      @include image(rem(32px), rem(32px));
+    }
+
+    .applicants {
+      @include flex(1);
+      margin-left: 0.5rem;
+      font-size: 0.9em;
+    }
+
+    .price {
+      padding: 0.5rem 1rem;
+      border-radius: 3px;
+      background-color: $color-nelp-green;
+    }
+  }
+
   .card-content {
 
     padding: 0.5em;
@@ -66,7 +88,7 @@
     }
 
     .desc {
-
+      font-size: 0.9em;
     }
   }
 }

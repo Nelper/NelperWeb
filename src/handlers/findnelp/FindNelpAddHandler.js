@@ -29,7 +29,7 @@ export default class FindNelpAddHandler extends Component {
   state = {
     category: '',
     title: '',
-    amount: '',
+    priceOffered: '',
     desc: '',
     location: this.props.locations[0],
     openCreateLocation: false,
@@ -76,7 +76,7 @@ export default class FindNelpAddHandler extends Component {
           onCancel={::this._onCancelAddLocation} />
         <form onSubmit={::this._onSubmit}>
           <div className="input-row">
-            <div className="step">1</div>
+            <div className={classNames('step', {'done': this._validateCategory()})}>1</div>
             <div className="input-content">
               <label className="title">Select your Task Category</label>
               <div className="category-picker">{categories}</div>
@@ -87,7 +87,7 @@ export default class FindNelpAddHandler extends Component {
             </div>
           </div>
           <div className="input-row">
-            <div className="step">2</div>
+            <div className={classNames('step', {'done': this._validateTitle()})}>2</div>
             <div className="input-content">
               <label className="title">Enter your Task Title</label>
               <input
@@ -99,7 +99,7 @@ export default class FindNelpAddHandler extends Component {
             </div>
           </div>
           <div className="input-row">
-            <div className="step">3</div>
+            <div className={classNames('step', {'done': this._validatePrice()})}>3</div>
             <div className="input-content">
               <label className="title">How much are you offering?</label>
               <div className="price">
@@ -115,7 +115,7 @@ export default class FindNelpAddHandler extends Component {
             </div>
           </div>
           <div className="input-row">
-            <div className="step">4</div>
+            <div className={classNames('step', {'done': this._validateLocation()})}>4</div>
             <div className="input-content">
               <label className="title">Select your location</label>
               <div className="location">
@@ -131,7 +131,7 @@ export default class FindNelpAddHandler extends Component {
             </div>
           </div>
           <div className="input-row">
-            <div className="step">5</div>
+            <div className={classNames('step', {'done': this._validateDescription()})}>5</div>
             <div className="input-content">
               <label className="title">Briefly describe what you are looking for</label>
               <textarea
@@ -141,7 +141,7 @@ export default class FindNelpAddHandler extends Component {
             </div>
           </div>
           <div className="input-row">
-            <div className="step">6</div>
+            <div className="step camera" />
             <div className="input-content">
               <label className="title">Attach pictures (optional)</label>
               <div key="add" className="pictures">
@@ -162,6 +162,26 @@ export default class FindNelpAddHandler extends Component {
         </form>
       </div>
     );
+  }
+
+  _validateCategory() {
+    return this.state.category.length > 0;
+  }
+
+  _validateTitle() {
+    return this.state.title.length > 0;
+  }
+
+  _validatePrice() {
+    return this.state.priceOffered.length > 0;
+  }
+
+  _validateLocation() {
+    return !!this.state.location;
+  }
+
+  _validateDescription() {
+    return this.state.desc.length > 0;
   }
 
   _selectCategory(c) {
@@ -242,15 +262,12 @@ export default class FindNelpAddHandler extends Component {
     }
   }
 
-  _validate() {
-    let {title, category, location} = this.state;
-    return title && category && location;
-  }
-
   _onSubmit(e) {
     e.preventDefault();
 
-    if(!this._validate()) {
+    if(!this._validateCategory() || !this._validateTitle() ||
+      !this._validatePrice() || !this._validateLocation() ||
+      !this._validateDescription()) {
       return;
     }
 
