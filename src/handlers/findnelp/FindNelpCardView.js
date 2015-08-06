@@ -60,11 +60,11 @@ export default class FindNelpCardView extends Component {
     let pendingApplications = this.props.task.applications.filter(a => a.state === NELP_TASK_APPLICATION_STATE.PENDING);
     return (
       <div className="applicants">
-        {
-          !this._hasAcceptedApplications() ?
-          (pendingApplications.length + (pendingApplications.length > 1 ? ' applicants' : ' applicant')) :
-          'Accepted'
-        }
+      {
+        !this._hasAcceptedApplications() ?
+        (pendingApplications.length + (pendingApplications.length > 1 ? ' applicants' : ' applicant')) :
+        'Accepted'
+      }
       </div>
     );
   }
@@ -75,7 +75,7 @@ export default class FindNelpCardView extends Component {
 
   _taskImage(t) {
     if(!t.pictures || t.pictures.length === 0) {
-      return null;
+      return require('images/task-no-picture.png');
     }
     return t.pictures[0].url;
   }

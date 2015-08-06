@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 import classNames from 'classnames';
 
+import Progress from 'components/Progress';
 import AddLocationDialogView from './AddLocationDialogView';
 import FindNelpActions from 'actions/FindNelpActions';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
+import FindNelpStore from 'stores/FindNelpStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import ApiUtils from 'utils/ApiUtils';
 
@@ -17,12 +19,13 @@ export default class FindNelpAddHandler extends Component {
   }
 
   static getStores() {
-    return [UserStore];
+    return [UserStore, FindNelpStore];
   }
 
   static getPropsFromStores() {
     return {
       locations: UserStore.getState().user.privateData.locations,
+      createdTask: FindNelpStore.getState().createdTask,
     };
   }
 
@@ -34,6 +37,17 @@ export default class FindNelpAddHandler extends Component {
     location: this.props.locations[0],
     openCreateLocation: false,
     pictures: [],
+    loading: false,
+  }
+
+  componentDidMount() {
+    FindNelpActions.startTaskCreate();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.createdTask) {
+      this.context.router.transitionTo('/findnelp');
+    }
   }
 
   render() {
@@ -157,12 +171,16 @@ export default class FindNelpAddHandler extends Component {
               </div>
             </div>
           </div>
-          <div className="btn-group">
-            <button
-              type="submit"
-              className="primary">Create</button>
-            <button onClick={this._cancel.bind(this)}>Cancel</button>
-          </div>
+          {
+            this.state.loading ?
+            <Progress /> :
+            <div className="btn-group">
+              <button
+                type="submit"
+                className="primary">Create</button>
+              <button onClick={this._cancel.bind(this)}>Cancel</button>
+            </div>
+          }
         </form>
       </div>
     );
@@ -284,10 +302,13 @@ export default class FindNelpAddHandler extends Component {
       city: this.state.location.city,
       pictures: this.state.pictures,
     });
-    this.context.router.goBack();
+
+    this.setState({
+      loading: true,
+    });
   }
 
   _cancel() {
-    this.context.router.goBack();
+    this.context.router.transitionTo('/findnelp');
   }
 }

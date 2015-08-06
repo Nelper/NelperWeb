@@ -5,7 +5,11 @@ import {NELP_TASK_STATE} from 'utils/constants';
 class FindNelpActions {
 
   constructor() {
-    this.generateActions('receivedMyTasks');
+    this.generateActions(
+      'receivedMyTasks',
+      'startTaskCreate',
+      'receivedCreatedTask',
+    );
   }
 
   refreshMyTasks() {
@@ -19,7 +23,10 @@ class FindNelpActions {
     task.applications = [];
     task.isNew = true;
     task.state = NELP_TASK_STATE.PENDING;
-    ApiUtils.addTask(task);
+    ApiUtils.addTask(task)
+      .then((t) => {
+        this.actions.receivedCreatedTask(t);
+      });
     return task;
   }
 

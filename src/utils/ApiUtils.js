@@ -109,21 +109,10 @@ class ApiUtils {
           .then((applications) => {
             return tasks.map((t) => {
               let application = applications.find((a) => a.get('task').id === t.id);
-
-              return {
-                objectId: t.id,
-                createdAt: t.createdAt,
-                title: t.get('title'),
-                category: t.get('category'),
-                desc: t.get('desc'),
-                priceOffered: t.get('priceOffered'),
-                state: t.get('state'),
-                location: t.get('location'),
-                city: t.get('city'),
-                user: t.get('user').toPlainObject(),
-                pictures: this._taskPictures(t),
-                application: application && application.toPlainObject(),
-              };
+              let task = this._baseTaskFromParse(t);
+              task.user = t.get('user').toPlainObject();
+              task.application = application && application.toPlainObject();
+              return task;
             });
           });
       });
@@ -148,17 +137,7 @@ class ApiUtils {
                 return a.get('task').id === t.id;
               })
               .sort((ta1, ta2) => ta1.createdAt < ta2.createdAt ? 1 : -1);
-              let task = {
-                objectId: t.id,
-                title: t.get('title'),
-                category: t.get('category'),
-                desc: t.get('desc'),
-                priceOffered: t.get('priceOffered'),
-                location: t.get('location'),
-                city: t.get('city'),
-                state: t.get('state'),
-                pictures: this._taskPictures(t),
-              };
+              let task = this._baseTaskFromParse(t);
               task.applications = taskApplications.map(a => {
                 return {
                   objectId: a.id,
@@ -192,7 +171,12 @@ class ApiUtils {
         url: p.url,
       };
     }));
-    parseTask.save();
+    return parseTask.save()
+      .then(t => {
+        let newtask = this._baseTaskFromParse(t);
+        newtask.applications = [];
+        return newtask;
+      });
   }
 
   deleteTask(task) {
@@ -274,6 +258,20 @@ class ApiUtils {
     return user;
   }
 
+  _baseTaskFromParse(parseTask) {
+    return {
+      objectId: parseTask.id,
+      title: parseTask.get('title'),
+      category: parseTask.get('category'),
+      desc: parseTask.get('desc'),
+      priceOffered: parseTask.get('priceOffered'),
+      location: parseTask.get('location'),
+      city: parseTask.get('city'),
+      state: parseTask.get('state'),
+      pictures: this._taskPictures(parseTask),
+    };
+  }
+
   _taskPictures(parseTask) {
     let pictures = parseTask.get('pictures');
     return pictures && pictures.map(p => {
@@ -290,6 +288,7 @@ class ApiUtils {
     userPrivate.setACL(new Parse.ACL(Parse.User.current()));
     user.set('privateData', userPrivate);
   }
+
 }
 
 export default new ApiUtils();

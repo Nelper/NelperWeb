@@ -27,10 +27,9 @@ export default class FindNelpHandler extends Component {
 
   render() {
     let tasks = this.props.myTasks
-    .sort(this._sortTasks)
     .map((t) => {
       return (
-        <FindNelpCardView task={t} onClick={() => this._taskDetail(t)} />
+        <FindNelpCardView key={t.objectId} task={t} onClick={() => this._taskDetail(t)} />
       );
     });
     return (

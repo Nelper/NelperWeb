@@ -3,6 +3,9 @@
   background-color: $color-nelp-orange;
   border-radius: 50%;
 
+  width: 70px;
+  height: 70px;
+
   @include animation(rotate 1.0s linear infinite);
 
   .image {

@@ -5,12 +5,15 @@ class FindNelpStore {
 
   state = {
     myTasks: [],
+    createdTask: null,
+    error: null,
   }
 
   constructor() {
     this.bindListeners({
       handleReceivedMyTasks: FindNelpActions.RECEIVED_MY_TASKS,
       handleAddTask: FindNelpActions.ADD_TASK,
+      handleReceivedCreatedTask: FindNelpActions.RECEIVED_CREATED_TASK,
       handleDeleteTask: FindNelpActions.DELETE_TASK,
       handleAcceptApplication: FindNelpActions.ACCEPT_APPLICATION,
       handleDenyApplication: FindNelpActions.DENY_APPLICATION,
@@ -23,11 +26,25 @@ class FindNelpStore {
     });
   }
 
+  handleStartTaskCreate() {
+    this.setState({
+      createdTask: null,
+    });
+  }
+
+  handleReceivedCreatedTask(task) {
+    this.setState({
+      createdTask: task,
+    });
+  }
+
   handleAddTask(task) {
     let newTasks = this.state.myTasks; // Should use immutable data.
     newTasks.unshift(task);
     this.setState({
       myTasks: newTasks,
+      createdTask: null,
+      error: null,
     });
   }
 
