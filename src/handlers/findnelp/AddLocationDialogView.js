@@ -24,9 +24,12 @@ export default class FindNelpAddHandler extends Component {
       let autocomplete = new maps.places.Autocomplete(addressInput);
       maps.event.addListener(autocomplete, 'place_changed', () => {
         let place = autocomplete.getPlace();
+        let comp = place.address_components.find(c => {
+          return c.types.some(t => t === 'locality');
+        });
         this.setState({
           address: addressInput.value,
-          city: place.address_components[5].short_name,
+          city: comp.long_name,
           coords: {
             latitude: place.geometry.location.lat(),
             longitude: place.geometry.location.lng(),
