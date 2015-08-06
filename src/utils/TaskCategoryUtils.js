@@ -38,8 +38,8 @@ export default class TaskCategoryUtils {
     },
     'business': {
       color: colors.blue,
-      colorLight: Color(colors.pink).lighten(0.2).hexString(),
-      colorDark: Color(colors.pink).darken(0.5).hexString(),
+      colorLight: Color(colors.blue).lighten(0.2).hexString(),
+      colorDark: Color(colors.blue).darken(0.5).hexString(),
       name: 'Business & Admin',
     },
     'multimedia': {

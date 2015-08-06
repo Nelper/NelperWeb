@@ -93,6 +93,7 @@ export default class FindNelpAddHandler extends Component {
               <input
                 type="text"
                 required={true}
+                minLength={4}
                 maxLength={72}
                 value={this.state.title}
                 onChange={this._onTitleChanged.bind(this)} />
@@ -106,8 +107,9 @@ export default class FindNelpAddHandler extends Component {
                 <div className="currency">$</div>
                 <input
                   type="number"
-                  min="0"
-                  max="9999"
+                  min={0}
+                  max={9999}
+                  maxLength={4}
                   required={true}
                   value={this.state.priceOffered}
                   onChange={this._onPriceOfferedChanged.bind(this)} />
@@ -136,6 +138,7 @@ export default class FindNelpAddHandler extends Component {
               <label className="title">Briefly describe what you are looking for</label>
               <textarea
                 required={true}
+                minLength={4}
                 value={this.state.desc}
                 onChange={this._onDescChanged.bind(this)} />
             </div>
@@ -169,7 +172,7 @@ export default class FindNelpAddHandler extends Component {
   }
 
   _validateTitle() {
-    return this.state.title.length > 0;
+    return this.state.title.length >= 4;
   }
 
   _validatePrice() {
@@ -181,7 +184,7 @@ export default class FindNelpAddHandler extends Component {
   }
 
   _validateDescription() {
-    return this.state.desc.length > 0;
+    return this.state.desc.length >= 4;
   }
 
   _selectCategory(c) {
