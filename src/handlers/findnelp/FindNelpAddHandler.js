@@ -82,6 +82,7 @@ export default class FindNelpAddHandler extends Component {
               <div className="category-picker">{categories}</div>
               <input value={this.state.category ? '1' : ''}
                 className="category-input"
+                readOnly={true}
                 required={true}
                 onInvalid={(e) => e.target.setCustomValidity('Please select a category')} />
             </div>
@@ -280,6 +281,7 @@ export default class FindNelpAddHandler extends Component {
       desc: this.state.desc,
       priceOffered: this.state.priceOffered,
       location: this.state.location.coords,
+      city: this.state.location.city,
       pictures: this.state.pictures,
     });
     this.context.router.goBack();

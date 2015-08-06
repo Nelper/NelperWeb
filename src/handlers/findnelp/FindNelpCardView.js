@@ -13,7 +13,6 @@ export default class FindNelpCardView extends Component {
 
   render() {
     let {task, onClick} = this.props;
-    TaskCategoryUtils.setRandomCategory(task);
     return (
       <div
         className="find-nelp-card-view"
@@ -63,7 +62,7 @@ export default class FindNelpCardView extends Component {
       <div className="applicants">
         {
           !this._hasAcceptedApplications() ?
-          (pendingApplications.length + (pendingApplications.length > 1 ? ' applications' : ' application')) :
+          (pendingApplications.length + (pendingApplications.length > 1 ? ' applicants' : ' applicant')) :
           'Accepted'
         }
       </div>

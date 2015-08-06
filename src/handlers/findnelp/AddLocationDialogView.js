@@ -15,6 +15,7 @@ export default class FindNelpAddHandler extends Component {
     name: '',
     address: '',
     coords: '',
+    city: '',
   }
 
   componentDidMount() {
@@ -25,6 +26,7 @@ export default class FindNelpAddHandler extends Component {
         let place = autocomplete.getPlace();
         this.setState({
           address: addressInput.value,
+          city: place.address_components[5].short_name,
           coords: {
             latitude: place.geometry.location.lat(),
             longitude: place.geometry.location.lng(),
@@ -86,12 +88,14 @@ export default class FindNelpAddHandler extends Component {
         name: this.state.name,
         address: this.state.address,
         coords: this.state.coords,
+        city: this.state.city,
       });
     }
     this.setState({
       name: '',
       address: '',
       coords: null,
+      city: '',
     });
   }
 
@@ -106,6 +110,7 @@ export default class FindNelpAddHandler extends Component {
       name: '',
       address: '',
       coords: null,
+      city: '',
     });
   }
 }

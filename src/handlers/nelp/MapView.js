@@ -13,7 +13,7 @@ export default class MapView extends Component {
   state = {
     googleMapsAPI: GoogleMapsUtils.get(),
     location: this.props.initialCenter,
-    zoom: this.props.initialZoom || 12,
+    zoom: this.props.initialZoom || 15,
   }
 
   loaded = false;

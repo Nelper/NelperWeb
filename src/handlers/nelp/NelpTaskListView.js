@@ -2,7 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
 
+import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+import LocationUtils from 'utils/LocationUtils';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 export default class NelpTaskListView extends Component {
@@ -21,7 +23,9 @@ export default class NelpTaskListView extends Component {
     let {tasks} = this.props;
 
     let displayedTasks = tasks.map((t) => {
-      TaskCategoryUtils.setRandomCategory(t);
+
+      let distance = Math.round(LocationUtils.kilometersBetween(t.location, UserStore.state.user.location));
+
       return (
         <div key={t.objectId} className={classNames(
           'task',
@@ -45,10 +49,10 @@ export default class NelpTaskListView extends Component {
                   </div>
                   <div className="location-col">
                     <div className="city">
-                      Montreal
+                      {t.city || 'N/A'}
                     </div>
                     <div className="distance">
-                      16 km from you
+                      {distance} km from you
                     </div>
                   </div>
                   <div className="price">

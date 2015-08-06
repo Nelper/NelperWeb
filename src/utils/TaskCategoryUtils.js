@@ -76,11 +76,4 @@ export default class TaskCategoryUtils {
   static getName(category) {
     return this._categories[category].name;
   }
-
-  static setRandomCategory(task) {
-    if(!task.category) {
-      let categories = Object.keys(this._categories);
-      task.category = categories[Math.floor(Math.random() * 1000) % categories.length];
-    }
-  }
 }

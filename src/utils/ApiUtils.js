@@ -119,6 +119,7 @@ class ApiUtils {
                 priceOffered: t.get('priceOffered'),
                 state: t.get('state'),
                 location: t.get('location'),
+                city: t.get('city'),
                 user: t.get('user').toPlainObject(),
                 pictures: this._taskPictures(t),
                 application: application && application.toPlainObject(),
@@ -154,6 +155,7 @@ class ApiUtils {
                 desc: t.get('desc'),
                 priceOffered: t.get('priceOffered'),
                 location: t.get('location'),
+                city: t.get('city'),
                 state: t.get('state'),
                 pictures: this._taskPictures(t),
               };
@@ -181,6 +183,7 @@ class ApiUtils {
     parseTask.set('priceOffered', task.priceOffered);
     parseTask.set('state', task.state);
     parseTask.set('location', new Parse.GeoPoint(task.location));
+    parseTask.set('city', task.city);
     parseTask.set('user', Parse.User.current());
     parseTask.set('pictures', task.pictures.map(p => {
       return {
