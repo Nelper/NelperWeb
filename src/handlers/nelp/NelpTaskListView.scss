@@ -11,7 +11,7 @@
   .task {
     width: 100%;
     border-bottom: 1px solid $color-gray-medium;
-    padding: $list-items-padding;
+    padding: $list-items-padding 0;
 
     .header {
       @include display(flex);
@@ -24,14 +24,29 @@
         @include flex(1);
 
         > div {
-          margin: 0.5rem 1rem;
+          margin: 0.5rem;
+
+          @include media($medium-screen) {
+            margin: 0.5rem 1rem;
+          }
         }
+      }
+
+      .infos {
+        @include display(flex);
+        @include align-items(center);
+        @include flex(1);
+      }
+
+      .user-col {
+        @include flex(1);
       }
 
       .user-picture {
         width: rem($user-image-size);
         height: rem($user-image-size);
         position: relative;
+        @include flex-shrink(1);
 
         background-position: center;
         background-repeat: no-repeat;
@@ -54,11 +69,12 @@
       }
 
       .title-col {
-        @include flex-grow(1);
+        @include flex(1);
 
         .title {
           font-weight: bold;
           font-size: 1.2em;
+          @include ellipsis;
         }
 
         .user-name {
@@ -78,19 +94,31 @@
       }
 
       .price {
-        padding: 0.3rem 1rem;
+        @include flex-basis(rem(80px));
+        text-align: center;
+        padding: 0.3rem 0;
         border-radius: 3px;
         background-color: $color-price-green;
         color: $text-dark;
         font-size: 1.1em;
+
       }
 
       .location-col {
-        .city {
+        display: none;
+        @include flex-basis(rem(120px));
+        margin-right: 2rem;
 
+        @include media($medium-screen) {
+          display: block;
+        }
+
+        .city {
+          text-align: right;
         }
 
         .distance {
+          text-align: right;
           font-size: 0.7em;
         }
       }
@@ -103,11 +131,12 @@
       @include transition(max-height 300ms ease-in-out);
       max-height: 500px;
       margin-left: 1rem;
-      margin-right: rem(58px);
+      margin-right: 1rem;
 
       @include media($medium-screen) {
         @include flex-direction(row);
         margin-left: rem(132px);
+        margin-right: rem(58px);
       }
 
       .desc-col {
@@ -149,10 +178,15 @@
     }
 
     .collapse-icon {
+      display: none;
       @include align-self(center);
       width: rem($collapse-image-size);
       height: rem($collapse-image-size);
-      margin: 0 1rem;
+
+      @include media($medium-screen) {
+        display: block;
+        margin: 0 1rem;
+      }
 
       background-image: url('~images/icons/expand.png');
       background-size: contain;

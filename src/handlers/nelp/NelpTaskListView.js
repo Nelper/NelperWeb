@@ -36,20 +36,24 @@ export default class NelpTaskListView extends Component {
                 <div className="title">
                   {t.title}
                 </div>
-                <div className="user-name">By {t.user.name}</div>
-                <div className="date">
-                  Created {moment(t.createdAt).fromNow()}
-                </div>
-              </div>
-              <div className="price">
-                {'$' + t.priceOffered}
-              </div>
-              <div className="location-col">
-                <div className="city">
-                  Montreal
-                </div>
-                <div className="distance">
-                  16 km from you
+                <div className="infos">
+                  <div className="user-col">
+                    <div className="user-name">By {t.user.name}</div>
+                    <div className="date">
+                      Created {moment(t.createdAt).fromNow()}
+                    </div>
+                  </div>
+                  <div className="location-col">
+                    <div className="city">
+                      Montreal
+                    </div>
+                    <div className="distance">
+                      16 km from you
+                    </div>
+                  </div>
+                  <div className="price">
+                    {'$' + t.priceOffered}
+                  </div>
                 </div>
               </div>
             </div>
