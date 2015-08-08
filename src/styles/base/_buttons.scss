@@ -1,6 +1,6 @@
 @mixin btn-color($color) {
   background-color: $color;
-  border-bottom: solid 3px darken($color, 15%);
+  border-bottom: solid 2px darken($color, 15%);
 
   &:hover,
   &:focus {
@@ -15,7 +15,7 @@ button {
   border-radius: $base-border-radius;
   border: none;
   border-top: solid 3px transparent;
-  color: $text-light;
+  color: $color-white;
   cursor: pointer;
   display: inline-block;
   font-family: $heading-font-family;
@@ -47,7 +47,7 @@ button {
   }
 
   &.warning {
-    @include btn-color($color-nelp-orange);
+    @include btn-color($color-red);
   }
 }
 

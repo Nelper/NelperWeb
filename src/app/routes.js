@@ -18,6 +18,7 @@ import FindNelpAddHandler from 'handlers/findnelp/FindNelpAddHandler';
 import FindNelpDetailHandler from 'handlers/findnelp/FindNelpDetailHandler';
 
 import ProfileHandler from 'handlers/profile/ProfileHandler';
+import SettingsHandler from 'handlers/profile/SettingsHandler';
 
 import AboutHandler from 'handlers/about/AboutHandler';
 
@@ -41,6 +42,7 @@ export default (
     <Route path="/findnelp/add" component={FindNelpAddHandler} onEnter={requireAuth} />
     <Route path="/findnelp/detail/:id" component={FindNelpDetailHandler} />
     <Route path="/profile" component={ProfileHandler} onEnter={requireAuth} />
+    <Route path="/profile/settings" component={SettingsHandler} onEnter={requireAuth} />
     <Route path="/about" component={AboutHandler} />
     <Route path="*" component={PageNotFoundHandler} />
   </Route>

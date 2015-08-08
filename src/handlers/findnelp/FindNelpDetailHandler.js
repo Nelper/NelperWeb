@@ -142,13 +142,13 @@ export default class FindNelpDetailHandler extends Component {
     let icon;
     switch (state) {
       case 0:
-        icon = require('images/icons/pending-yellow.png');
+        icon = require('images/icons/state-pending.png');
         break;
       case 2:
-        icon = require('images/icons/accepted-green.png');
+        icon = require('images/icons/state-accepted.png');
         break;
       case 3:
-        icon = require('images/icons/denied-red.png');
+        icon = require('images/icons/state-denied.png');
         break;
     }
     return (
@@ -159,8 +159,8 @@ export default class FindNelpDetailHandler extends Component {
   _renderStatus() {
     let hasAcceptedApplication = this.props.task.applications.some(a => a.state === 2);
     let icon = !hasAcceptedApplication ?
-      require('images/icons/pending-yellow.png') :
-      require('images/icons/accepted-green.png');
+      require('images/icons/state-pending.png') :
+      require('images/icons/state-accepted.png');
     let text = !hasAcceptedApplication ? 'Pending' : 'Accepted';
     return (
       <div className="status">

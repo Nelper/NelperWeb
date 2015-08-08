@@ -43,8 +43,8 @@ export default class ProfileHandler extends Component {
             </div>
             <div>
             <div className="btn-group">
-              <button className="blue">Settings</button>
-              <button className="blue" onClick={::this._logout}>Logout</button>
+              <button className="secondary" onClick={::this._settings}>Settings</button>
+              <button className="secondary" onClick={::this._logout}>Logout</button>
             </div>
             </div>
           </div>
@@ -65,5 +65,9 @@ export default class ProfileHandler extends Component {
   _logout() {
     UserActions.logout();
     this.context.router.transitionTo('/');
+  }
+
+  _settings() {
+    this.context.router.transitionTo('/profile/settings');
   }
 }

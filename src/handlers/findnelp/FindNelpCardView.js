@@ -48,9 +48,15 @@ export default class FindNelpCardView extends Component {
   }
 
   _renderStatus() {
-    let icon = !this._hasAcceptedApplications() ?
-      require('images/icons/pending-yellow.png') :
-      require('images/icons/accepted-green.png');
+    let icon;
+    if(this._hasAcceptedApplications()) {
+      icon = require('images/icons/state-accepted.png');
+    } else if(this.props.task.isNew) {
+      icon = require('images/icons/state-new.png');
+    } else {
+      icon = require('images/icons/state-pending.png');
+    }
+
     return (
       <div className="status-icon" style={{backgroundImage: `url('${icon}')`}} />
     );

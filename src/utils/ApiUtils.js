@@ -148,6 +148,7 @@ class ApiUtils {
                   task: task,
                 };
               });
+              task.isNew = task.applications.some(t => t.isNew);
               return task;
             });
           });
