@@ -54,10 +54,10 @@ export default class NelpTaskFilterView extends Component {
     );
   }
 
-  _showOptions(filters) {
+  _showOptions(/*filters*/) {
 
   }
 
-  _onOptionClick(option) {
+  _onOptionClick(/*option*/) {
   }
 }

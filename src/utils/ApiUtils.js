@@ -92,7 +92,7 @@ class ApiUtils {
     Parse.User.logOut();
   }
 
-  listNelpTasks(filters) {
+  listNelpTasks(/*filters*/) {
     return new Parse.Query(NelpTask)
       .include('user')
       //.notEqualTo('user', Parse.User.current())
@@ -101,20 +101,29 @@ class ApiUtils {
       .limit(20)
       .find()
       .then((tasks) => {
-        return new Parse.Query(NelpTaskApplication)
-          .equalTo('user', Parse.User.current())
-          .equalTo('state', NELP_TASK_APPLICATION_STATE.PENDING)
-          .containedIn('task', tasks)
-          .find()
-          .then((applications) => {
-            return tasks.map((t) => {
-              let application = applications.find((a) => a.get('task').id === t.id);
-              let task = this._baseTaskFromParse(t);
-              task.user = t.get('user').toPlainObject();
-              task.application = application && application.toPlainObject();
-              return task;
+        if(Parse.User.current()) {
+          return new Parse.Query(NelpTaskApplication)
+            .equalTo('user', Parse.User.current())
+            .equalTo('state', NELP_TASK_APPLICATION_STATE.PENDING)
+            .containedIn('task', tasks)
+            .find()
+            .then((applications) => {
+              return tasks.map((t) => {
+                let application = applications.find((a) => a.get('task').id === t.id);
+                let task = this._baseTaskFromParse(t);
+                task.user = t.get('user').toPlainObject();
+                task.application = application && application.toPlainObject();
+                return task;
+              });
             });
+        } else {
+          return tasks.map((t) => {
+            let task = this._baseTaskFromParse(t);
+            task.user = t.get('user').toPlainObject();
+            task.application = application && application.toPlainObject();
+            return task;
           });
+        }
       });
   }
 

@@ -120,7 +120,7 @@ export default class NelpHandler extends Component {
     this.refs.map.panTo(event.latLng);
   }
 
-  _onFilterChanged(filter) {
+  _onFilterChanged(/*filter*/) {
 
   }
 

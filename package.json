@@ -13,7 +13,8 @@
     "lint": "eslint ./src"
   },
   "engines": {
-    "iojs": "^2.3.0"
+    "iojs": "^2.3.0",
+    "npm": "^3.2.2"
   },
   "jest": {
     "scriptPreprocessor": "node_modules/babel-jest",
@@ -42,7 +43,7 @@
     "parse": "^1.4.2",
     "radium": "^0.13.2",
     "react": "^0.13.3",
-    "react-google-maps": "^1.7.1",
+    "react-google-maps": "^2.0.2",
     "react-maskedinput": "^2.0.0",
     "react-motion": "^0.2.7",
     "react-router": "^1.0.0-beta3",
@@ -56,7 +57,7 @@
   "devDependencies": {
     "babel-eslint": "^4.0.5",
     "babel-jest": "^5.3.0",
-    "eslint": "^0.24.1",
+    "eslint": "~1.0.0",
     "eslint-loader": "^0.14.1",
     "eslint-plugin-react": "^3.2.0",
     "react-hot-loader": "^1.2.8",

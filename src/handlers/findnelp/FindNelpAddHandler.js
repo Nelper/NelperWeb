@@ -69,7 +69,7 @@ export default class FindNelpAddHandler extends Component {
 
     let locations = this.props.locations.map((l, i) => {
       return (
-        <option value={i} selected={l === this.state.location}>{l.name}</option>
+        <option value={i} key={i}>{l.name}</option>
       );
     });
 
@@ -138,13 +138,17 @@ export default class FindNelpAddHandler extends Component {
               <div className="location">
                 {
                   locations.length ?
-                  <select onChange={::this._onLocationChanged}>
-                    {locations}
-                  </select> :
+                  <div>
+                    <select value={this.props.locations.indexOf(this.state.location)}
+                            onChange={::this._onLocationChanged}>
+                      {locations}
+                    </select>
+                  </div> :
                   null
                 }
                 <button className="primary" onClick={::this._onOpenAddLocation}>Add</button>
               </div>
+              <div className="address">{this.state.location && this.state.location.address}</div>
             </div>
           </div>
           <div className="input-row">

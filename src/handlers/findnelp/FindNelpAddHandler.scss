@@ -148,8 +148,15 @@
 
     select {
       min-width: rem(200px);
+      height: 2.5em;
       margin-right: 0.5rem;
     }
+  }
+
+  .address {
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    color: $text-medium;
   }
 
   .pictures {

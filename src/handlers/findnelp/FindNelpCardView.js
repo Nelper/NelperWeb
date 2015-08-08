@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import classNames from 'classnames';
 
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';

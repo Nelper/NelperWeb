@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {GoogleMaps, Marker} from 'react-google-maps';
+import {GoogleMap, Marker} from 'react-google-maps';
 
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
@@ -13,10 +13,8 @@ export default class MapView extends Component {
   state = {
     googleMapsAPI: GoogleMapsUtils.get(),
     location: this.props.initialCenter,
-    zoom: this.props.initialZoom || 15,
   }
-
-  loaded = false;
+  loaded = false
 
   componentDidMount() {
     if(!GoogleMapsUtils.get()) {
@@ -30,6 +28,10 @@ export default class MapView extends Component {
 
   render() {
 
+    if(!this.state.googleMapsAPI) {
+      return null;
+    }
+
     let markers = this.props.markers.map((m) => {
       return (
         <Marker
@@ -40,7 +42,7 @@ export default class MapView extends Component {
     });
 
     return (
-      <GoogleMaps containerProps={{
+      <GoogleMap containerProps={{
           style: {
             width: '100%',
             height: '100%',
@@ -48,12 +50,11 @@ export default class MapView extends Component {
         }}
         ref="map"
         googleMapsApi={this.state.googleMapsAPI}
-        zoom={this.state.zoom}
-        onZoomChanged={::this._onZoom}
+        defaultZoom={15}
         onDragend={::this._onDragEnd}
         center={this.state.location}>
         {markers}
-      </GoogleMaps>
+      </GoogleMap>
     );
   }
 
@@ -67,14 +68,5 @@ export default class MapView extends Component {
     this.setState({
       location: this.refs.map.getCenter(),
     });
-  }
-
-  _onZoom() {
-    let zoom = this.refs.map.getZoom();
-    if(zoom !== this.state.zoom) {
-      this.setState({
-        zoom,
-      });
-    }
   }
 }
