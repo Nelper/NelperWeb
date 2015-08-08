@@ -13,6 +13,7 @@ class FindNelpStore {
     this.bindListeners({
       handleReceivedMyTasks: FindNelpActions.RECEIVED_MY_TASKS,
       handleAddTask: FindNelpActions.ADD_TASK,
+      handleStartTaskCreate: FindNelpActions.START_TASK_CREATE,
       handleReceivedCreatedTask: FindNelpActions.RECEIVED_CREATED_TASK,
       handleDeleteTask: FindNelpActions.DELETE_TASK,
       handleAcceptApplication: FindNelpActions.ACCEPT_APPLICATION,

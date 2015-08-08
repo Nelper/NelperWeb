@@ -9,7 +9,8 @@
     "build": "webpack --config webpack.config.js",
     "watch": "webpack-dev-server --progress --colors --hot --inline --history-api-fallback --config webpack-dev.config.js",
     "clean": "rm -rf ./build",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ./src"
   },
   "engines": {
     "iojs": "^2.3.0"
@@ -43,9 +44,9 @@
     "react": "^0.13.3",
     "react-google-maps": "^1.7.1",
     "react-maskedinput": "^2.0.0",
-    "react-motion": "^0.1.0",
+    "react-motion": "^0.2.7",
     "react-router": "^1.0.0-beta3",
-    "sass-loader": "^1.0.2",
+    "sass-loader": "^2.0.0",
     "style-loader": "^0.12.3",
     "svg-inline-loader": "^0.2.1",
     "url-loader": "^0.5.6",
@@ -53,11 +54,11 @@
     "webpack-merge": "^0.1.2"
   },
   "devDependencies": {
-    "babel-eslint": "^3.1.23",
+    "babel-eslint": "^4.0.5",
     "babel-jest": "^5.3.0",
-    "eslint": "^0.24.1",
+    "eslint": "^1.0.0",
     "eslint-loader": "^0.14.1",
-    "eslint-plugin-react": "^2.6.4",
+    "eslint-plugin-react": "^3.2.0",
     "react-hot-loader": "^1.2.8",
     "webpack-dev-server": "^1.10.1",
     "jest-cli": "git://github.com/facebook/jest.git#0.5.x"

@@ -92,7 +92,7 @@ class ApiUtils {
     Parse.User.logOut();
   }
 
-  listNelpTasks() {
+  listNelpTasks(filters) {
     return new Parse.Query(NelpTask)
       .include('user')
       //.notEqualTo('user', Parse.User.current())

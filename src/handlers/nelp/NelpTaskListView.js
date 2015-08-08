@@ -52,7 +52,7 @@ export default class NelpTaskListView extends Component {
                       {t.city || 'N/A'}
                     </div>
                     <div className="distance">
-                      {distance} km from you
+                      {distance} km away from you
                     </div>
                   </div>
                   <div className="price">

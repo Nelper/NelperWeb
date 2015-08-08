@@ -106,7 +106,6 @@
 
       .location-col {
         display: none;
-        @include flex-basis(rem(120px));
         margin-right: 2rem;
 
         @include media($medium-screen) {
