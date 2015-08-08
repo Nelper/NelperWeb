@@ -71,14 +71,14 @@ export default class NelpTaskListView extends Component {
               <div className="btn-group controls">
                 {
                   t.application && t.application.state === NELP_TASK_APPLICATION_STATE.PENDING ?
-                  <button className="primary" onClick={() => this._cancelApplication(t)}>
-                    Cancel application
+                  <button className="warning" onClick={() => this._cancelApplication(t)}>
+                    ???
                   </button> :
                   <button className="primary" onClick={() => this._apply(t)}>
-                    Apply!
+                    Make an offer
                   </button>
                 }
-                <button className="blue">Make an offer</button>
+                <button className="secondary">View Profile</button>
               </div>
             </div>
             {

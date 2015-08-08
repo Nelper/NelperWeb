@@ -92,12 +92,12 @@ export default class FindNelpDetailHandler extends Component {
             {
               a.state === 0 ?
                 <div className="btn-group">
-                  <button className="green" onClick={this._accept.bind(this, a)}>Accept</button>
-                  <button className="primary" onClick={this._deny.bind(this, a)}>Deny</button>
+                  <button className="primary" onClick={this._accept.bind(this, a)}>Accept</button>
+                  <button className="warning" onClick={this._deny.bind(this, a)}>Deny</button>
                 </div> :
                 null
             }
-            <button className="blue" onClick={this._viewProfile.bind(this, a.user)}>View profile</button>
+            <button className="secondary" onClick={this._viewProfile.bind(this, a.user)}>View profile</button>
           </div>
         );
       });
@@ -120,8 +120,8 @@ export default class FindNelpDetailHandler extends Component {
             <div>Description: {task.desc}</div>
             <div>Offer: {task.priceOffered}</div>
             <div className="btn-group">
-              <button className="blue" onClick={::this._edit}>Edit</button>
-              <button className="primary" onClick={::this._delete}>Delete</button>
+              <button className="secondary" onClick={::this._edit}>Edit</button>
+              <button className="warning" onClick={::this._delete}>Delete</button>
               <button onClick={::this._back}>Back</button>
             </div>
           </div>

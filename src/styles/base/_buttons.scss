@@ -39,15 +39,15 @@ button {
   }
 
   &.primary {
-    @include btn-color($color-nelp-orange);
+    @include btn-color($color-nelp-green);
   }
 
-  &.blue {
+  &.secondary {
     @include btn-color($color-nelp-blue);
   }
 
-  &.green {
-    @include btn-color($color-nelp-green);
+  &.warning {
+    @include btn-color($color-nelp-orange);
   }
 }
 

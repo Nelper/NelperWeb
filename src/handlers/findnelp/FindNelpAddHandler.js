@@ -143,7 +143,7 @@ export default class FindNelpAddHandler extends Component {
                   </select> :
                   null
                 }
-                <button className="blue" onClick={::this._onOpenAddLocation}>Add</button>
+                <button className="primary" onClick={::this._onOpenAddLocation}>Add</button>
               </div>
             </div>
           </div>
