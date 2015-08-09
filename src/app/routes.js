@@ -20,7 +20,7 @@ import FindNelpDetailHandler from 'handlers/findnelp/FindNelpDetailHandler';
 import ProfileHandler from 'handlers/profile/ProfileHandler';
 import SettingsHandler from 'handlers/profile/SettingsHandler';
 
-import AboutHandler from 'handlers/about/AboutHandler';
+import HowItWorksHandler from 'handlers/about/HowItWorksHandler';
 
 
 // Pass this function to onEnter for a route that needs
@@ -43,7 +43,7 @@ export default (
     <Route path="/findnelp/detail/:id" component={FindNelpDetailHandler} />
     <Route path="/profile" component={ProfileHandler} onEnter={requireAuth} />
     <Route path="/profile/settings" component={SettingsHandler} onEnter={requireAuth} />
-    <Route path="/about" component={AboutHandler} />
+    <Route path="/howitworks" component={HowItWorksHandler} />
     <Route path="*" component={PageNotFoundHandler} />
   </Route>
 );

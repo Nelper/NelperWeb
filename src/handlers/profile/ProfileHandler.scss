@@ -34,19 +34,40 @@
       font-size: 1.75rem;
     }
 
-    .user-picture {
-      height: 180px;
-      border-radius: 50%;
-      width: 180px;
+    .picture-picker {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
       margin-bottom: 1rem;
-      border: solid 4px $color-white;
-      background-size: cover;
-      background-position: center;
 
       @include media($medium-screen) {
         margin-right: 2rem;
       }
+
+      .picture {
+        height: 180px;
+        border-radius: 50%;
+        width: 180px;
+
+        border: solid 4px $color-white;
+        background-size: cover;
+        background-position: center;
+      }
+
+      input {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 300px;
+        padding: 0;
+        margin: 0;
+        opacity: 0;
+        font-size: 1000px !important;
+        cursor: pointer;
+      }
     }
+
+
 
     .rating {
 

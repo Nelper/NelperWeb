@@ -5,6 +5,7 @@ import connectToStores from 'alt/utils/connectToStores';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import Rating from 'components/Rating';
+import ApiUtils from 'utils/ApiUtils';
 
 @connectToStores
 export default class ProfileHandler extends Component {
@@ -28,9 +29,12 @@ export default class ProfileHandler extends Component {
       <div id="profile-handler">
         <div className="header">
           <div className="container pad-all">
-            <div
+            <div className="picture-picker">
+              <div
                 style={{backgroundImage: `url('${user.pictureURL}')`}}
-                className="user-picture" />
+                className="picture" />
+              <input type="file" onChange={::this._uploadPicture} />
+            </div>
             <div className="info-container">
               <div className="user-name">
                 {user.name}
@@ -69,5 +73,16 @@ export default class ProfileHandler extends Component {
 
   _settings() {
     this.context.router.transitionTo('/profile/settings');
+  }
+
+  _uploadPicture() {
+    let files = event.target.files;
+    if(files.length > 0) {
+      let file = files[0];
+      ApiUtils.uploadFile(file.name, file)
+        .then(f => {
+          UserActions.setPicture(f);
+        });
+    }
   }
 }

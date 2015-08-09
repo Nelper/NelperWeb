@@ -13,6 +13,7 @@ class UserStore {
       handleReceivedUser: UserActions.RECEIVED_USER,
       handleSetLoc: UserActions.SET_LOCATION,
       handleAddLoc: UserActions.ADD_LOCATION,
+      handleSetPicture: UserActions.SET_PICTURE,
     });
   }
 
@@ -32,6 +33,12 @@ class UserStore {
   handleAddLoc(loc) {
     let user = this.state.user;
     user.privateData.locations.push(loc);
+    this.setState({user});
+  }
+
+  handleSetPicture(file) {
+    let user = this.state.user;
+    user.pictureURL = file.url;
     this.setState({user});
   }
 }

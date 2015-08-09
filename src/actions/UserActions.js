@@ -54,6 +54,11 @@ class UserActions {
     return loc;
   }
 
+  setPicture(file) {
+    ApiUtils.setUserPicture(file);
+    return file;
+  }
+
   update() {
     ApiUtils.updateUser()
       .then((user) => {

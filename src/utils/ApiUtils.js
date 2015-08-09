@@ -14,7 +14,7 @@ class ApiUtils {
       .then((user) => {
         return user.get('privateData').fetch();
       })
-      .then(() => this._userFromParse(Parse.User.current()));
+      .then(() => this._meFromParse(Parse.User.current()));
   }
 
   register(email, password, name) {
@@ -29,7 +29,7 @@ class ApiUtils {
         user.save();
         return user;
       })
-      .then(this._userFromParse);
+      .then(this._meFromParse);
   }
 
   loginWithFacebook() {
@@ -55,7 +55,7 @@ class ApiUtils {
             return user.get('privateData').fetch();
           }
         })
-        .then(() => this._userFromParse(Parse.User.current()));
+        .then(() => this._meFromParse(Parse.User.current()));
     });
   }
 
@@ -76,7 +76,7 @@ class ApiUtils {
       .then((user) => {
         return user.get('privateData').fetch();
       })
-      .then(() => this._userFromParse(Parse.User.current()));
+      .then(() => this._meFromParse(Parse.User.current()));
   }
 
   setUserLocation(loc) {
@@ -90,6 +90,12 @@ class ApiUtils {
     let privateData = Parse.User.current().get('privateData');
     privateData.add('locations', loc);
     privateData.save();
+  }
+
+  setUserPicture(file) {
+    let user = Parse.User.current();
+    user.set('customPicture', file.file);
+    user.save();
   }
 
   logout() {
@@ -115,7 +121,7 @@ class ApiUtils {
               return tasks.map((t) => {
                 let application = applications.find((a) => a.get('task').id === t.id);
                 let task = this._baseTaskFromParse(t);
-                task.user = t.get('user').toPlainObject();
+                task.user = this._userFromParse(t.get('user'));
                 task.application = application && application.toPlainObject();
                 return task;
               });
@@ -123,7 +129,7 @@ class ApiUtils {
         } else {
           return tasks.map((t) => {
             let task = this._baseTaskFromParse(t);
-            task.user = t.get('user').toPlainObject();
+            task.user = this._userFromParse(t.get('user'));
             return task;
           });
         }
@@ -156,7 +162,7 @@ class ApiUtils {
                   createdAt: a.createdAt,
                   isNew: a.get('isNew'),
                   state: a.get('state'),
-                  user: a.get('user').toPlainObject(),
+                  user: this._userFromParse(a.get('user')),
                   task: task,
                 };
               });
@@ -265,9 +271,18 @@ class ApiUtils {
       });
   }
 
+  _meFromParse(parseUser) {
+    let user = this._userFromParse(parseUser);
+    user.privateData = parseUser.get('privateData').toPlainObject();
+    return user;
+  }
+
   _userFromParse(parseUser) {
     let user = parseUser.toPlainObject();
-    user.privateData = parseUser.get('privateData').toPlainObject();
+    // If the user has uploaded a picture we use it.
+    if(parseUser.get('customPicture')) {
+      user.pictureURL = parseUser.get('customPicture').url();
+    }
     return user;
   }
 
