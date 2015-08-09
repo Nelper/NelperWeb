@@ -88,11 +88,13 @@ export default class NelpHandler extends Component {
     return (
       <div id="nelp-handler">
         <div className="header-section">
-          <div className="container map">
-            <MapView
-              markers={markers}
-              initialCenter={center}
-              ref="map" />
+          <div className="section-container">
+            <div className="container map">
+              <MapView
+                markers={markers}
+                initialCenter={center}
+                ref="map" />
+            </div>
           </div>
         </div>
         <div className="task-section" ref="taskScroll">

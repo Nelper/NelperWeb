@@ -3,7 +3,7 @@
   height: $height;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: $width $height;
 }
 
 @mixin image-fill {

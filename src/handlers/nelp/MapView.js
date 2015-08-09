@@ -49,7 +49,6 @@ export default class MapView extends Component {
           },
         }}
         ref="map"
-        googleMapsApi={this.state.googleMapsAPI}
         defaultZoom={15}
         onDragend={::this._onDragEnd}
         center={this.state.location}>

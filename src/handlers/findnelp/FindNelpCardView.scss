@@ -1,4 +1,7 @@
 .find-nelp-card-view {
+  $category-icon-size: 32px;
+
+
   @include flex-basis(50em / 3);
   @include flex-grow(1);
   height: em(300px);
@@ -42,11 +45,8 @@
       left: 0.5rem;
 
       .icon {
-        width: rem(32px);
-        height: rem(32px);
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
+        @include image(rem($category-icon-size), rem($category-icon-size));
+        border-radius: 50%;
       }
 
       .name {

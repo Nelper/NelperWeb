@@ -23,8 +23,12 @@ class ApiUtils {
     user.set('email', email);
     user.set('password', password);
     user.set('name', name);
-    this._createUserPrivate(user);
     return user.signUp()
+      .then((user) => {
+        this._createUserPrivate(user);
+        user.save();
+        return user;
+      })
       .then(this._userFromParse);
   }
 
@@ -120,7 +124,6 @@ class ApiUtils {
           return tasks.map((t) => {
             let task = this._baseTaskFromParse(t);
             task.user = t.get('user').toPlainObject();
-            task.application = application && application.toPlainObject();
             return task;
           });
         }
@@ -295,10 +298,9 @@ class ApiUtils {
   _createUserPrivate(user) {
     let userPrivate = new UserPrivateData();
     userPrivate.set('locations', []);
-    userPrivate.setACL(new Parse.ACL(Parse.User.current()));
+    userPrivate.setACL(new Parse.ACL(user));
     user.set('privateData', userPrivate);
   }
-
 }
 
 export default new ApiUtils();

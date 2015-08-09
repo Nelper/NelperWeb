@@ -35,8 +35,11 @@ header.navbar {
 
   .menu-bar {
     @include display(flex);
-    @include flex(1);
     @include justify-content(space-between);
+    
+    @include media ($horizontal-bar-mode) {
+      @include flex(1);
+    }
 
     a {
       @include display(flex);
@@ -45,7 +48,6 @@ header.navbar {
     .logo {
       @include display(flex);
       @include align-items(center);
-      @include flex(1);
       max-height: $navigation-height;
       padding-left: $navigation-padding;
       padding-right: 2em;
@@ -141,7 +143,7 @@ header.navbar {
   // The nav items
   ul li.nav-link {
     @include display(flex);
-    @include flex-shrink(0);
+    @include align-items(stretch);
     background: $navigation-background;
     line-height: $navigation-height;
     overflow: hidden;
@@ -165,6 +167,7 @@ header.navbar {
       }
 
       @include media ($horizontal-bar-mode) {
+        @include flex(none);
         padding: 0 1em;
       }
     }

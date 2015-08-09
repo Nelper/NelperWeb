@@ -24,7 +24,9 @@ export default class NelpTaskListView extends Component {
 
     let displayedTasks = tasks.map((t) => {
 
-      let distance = Math.round(LocationUtils.kilometersBetween(t.location, UserStore.state.user.location));
+      let distance = UserStore.state.user ?
+        Math.round(LocationUtils.kilometersBetween(t.location, UserStore.state.user.location)) :
+        null;
 
       return (
         <div key={t.objectId} className={classNames(
@@ -51,9 +53,13 @@ export default class NelpTaskListView extends Component {
                     <div className="city">
                       {t.city || 'N/A'}
                     </div>
-                    <div className="distance">
-                      {distance} km away from you
-                    </div>
+                    {
+                      distance !== null ?
+                      <div className="distance">
+                        {distance} km away from you
+                      </div> :
+                      null
+                    }
                   </div>
                   <div className="price">
                     {'$' + t.priceOffered}

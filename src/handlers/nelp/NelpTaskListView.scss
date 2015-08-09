@@ -55,16 +55,14 @@
         border: 2px solid $color-black;
 
         .category-icon {
-          width: rem($category-image-size);
-          height: rem($category-image-size);
           position: absolute;
           bottom: rem(-5px);
           right: rem(-5px);
 
+          @include image(rem($category-image-size), rem($category-image-size));
           border-radius: 50%;
+          background-color: $color-gray-light;
           border: 2px solid $color-black;
-          background-position: center;
-          background-size: contain;
         }
       }
 

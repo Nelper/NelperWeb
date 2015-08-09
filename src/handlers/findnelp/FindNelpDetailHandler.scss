@@ -1,5 +1,7 @@
 #find-nelp-detail-handler {
 
+  $state-icon-size: 32px;
+
   .task-detail {
     margin-left: 1.5em;
 
@@ -53,10 +55,10 @@
         position: absolute;
         bottom: rem(-8px);
         right: rem(-8px);
-        width: rem(32px);
-        height: rem(32px);
-        background-position: center;
-        background-size: contain;
+
+        @include image(rem($state-icon-size), rem($state-icon-size));
+        border-radius: 50%;
+        border: 2px solid $color-black;
       }
 
       .user-info {
