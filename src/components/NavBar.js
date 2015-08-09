@@ -14,9 +14,9 @@ export default class NavBar extends Component {
 
   render() {
     let menuItems = !this.props.user ? [
+      this._renderNavItem('How it works', '/howitworks', 40),
       this._renderNavItem('Nelp', '/nelp', 10),
       this._renderNavItem('Find Nelp', '/findnelp', 20),
-      this._renderNavItem('About', '/about', 40),
       this._renderNavItem('Login', '/login', 30),
     ] : [
       this._renderNavItem('How it works', '/howitworks', 40),
