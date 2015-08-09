@@ -1,4 +1,5 @@
-$container-padding: 1rem 0.5rem;
+$container-padding-hor: 0.5rem;
+$container-padding-vert: 1rem;
 
 html, body, #app {
   height: 100%;
@@ -34,12 +35,12 @@ body {
 }
 
 &.pad-all {
-  padding: $container-padding;
+  padding: $container-padding-vert $container-padding-hor;
 }
 
 &.pad-hor {
-  padding-left: $container-padding;
-  padding-right: $container-padding;
+  padding-left: $container-padding-hor;
+  padding-right: $container-padding-hor;
 }
 
 .section-separator {

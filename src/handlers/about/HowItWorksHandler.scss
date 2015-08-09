@@ -1,0 +1,111 @@
+#how-it-works-handler {
+
+  padding: 2rem 0;
+
+  h1 {
+    width: 100%;
+    font-size: 2em;
+    text-align: center;
+  }
+
+  h2 {
+    width: 100%;
+    padding: 2rem 0;
+    margin: 2rem 0;
+    font-size: 1.8em;
+    text-align: center;
+    border-bottom: solid 1px $color-gray-medium;
+  }
+
+  h3 {
+    font-size: 1.3em;
+  }
+
+  p {
+    font-family: $base-font-family;
+  }
+
+  .pad-extra {
+    padding: 0 4rem;
+  }
+
+  .dark-section {
+    width: 100%;
+    padding: 1rem;
+    background-color: $color-blue-gray;
+    color: $color-white;
+    box-shadow: 0px 10px 16px 1px rgba(0, 0, 0, 0.2);
+
+    .container {
+      display: block;
+    }
+  }
+
+  .section-col-3 {
+    @include span-columns(12);
+
+    @include media($medium-screen) {
+      @include span-columns(4);
+    }
+
+    text-align: center;
+  }
+
+  .buttons-section {
+    .desc {
+      margin-bottom: 0.5rem;
+    }
+
+    button {
+      width: rem(200px);
+      padding-left: 0;
+      padding-right: 0;
+      margin: 0.5rem 0;
+    }
+  }
+
+  .what-is {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+
+    @include media($medium-screen) {
+      padding: 0 8rem;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.1em;
+    }
+  }
+
+  .logo {
+    width: rem(128px);
+    height: rem(128px);
+  }
+
+  .info-row {
+    @include display(flex);
+    border-bottom: 1px solid $color-gray-medium;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+
+    &:last-child {
+      border: none;
+      margin-bottom: 0;
+    }
+
+    .info-image {
+      @include flex(1);
+    }
+
+    .info-desc {
+      @include display(flex);
+      @include flex-direction(column);
+      @include justify-content(center);
+      @include flex(2);
+      margin: 0 2rem;
+    }
+  }
+}

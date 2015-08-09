@@ -49,6 +49,22 @@ button {
   &.warning {
     @include btn-color($color-red);
   }
+
+  &.dark-big {
+    @include btn-color($color-blue-gray);
+
+    background-color: $color-blue-gray;
+    border: 2px solid $color-gray-light;
+    border-radius: 8px;
+    padding: 1rem 4rem;
+    font-size: 1.5em;
+    @include transition(background-color 250ms linear, color 250ms linear);
+
+    &:hover {
+      background-color: $color-gray-light;
+      color: $color-blue-gray;
+    }
+  }
 }
 
 .btn-group {
