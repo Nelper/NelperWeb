@@ -7,7 +7,8 @@ html, body, #app {
 
 body {
   background-color: $base-background-color;
-
+  overflow-x: hidden;
+  overflow-y: scroll;
   // not sure about that
   //@include user-select(none);
   -webkit-tap-highlight: rgba(0, 0, 0, 0);
