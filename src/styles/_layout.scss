@@ -23,6 +23,14 @@ body {
   }
 }
 
+// Anchor that offsets for fixed header for for html # links
+a.anchor {
+  display: block;
+  position: relative;
+  top: -$navbar-height;
+  visibility: hidden;
+}
+
 .container {
   @include outer-container;
   @include display(flex);

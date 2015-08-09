@@ -11,7 +11,7 @@
   h2 {
     width: 100%;
     padding: 2rem 0;
-    margin: 2rem 0;
+    margin-bottom: 2rem;
     font-size: 1.8em;
     text-align: center;
     border-bottom: solid 1px $color-gray-medium;
@@ -23,10 +23,15 @@
 
   p {
     font-family: $base-font-family;
+    line-height: 1.8em;
   }
 
   .pad-extra {
-    padding: 0 4rem;
+    padding: 0 1rem;
+
+    @include media($medium-screen) {
+      padding: 0 4rem;
+    }
   }
 
   .dark-section {
@@ -64,32 +69,22 @@
     }
   }
 
-  .what-is {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-
-    @include media($medium-screen) {
-      padding: 0 8rem;
-    }
-
-    p {
-      text-align: center;
-      font-size: 1.1em;
-    }
-  }
-
-  .logo {
-    width: rem(128px);
-    height: rem(128px);
-  }
-
   .info-row {
     @include display(flex);
+    @include flex-direction(column);
     border-bottom: 1px solid $color-gray-medium;
     margin-bottom: 3rem;
     padding-bottom: 3rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
+
+    @include media($medium-screen) {
+      @include flex-direction(row);
+      padding-left: 3rem;
+      padding-right: 3rem;
+
+      &:nth-child(odd) .info-image {
+        order: 1;
+      }
+    }
 
     &:last-child {
       border: none;
@@ -98,6 +93,17 @@
 
     .info-image {
       @include flex(1);
+      padding: 0 4rem;
+      margin-bottom: 1rem;
+
+      @include media($medium-screen) {
+        padding: 0;
+        margin-bottom: 0;
+      }
+
+      img {
+        width: 100%;
+      }
     }
 
     .info-desc {
@@ -105,7 +111,65 @@
       @include flex-direction(column);
       @include justify-content(center);
       @include flex(2);
-      margin: 0 2rem;
+      text-align: justify;
+
+      @include media($medium-screen) {
+        margin: 0 2rem;
+        text-align: left;
+      }
+    }
+  }
+
+  .what-is {
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+
+    @include media($medium-screen) {
+      margin-top: 1rem;
+      padding: 0 8rem;
+    }
+
+    p {
+      font-size: 1.1em;
+      text-align: justify;
+      line-height: 1.5em;
+
+      @include media($medium-screen) {
+        text-align: center;
+      }
+    }
+  }
+
+  .logo {
+    width: rem(128px);
+    height: rem(128px);
+  }
+
+  .nelp-section, .find-nelp-section {
+    padding-top: 2rem;
+  }
+
+  .find-nelp-get-started {
+    .container {
+      @include display(flex);
+      @include align-items(center);
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    h2 {
+      border: none;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.5em;
+      font-weight: normal;
+    }
+
+    button {
+      border: none;
+      padding: 1rem 3rem;
+      border-radius: 8px;
     }
   }
 }

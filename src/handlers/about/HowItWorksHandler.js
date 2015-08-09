@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 
 export default class HowItWorksHandler extends Component {
 
@@ -16,19 +17,24 @@ export default class HowItWorksHandler extends Component {
         <div className="dark-section buttons-section">
           <div className="container pad-hor">
             <div className="section-col-3">
-              <button className="dark-big">Find Nelp</button>
+              <a href="#find-nelp">
+                <button className="dark-big">Find Nelp</button>
+              </a>
               <div className="desc">Find Nelp and get your tasks completed!</div>
             </div>
             <div className="section-col-3">
               <img className="logo" src={require('images/logo-round.png')} />
             </div>
             <div className="section-col-3">
-              <button className="dark-big">Nelp</button>
+              <a href="#nelp">
+                <button className="dark-big">Nelp</button>
+              </a>
               <div className="desc">Become a Nelper by completing posted tasks!</div>
             </div>
           </div>
         </div>
-        <div className="container pad-extra">
+        <div className="container pad-extra nelp-section">
+          <a id="find-nelp" className="anchor" />
           <h2>Find Nelp</h2>
           <div className="info-row">
             <div className="info-image">
@@ -44,6 +50,9 @@ export default class HowItWorksHandler extends Component {
             </div>
           </div>
           <div className="info-row">
+            <div className="info-image">
+              <img src={require('images/how-it-works/find-nelp-2.png')} />
+            </div>
             <div className="info-desc">
               <h3>Choose the Nelper you want from the list of applicants</h3>
               <p>
@@ -52,9 +61,6 @@ export default class HowItWorksHandler extends Component {
                 your choice based on their skills & feedback, which can be found
                 on their profile!
               </p>
-            </div>
-            <div className="info-image">
-              <img src={require('images/how-it-works/find-nelp-2.png')} />
             </div>
           </div>
           <div className="info-row">
@@ -72,6 +78,9 @@ export default class HowItWorksHandler extends Component {
             </div>
           </div>
           <div className="info-row">
+            <div className="info-image">
+              <img src={require('images/how-it-works/find-nelp-4.png')} />
+            </div>
             <div className="info-desc">
               <h3>Complete the transaction and rate the Nelper</h3>
               <p>
@@ -84,22 +93,24 @@ export default class HowItWorksHandler extends Component {
                 satisfaction, which concludes the transaction.
               </p>
             </div>
-            <div className="info-image">
-              <img src={require('images/how-it-works/find-nelp-4.png')} />
-            </div>
           </div>
         </div>
-        <div className="dark-section">
+        <div className="dark-section find-nelp-get-started">
           <div className="container">
             <h2>Get Started Now!</h2>
-            <button className="primary">Ask for Nelp</button>
+            <Link to="/findnelp">
+              <button className="primary">Ask for Nelp</button>
+            </Link>
           </div>
         </div>
-        <div className="container pad-extra">
+        <div className="container pad-extra find-nelp-section">
+          <a id="nelp" className="anchor" />
           <h2>Nelp</h2>
-          <div>
-            <img />
-            <div>
+          <div className="info-row">
+            <div className="info-image">
+              <img src={require('images/how-it-works/nelp-1.png')} />
+            </div>
+            <div className="info-desc">
               <h3>Set up your profile</h3>
               <p>
                 Click on the profile section and start setting up your info. Write
@@ -111,8 +122,11 @@ export default class HowItWorksHandler extends Component {
               </p>
             </div>
           </div>
-          <div>
-            <div>
+          <div className="info-row">
+            <div className="info-image">
+              <img src={require('images/how-it-works/nelp-2.png')} />
+            </div>
+            <div className="info-desc">
               <h3>Browse tasks in Nelp</h3>
               <p>
                 To become a Nelper, start by browsing through tasks in Nelp and
@@ -120,11 +134,12 @@ export default class HowItWorksHandler extends Component {
                 price or proximity.
               </p>
             </div>
-            <img />
           </div>
-          <div>
-            <img />
-            <div>
+          <div className="info-row">
+            <div className="info-image">
+              <img src={require('images/how-it-works/nelp-3.png')} />
+            </div>
+            <div className="info-desc">
               <h3>Select the task you want to complete</h3>
               <p>
                 Once you find a task that suits you, apply for it. You can either
@@ -136,8 +151,11 @@ export default class HowItWorksHandler extends Component {
               </p>
             </div>
           </div>
-          <div>
-            <div>
+          <div className="info-row">
+            <div className="info-image">
+              <img src={require('images/how-it-works/nelp-4.png')} />
+            </div>
+            <div className="info-desc">
               <h3>Get paid</h3>
               <p>
                 Once you have completed the task and both parties are satisfied,
@@ -149,7 +167,6 @@ export default class HowItWorksHandler extends Component {
                 done, they will be safely transferred into your verified bank account.
               </p>
             </div>
-            <img />
           </div>
         </div>
       </div>
