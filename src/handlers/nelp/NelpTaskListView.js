@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import Slider from 'react-slick';
 import classNames from 'classnames';
 import moment from 'moment';
 
@@ -27,6 +28,12 @@ export default class NelpTaskListView extends Component {
       let distance = UserStore.state.user ?
         Math.round(LocationUtils.kilometersBetween(t.location, UserStore.state.user.location)) :
         null;
+
+      let pictures = t.pictures && t.pictures.map(p => {
+        return (
+          <div className="task-picture" style={{backgroundImage: `url('${p.url}')`}} />
+        );
+      });
 
       return (
         <div key={t.objectId} className={classNames(
@@ -89,7 +96,17 @@ export default class NelpTaskListView extends Component {
             </div>
             {
               t.pictures && t.pictures.length > 0 ?
-              <div className="task-image" style={{backgroundImage: `url('${t.pictures[0].url}')`}} /> :
+              <div className="task-pictures">
+                <Slider
+                  dots={true}
+                  infinite={false}
+                  speed={500}
+                  slidesToShow={1}
+                  slidesToScroll={1}
+                  arrows={true}>
+                  {pictures}
+                </Slider>
+              </div> :
               null
             }
           </div>

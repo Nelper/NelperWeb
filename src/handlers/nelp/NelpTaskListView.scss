@@ -163,14 +163,24 @@
         }
       }
 
-      .task-image {
-        width: rem(200px);
-        height: rem(125px);
+      .task-pictures {
+        width: 100%;
         margin-bottom: 1rem;
-        @include image-fill;
-        background-color: $color-gray-light;
-        border: 2px solid $color-gray-medium;
-        border-radius: 3px;
+        overflow: hidden;
+
+        @include media($medium-screen) {
+          width: rem(250px);
+        }
+
+        .task-picture {
+          height: 250px;
+          @include image-fill();
+
+          img {
+            width: 100%;
+            margin: auto;
+          }
+        }
       }
     }
 
