@@ -81,7 +81,7 @@
       padding-left: 3rem;
       padding-right: 3rem;
 
-      &:nth-child(odd) .info-image {
+      &:nth-child(even) .info-image {
         order: 1;
       }
     }
