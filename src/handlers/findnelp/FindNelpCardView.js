@@ -15,7 +15,6 @@ export default class FindNelpCardView extends Component {
     return (
       <div
         className="find-nelp-card-view"
-        style={{backgroundColor: TaskCategoryUtils.getLightColor(task.category)}}
         onClick={onClick}>
         <div className="card-image" style={{backgroundImage: `url('${this._taskImage(task)}')`}}>
           <div className="image-overlay" />
