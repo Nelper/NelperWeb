@@ -25,7 +25,7 @@ class ApiUtils {
     user.set('name', name);
     return user.signUp()
       .then((user) => {
-        this._createUserPrivate(user);
+        this._createUserBase(user);
         user.save();
         return user;
       })
@@ -48,7 +48,7 @@ class ApiUtils {
           user.set('name', fbUser.name);
           user.set('pictureURL', fbUser.picture.data.url);
           if(!user.has('privateData')) {
-            this._createUserPrivate(user);
+            this._createUserBase(user);
             user.save();
             return user;
           } else {
@@ -95,6 +95,26 @@ class ApiUtils {
   setUserPicture(file) {
     let user = Parse.User.current();
     user.set('customPicture', file.file);
+    user.save();
+  }
+
+  addUserSkill(skill) {
+    let user = Parse.User.current();
+    user.add('skills', skill);
+    user.save();
+  }
+
+  editUserSkill(skill) {
+    let user = Parse.User.current();
+    let userSkills = user.get('skills');
+    let index = userSkills.findIndex(s => s.objectId === skill.objectId);
+    userSkills[index] = skill;
+    user.save();
+  }
+
+  deleteUserSkill(skill) {
+    let user = Parse.User.current();
+    user.remove('skills', skill);
     user.save();
   }
 
@@ -310,7 +330,10 @@ class ApiUtils {
     });
   }
 
-  _createUserPrivate(user) {
+  _createUserBase(user) {
+    user.set('about', '');
+    user.set('skills', []);
+    user.set('experience', []);
     let userPrivate = new UserPrivateData();
     userPrivate.set('locations', []);
     userPrivate.setACL(new Parse.ACL(user));

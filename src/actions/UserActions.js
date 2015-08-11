@@ -1,5 +1,6 @@
 import alt from 'app/alt';
 import ApiUtils from 'utils/ApiUtils';
+import createId from 'utils/createId';
 
 class UserActions {
 
@@ -57,6 +58,22 @@ class UserActions {
   setPicture(file) {
     ApiUtils.setUserPicture(file);
     return file;
+  }
+
+  addSkill(skill) {
+    skill.objectId = createId();
+    ApiUtils.addUserSkill(skill);
+    return skill;
+  }
+
+  editSkill(skill) {
+    ApiUtils.editUserSkill(skill);
+    return skill;
+  }
+
+  deleteSkill(skill) {
+    ApiUtils.deleteUserSkill(skill);
+    return skill;
   }
 
   update() {
