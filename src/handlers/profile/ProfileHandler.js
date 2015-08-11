@@ -23,9 +23,14 @@ export default class ProfileHandler extends Component {
   }
 
   state = {
+    editAbout: false,
+    aboutText: '',
     editSkills: false,
     skillText: '',
     editedSkill: null,
+    editExperience: false,
+    experienceText: '',
+    editedExperience: null,
   }
 
   render() {
@@ -33,10 +38,20 @@ export default class ProfileHandler extends Component {
 
     let skills = user.skills.map(s => {
       return (
-        <div className="skill">
+        <div className="skill editable-row" key={s.objectId}>
           <div className="title">{s.title}</div>
-          <button className="secondary" onClick={() => this._editSkill(s)}>Edit</button>
-          <button className="warning" onClick={() => this._deleteSkill(s)}>Delete</button>
+          <button className="action secondary" onClick={() => this._editSkill(s)} />
+          <button className="action warning" onClick={() => this._deleteSkill(s)} />
+        </div>
+      );
+    });
+
+    let experience = user.experience.map(e => {
+      return (
+        <div className="editable-row" key={e.objectId}>
+          <div className="title">{e.title}</div>
+          <button className="action secondary" onClick={() => this._editExperience(e)} />
+          <button className="action warning" onClick={() => this._deleteExperience(e)} />
         </div>
       );
     });
@@ -69,18 +84,35 @@ export default class ProfileHandler extends Component {
             </div>
           </div>
         </div>
-        <div className="tabs" />
         <div className="container pad-all">
           <div className="section-row">
-            <div className="title">
+            <div className="section-title">
               About
             </div>
             <div className="content">
-              {user.about}
+              {
+                !this.state.editAbout ?
+                <div className="about editable-row">
+                  <div className="title">{user.about || 'Write something about you'}</div>
+                  <button className="action secondary" onClick={::this._editAbout}/>
+                </div> :
+                <div className="edit-box">
+                  <form onSubmit={::this._doneEditAbout}>
+                    <textarea
+                      placeholder="Write something about you..."
+                      value={this.state.aboutText}
+                      onChange={::this._onAboutTextChanged} />
+                    <div className="btn-group">
+                      <button type="submit" className="primary">OK</button>
+                      <button onClick={::this._cancelEditAbout}>Cancel</button>
+                    </div>
+                  </form>
+                </div>
+              }
             </div>
           </div>
           <div className="section-row">
-            <div className="title">
+            <div className="section-title">
               Skills
             </div>
             <div className="content">
@@ -89,13 +121,14 @@ export default class ProfileHandler extends Component {
               </div>
               {
                 !this.state.editSkills ?
-                <button className="add-skill" onClick={::this._addSkill}>Add new skill</button> :
-                <div className="add-skill-form">
+                <button className="add-skill light primary" onClick={::this._addSkill}>Add new skill</button> :
+                <div className="edit-box">
                   <form onSubmit={::this._doneEditSkills}>
-                    <p>Enter something you are good at</p>
                     <input
                       type="text"
+                      placeholder="Enter something you are good at"
                       value={this.state.skillText}
+                      maxLength={30}
                       required={true}
                       onChange={::this._onSkillTextChanged} />
                     <div className="btn-group">
@@ -107,9 +140,66 @@ export default class ProfileHandler extends Component {
               }
             </div>
           </div>
+          <div className="section-row">
+            <div className="section-title">
+              Experience
+            </div>
+            <div className="content">
+              <div className="experience">
+                {experience}
+              </div>
+              {
+                !this.state.editExperience ?
+                <button className="light primary" onClick={::this._addExperience}>Add new experience</button> :
+                <div className="edit-box">
+                  <form onSubmit={::this._doneEditExperience}>
+                    <input
+                      type="text"
+                      placeholder="Enter something you did..."
+                      value={this.state.experienceText}
+                      maxLength={30}
+                      required={true}
+                      onChange={::this._onExperienceTextChanged} />
+                    <div className="btn-group">
+                      <button type="submit" className="primary">OK</button>
+                      <button onClick={::this._cancelEditExperience}>Cancel</button>
+                    </div>
+                  </form>
+                </div>
+              }
+            </div>
+          </div>
         </div>
       </div>
     );
+  }
+
+  _editAbout() {
+    this.setState({
+      aboutText: this.props.user.about,
+      editAbout: true,
+    });
+  }
+
+  _doneEditAbout(event) {
+    event.preventDefault();
+
+    UserActions.editAbout(this.state.aboutText);
+
+    this.setState({
+      editAbout: false,
+    });
+  }
+
+  _cancelEditAbout(event) {
+    event.preventDefault();
+    this.setState({
+      editAbout: false,
+    });
+  }
+
+  _onAboutTextChanged(event) {
+    this.setState({aboutText: event.target.value});
   }
 
   _addSkill() {
@@ -157,6 +247,53 @@ export default class ProfileHandler extends Component {
 
   _onSkillTextChanged(event) {
     this.setState({skillText: event.target.value});
+  }
+
+  _addExperience() {
+    this.setState({editExperience: true});
+  }
+
+  _editExperience(exp) {
+    this.setState({
+      editExperience: true,
+      experienceText: exp.title,
+      editedExperience: exp,
+    });
+  }
+
+  _deleteExperience(exp) {
+    UserActions.deleteExperience(exp);
+  }
+
+  _doneEditExperience(event) {
+    event.preventDefault();
+    if(!this.state.editedExperience) {
+      UserActions.addExperience({
+        title: this.state.experienceText,
+      });
+    } else {
+      let exp = this.state.editedExperience;
+      exp.title = this.state.experienceText;
+      UserActions.editExperience(exp);
+    }
+    this.setState({
+      editExperience: false,
+      experienceText: '',
+      editedExperience: null,
+    });
+  }
+
+  _cancelEditExperience(event) {
+    event.preventDefault();
+    this.setState({
+      editExperience: false,
+      experienceText: '',
+      editedExperience: null,
+    });
+  }
+
+  _onExperienceTextChanged(event) {
+    this.setState({experienceText: event.target.value});
   }
 
   _logout() {

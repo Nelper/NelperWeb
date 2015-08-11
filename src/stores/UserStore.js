@@ -14,9 +14,13 @@ class UserStore {
       handleSetLoc: UserActions.SET_LOCATION,
       handleAddLoc: UserActions.ADD_LOCATION,
       handleSetPicture: UserActions.SET_PICTURE,
+      handleEditAbout: UserActions.EDIT_ABOUT,
       handleAddSkill: UserActions.ADD_SKILL,
       handleEditSkill: UserActions.EDIT_SKILL,
       handleDeleteSkill: UserActions.DELETE_SKILL,
+      handleAddExperience: UserActions.ADD_EXPERIENCE,
+      handleEditExperience: UserActions.EDIT_EXPERIENCE,
+      handleDeleteExperience: UserActions.DELETE_EXPERIENCE,
     });
   }
 
@@ -48,6 +52,13 @@ class UserStore {
     Storage.setItem('user', user);
   }
 
+  handleEditAbout(about) {
+    let user = this.state.user;
+    user.about = about;
+    this.setState({user});
+    Storage.setItem('user', user);
+  }
+
   handleAddSkill(skill) {
     let user = this.state.user;
     user.skills.push(skill);
@@ -65,6 +76,27 @@ class UserStore {
   handleDeleteSkill(skill) {
     let user = this.state.user;
     user.skills.splice(user.skills.indexOf(skill), 1);
+    this.setState({user});
+    Storage.setItem('user', user);
+  }
+
+  handleAddExperience(exp) {
+    let user = this.state.user;
+    user.experience.push(exp);
+    this.setState({user});
+    Storage.setItem('user', user);
+  }
+
+  handleEditExperience(exp) {
+    let user = this.state.user;
+    user.experience[user.experience.indexOf(exp)] = exp;
+    this.setState({user});
+    Storage.setItem('user', user);
+  }
+
+  handleDeleteExperience(exp) {
+    let user = this.state.user;
+    user.experience.splice(user.experience.indexOf(exp), 1);
     this.setState({user});
     Storage.setItem('user', user);
   }

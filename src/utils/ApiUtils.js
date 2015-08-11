@@ -98,6 +98,12 @@ class ApiUtils {
     user.save();
   }
 
+  editUserAbout(about) {
+    let user = Parse.User.current();
+    user.set('about', about);
+    user.save();
+  }
+
   addUserSkill(skill) {
     let user = Parse.User.current();
     user.add('skills', skill);
@@ -115,6 +121,26 @@ class ApiUtils {
   deleteUserSkill(skill) {
     let user = Parse.User.current();
     user.remove('skills', skill);
+    user.save();
+  }
+
+  addUserExperience(exp) {
+    let user = Parse.User.current();
+    user.add('experience', exp);
+    user.save();
+  }
+
+  editUserExperience(exp) {
+    let user = Parse.User.current();
+    let userExp = user.get('experience');
+    let index = userExp.findIndex(e => e.objectId === exp.objectId);
+    userExp[index] = exp;
+    user.save();
+  }
+
+  deleteUserExperience(exp) {
+    let user = Parse.User.current();
+    user.remove('experience', exp);
     user.save();
   }
 

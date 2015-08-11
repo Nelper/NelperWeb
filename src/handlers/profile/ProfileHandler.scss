@@ -67,8 +67,6 @@
       }
     }
 
-
-
     .rating {
 
     }
@@ -78,33 +76,79 @@
     }
   }
 
-  .tabs {
-    height: 64px;
-    background-color: $color-white;
-    color: $color-black;
-    border-bottom: solid 1px $color-gray-medium;
-    font-size: 18px;
+  .section-row {
+    width: 100%;
+    margin-bottom: 2rem;
 
-    .container {
-      height: 100%;
-      @include display(flex);
-      @include flex-direction(row);
-      @include align-items(center);
-    }
+    .section-title {
+      @include span-columns(12);
+      margin-bottom: 0.5rem;
+      font-size: 1.5em;
 
-    .tab {
-      @include display(flex);
-      @include align-items(center);
-      @include justify-content(center);
-      @include flex(1);
-
-      &.active {
-        color: $color-nelp-orange;
+      @include media($large-screen) {
+        @include span-columns(3);
+        text-align: right;
       }
     }
-  }
 
-  .content {
+    .content {
+      @include span-columns(12);
+      padding-left: 1rem;
 
+      @include media($large-screen) {
+        @include span-columns(9);
+      }
+
+      .editable-row {
+        @include display(flex);
+        @include align-items(center);
+
+        .title {
+          @include flex(1);
+        }
+
+        .action {
+          opacity: 0;
+          @include transition(opacity 250ms linear);
+        }
+
+        &:hover .action {
+          opacity: 1;
+        }
+      }
+
+      .about {
+        @include display(flex);
+        @include align-items(center);
+
+        .text {
+          @include flex(1);
+        }
+      }
+
+      .skills {
+        @include display(flex);
+        @include flex-wrap(wrap);
+
+        .skill {
+          @include flex(0 0 100%);
+          padding-right: 1rem;
+          padding-bottom: 1rem;
+
+          @include media($medium-screen) {
+            @include flex(0 0 50%);
+          }
+        }
+      }
+
+      .edit-box {
+        padding: 1rem;
+        margin: 0.5rem;
+
+        border-radius: 3px;
+        background-color: $color-white;
+        border: 1px solid $color-gray-medium;
+      }
+    }
   }
 }

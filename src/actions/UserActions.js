@@ -60,6 +60,11 @@ class UserActions {
     return file;
   }
 
+  editAbout(about) {
+    ApiUtils.editUserAbout(about);
+    return about;
+  }
+
   addSkill(skill) {
     skill.objectId = createId();
     ApiUtils.addUserSkill(skill);
@@ -74,6 +79,22 @@ class UserActions {
   deleteSkill(skill) {
     ApiUtils.deleteUserSkill(skill);
     return skill;
+  }
+
+  addExperience(exp) {
+    exp.objectId = createId();
+    ApiUtils.addUserExperience(exp);
+    return exp;
+  }
+
+  editExperience(exp) {
+    ApiUtils.editUserExperience(exp);
+    return exp;
+  }
+
+  deleteExperience(exp) {
+    ApiUtils.deleteUserExperience(exp);
+    return exp;
   }
 
   update() {

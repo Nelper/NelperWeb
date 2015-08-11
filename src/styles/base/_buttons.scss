@@ -65,6 +65,19 @@ button {
       color: $color-blue-gray;
     }
   }
+
+  &.light {
+    background-color: transparent;
+    border: none;
+    color: $color-nelp-orange;
+    @include transition(background-color 250ms linear, color 250ms linear);
+
+    &:hover {
+      background-color: $color-nelp-orange;
+      color: $color-white;
+      border: none;
+    }
+  }
 }
 
 .btn-group {
