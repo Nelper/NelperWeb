@@ -39,9 +39,10 @@ export default class ProfileHandler extends Component {
     let skills = user.skills.map(s => {
       return (
         <div className="skill editable-row" key={s.objectId}>
+          <div className="checkmark" />
           <div className="title">{s.title}</div>
-          <button className="action secondary" onClick={() => this._editSkill(s)} />
-          <button className="action warning" onClick={() => this._deleteSkill(s)} />
+          <button className="action edit" onClick={() => this._editSkill(s)} />
+          <button className="action delete" onClick={() => this._deleteSkill(s)} />
         </div>
       );
     });
@@ -49,9 +50,10 @@ export default class ProfileHandler extends Component {
     let experience = user.experience.map(e => {
       return (
         <div className="editable-row" key={e.objectId}>
+          <div className="dot" />
           <div className="title">{e.title}</div>
-          <button className="action secondary" onClick={() => this._editExperience(e)} />
-          <button className="action warning" onClick={() => this._deleteExperience(e)} />
+          <button className="action edit" onClick={() => this._editExperience(e)} />
+          <button className="action delete" onClick={() => this._deleteExperience(e)} />
         </div>
       );
     });
@@ -94,7 +96,7 @@ export default class ProfileHandler extends Component {
                 !this.state.editAbout ?
                 <div className="about editable-row">
                   <div className="title">{user.about || 'Write something about you'}</div>
-                  <button className="action secondary" onClick={::this._editAbout}/>
+                  <button className="action edit" onClick={::this._editAbout}/>
                 </div> :
                 <div className="edit-box">
                   <form onSubmit={::this._doneEditAbout}>
@@ -160,6 +162,21 @@ export default class ProfileHandler extends Component {
                       maxLength={30}
                       required={true}
                       onChange={::this._onExperienceTextChanged} />
+                    <input
+                      type="text"
+                      placeholder="Where it was..."
+                      value={this.state.experienceText}
+                      maxLength={30}
+                      required={true}
+                      onChange={::this._onExperienceTextChanged} />
+                    <input
+                      type="text"
+                      placeholder="When..."
+                      value={this.state.experienceText}
+                      maxLength={30}
+                      required={true}
+                      onChange={::this._onExperienceTextChanged} />
+
                     <div className="btn-group">
                       <button type="submit" className="primary">OK</button>
                       <button onClick={::this._cancelEditExperience}>Cancel</button>

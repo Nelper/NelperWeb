@@ -77,6 +77,10 @@ button {
       color: $color-white;
       border: none;
     }
+
+    &:focus {
+      background-color: transparent;
+    }
   }
 }
 

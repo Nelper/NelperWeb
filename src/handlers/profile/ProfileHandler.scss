@@ -1,5 +1,7 @@
 #profile-handler {
 
+  $action-icon-size: 18px;
+
   .header {
     background-color: $color-blue-gray;
     color: $text-light;
@@ -83,6 +85,7 @@
     .section-title {
       @include span-columns(12);
       margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
       font-size: 1.5em;
 
       @include media($large-screen) {
@@ -96,24 +99,64 @@
       padding-left: 1rem;
 
       @include media($large-screen) {
-        @include span-columns(9);
+        @include span-columns(7);
       }
 
       .editable-row {
         @include display(flex);
         @include align-items(center);
+        padding: 0.5rem 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 3px;
+
+        &:hover {
+          background-color: $color-white;
+
+          .action {
+            opacity: 1;
+          }
+        }
+
+        .dot {
+
+        }
+
+        .checkmark {
+
+        }
 
         .title {
           @include flex(1);
         }
 
-        .action {
-          opacity: 0;
+        button.action {
+          width: $action-icon-size + 16px;
+          height: $action-icon-size + 16px;
+          margin-right: 0.3rem;
+          padding: 0;
           @include transition(opacity 250ms linear);
-        }
+          background-color: transparent;
+          background-position: center;
+          background-size: $action-icon-size;
+          background-repeat: no-repeat;
+          border: none;
+          border-radius: 50%;
 
-        &:hover .action {
-          opacity: 1;
+          @include media($medium-screen) {
+            opacity: 0;
+          }
+
+          &:hover {
+            background-color: $color-nelp-orange;
+          }
+
+          &.edit {
+            background-image: url('~images/icons/edit.png');
+          }
+
+          &.delete {
+            background-image: url('~images/icons/delete.png');
+          }
         }
       }
 
@@ -132,8 +175,6 @@
 
         .skill {
           @include flex(0 0 100%);
-          padding-right: 1rem;
-          padding-bottom: 1rem;
 
           @include media($medium-screen) {
             @include flex(0 0 50%);
@@ -143,11 +184,9 @@
 
       .edit-box {
         padding: 1rem;
-        margin: 0.5rem;
 
         border-radius: 3px;
         background-color: $color-white;
-        border: 1px solid $color-gray-medium;
       }
     }
   }
