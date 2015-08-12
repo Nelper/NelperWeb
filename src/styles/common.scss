@@ -33,13 +33,13 @@
 @import "handlers/nelp/NelpTaskFilterView";
 @import "handlers/nelp/NelpTaskListView";
 
-@import "handlers/findnelp/FindNelpHandler";
 @import "handlers/findnelp/FindNelpAddHandler";
-@import "handlers/findnelp/FindNelpDetailHandler";
-@import "handlers/findnelp/FindNelpCardView";
 @import "handlers/findnelp/AddLocationDialogView";
 
-@import "handlers/profile/ProfileHandler";
+@import "handlers/nelpcenter/NelpCenterHandler";
+@import "handlers/nelpcenter/ProfileHandler";
+@import "handlers/nelpcenter/FindNelpDetailHandler";
+@import "handlers/nelpcenter/FindNelpCardView";
 
 @import "handlers/about/HowItWorksHandler";
 

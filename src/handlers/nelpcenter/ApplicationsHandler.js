@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
 
 import FindNelpCardView from './FindNelpCardView';
@@ -7,7 +6,7 @@ import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
 
 @connectToStores
-export default class FindNelpHandler extends Component {
+export default class ApplicationsHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -26,24 +25,16 @@ export default class FindNelpHandler extends Component {
   }
 
   render() {
-    let tasks = this.props.myTasks
-    .map((t) => {
+    let {myTasks} = this.props;
+
+    let tasks = myTasks.map((t) => {
       return (
         <FindNelpCardView key={t.objectId} task={t} onClick={() => this._taskDetail(t)} />
       );
     });
+
     return (
-      <div id="find-nelp-handler">
-        <div className="header-section">
-          <Link to="/findnelp/add">
-            <button className="add-task">Ask for Nelp!</button>
-          </Link>
-        </div>
-        <div className="title-section">
-          <div className="container pad-all">
-            <div className="title">My Nelp Requests</div>
-          </div>
-        </div>
+      <div id="nelp-center-handler">
         <div className="container pad-all tasks">
           {tasks}
         </div>

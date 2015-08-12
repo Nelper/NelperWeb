@@ -16,7 +16,7 @@ export default class FindNelpCardView extends Component {
       <div
         className="find-nelp-card-view"
         onClick={onClick}>
-        <div className="card-image" style={{backgroundImage: `url('${this._taskImage(task)}')`}}>
+        <div className="card-image" style={this._taskImageStyles(task)}>
           <div className="image-overlay" />
           <div className="category">
             <div className="icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
@@ -77,10 +77,12 @@ export default class FindNelpCardView extends Component {
     return this.props.task.applications.some(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
   }
 
-  _taskImage(t) {
-    if(!t.pictures || t.pictures.length === 0) {
-      return require('images/task-no-picture.png');
-    }
-    return t.pictures[0].url;
+  _taskImageStyles(t) {
+    let hasImage = t.pictures && t.pictures.length > 0;
+    let url = hasImage ? t.pictures[0].url : require('images/image-placeholder.png');
+    return {
+      backgroundSize: hasImage ? 'cover' : 46,
+      backgroundImage: `url('${url}')`,
+    };
   }
 }

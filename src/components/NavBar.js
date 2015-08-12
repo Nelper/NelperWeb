@@ -22,7 +22,7 @@ export default class NavBar extends Component {
       this._renderNavItem('How it works', '/howitworks', 40),
       this._renderNavItem('Nelp', '/nelp', 10),
       this._renderNavItem('Find Nelp', '/findnelp', 20),
-      this._renderNavItem('Profile', '/profile', 30),
+      this._renderNavItem('Nelp Center', '/center', 50),
     ];
 
     return (

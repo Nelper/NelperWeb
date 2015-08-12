@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import moment from 'moment';
 import connectToStores from 'alt/utils/connectToStores';
 
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
-import Rating from 'components/Rating';
-import ApiUtils from 'utils/ApiUtils';
+import Icon from 'components/Icon';
 
 @connectToStores
 export default class ProfileHandler extends Component {
@@ -41,8 +39,14 @@ export default class ProfileHandler extends Component {
         <div className="skill editable-row" key={s.objectId}>
           <div className="checkmark" />
           <div className="title">{s.title}</div>
-          <button className="action edit" onClick={() => this._editSkill(s)} />
-          <button className="action delete" onClick={() => this._deleteSkill(s)} />
+          <button className="action" onClick={() => this._editSkill(s)}>
+            <div className="icon-bg" />
+            <Icon className="icon" svg={require('images/icons/edit.svg')}/>
+          </button>
+          <button className="action" onClick={() => this._deleteSkill(s)}>
+            <div className="icon-bg" />
+            <Icon className="icon" svg={require('images/icons/delete.svg')}/>
+          </button>
         </div>
       );
     });
@@ -52,40 +56,20 @@ export default class ProfileHandler extends Component {
         <div className="editable-row" key={e.objectId}>
           <div className="dot" />
           <div className="title">{e.title}</div>
-          <button className="action edit" onClick={() => this._editExperience(e)} />
-          <button className="action delete" onClick={() => this._deleteExperience(e)} />
+          <button className="action edit" onClick={() => this._editExperience(e)}>
+            <div className="icon-bg" />
+            <Icon className="icon" svg={require('images/icons/edit.svg')}/>
+          </button>
+          <button className="action delete" onClick={() => this._deleteExperience(e)}>
+            <div className="icon-bg" />
+            <Icon className="icon" svg={require('images/icons/delete.svg')}/>
+          </button>
         </div>
       );
     });
 
     return (
       <div id="profile-handler">
-        <div className="header">
-          <div className="container pad-all">
-            <div className="picture-picker">
-              <div
-                style={{backgroundImage: `url('${user.pictureURL}')`}}
-                className="picture" />
-              <input type="file" onChange={::this._uploadPicture} />
-            </div>
-            <div className="info-container">
-              <div className="user-name">
-                {user.name}
-              </div>
-              <Rating rating={4}/>
-              <div className="member-since">
-                Member since {moment(user.createdAt).format('MMMM Do YYYY')}
-              </div>
-              <div className="tasks-summary">8 Tasks Completed</div>
-            </div>
-            <div>
-            <div className="btn-group">
-              <button className="secondary" onClick={::this._settings}>Settings</button>
-              <button className="secondary" onClick={::this._logout}>Logout</button>
-            </div>
-            </div>
-          </div>
-        </div>
         <div className="container pad-all">
           <div className="section-row">
             <div className="section-title">
@@ -96,7 +80,10 @@ export default class ProfileHandler extends Component {
                 !this.state.editAbout ?
                 <div className="about editable-row">
                   <div className="title">{user.about || 'Write something about you'}</div>
-                  <button className="action edit" onClick={::this._editAbout}/>
+                  <button className="action edit" onClick={::this._editAbout}>
+                    <div className="icon-bg" />
+                    <Icon className="icon" svg={require('images/icons/edit.svg')}/>
+                  </button>
                 </div> :
                 <div className="edit-box">
                   <form onSubmit={::this._doneEditAbout}>
@@ -311,25 +298,5 @@ export default class ProfileHandler extends Component {
 
   _onExperienceTextChanged(event) {
     this.setState({experienceText: event.target.value});
-  }
-
-  _logout() {
-    UserActions.logout();
-    this.context.router.transitionTo('/');
-  }
-
-  _settings() {
-    this.context.router.transitionTo('/profile/settings');
-  }
-
-  _uploadPicture() {
-    let files = event.target.files;
-    if(files.length > 0) {
-      let file = files[0];
-      ApiUtils.uploadFile(file.name, file)
-        .then(f => {
-          UserActions.setPicture(f);
-        });
-    }
   }
 }

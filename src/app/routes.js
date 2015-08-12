@@ -13,11 +13,14 @@ import RegisterHandler from 'handlers/login/RegisterHandler';
 
 import NelpHandler from 'handlers/nelp/NelpHandler';
 
-import FindNelpHandler from 'handlers/findnelp/FindNelpHandler';
 import FindNelpAddHandler from 'handlers/findnelp/FindNelpAddHandler';
-import FindNelpDetailHandler from 'handlers/findnelp/FindNelpDetailHandler';
 
-import ProfileHandler from 'handlers/profile/ProfileHandler';
+import NelpCenterHandler from 'handlers/nelpcenter/NelpCenterHandler';
+import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
+import TasksHandler from 'handlers/nelpcenter/TasksHandler';
+import ProfileHandler from 'handlers/nelpcenter/ProfileHandler';
+import FindNelpDetailHandler from 'handlers/nelpcenter/FindNelpDetailHandler';
+
 import SettingsHandler from 'handlers/profile/SettingsHandler';
 
 import HowItWorksHandler from 'handlers/about/HowItWorksHandler';
@@ -38,9 +41,13 @@ export default (
     <Route path="/login" component={LoginHandler} />
     <Route path="/register" component={RegisterHandler} />
     <Route path="/nelp" component={NelpHandler} />
-    <Route path="/findnelp" component={FindNelpHandler} />
-    <Route path="/findnelp/add" component={FindNelpAddHandler} onEnter={requireAuth} />
-    <Route path="/findnelp/detail/:id" component={FindNelpDetailHandler} />
+    <Route path="/findnelp" component={FindNelpAddHandler} onEnter={requireAuth} />
+    <Route path="/center" component={NelpCenterHandler} onEnter={requireAuth}>
+      <Route path="applications" component={ApplicationsHandler} />
+      <Route path="tasks" component={TasksHandler} />
+      <Route path="profile" component={ProfileHandler} />
+    </Route>
+    <Route path="/center/detail/:id" component={FindNelpDetailHandler} onEnter={requireAuth} />
     <Route path="/profile" component={ProfileHandler} onEnter={requireAuth} />
     <Route path="/profile/settings" component={SettingsHandler} onEnter={requireAuth} />
     <Route path="/howitworks" component={HowItWorksHandler} />

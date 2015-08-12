@@ -1,0 +1,128 @@
+#profile-handler {
+
+  $action-icon-size: 18px;
+
+  .section-row {
+    width: 100%;
+    margin-bottom: 2rem;
+
+    .section-title {
+      @include span-columns(12);
+      margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 1.5em;
+
+      @include media($large-screen) {
+        @include span-columns(3);
+        text-align: right;
+      }
+    }
+
+    .content {
+      @include span-columns(12);
+      padding-left: 1rem;
+
+      @include media($large-screen) {
+        @include span-columns(7);
+      }
+
+      .editable-row {
+        @include display(flex);
+        @include align-items(center);
+        padding: 0.5rem 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 3px;
+
+        &:hover {
+          background-color: $color-white;
+
+          .action {
+            opacity: 1;
+          }
+        }
+
+        .dot {
+
+        }
+
+        .checkmark {
+
+        }
+
+        .title {
+          @include flex(1);
+        }
+
+        button.action {
+          position: relative;
+          padding: 0.5rem;
+          background-color: transparent;
+          border: none;
+          width: 40px;
+          height: 40px;
+
+          @include media($medium-screen) {
+            opacity: 0;
+          }
+
+          &:hover {
+            .icon {
+              fill: $color-white;
+            }
+
+            .icon-bg {
+              @include transform(scale(1));
+              opacity: 1;
+            }
+          }
+
+          .icon-bg {
+            @include position(absolute, 0);
+            @include transition(transform 300ms cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 300ms cubic-bezier(0.68, -0.55, 0.27, 1.55));
+            @include transform(scale(0));
+            opacity: 0;
+            background-color: $color-nelp-orange;
+            border-radius: 50%;
+          }
+
+          .icon {
+            @include position(absolute, 0.5rem);
+            fill: $color-gray-medium;
+            @include transition(fill 300ms ease-in-out);
+            width: rem(24px);
+            height: rem(24px);
+          }
+        }
+      }
+
+      .about {
+        @include display(flex);
+        @include align-items(center);
+
+        .text {
+          @include flex(1);
+        }
+      }
+
+      .skills {
+        @include display(flex);
+        @include flex-wrap(wrap);
+
+        .skill {
+          @include flex(0 0 100%);
+
+          @include media($medium-screen) {
+            @include flex(0 0 50%);
+          }
+        }
+      }
+
+      .edit-box {
+        padding: 1rem;
+
+        border-radius: 3px;
+        background-color: $color-white;
+      }
+    }
+  }
+}
