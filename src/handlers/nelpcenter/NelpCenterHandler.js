@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
-import moment from 'moment';
 
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
@@ -20,6 +19,12 @@ export default class NelpCenterHandler extends Component {
 
   static getPropsFromStores() {
     return UserStore.getState();
+  }
+
+  componentDidMount() {
+    if(!this.props.children) {
+      this.context.router.replaceWith('/center/applications');
+    }
   }
 
   render() {

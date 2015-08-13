@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
-import FindNelpCardView from './FindNelpCardView';
+import TaskCardView from './TaskCardView';
 import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
 
@@ -29,7 +29,7 @@ export default class ApplicationsHandler extends Component {
 
     let tasks = myTasks.map((t) => {
       return (
-        <FindNelpCardView key={t.objectId} task={t} onClick={() => this._taskDetail(t)} />
+        <TaskCardView key={t.objectId} task={t} onClick={() => this._taskDetail(t)} />
       );
     });
 
@@ -61,6 +61,6 @@ export default class ApplicationsHandler extends Component {
   }
 
   _taskDetail(task) {
-    this.context.router.transitionTo(`/findnelp/detail/${task.objectId}`, null, {task});
+    this.context.router.transitionTo(`/center/tasks/detail/${task.objectId}`, null, {task});
   }
 }

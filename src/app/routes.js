@@ -45,9 +45,9 @@ export default (
     <Route path="/center" component={NelpCenterHandler} onEnter={requireAuth}>
       <Route path="applications" component={ApplicationsHandler} />
       <Route path="tasks" component={TasksHandler} />
+      <Route path="tasks/detail/:id" component={FindNelpDetailHandler}  />
       <Route path="profile" component={ProfileHandler} />
     </Route>
-    <Route path="/center/detail/:id" component={FindNelpDetailHandler} onEnter={requireAuth} />
     <Route path="/profile" component={ProfileHandler} onEnter={requireAuth} />
     <Route path="/profile/settings" component={SettingsHandler} onEnter={requireAuth} />
     <Route path="/howitworks" component={HowItWorksHandler} />

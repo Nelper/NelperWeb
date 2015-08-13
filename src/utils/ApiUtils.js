@@ -219,6 +219,28 @@ class ApiUtils {
       });
   }
 
+  listMyApplications() {
+    return new Parse.Query(NelpTaskApplication)
+      .include('task.user')
+      .equalTo('user', Parse.User.current())
+      .notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED)
+      .descending('createdAt')
+      .limit(20)
+      .find()
+      .then(applications => {
+        return applications.map(a => {
+          let task = this._baseTaskFromParse(a.get('task'));
+          task.user = this._userFromParse(a.get('task').get('user'));
+          return {
+            objectId: a.id,
+            createdAt: a.createdAt,
+            state: a.get('state'),
+            task: task,
+          }
+        });
+      });
+  }
+
   addTask(task) {
     let parseTask = new NelpTask();
     parseTask.set('title', task.title);

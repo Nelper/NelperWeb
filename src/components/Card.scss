@@ -1,0 +1,48 @@
+.card-component {
+  @include flex-basis(18rem);
+  @include flex-grow(1);
+  height: em(300px);
+  margin: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  background-color: $color-white;
+  border: 1px solid $color-gray-medium;
+  border-radius: 8px;
+
+  @include media($medium-screen) {
+    margin: 2rem;
+  }
+
+  .card-hover {
+    @include position(absolute, 0);
+    background-color: $color-black;
+    @include transition(opacity 250ms linear);
+    opacity: 0;
+
+    &:hover {
+      opacity: 0.2;
+    }
+  }
+
+  .card-image-header {
+    height: em(125px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: $color-gray-light;
+    position: relative;
+
+    .overlay {
+      @include position(absolute, 0);
+      background-color: $color-white;
+      opacity: 0.4;
+    }
+  }
+
+  .card-content {
+    padding: 0.8rem;
+    border-top: 1px solid $color-gray-medium;
+  }
+}

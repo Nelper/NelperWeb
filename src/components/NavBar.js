@@ -20,8 +20,8 @@ export default class NavBar extends Component {
       this._renderNavItem('Login', '/login', 30),
     ] : [
       this._renderNavItem('How it works', '/howitworks', 40),
-      this._renderNavItem('Nelp', '/nelp', 10),
-      this._renderNavItem('Find Nelp', '/findnelp', 20),
+      this._renderNavItem('Browse', '/nelp', 10),
+      this._renderNavItem('Post', '/findnelp', 20),
       this._renderNavItem('Nelp Center', '/center', 50),
     ];
 

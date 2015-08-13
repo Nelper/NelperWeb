@@ -1,9 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 
+import {Card, CardImageHeader, CardContent} from 'components/Card';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
-export default class FindNelpCardView extends Component {
+export default class TaskCardView extends Component {
 
   static propTypes = {
     task: PropTypes.object,
@@ -13,19 +14,18 @@ export default class FindNelpCardView extends Component {
   render() {
     let {task, onClick} = this.props;
     return (
-      <div
-        className="find-nelp-card-view"
+      <Card
+        className="task-card-view"
         onClick={onClick}>
-        <div className="card-image" style={this._taskImageStyles(task)}>
-          <div className="image-overlay" />
+        <CardImageHeader style={this._taskImageStyles(task)}>
           <div className="category">
             <div className="icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
             <div className="name">
               {TaskCategoryUtils.getName(task.category)}
             </div>
           </div>
-        </div>
-        <div className="card-content">
+        </CardImageHeader>
+        <CardContent>
           <div className="title">
             {task.title}
           </div>
@@ -39,9 +39,8 @@ export default class FindNelpCardView extends Component {
           <div className="desc">
             {task.desc}
           </div>
-        </div>
-        <div className="card-hover"/>
-      </div>
+        </CardContent>
+      </Card>
     );
   }
 

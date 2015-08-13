@@ -1,0 +1,60 @@
+.task-card-view {
+  $category-icon-size: 42px;
+
+  .category {
+    @include display(flex);
+    @include align-items(center);
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.8rem;
+
+    .icon {
+      @include image(rem($category-icon-size), rem($category-icon-size));
+      border-radius: 50%;
+      border: 1px solid $color-black;
+    }
+
+    .name {
+      margin-left: 0.5rem;
+      color: $text-dark;
+      font-size: 1.1em;
+    }
+  }
+
+  .applicants-row {
+    @include display(flex);
+    @include align-items(center);
+    margin-bottom: 0.5rem;
+
+    .status-icon {
+      @include image(rem(32px), rem(32px));
+      border-radius: 50%;
+      border: 1px solid $color-black;
+    }
+
+    .applicants {
+      @include flex(1);
+      margin-left: 0.5rem;
+      font-size: 0.9em;
+    }
+
+    .price {
+      @include flex-basis(rem(80px));
+      text-align: center;
+      padding: 0.3rem 0;
+      border-radius: 3px;
+      background-color: $color-nelp-green;
+      color: $color-white;
+      font-size: 1.1em;
+    }
+  }
+
+  .title {
+    font-size: 1.2em;
+    @include ellipsis();
+  }
+
+  .desc {
+    font-size: 0.9em;
+  }
+}

@@ -46,7 +46,7 @@ export default class FindNelpAddHandler extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.createdTask) {
-      this.context.router.transitionTo('/findnelp');
+      this._taskCreated();
     }
   }
 
@@ -312,7 +312,11 @@ export default class FindNelpAddHandler extends Component {
     });
   }
 
+  _taskCreated() {
+    this.context.router.transitionTo('/center/tasks');
+  }
+
   _cancel() {
-    this.context.router.transitionTo('/findnelp');
+    this.context.router.transitionTo('/center/tasks');
   }
 }
