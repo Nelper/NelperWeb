@@ -31,9 +31,7 @@ export default class NavBar extends Component {
           <div className="menu-bar">
             <Link to="/">
               <div className="logo">
-                <div className="logo-bg">
-                  <img src={require('images/logo-nobg-sm.png')}/>
-                </div>
+                <img src={require('images/logo-round.png')}/>
                 <span className="title">Nelper</span>
               </div>
             </Link>

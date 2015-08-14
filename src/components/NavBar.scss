@@ -36,7 +36,7 @@ header.navbar {
   .menu-bar {
     @include display(flex);
     @include justify-content(space-between);
-    
+
     @include media ($horizontal-bar-mode) {
       @include flex(1);
     }
@@ -56,21 +56,9 @@ header.navbar {
       font-weight: 400;
       font-size: 1.4em;
 
-      .logo-bg {
-        @include display(flex);
-        @include align-items(center);
-        @include justify-content(center);
-        height: 50px;
-        width: 50px;
-
-        border-radius: 50%;
-        background-color: $color-nelp-orange;
-      }
-
       img {
         max-height: $navigation-height;
-        padding: 8px;
-        padding-top: 12px;
+        padding: 4px;
       }
 
       .title {
