@@ -101,7 +101,7 @@ export default class NelpHandler extends Component {
               <NelpTaskFilterView onFilterChanged={::this._onFilterChanged} />
             </div>
           </div>
-          <div className="container pad-all">
+          <div className="container pad-hor">
             <NelpTaskListView
               tasks={filteredTasks}
               onTaskSelected={::this._onTaskSelected}
