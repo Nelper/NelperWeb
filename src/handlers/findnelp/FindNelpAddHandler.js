@@ -76,7 +76,6 @@ export default class FindNelpAddHandler extends Component {
     let pictures = this.state.pictures.map(p => {
       return (
         <div className={classNames('picture', {'loading': p.loading})} style={{backgroundImage: `url('${p.url}')`}} key={p.name}>
-          <div className="picture-overlay" />
           <div className="picture-name">{p.name}</div>
         </div>
       );

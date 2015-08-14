@@ -168,39 +168,41 @@
       overflow: hidden;
       cursor: pointer;
 
-      width: rem(100px);
-      height: rem(100px);
       margin: 0.5em;
+      border-radius: 3px;
+      background-color: $color-white;
 
       .icon {
-        @include image(100px, 100px);
-        background-image: url('~images/plus-512-white.png');
-        background-color: $color-gray-medium;
+        @include image(3rem, 3rem);
+        margin: 1rem;
+        background-image: url('~images/icons/plus.png');
         border-radius: 3px;
         cursor: pointer;
-        z-index: 999;
       }
 
       input {
         position: absolute;
-        bottom: 0;
+        top: 0;
         right: 0;
-        height: 300px;
         padding: 0;
         margin: 0;
         opacity: 0;
-        font-size: 1000px !important;
+        font-size: 100px !important;
         cursor: pointer;
+      }
+
+      ::-webkit-file-upload-button {
+        cursor:pointer;
       }
     }
 
     .picture {
       position: relative;
-      width: rem(100px);
-      height: rem(100px);
+      width: 5rem;
+      height: 5rem;
       margin: 0.5rem;
       padding: 0.5rem;
-      background-color: $color-gray-medium;
+      background-color: $color-white;
       border-radius: 3px;
 
       @include image-fill;
@@ -215,12 +217,6 @@
         right: 0;
         padding: 0.2rem 0.5rem;
         background-color: transparentize($color-black, 0.5);
-      }
-
-      .picture-overlay {
-        @include position(absolute, 0);
-        background-color: $color-black;
-        opacity: 0.3;
       }
     }
   }
