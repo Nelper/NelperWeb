@@ -357,6 +357,7 @@ class ApiUtils {
   _baseTaskFromParse(parseTask) {
     return {
       objectId: parseTask.id,
+      createdAt: parseTask.createdAt,
       title: parseTask.get('title'),
       category: parseTask.get('category'),
       desc: parseTask.get('desc'),

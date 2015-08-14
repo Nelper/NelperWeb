@@ -1,4 +1,11 @@
 .card-component {
+
+  $header-bg-color: #58595b;
+  $content-bg-color: $color-white;
+  $border-color: $color-black;
+
+  @include display(flex);
+  @include flex-direction(column);
   @include flex-basis(18rem);
   @include flex-grow(1);
   height: em(300px);
@@ -7,12 +14,12 @@
   overflow: hidden;
   cursor: pointer;
 
-  background-color: $color-white;
-  border: 1px solid $color-gray-medium;
-  border-radius: 8px;
+  background-color: $content-bg-color;
+  border: 1px solid $border-color;
+  border-radius: 3px;
 
   @include media($medium-screen) {
-    margin: 2rem;
+    margin: 1rem;
   }
 
   .card-hover {
@@ -31,18 +38,13 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: $color-gray-light;
+    background-color: $header-bg-color;
     position: relative;
-
-    .overlay {
-      @include position(absolute, 0);
-      background-color: $color-white;
-      opacity: 0.4;
-    }
   }
 
   .card-content {
+    @include flex(1);
     padding: 0.8rem;
-    border-top: 1px solid $color-gray-medium;
+    border-top: 1px solid $border-color;
   }
 }

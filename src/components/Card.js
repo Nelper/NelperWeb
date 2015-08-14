@@ -20,7 +20,6 @@ export class CardImageHeader extends Component {
     let {className, ...others} = this.props;
     return (
       <div {...others} className={classNames('card-image-header', className)}>
-        <div className="overlay" />
         {this.props.children}
       </div>
     );

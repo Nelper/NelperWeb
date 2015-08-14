@@ -1,3 +1,101 @@
 .application-card-view {
+  $category-icon-size: 64px;
+  $is-new-icon-size: 1.5rem;
+  $status-icon-size: 2.5rem;
+  $calendar-icon-size: 2.5rem;
 
+  height: rem(346px);
+
+  .is-new {
+    position: absolute;
+    top: -$is-new-icon-size * 1.75;
+    left: -$is-new-icon-size * 1.75;
+    width: $is-new-icon-size * 3.5;
+    height: $is-new-icon-size * 3.5;
+    background-color: $color-white;
+    @include transform(rotate(45deg));
+
+    .is-new-icon {
+      @include image($is-new-icon-size, $is-new-icon-size);
+      @include transform(rotate(-45deg));
+      position: absolute;
+      bottom: $is-new-icon-size * 1.25;
+      right: $is-new-icon-size / 4;
+      background-image: url('~images/icons/state-new.png');
+      border-radius: 50%;
+    }
+  }
+
+  .category {
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    @include position(absolute, 0);
+
+    .icon {
+      @include image(rem($category-icon-size), rem($category-icon-size));
+      border-radius: 50%;
+    }
+  }
+
+  .content {
+    @include display(flex);
+    @include flex-direction(column);
+  }
+
+  .title {
+    font-size: 1.2em;
+    @include ellipsis();
+  }
+
+  .info-row {
+    @include display(flex);
+    @include align-items(center);
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+
+    .text {
+      @include flex(1);
+      margin-left: 1.5rem;
+    }
+  }
+
+  .status {
+    .status-icon {
+      @include image($status-icon-size, $status-icon-size);
+      border-radius: 50%;
+    }
+
+    .price {
+      @include flex-basis(rem(80px));
+      text-align: center;
+      padding: 0.3rem 0;
+      border-radius: 3px;
+      background-color: $color-nelp-green;
+      color: $color-white;
+      font-size: 1.1em;
+    }
+  }
+
+  .calendar {
+    .calendar-icon {
+      @include image($calendar-icon-size, $calendar-icon-size);
+      background-image: url('~images/icons/calendar.png');
+    }
+  }
+
+  .location {
+    .location-icon {
+      @include image($calendar-icon-size, $calendar-icon-size);
+      background-image: url('~images/icons/pin.png');
+    }
+
+    .city {
+
+    }
+
+    .distance {
+      font-size: 0.8em;
+    }
+  }
 }

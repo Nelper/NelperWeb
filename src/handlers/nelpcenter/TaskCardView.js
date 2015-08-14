@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import moment from 'moment';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
@@ -17,15 +18,20 @@ export default class TaskCardView extends Component {
       <Card
         className="task-card-view"
         onClick={onClick}>
-        <CardImageHeader style={this._taskImageStyles(task)}>
+        <CardImageHeader  className="header">
+          <div className="image-overlay" style={this._taskImageStyles(task)} />
           <div className="category">
+            {
+              task.isNew ?
+              <div className="is-new">
+                <div className="is-new-icon" />
+              </div> :
+              null
+            }
             <div className="icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
-            <div className="name">
-              {TaskCategoryUtils.getName(task.category)}
-            </div>
           </div>
         </CardImageHeader>
-        <CardContent>
+        <CardContent className="content">
           <div className="title">
             {task.title}
           </div>
@@ -36,8 +42,10 @@ export default class TaskCardView extends Component {
               {'$' + task.priceOffered}
             </div>
           </div>
-          <div className="desc">
-            {task.desc}
+          <div className="calendar-row">
+            <div>Posted {moment(task.createdAt).fromNow()}</div>
+            <div className="calendar-icon" />
+            <div>Expires {moment(task.createdAt).add(14, 'day').fromNow()}</div>
           </div>
         </CardContent>
       </Card>
@@ -48,10 +56,8 @@ export default class TaskCardView extends Component {
     let icon;
     if(this._hasAcceptedApplications()) {
       icon = require('images/icons/state-accepted.png');
-    } else if(this.props.task.isNew) {
-      icon = require('images/icons/state-new.png');
     } else {
-      icon = require('images/icons/state-pending.png');
+      icon = require('images/icons/applicants.png');
     }
 
     return (
@@ -78,10 +84,8 @@ export default class TaskCardView extends Component {
 
   _taskImageStyles(t) {
     let hasImage = t.pictures && t.pictures.length > 0;
-    let url = hasImage ? t.pictures[0].url : require('images/image-placeholder.png');
     return {
-      backgroundSize: hasImage ? 'cover' : 46,
-      backgroundImage: `url('${url}')`,
+      backgroundImage: hasImage ? `url('${t.pictures[0].url}')` : null,
     };
   }
 }
