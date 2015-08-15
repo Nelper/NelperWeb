@@ -1,10 +1,17 @@
 
-@mixin image($width, $height) {
-  width: $width;
-  height: $height;
+@mixin image($width: null, $height: null) {
+  @if $width != null and $height != null {
+    width: $width;
+    height: $height;
+    background-size: $width $height;
+  } @elseif $width != null {
+    width: $width;
+    height: $width;
+    background-size: $width;
+  }
+
   background-position: center;
   background-repeat: no-repeat;
-  background-size: $width $height;
 }
 
 @mixin image-fill {

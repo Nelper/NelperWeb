@@ -8,7 +8,7 @@ import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import LocationUtils from 'utils/LocationUtils';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
-export default class NelpTaskListView extends Component {
+export default class BrowseTasksListView extends Component {
 
   static propTypes = {
     onTaskSelected: PropTypes.func,

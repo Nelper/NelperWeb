@@ -14,7 +14,7 @@ module.exports = merge(shared.config, {
       loader: ExtractTextPlugin.extract('style', 'css'),
     }, {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', 'css!postcss!sass&' + shared.sassPaths),
+      loader: ExtractTextPlugin.extract('style', 'css!postcss!sass?' + shared.sassPaths),
     }, {
       test: /\.jsx?$/,
       loader: 'babel?stage=0',

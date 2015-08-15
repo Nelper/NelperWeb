@@ -6,12 +6,12 @@ import UserActions from 'actions/UserActions';
 import NelpStore from 'stores/NelpStore';
 import UserStore from 'stores/UserStore';
 import NelpTaskFilterView from './NelpTaskFilterView';
-import NelpTaskListView from './NelpTaskListView';
+import NelpTaskListView from './BrowseTasksListView';
 import MapView from './MapView';
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
 @connectToStores
-export default class NelpHandler extends Component {
+export default class BrowseTasksHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,

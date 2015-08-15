@@ -11,9 +11,9 @@ import HomeHandler from 'handlers/home/HomeHandler';
 import LoginHandler from 'handlers/login/LoginHandler';
 import RegisterHandler from 'handlers/login/RegisterHandler';
 
-import NelpHandler from 'handlers/nelp/NelpHandler';
+import BrowseTasksHandler from 'handlers/browse/BrowseTasksHandler';
 
-import FindNelpAddHandler from 'handlers/findnelp/FindNelpAddHandler';
+import PostTaskHandler from 'handlers/post/PostTaskHandler';
 
 import NelpCenterHandler from 'handlers/nelpcenter/NelpCenterHandler';
 import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
@@ -40,16 +40,15 @@ export default (
     <Route path="/" component={HomeHandler} />
     <Route path="/login" component={LoginHandler} />
     <Route path="/register" component={RegisterHandler} />
-    <Route path="/nelp" component={NelpHandler} />
-    <Route path="/findnelp" component={FindNelpAddHandler} onEnter={requireAuth} />
+    <Route path="/browse" component={BrowseTasksHandler} />
+    <Route path="/post" component={PostTaskHandler} onEnter={requireAuth} />
     <Route path="/center" component={NelpCenterHandler} onEnter={requireAuth}>
       <Route path="applications" component={ApplicationsHandler} />
       <Route path="tasks" component={TasksHandler} />
       <Route path="tasks/detail/:id" component={TaskDetailHandler}  />
       <Route path="profile" component={ProfileHandler} />
     </Route>
-    <Route path="/profile" component={ProfileHandler} onEnter={requireAuth} />
-    <Route path="/profile/settings" component={SettingsHandler} onEnter={requireAuth} />
+    <Route path="/settings" component={SettingsHandler} onEnter={requireAuth} />
     <Route path="/howitworks" component={HowItWorksHandler} />
     <Route path="*" component={PageNotFoundHandler} />
   </Route>

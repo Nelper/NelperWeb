@@ -17,13 +17,13 @@
 @import 'components/Dialog';
 @import 'components/Card';
 
-@import 'handlers/nelp/NelpHandler';
-@import 'handlers/nelp/NelpTaskDetail';
-@import 'handlers/nelp/NelpTaskFilterView';
-@import 'handlers/nelp/NelpTaskListView';
+@import 'handlers/browse/BrowseTasksHandler';
+@import 'handlers/browse/NelpTaskDetail';
+@import 'handlers/browse/NelpTaskFilterView';
+@import 'handlers/browse/BrowseTasksListView';
 
-@import 'handlers/findnelp/FindNelpAddHandler';
-@import 'handlers/findnelp/AddLocationDialogView';
+@import 'handlers/post/PostTaskHandler';
+@import 'handlers/post/AddLocationDialogView';
 
 @import 'handlers/nelpcenter/NelpCenterHandler';
 @import 'handlers/nelpcenter/TasksHandler';

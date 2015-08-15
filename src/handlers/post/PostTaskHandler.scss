@@ -1,7 +1,6 @@
-#find-nelp-add-handler {
+.post-task-handler {
 
   $step-size: 46px;
-  $category-image-size: 64px;
 
   @include media($large-screen) {
     padding: 1rem 8rem;
@@ -16,8 +15,13 @@
     font-weight: normal;
   }
 
-  input, select {
+  input,
+  select {
     margin: 0;
+  }
+
+  h2.title {
+    text-align: center;
   }
 
   .input-row {
@@ -37,7 +41,7 @@
       border: 2px solid $color-black;
       font-size: 1.3em;
       background-color: $color-gray-light;
-      @include transition(background-color 250ms linear);
+      transition: background-color 250ms linear;
 
       @include media($medium-screen) {
         display: flex;
@@ -78,50 +82,62 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+  }
 
-    .category {
-      display: flex;
-      flex-basis: 8rem;
-      flex-direction: column;
-      align-items: center;
-      flex-grow: 1;
-      margin: 0.5rem;
-      cursor: pointer;
+  .category {
+    display: flex;
+    flex-basis: 14rem;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    margin: 0.5rem;
+    cursor: pointer;
+    transition: all 250ms linear;
 
-      @include transition(all 250ms linear);
-      opacity: 0.65;
-      @include filter(grayscale(20%));
-
-      @include media($medium-screen) {
-        flex-grow: 0;
-        padding: 1rem;
-      }
-
-      .icon {
-        @include image(rem($category-image-size), rem($category-image-size));
-        margin-bottom: 0.2em;
-        position: relative;
-        overflow: hidden;
-        border-radius: 50%;
-        border: 2px solid transparent;
-      }
-
-      &:hover {
-        @include filter(grayscale(0%));
-        opacity: 1;
-      }
-
-      .title {
-        font-size: 1em;
-        text-align: center;
-      }
-
-      &.active {
-        @include filter(grayscale(0%));
-        opacity: 1;
-        font-weight: bold;
-      }
+    @include media($medium-screen) {
+      flex-basis: 24rem;
+      flex-grow: 0;
+      padding: 1rem;
     }
+
+    &.active {
+      @include filter(grayscale(0%));
+      opacity: 1;
+      font-weight: bold;
+    }
+  }
+
+  .category-icon {
+    @include image(4rem);
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid transparent;
+
+    @include media($medium-screen) {
+      @include image(5rem);
+    }
+
+    &:hover {
+      border: 2px solid $color-black;
+    }
+  }
+
+  .category-title {
+    font-size: 1em;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+
+    @include media($medium-screen) {
+      font-size: 1.2em;
+    }
+  }
+
+  .category-examples {
+    text-align: center;
+    font-size: 0.9em;
   }
 
   .price {
