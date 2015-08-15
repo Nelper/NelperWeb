@@ -66,6 +66,6 @@
     "eslint-plugin-react": "^3.2.0",
     "react-hot-loader": "^1.2.8",
     "webpack-dev-server": "^1.10.1",
-    "jest-cli": "git://github.com/facebook/jest.git#0.5.x"
+    "jest-cli": "^0.5.0"
   }
 }
