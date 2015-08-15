@@ -85,7 +85,11 @@ export default class RegisterHandler extends Component {
   }
 
   _register() {
-    UserActions.register(this.state.email, this.state.password, this.state.name);
+    UserActions.register({
+      email: this.state.email,
+      password: this.state.password,
+      name: this.state.name,
+    });
   }
 
   _back() {

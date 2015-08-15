@@ -81,7 +81,10 @@ export default class LoginHandler extends Component {
   }
 
   _login() {
-    UserActions.login(this.state.email, this.state.password);
+    UserActions.login({
+      email: this.state.email,
+      password: this.state.password,
+    });
   }
 
   _loginWithFacebook() {

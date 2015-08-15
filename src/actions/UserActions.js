@@ -8,8 +8,8 @@ class UserActions {
     this.generateActions('receivedUser');
   }
 
-  login(email, password) {
-    ApiUtils.login(email, password)
+  login(loginInfo) {
+    ApiUtils.login(loginInfo)
       .then((user) => {
         this.actions.receivedUser(user);
       })
@@ -18,8 +18,8 @@ class UserActions {
       });
   }
 
-  register(email, password, name) {
-    ApiUtils.register(email, password, name)
+  register(registerInfo) {
+    ApiUtils.register(registerInfo)
       .then((user) => {
         this.actions.receivedUser(user);
       })

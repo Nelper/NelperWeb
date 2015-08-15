@@ -79,7 +79,7 @@ export default class TaskDetailHandler extends Component {
         return (
           <div key={a.objectId} className="application">
             <div className="user-picture" onClick={this._viewProfile.bind(this, a.user)} style={{backgroundImage: `url('${a.user.pictureURL}')`}}>
-            {this._renderStateBadge(a.state)}
+              {this._renderStateBadge(a.state)}
             </div>
             <div className="user-info">
               <div className="user-info-name-row">
@@ -96,12 +96,18 @@ export default class TaskDetailHandler extends Component {
             {
               a.state === 0 ?
                 <div className="btn-group">
-                  <button className="primary" onClick={this._accept.bind(this, a)}>Accept</button>
-                  <button className="warning" onClick={this._deny.bind(this, a)}>Deny</button>
+                  <button className="primary" onClick={this._accept.bind(this, a)}>
+                    Accept
+                  </button>
+                  <button className="warning" onClick={this._deny.bind(this, a)}>
+                    Deny
+                  </button>
                 </div> :
                 null
             }
-            <button className="secondary" onClick={this._viewProfile.bind(this, a.user)}>View profile</button>
+            <button className="secondary" onClick={this._viewProfile.bind(this, a.user)}>
+              View profile
+            </button>
           </div>
         );
       });
@@ -113,8 +119,12 @@ export default class TaskDetailHandler extends Component {
           <h1>Warning!</h1>
           <p className="dialog-text">Are your sure you want to delete the task '{task.title}'?</p>
           <div className="btn-group dialog-buttons">
-            <button onClick={::this._cancelDelete}>Cancel</button>
-            <button onClick={::this._confirmDelete} className="primary">Delete</button>
+            <button onClick={::this._cancelDelete}>
+              Cancel
+            </button>
+            <button onClick={::this._confirmDelete} className="primary">
+              Delete
+            </button>
           </div>
         </Dialog>
         <div className="container pad-all">
@@ -136,7 +146,9 @@ export default class TaskDetailHandler extends Component {
           <div className="applications">
             {applications}
           </div>
-          <ViewProfileHandler user={this.state.selectedUser} onClose={::this._onProfileClose} />
+          <ViewProfileHandler
+            user={this.state.selectedUser}
+            onClose={::this._onProfileClose} />
         </div>
       </div>
     );

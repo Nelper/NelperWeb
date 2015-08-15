@@ -29,7 +29,10 @@ export default class TasksHandler extends Component {
 
     let tasks = myTasks.map((t) => {
       return (
-        <TaskCardView key={t.objectId} task={t} onClick={() => this._taskDetail(t)} />
+        <TaskCardView
+          key={t.objectId}
+          task={t}
+          onClick={() => this._taskDetail(t)} />
       );
     });
 

@@ -3,13 +3,26 @@ import {Parse} from 'parse';
 import './ParsePatches';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
+/**
+ * Parse types
+ */
 const NelpTask = Parse.Object.extend({className: 'NelpTask'});
 const NelpTaskApplication = Parse.Object.extend({className: 'NelpTaskApplication'});
 const UserPrivateData = Parse.Object.extend({className: 'UserPrivateData'});
 
+/**
+ * Utils for communicating with the backend (Parse).
+ */
 class ApiUtils {
 
-  login(email, password) {
+  /**
+   * Logs the user in using email and password.
+   * @param  {Object} loginInfo          User login info
+   * @param  {string} loginInfo.email    Email address
+   * @param  {string} loginInfo.password Password
+   * @return {Promise} The logged in user
+   */
+  login({email, password}) {
     return Parse.User.logIn(email, password)
       .then((user) => {
         return user.get('privateData').fetch();
@@ -19,10 +32,11 @@ class ApiUtils {
 
   /**
    * Creates an account for the user.
-   * @param  {Object} user User info
-   * @param  {string} password [description]
-   * @param  {[type]} name    [description]
-   * @return {Promise}
+   * @param  {Object} registerInfo          User registration info
+   * @param  {string} registerInfo.email    Email address
+   * @param  {string} registerInfo.password Password
+   * @param  {string} registerInfo.name     Full name
+   * @return {Promise} The registered user
    */
   register({email, password, name}) {
     let user = new Parse.User();
@@ -39,6 +53,12 @@ class ApiUtils {
       .then(this._meFromParse);
   }
 
+  /**
+   * Logs the user in with Facebook. It will create an accoutn
+   * if the user doesn't have one yet.
+   *
+   * @return {Promise} The logged in user
+   */
   loginWithFacebook() {
     return new Promise((resolve, reject) => {
       Parse.FacebookUtils.logIn(null, {
@@ -50,7 +70,7 @@ class ApiUtils {
         },
       });
     }).then((user) => {
-      return this.getUserInfoFromFacebook()
+      return this._getUserInfoFromFacebook()
         .then((fbUser) => {
           user.set('name', fbUser.name);
           user.set('pictureURL', fbUser.picture.data.url);
@@ -66,18 +86,17 @@ class ApiUtils {
     });
   }
 
-  getUserInfoFromFacebook() {
-    return new Promise((resolve, reject) => {
-      FB.api('me?fields=name,picture.type(large)', (response) => {
-        if(response.error) {
-          reject(response.error);
-          return;
-        }
-        resolve(response);
-      });
-    });
+  /**
+   * Log out the user.
+   */
+  logout() {
+    Parse.User.logOut();
   }
 
+  /**
+   * Fetch the current user from the server.
+   * @return {Promise} The user
+   */
   updateUser() {
     return Parse.User.current().fetch()
       .then((user) => {
@@ -86,6 +105,10 @@ class ApiUtils {
       .then(() => this._meFromParse(Parse.User.current()));
   }
 
+  /**
+   * Sets the user geo location.
+   * @param {GeoPoint} loc The user geo point
+   */
   setUserLocation(loc) {
     let pt = new Parse.GeoPoint(loc.latitude, loc.longitude);
     let user = Parse.User.current();
@@ -93,30 +116,50 @@ class ApiUtils {
     user.save();
   }
 
+  /**
+   * Add a location for the user.
+   * @param {Location} loc The location to add
+   */
   addUserLocation(loc) {
     let privateData = Parse.User.current().get('privateData');
     privateData.add('locations', loc);
     privateData.save();
   }
 
+  /**
+   * Set the user profile picture.
+   * @param {File} file The picture's file
+   */
   setUserPicture(file) {
     let user = Parse.User.current();
     user.set('customPicture', file.file);
     user.save();
   }
 
+  /**
+   * Edit the user's profile about section
+   * @param {string} about About text
+   */
   editUserAbout(about) {
     let user = Parse.User.current();
     user.set('about', about);
     user.save();
   }
 
+  /**
+   * Adds a skill to the user's profile.
+   * @param {Skill} skill The skill to add
+   */
   addUserSkill(skill) {
     let user = Parse.User.current();
     user.add('skills', skill);
     user.save();
   }
 
+  /**
+   * Edit a skill in the user's profile.
+   * @param {Skill} skill The skill to edit
+   */
   editUserSkill(skill) {
     let user = Parse.User.current();
     let userSkills = user.get('skills');
@@ -125,18 +168,30 @@ class ApiUtils {
     user.save();
   }
 
+  /**
+   * Delete a skill in the user's profile.
+   * @param {Skill} skill The skill to delete
+   */
   deleteUserSkill(skill) {
     let user = Parse.User.current();
     user.remove('skills', skill);
     user.save();
   }
 
+  /**
+   * Add an experience item to the user's profile.
+   * @param {Experience} exp The experience
+   */
   addUserExperience(exp) {
     let user = Parse.User.current();
     user.add('experience', exp);
     user.save();
   }
 
+  /**
+   * Edit an experience item on the user's profile.
+   * @param {Experience} exp The experience
+   */
   editUserExperience(exp) {
     let user = Parse.User.current();
     let userExp = user.get('experience');
@@ -145,16 +200,20 @@ class ApiUtils {
     user.save();
   }
 
+  /**
+   * Delete an experience item from the user's profile.
+   * @param {Experience} exp The experience
+   */
   deleteUserExperience(exp) {
     let user = Parse.User.current();
     user.remove('experience', exp);
     user.save();
   }
 
-  logout() {
-    Parse.User.logOut();
-  }
-
+  /**
+   * List all tasks near a point.
+   * @return {Promise} The list of tasks
+   */
   listNelpTasks(/*filters*/) {
     return new Parse.Query(NelpTask)
       .include('user')
@@ -189,6 +248,10 @@ class ApiUtils {
       });
   }
 
+  /**
+   * List all of the user's tasks.
+   * @return {Promise} The tasks
+   */
   listMyNelpTasks() {
     return new Parse.Query(NelpTask)
       .equalTo('user', Parse.User.current())
@@ -226,6 +289,10 @@ class ApiUtils {
       });
   }
 
+  /**
+   * List all of the user's applications.
+   * @return {Promise} The applications
+   */
   listMyApplications() {
     return new Parse.Query(NelpTaskApplication)
       .include('task.user')
@@ -248,6 +315,10 @@ class ApiUtils {
       });
   }
 
+  /**
+   * Create a new task.
+   * @param {Task} task The task to create
+   */
   addTask(task) {
     let parseTask = new NelpTask();
     parseTask.set('title', task.title);
@@ -273,6 +344,10 @@ class ApiUtils {
       });
   }
 
+  /**
+   * Delete a task.
+   * @param  {Task} task The task to delete
+   */
   deleteTask(task) {
     let parseTask = new NelpTask();
     parseTask.id = task.objectId;
@@ -280,6 +355,10 @@ class ApiUtils {
     parseTask.save();
   }
 
+  /**
+   * Create an application for the user on a task.
+   * @param  {Task} task The task to apply on
+   */
   applyForTask(task) {
     let parseTask = new NelpTask();
     parseTask.id = task.objectId;
@@ -292,6 +371,10 @@ class ApiUtils {
     parseApplication.save();
   }
 
+  /**
+   * Cancel an application on a task.
+   * @param  {Task} task The task to cancel the application on
+   */
   cancelApplyForTask(task) {
     let taskApplication = new NelpTaskApplication();
     taskApplication.id = task.application.objectId;
@@ -299,6 +382,10 @@ class ApiUtils {
     taskApplication.save();
   }
 
+  /**
+   * Accept an application on a task.
+   * @param  {Application} application The application to accept
+   */
   acceptApplication(application) {
     let parseApplication = new NelpTaskApplication();
     parseApplication.id = application.objectId;
@@ -310,6 +397,10 @@ class ApiUtils {
     Parse.Object.saveAll([parseApplication, parseTask]);
   }
 
+  /**
+   * Deny an application on a task.
+   * @param  {Application} application The application to deny
+   */
   denyApplication(application) {
     let taskApplication = new NelpTaskApplication();
     taskApplication.id = application.objectId;
@@ -318,8 +409,8 @@ class ApiUtils {
   }
 
   /**
-   * Mark the task as viewed.
-   * @param {NelpTask} applications applications to mark.
+   * Mark a task as viewed.
+   * @param {Task} task The task to mask as viewed
    */
   setTaskViewed(task) {
     let parseApplications = task.applications
@@ -334,6 +425,12 @@ class ApiUtils {
     Parse.Object.saveAll(parseApplications);
   }
 
+  /**
+   * Upload a file to the file server.
+   * @param  {string} name The name of the file
+   * @param  {FormData} file The file as FormData
+   * @return {Promise} Info about the uploaded file
+   */
   uploadFile(name, file) {
     let parseFile = new Parse.File(name, file);
     return parseFile.save()
@@ -394,6 +491,24 @@ class ApiUtils {
     userPrivate.set('locations', []);
     userPrivate.setACL(new Parse.ACL(user));
     user.set('privateData', userPrivate);
+  }
+
+  /**
+   * Gets additional info about the user from Facebook
+   * using the Facebook Graph API.
+   * @private
+   * @return {Promise} Info from Facebook
+   */
+  _getUserInfoFromFacebook() {
+    return new Promise((resolve, reject) => {
+      FB.api('me?fields=name,picture.type(large)', (response) => {
+        if(response.error) {
+          reject(response.error);
+          return;
+        }
+        resolve(response);
+      });
+    });
   }
 }
 
