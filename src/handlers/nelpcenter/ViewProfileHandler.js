@@ -4,7 +4,7 @@ import connectToStores from 'alt/utils/connectToStores';
 import FindNelpStore from 'stores/FindNelpStore';
 
 @connectToStores
-export default class FindNelpProfileHandler extends Component {
+export default class ViewProfileHandler extends Component {
 
   static getStores() {
     return [FindNelpStore];

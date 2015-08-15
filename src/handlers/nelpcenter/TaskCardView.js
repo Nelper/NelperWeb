@@ -28,7 +28,7 @@ export default class TaskCardView extends Component {
               </div> :
               null
             }
-            <div className="icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
+            <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
           </div>
         </CardImageHeader>
         <CardContent className="content">

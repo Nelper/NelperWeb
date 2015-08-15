@@ -31,13 +31,13 @@ export default class NelpCenterHandler extends Component {
     let {user} = this.props;
 
     return (
-      <div id="nelp-center-handler">
+      <div className="nelp-center-handler">
         <div className="header">
-          <div className="container pad-all">
+          <div className="container header-container pad-all">
             <div className="picture-picker">
               <div
-                style={{backgroundImage: `url('${user.pictureURL}')`}}
-                className="picture" />
+                className="picture"
+                style={{backgroundImage: `url('${user.pictureURL}')`}} />
               <input type="file" onChange={::this._uploadPicture} />
             </div>
             <div className="info-container">
@@ -55,15 +55,15 @@ export default class NelpCenterHandler extends Component {
             </div>
           </div>
         </div>
-        <div className="title-section">
+        <div className="tab-bar">
           <div className="tabs">
-            <Link to="/center/applications">
+            <Link className="tab" to="/center/applications">
               My Applications
             </Link>
-            <Link to="/center/tasks">
+            <Link className="tab" to="/center/tasks">
               My Tasks
             </Link>
-            <Link to="/center/profile">
+            <Link className="tab" to="/center/profile">
               Profile
             </Link>
           </div>

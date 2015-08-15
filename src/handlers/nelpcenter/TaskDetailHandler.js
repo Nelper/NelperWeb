@@ -9,10 +9,10 @@ import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
-import FindNelpProfileHandler from './FindNelpProfileHandler';
+import ViewProfileHandler from './ViewProfileHandler';
 
 @connectToStores
-export default class FindNelpDetailHandler extends Component {
+export default class TaskDetailHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -136,7 +136,7 @@ export default class FindNelpDetailHandler extends Component {
           <div className="applications">
             {applications}
           </div>
-          <FindNelpProfileHandler user={this.state.selectedUser} onClose={::this._onProfileClose} />
+          <ViewProfileHandler user={this.state.selectedUser} onClose={::this._onProfileClose} />
         </div>
       </div>
     );

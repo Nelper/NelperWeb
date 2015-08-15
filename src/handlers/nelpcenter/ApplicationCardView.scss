@@ -14,38 +14,33 @@
     height: $is-new-icon-size * 3.5;
     background-color: $color-white;
     transform: rotate(45deg);
+  }
 
-    .is-new-icon {
-      @include image($is-new-icon-size, $is-new-icon-size);
-      transform: rotate(-45deg);
-      position: absolute;
-      bottom: $is-new-icon-size * 1.25;
-      right: $is-new-icon-size / 4;
-      background-image: url('~images/icons/state-new.png');
-      border-radius: 50%;
-    }
+  .is-new-icon {
+    @include image($is-new-icon-size, $is-new-icon-size);
+    transform: rotate(-45deg);
+    position: absolute;
+    bottom: $is-new-icon-size * 1.25;
+    right: $is-new-icon-size / 4;
+    background-image: url('~images/icons/state-new.png');
+    border-radius: 50%;
   }
 
   .category {
+    @include position(absolute, 0);
     display: flex;
     align-items: center;
     justify-content: center;
-    @include position(absolute, 0);
-
-    .icon {
-      @include image(rem($category-icon-size), rem($category-icon-size));
-      border-radius: 50%;
-    }
   }
 
-  .content {
-    display: flex;
-    flex-direction: column;
+  .category-icon {
+    @include image(rem($category-icon-size), rem($category-icon-size));
+    border-radius: 50%;
   }
 
   .title {
-    font-size: 1.2em;
     @include ellipsis();
+    font-size: 1.2em;
   }
 
   .info-row {
@@ -53,49 +48,39 @@
     align-items: center;
     margin-bottom: 1rem;
     padding: 0 1rem;
-
-    .text {
-      flex: 1;
-      margin-left: 1.5rem;
-    }
   }
 
-  .status {
-    .status-icon {
-      @include image($status-icon-size, $status-icon-size);
-      border-radius: 50%;
-    }
-
-    .price {
-      @include flex-basis(rem(80px));
-      text-align: center;
-      padding: 0.3rem 0;
-      border-radius: 3px;
-      background-color: $color-nelp-green;
-      color: $color-white;
-      font-size: 1.1em;
-    }
+  .text {
+    flex: 1;
+    margin-left: 1.5rem;
   }
 
-  .calendar {
-    .calendar-icon {
-      @include image($calendar-icon-size, $calendar-icon-size);
-      background-image: url('~images/icons/calendar.png');
-    }
+  .status-icon {
+    @include image($status-icon-size, $status-icon-size);
+    border-radius: 50%;
   }
 
-  .location {
-    .location-icon {
-      @include image($calendar-icon-size, $calendar-icon-size);
-      background-image: url('~images/icons/pin.png');
-    }
+  .price {
+    @include flex-basis(rem(80px));
+    text-align: center;
+    padding: 0.3rem 0;
+    border-radius: 3px;
+    background-color: $color-nelp-green;
+    color: $color-white;
+    font-size: 1.1em;
+  }
 
-    .city {
+  .calendar-icon {
+    @include image($calendar-icon-size, $calendar-icon-size);
+    background-image: url('~images/icons/calendar.png');
+  }
 
-    }
+  .location-icon {
+    @include image($calendar-icon-size, $calendar-icon-size);
+    background-image: url('~images/icons/pin.png');
+  }
 
-    .distance {
-      font-size: 0.8em;
-    }
+  .distance {
+    font-size: 0.8em;
   }
 }

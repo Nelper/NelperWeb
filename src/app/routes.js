@@ -19,7 +19,7 @@ import NelpCenterHandler from 'handlers/nelpcenter/NelpCenterHandler';
 import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
 import TasksHandler from 'handlers/nelpcenter/TasksHandler';
 import ProfileHandler from 'handlers/nelpcenter/ProfileHandler';
-import FindNelpDetailHandler from 'handlers/nelpcenter/FindNelpDetailHandler';
+import TaskDetailHandler from 'handlers/nelpcenter/TaskDetailHandler';
 
 import SettingsHandler from 'handlers/profile/SettingsHandler';
 
@@ -45,7 +45,7 @@ export default (
     <Route path="/center" component={NelpCenterHandler} onEnter={requireAuth}>
       <Route path="applications" component={ApplicationsHandler} />
       <Route path="tasks" component={TasksHandler} />
-      <Route path="tasks/detail/:id" component={FindNelpDetailHandler}  />
+      <Route path="tasks/detail/:id" component={TaskDetailHandler}  />
       <Route path="profile" component={ProfileHandler} />
     </Route>
     <Route path="/profile" component={ProfileHandler} onEnter={requireAuth} />

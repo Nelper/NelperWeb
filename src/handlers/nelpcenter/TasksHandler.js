@@ -6,7 +6,7 @@ import FindNelpActions from 'actions/FindNelpActions';
 import FindNelpStore from 'stores/FindNelpStore';
 
 @connectToStores
-export default class ApplicationsHandler extends Component {
+export default class TasksHandler extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -34,7 +34,7 @@ export default class ApplicationsHandler extends Component {
     });
 
     return (
-      <div id="nelp-center-handler">
+      <div className="tasks-handler">
         <div className="container pad-all tasks">
           {tasks}
         </div>

@@ -30,7 +30,7 @@ export default class ApplicationsHandler extends Component {
     });
 
     return (
-      <div id="nelp-center-handler">
+      <div className="applications-handler">
         <div className="container pad-all tasks">
           {applications}
         </div>

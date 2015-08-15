@@ -36,16 +36,16 @@ export default class ProfileHandler extends Component {
 
     let skills = user.skills.map(s => {
       return (
-        <div className="skill editable-row" key={s.objectId}>
-          <div className="checkmark" />
-          <div className="title">{s.title}</div>
-          <button className="action" onClick={() => this._editSkill(s)}>
-            <div className="icon-bg" />
-            <Icon className="icon" svg={require('images/icons/edit.svg')}/>
+        <div className="editable skill" key={s.objectId}>
+          <div className="editable-checkmark" />
+          <div className="editable-title">{s.title}</div>
+          <button className="editable-action" onClick={() => this._editSkill(s)}>
+            <div className="editable-icon-bg" />
+            <Icon className="editable-icon" svg={require('images/icons/edit.svg')}/>
           </button>
-          <button className="action" onClick={() => this._deleteSkill(s)}>
-            <div className="icon-bg" />
-            <Icon className="icon" svg={require('images/icons/delete.svg')}/>
+          <button className="editable-action" onClick={() => this._deleteSkill(s)}>
+            <div className="editable-icon-bg" />
+            <Icon className="editable-icon" svg={require('images/icons/delete.svg')}/>
           </button>
         </div>
       );
@@ -53,36 +53,36 @@ export default class ProfileHandler extends Component {
 
     let experience = user.experience.map(e => {
       return (
-        <div className="editable-row" key={e.objectId}>
+        <div className="editable" key={e.objectId}>
           <div className="dot" />
-          <div className="title">{e.title}</div>
-          <button className="action edit" onClick={() => this._editExperience(e)}>
-            <div className="icon-bg" />
-            <Icon className="icon" svg={require('images/icons/edit.svg')}/>
+          <div className="editable-title">{e.title}</div>
+          <button className="editable-action edit" onClick={() => this._editExperience(e)}>
+            <div className="editable-icon-bg" />
+            <Icon className="editable-icon" svg={require('images/icons/edit.svg')}/>
           </button>
-          <button className="action delete" onClick={() => this._deleteExperience(e)}>
-            <div className="icon-bg" />
-            <Icon className="icon" svg={require('images/icons/delete.svg')}/>
+          <button className="editable-action delete" onClick={() => this._deleteExperience(e)}>
+            <div className="editable-icon-bg" />
+            <Icon className="editable-icon" svg={require('images/icons/delete.svg')}/>
           </button>
         </div>
       );
     });
 
     return (
-      <div id="profile-handler">
+      <div className="profile-handler">
         <div className="container pad-all">
           <div className="section-row">
             <div className="section-title">
               About
             </div>
-            <div className="content">
+            <div className="section-content">
               {
                 !this.state.editAbout ?
-                <div className="about editable-row">
-                  <div className="title">{user.about || 'Write something about you'}</div>
-                  <button className="action edit" onClick={::this._editAbout}>
-                    <div className="icon-bg" />
-                    <Icon className="icon" svg={require('images/icons/edit.svg')}/>
+                <div className="about editable">
+                  <div className="editable-title">{user.about || 'Write something about you'}</div>
+                  <button className="editable-action edit" onClick={::this._editAbout}>
+                    <div className="editable-icon-bg" />
+                    <Icon className="editable-icon" svg={require('images/icons/edit.svg')}/>
                   </button>
                 </div> :
                 <div className="edit-box">
@@ -104,7 +104,7 @@ export default class ProfileHandler extends Component {
             <div className="section-title">
               Skills
             </div>
-            <div className="content">
+            <div className="section-content">
               <div className="skills">
                 {skills}
               </div>
@@ -133,7 +133,7 @@ export default class ProfileHandler extends Component {
             <div className="section-title">
               Experience
             </div>
-            <div className="content">
+            <div className="section-content">
               <div className="experience">
                 {experience}
               </div>

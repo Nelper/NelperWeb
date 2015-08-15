@@ -1,117 +1,99 @@
-#nelp-center-handler {
+.nelp-center-handler {
 
   $picture-size: 120px;
 
   .header {
     background-color: $color-blue-gray;
     color: $text-light;
+  }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+  .header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-      @include media($medium-screen) {
-        flex-direction: row;
-        align-items: flex-start;
-      }
+    @include media($medium-screen) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+
+    @include media($medium-screen) {
+      align-items: flex-start;
     }
 
-    .info-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
+    > * {
+      margin-bottom: 0.5rem;
+    }
+  }
 
-      > * {
-        margin-bottom: 0.5rem;
-      }
+  .user-name {
+    font-size: 1.5em;
+  }
 
-      @include media($medium-screen) {
-        align-items: flex-start;
-      }
+  .picture-picker {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    @include media($medium-screen) {
+      margin-right: 2rem;
     }
 
-    .user-name {
-      font-size: 1.5em;
-    }
-
-    .picture-picker {
-      position: relative;
-      overflow: hidden;
+    input {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 300px;
+      padding: 0;
+      margin: 0;
+      opacity: 0;
+      font-size: 1000px;
       cursor: pointer;
-
-      @include media($medium-screen) {
-        margin-right: 2rem;
-      }
-
-      .picture {
-        height: rem($picture-size);
-        width: rem($picture-size);
-        border-radius: 50%;
-
-
-        border: solid 3px $color-white;
-        background-size: cover;
-        background-position: center;
-      }
-
-      input {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        height: 300px;
-        padding: 0;
-        margin: 0;
-        opacity: 0;
-        font-size: 1000px !important;
-        cursor: pointer;
-      }
     }
+  }
 
-    .rating {
+  .picture {
+    height: rem($picture-size);
+    width: rem($picture-size);
+    border-radius: 50%;
 
-    }
+    border: solid 3px $color-white;
+    background-size: cover;
+    background-position: center;
+  }
 
-    .tasks-summary {
-
-    }
+  .tab-bar {
+    background-color: $color-white;
+    border-bottom: solid 1px $color-gray-medium;
+    color: $color-black;
   }
 
   .tabs {
     display: flex;
     justify-content: center;
-    a {
-      width: rem(168px);
-      margin: 0 1rem;
-      padding: 0.5rem 0;
+  }
 
-      font-size: 1.1em;
-      text-align: center;
+  .tab {
+    width: rem(168px);
+    margin: 0 1rem;
+    padding: 0.5rem 0;
+
+    font-size: 1.1em;
+    text-align: center;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+
+    &.active {
+      color: $color-nelp-orange;
       border-top: 3px solid transparent;
-      border-bottom: 3px solid transparent;
-
-      &.active {
-        color: $color-nelp-orange;
-        border-top: 3px solid transparent;
-        border-bottom: 3px solid $color-nelp-orange;
-      }
+      border-bottom: 3px solid $color-nelp-orange;
     }
-  }
-
-  .title-section {
-    background-color: $color-white;
-    border-bottom: solid 1px $color-gray-medium;
-    color: $color-black;
-
-    .title {
-      font-size: 1.3em;
-    }
-  }
-
-  .tasks {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
   }
 }

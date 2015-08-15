@@ -26,8 +26,10 @@
 @import 'handlers/findnelp/AddLocationDialogView';
 
 @import 'handlers/nelpcenter/NelpCenterHandler';
+@import 'handlers/nelpcenter/TasksHandler';
+@import 'handlers/nelpcenter/ApplicationsHandler';
 @import 'handlers/nelpcenter/ProfileHandler';
-@import 'handlers/nelpcenter/FindNelpDetailHandler';
+@import 'handlers/nelpcenter/TaskDetailHandler';
 @import 'handlers/nelpcenter/TaskCardView';
 @import 'handlers/nelpcenter/ApplicationCardView';
 

@@ -6,12 +6,12 @@
 
   .header {
     overflow: hidden;
+  }
 
-    .image-overlay {
-      @include position(absolute, 0);
-      @include image-fill();
-      filter: blur(16px);
-    }
+  .image-overlay {
+    @include position(absolute, 0);
+    @include image-fill();
+    filter: blur(16px);
   }
 
   .content {
@@ -44,11 +44,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
 
-    .icon {
-      @include image(rem($category-icon-size), rem($category-icon-size));
-      border-radius: 50%;
-    }
+  .category-icon {
+    @include image(rem($category-icon-size), rem($category-icon-size));
+    border-radius: 50%;
   }
 
   .title {
@@ -62,26 +62,26 @@
     flex: 1;
     margin-bottom: 0.5rem;
     padding: 0 1rem;
+  }
 
-    .status-icon {
-      @include image($status-icon-size, $status-icon-size);
-    }
+  .status-icon {
+    @include image($status-icon-size, $status-icon-size);
+  }
 
-    .applicants {
-      flex: 1;
-      margin-left: 0.5rem;
-      font-size: 1em;
-    }
+  .applicants {
+    flex: 1;
+    margin-left: 0.5rem;
+    font-size: 1em;
+  }
 
-    .price {
-      flex-basis: rem(80px);
-      text-align: center;
-      padding: 0.3rem 0;
-      border-radius: 3px;
-      background-color: $color-nelp-green;
-      color: $color-white;
-      font-size: 1.1em;
-    }
+  .price {
+    flex-basis: rem(80px);
+    text-align: center;
+    padding: 0.3rem 0;
+    border-radius: 3px;
+    background-color: $color-nelp-green;
+    color: $color-white;
+    font-size: 1.1em;
   }
 
   .calendar-row {
@@ -91,11 +91,11 @@
     padding: 0 1rem;
     font-size: 0.75em;
     text-align: center;
+  }
 
-    .calendar-icon {
-      @include image($calendar-icon-size, $calendar-icon-size);
-      background-image: url('~images/icons/calendar.png');
-      margin: 0 0.5rem;
-    }
+  .calendar-icon {
+    @include image($calendar-icon-size, $calendar-icon-size);
+    background-image: url('~images/icons/calendar.png');
+    margin: 0 0.5rem;
   }
 }
