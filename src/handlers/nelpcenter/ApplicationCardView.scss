@@ -13,11 +13,11 @@
     width: $is-new-icon-size * 3.5;
     height: $is-new-icon-size * 3.5;
     background-color: $color-white;
-    @include transform(rotate(45deg));
+    transform: rotate(45deg);
 
     .is-new-icon {
       @include image($is-new-icon-size, $is-new-icon-size);
-      @include transform(rotate(-45deg));
+      transform: rotate(-45deg);
       position: absolute;
       bottom: $is-new-icon-size * 1.25;
       right: $is-new-icon-size / 4;
@@ -27,9 +27,9 @@
   }
 
   .category {
-    @include display(flex);
-    @include align-items(center);
-    @include justify-content(center);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     @include position(absolute, 0);
 
     .icon {
@@ -39,8 +39,8 @@
   }
 
   .content {
-    @include display(flex);
-    @include flex-direction(column);
+    display: flex;
+    flex-direction: column;
   }
 
   .title {
@@ -49,13 +49,13 @@
   }
 
   .info-row {
-    @include display(flex);
-    @include align-items(center);
+    display: flex;
+    align-items: center;
     margin-bottom: 1rem;
     padding: 0 1rem;
 
     .text {
-      @include flex(1);
+      flex: 1;
       margin-left: 1.5rem;
     }
   }

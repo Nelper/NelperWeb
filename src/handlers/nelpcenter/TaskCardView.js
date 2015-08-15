@@ -13,7 +13,7 @@ export default class TaskCardView extends Component {
   }
 
   render() {
-    let {task, onClick} = this.props;
+    const {task, onClick} = this.props;
     return (
       <Card
         className="task-card-view"
@@ -66,7 +66,7 @@ export default class TaskCardView extends Component {
   }
 
   _renderApplicants() {
-    let pendingApplications = this.props.task.applications.filter(a => a.state === NELP_TASK_APPLICATION_STATE.PENDING);
+    const pendingApplications = this.props.task.applications.filter(a => a.state === NELP_TASK_APPLICATION_STATE.PENDING);
     return (
       <div className="applicants">
       {

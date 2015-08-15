@@ -1,90 +1,92 @@
-#find-nelp-detail-handler {
+.find-nelp-detail-handler {
 
   $state-icon-size: 32px;
 
-  .task-detail {
+  .detail {
     margin-left: 1.5em;
 
     > div {
       margin-bottom: 0.5em;
     }
+  }
 
-    .status {
-      @include display(flex);
-      @include align-items(center);
+  .detail-status {
+    display: flex;
+    align-items: center;
+  }
 
-      .status-icon {
-        width: rem(26px);
-        height: rem(26px);
-        margin: 0 0.5em;
-        background-position: center;
-        background-size: contain;
-        border-radius: 50%;
-      }
-    }
+  .detail-status-icon {
+    width: rem(26px);
+    height: rem(26px);
+    margin: 0 0.5em;
+    background-position: center;
+    background-size: contain;
+    border-radius: 50%;
   }
 
   .applications {
-    @include display(flex);
-    @include flex-direction(column);
+    display: flex;
+    flex-direction: column;
     width: 100%;
     padding: 1em;
     color: $color-black;
+  }
 
-    .application {
-      @include display(flex);
-      @include align-items(flex-start);
-      @include flex-wrap(wrap);
+  .application {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
 
-      margin-bottom: 1em;
-
-      > div, > button {
-        margin: 0.5em;
-      }
-
-      .user-picture {
-        width: 5rem;
-        height: 5rem;
-        position: relative;
-        border-radius: 50%;
-        border: 2px solid $color-black;
-        background-size: cover;
-        background-position: center;
-      }
-
-      .state-badge {
-        position: absolute;
-        bottom: rem(-8px);
-        right: rem(-8px);
-
-        @include image(rem($state-icon-size), rem($state-icon-size));
-        border-radius: 50%;
-        border: 2px solid $color-black;
-      }
-
-      .user-info {
-        @include flex-grow(1);
-
-        .username-row {
-          @include display(flex);
-          @include align-items(baseline);
-          @include flex-wrap(wrap);
-        }
-
-        .username {
-          font-size: 1.25em;
-          font-weight: 500;
-          margin-right: 1rem;
-        }
-
-        .tasks-completed {
-          font-size: 0.8em;
-        }
-
-        .member-since {
-          font-size: 0.8em;
-        }
-      }
+    > div,
+    > button {
+      margin: 0.5em;
     }
+
+  }
+
+  .user-picture {
+    width: 5rem;
+    height: 5rem;
+    position: relative;
+    border-radius: 50%;
+    border: 2px solid $color-black;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .state-badge {
+    @include image(rem($state-icon-size), rem($state-icon-size));
+
+    position: absolute;
+    bottom: rem(-8px);
+    right: rem(-8px);
+
+    border-radius: 50%;
+    border: 2px solid $color-black;
+  }
+
+  .user-info {
+    flex-grow: 1;
+  }
+
+  .user-info-name-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+
+  .user-info-name {
+    font-size: 1.25em;
+    font-weight: 500;
+    margin-right: 1rem;
+  }
+
+  .user-info-tasks-completed {
+    font-size: 0.8em;
+  }
+
+  .user-info-member-since {
+    font-size: 0.8em;
   }
 }

@@ -10,13 +10,13 @@
     .image-overlay {
       @include position(absolute, 0);
       @include image-fill();
-      @include filter(blur(16px));
+      filter: blur(16px);
     }
   }
 
   .content {
-    @include display(flex);
-    @include flex-direction(column);
+    display: flex;
+    flex-direction: column;
   }
 
   .is-new {
@@ -26,24 +26,24 @@
     width: $is-new-icon-size * 3.5;
     height: $is-new-icon-size * 3.5;
     background-color: $color-white;
-    @include transform(rotate(45deg));
+    transform: rotate(45deg);
+  }
 
-    .is-new-icon {
-      @include image($is-new-icon-size, $is-new-icon-size);
-      @include transform(rotate(-45deg));
-      position: absolute;
-      bottom: $is-new-icon-size * 1.25;
-      right: $is-new-icon-size / 4;
-      background-image: url('~images/icons/state-new.png');
-      border-radius: 50%;
-    }
+  .is-new-icon {
+    @include image($is-new-icon-size, $is-new-icon-size);
+    transform: rotate(-45deg);
+    position: absolute;
+    bottom: $is-new-icon-size * 1.25;
+    right: $is-new-icon-size / 4;
+    background-image: url('~images/icons/state-new.png');
+    border-radius: 50%;
   }
 
   .category {
-    @include display(flex);
-    @include align-items(center);
-    @include justify-content(center);
     @include position(absolute, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .icon {
       @include image(rem($category-icon-size), rem($category-icon-size));
@@ -52,14 +52,14 @@
   }
 
   .title {
-    font-size: 1.2em;
     @include ellipsis();
+    font-size: 1.2em;
   }
 
   .applicants-row {
-    @include display(flex);
-    @include align-items(center);
-    @include flex(1);
+    display: flex;
+    align-items: center;
+    flex: 1;
     margin-bottom: 0.5rem;
     padding: 0 1rem;
 
@@ -68,13 +68,13 @@
     }
 
     .applicants {
-      @include flex(1);
+      flex: 1;
       margin-left: 0.5rem;
       font-size: 1em;
     }
 
     .price {
-      @include flex-basis(rem(80px));
+      flex-basis: rem(80px);
       text-align: center;
       padding: 0.3rem 0;
       border-radius: 3px;
@@ -85,9 +85,9 @@
   }
 
   .calendar-row {
-    @include display(flex);
-    @include align-items(center);
-    @include justify-content(space-between);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 0 1rem;
     font-size: 0.75em;
     text-align: center;

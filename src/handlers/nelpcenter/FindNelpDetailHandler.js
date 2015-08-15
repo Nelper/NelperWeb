@@ -82,12 +82,16 @@ export default class FindNelpDetailHandler extends Component {
             {this._renderStateBadge(a.state)}
             </div>
             <div className="user-info">
-              <div className="username-row">
-                <div className="username">{a.user.name}</div>
-                <div className="rating"><Rating rating={3} dark={true} small={true} /></div>
+              <div className="user-info-name-row">
+                <div className="user-info-name">{a.user.name}</div>
+                <Rating rating={3} dark={true} small={true} />
               </div>
-              <div className="tasks-completed">8 tasks completed</div>
-              <div className="member-since">Member since {moment(a.user.createdAt).format('MMMM Do YYYY')}</div>
+              <div className="user-info-tasks-completed">
+                8 tasks completed
+              </div>
+              <div className="user-info-member-since">
+                Member since {moment(a.user.createdAt).format('MMMM Do YYYY')}
+              </div>
             </div>
             {
               a.state === 0 ?
@@ -104,7 +108,7 @@ export default class FindNelpDetailHandler extends Component {
     }
 
     return (
-      <div id="find-nelp-detail-handler">
+      <div className="find-nelp-detail-handler">
         <Dialog opened={confirmDeleteOpened}>
           <h1>Warning!</h1>
           <p className="dialog-text">Are your sure you want to delete the task '{task.title}'?</p>
@@ -115,7 +119,7 @@ export default class FindNelpDetailHandler extends Component {
         </Dialog>
         <div className="container pad-all">
           <h2>{task.title}</h2>
-          <div className="task-detail">
+          <div className="detail">
             {this._renderStatus()}
             <div>Description: {task.desc}</div>
             <div>Offer: {task.priceOffered}</div>
@@ -163,9 +167,9 @@ export default class FindNelpDetailHandler extends Component {
       require('images/icons/state-accepted.png');
     let text = !hasAcceptedApplication ? 'Pending' : 'Accepted';
     return (
-      <div className="status">
+      <div className="detail-status">
         <div>Status: </div>
-        <div className="status-icon" style={{backgroundImage: `url('${icon}')`}} />
+        <div className="detail-status-icon" style={{backgroundImage: `url('${icon}')`}} />
         <div>{text}</div>
       </div>
     );

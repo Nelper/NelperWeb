@@ -1,11 +1,11 @@
 .nelp-task-filter-view {
 
-  @include display(flex);
-  @include flex-wrap(wrap);
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
 
   .filter {
-    @include flex(1);
+    flex: 1;
     margin: 0 1em;
 
     .title {

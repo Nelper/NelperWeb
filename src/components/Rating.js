@@ -15,7 +15,7 @@ export default class Rating extends Component {
   }
 
   render() {
-    let items = [];
+    const items = [];
     for(let i = 0; i < 5; i++) {
       items.push(
         <Icon

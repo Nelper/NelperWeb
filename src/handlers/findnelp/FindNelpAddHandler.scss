@@ -21,14 +21,14 @@
   }
 
   .input-row {
-    @include display(flex);
+    display: flex;
     width: 100%;
     margin-bottom: 2rem;
 
     .step {
       display: none;
-      @include align-items(center);
-      @include justify-content(center);
+      align-items: center;
+      justify-content: center;
       width: rem($step-size);
       height: rem($step-size);
       margin-right: 1rem;
@@ -40,7 +40,7 @@
       @include transition(background-color 250ms linear);
 
       @include media($medium-screen) {
-        @include display(flex);
+        display: flex;
       }
 
       &.done {
@@ -56,7 +56,7 @@
     }
 
     .input-content {
-      @include flex(1);
+      flex: 1;
       position: relative;
     }
   }
@@ -75,16 +75,16 @@
 
   .category-picker {
     width: 100%;
-    @include display(flex);
-    @include flex-wrap(wrap);
-    @include justify-content(space-around);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 
     .category {
-      @include display(flex);
-      @include flex-basis(8rem);
-      @include flex-direction(column);
-      @include align-items(center);
-      @include flex-grow(1);
+      display: flex;
+      flex-basis: 8rem;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
       margin: 0.5rem;
       cursor: pointer;
 
@@ -93,7 +93,7 @@
       @include filter(grayscale(20%));
 
       @include media($medium-screen) {
-        @include flex-grow(0);
+        flex-grow: 0;
         padding: 1rem;
       }
 
@@ -125,8 +125,8 @@
   }
 
   .price {
-    @include display(flex);
-    @include align-items(center);
+    display: flex;
+    align-items: center;
     position: relative;
 
     .currency {
@@ -143,8 +143,8 @@
   }
 
   .location {
-    @include display(flex);
-    @include align-items(center);
+    display: flex;
+    align-items: center;
 
     select {
       min-width: rem(200px);
@@ -160,8 +160,8 @@
   }
 
   .pictures {
-    @include display(flex);
-    @include flex-wrap(wrap);
+    display: flex;
+    flex-wrap: wrap;
 
     .add-picture {
       position: relative;

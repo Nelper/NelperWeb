@@ -19,10 +19,10 @@
 
   @include keyframes(rotate) {
     from {
-      @include transform(rotate(0deg));
+      transform: rotate(0deg);
     }
     to {
-      @include transform(rotate(359deg));
+      transform: rotate(359deg);
     }
   }
 }

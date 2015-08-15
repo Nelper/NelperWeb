@@ -14,14 +14,14 @@
     padding: $list-items-padding 0;
 
     .header {
-      @include display(flex);
+      display: flex;
       cursor: pointer;
 
       .content {
-        @include display(flex);
-        @include align-items(center);
-        @include flex-wrap(wrap);
-        @include flex(1);
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        flex: 1;
 
         > div {
           margin: 0.5rem;
@@ -33,20 +33,20 @@
       }
 
       .infos {
-        @include display(flex);
-        @include align-items(center);
-        @include flex(1);
+        display: flex;
+        align-items: center;
+        flex: 1;
       }
 
       .user-col {
-        @include flex(1);
+        flex: 1;
       }
 
       .user-picture {
         width: rem($user-image-size);
         height: rem($user-image-size);
         position: relative;
-        @include flex-shrink(1);
+        flex-shrink: 1;
 
         background-position: center;
         background-repeat: no-repeat;
@@ -67,7 +67,7 @@
       }
 
       .title-col {
-        @include flex(1);
+        flex: 1;
 
         .title {
           font-weight: bold;
@@ -121,8 +121,8 @@
     }
 
     .detail {
-      @include display(flex);
-      @include flex-direction(column);
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
       @include transition(max-height 300ms ease-in-out);
       max-height: 500px;
@@ -130,19 +130,19 @@
       margin-right: 1rem;
 
       @include media($medium-screen) {
-        @include flex-direction(row);
+        flex-direction: row;
         margin-left: rem(132px);
         margin-right: rem(58px);
       }
 
       .desc-col {
-        @include flex(1);
+        flex: 1;
         margin-right: 1rem;
         margin-bottom: 1rem;
 
         .user-row {
-          @include display(flex);
-          @include align-items(center);
+          display: flex;
+          align-items: center;
           margin-bottom: 0.5rem;
         }
 
@@ -199,7 +199,7 @@
       background-position: center;
 
       @include transition(transform 250ms ease-in-out);
-      @include transform(rotate(180deg));
+      transform: rotate(180deg);
     }
 
     &.collapsed {
@@ -209,7 +209,7 @@
       }
 
       .collapse-icon {
-        @include transform(rotate(0deg));
+        transform: rotate(0deg);
       }
     }
   }

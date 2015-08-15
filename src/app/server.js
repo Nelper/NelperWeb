@@ -5,7 +5,7 @@ var express = require('express'),
 
 app.use(express.static(path.resolve(__dirname, '../../build')));
 
-app.use(function(req, res, next) {
+app.use(function(req, res) {
   res.sendFile('index.html', {root: path.resolve(__dirname, '../../build')});
 });
 

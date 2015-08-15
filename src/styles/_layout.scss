@@ -1,7 +1,9 @@
 $container-padding-hor: 0.5rem;
-$container-padding-vert: 1rem;
+$padding-container-vert: 1rem;
 
-html, body, #app {
+html,
+body,
+.main-app {
   height: 100%;
   margin: 0;
 }
@@ -15,7 +17,7 @@ body {
   -webkit-tap-highlight: rgba(0, 0, 0, 0);
 }
 
-#app-content {
+.main-app-content {
   height: 100%;
 
   &.has-navbar {
@@ -24,7 +26,7 @@ body {
 }
 
 // Anchor that offsets for fixed header for for html # links
-a.anchor {
+.anchor {
   display: block;
   position: relative;
   top: -$navbar-height;
@@ -33,17 +35,17 @@ a.anchor {
 
 .container {
   @include outer-container;
-  @include display(flex);
-  @include flex-direction(column);
-  @include align-items(flex-start);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
   &.center {
-    @include align-items(center);
+    align-items: center;
   }
 }
 
 &.pad-all {
-  padding: $container-padding-vert $container-padding-hor;
+  padding: $padding-container-vert $container-padding-hor;
 }
 
 &.pad-hor {

@@ -1,50 +1,40 @@
-@font-face {
-  font-family: Railway;
-  src: url('~styles/fonts/Railway.otf');
-}
+@charset 'utf-8';
 
-@font-face {
-  font-family: ABeeZee;
-  src: url('~styles/fonts/ABeeZee-Regular.ttf');
-}
+@import './fonts';
+@import './mixins';
 
-@font-face {
-  font-family: PT Sans;
-  src: url('~styles/fonts/PT_Sans-Web-Regular.ttf');
-}
+@import 'bourbon';
+@import 'base/base';
+@import 'neat';
+@import 'slick-carousel/slick/slick';
+@import './slick-theme';
 
-@import "./mixins";
+@import './layout';
 
-@import "bourbon";
-@import "base/base";
-@import "neat";
-@import "slick-carousel/slick/slick";
-@import "./slick-theme";
+@import 'components/NavBar';
+@import 'components/Rating';
+@import 'components/Progress';
+@import 'components/Dialog';
+@import 'components/Card';
 
-@import "./layout";
+@import 'handlers/nelp/NelpHandler';
+@import 'handlers/nelp/NelpTaskDetail';
+@import 'handlers/nelp/NelpTaskFilterView';
+@import 'handlers/nelp/NelpTaskListView';
 
-@import "components/NavBar";
-@import "components/Rating";
-@import "components/Progress";
-@import "components/Dialog";
-@import "components/Card";
+@import 'handlers/findnelp/FindNelpAddHandler';
+@import 'handlers/findnelp/AddLocationDialogView';
 
-@import "handlers/nelp/NelpHandler";
-@import "handlers/nelp/NelpTaskDetail";
-@import "handlers/nelp/NelpTaskFilterView";
-@import "handlers/nelp/NelpTaskListView";
+@import 'handlers/nelpcenter/NelpCenterHandler';
+@import 'handlers/nelpcenter/ProfileHandler';
+@import 'handlers/nelpcenter/FindNelpDetailHandler';
+@import 'handlers/nelpcenter/TaskCardView';
+@import 'handlers/nelpcenter/ApplicationCardView';
 
-@import "handlers/findnelp/FindNelpAddHandler";
-@import "handlers/findnelp/AddLocationDialogView";
+@import 'handlers/about/HowItWorksHandler';
 
-@import "handlers/nelpcenter/NelpCenterHandler";
-@import "handlers/nelpcenter/ProfileHandler";
-@import "handlers/nelpcenter/FindNelpDetailHandler";
-@import "handlers/nelpcenter/TaskCardView";
-@import "handlers/nelpcenter/ApplicationCardView";
+@import 'handlers/login/login-common';
+@import 'handlers/login/LoginHandler';
+@import 'handlers/login/RegisterHandler';
 
-@import "handlers/about/HowItWorksHandler";
-
-@import "handlers/login/login-common";
-@import "handlers/login/LoginHandler";
-@import "handlers/login/RegisterHandler";
+@import './shame';

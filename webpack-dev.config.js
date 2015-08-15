@@ -1,6 +1,7 @@
 var path = require('path');
 var merge = require('webpack-merge');
 var shared = require('./webpack-shared.js');
+var autoprefixer = require('autoprefixer-core');
 
 var ROOT_PATH = path.resolve(__dirname);
 
@@ -22,7 +23,7 @@ module.exports = merge(shared.config, {
       loaders: ['style', 'css'],
     }, {
       test: /\.scss$/,
-      loaders: ['style', 'css', 'sass?' + shared.sassPaths],
+      loaders: ['style', 'css', 'postcss?sourceMap=true', 'sass?sourceMap=true&' + shared.sassPaths],
     }, {
       test: /\.jsx?$/,
       loaders: ['react-hot', 'babel?stage=0'],
@@ -44,4 +45,5 @@ module.exports = merge(shared.config, {
       loader: 'json-loader',
     }],
   },
+  postcss: [autoprefixer({browsers: ['last 2 versions']})],
 });

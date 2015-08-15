@@ -34,7 +34,7 @@ export default class AppHandler extends Component {
           <NavBar user={user} /> :
           null
         }
-        <div id="app-content" className={classNames({'has-navbar': showNavBar})}>
+        <div className={classNames('main-app-content', {'has-navbar': showNavBar})}>
           {children}
         </div>
       </div>

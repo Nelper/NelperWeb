@@ -1,5 +1,5 @@
 .rating {
-  @include display(flex);
+  display: flex;
 
   .rating-item {
     width: em(36px);

@@ -7,28 +7,28 @@
     color: $text-light;
 
     .container {
-      @include display(flex);
-      @include flex-direction(column);
-      @include align-items(center);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
       @include media($medium-screen) {
-        @include flex-direction(row);
-        @include align-items(flex-start);
+        flex-direction: row;
+        align-items: flex-start;
       }
     }
 
     .info-container {
-      @include display(flex);
-      @include flex-direction(column);
-      @include align-items(center);
-      @include flex(1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
 
       > * {
         margin-bottom: 0.5rem;
       }
 
       @include media($medium-screen) {
-        @include align-items(flex-start);
+        align-items: flex-start;
       }
     }
 
@@ -79,8 +79,8 @@
   }
 
   .tabs {
-    @include display(flex);
-    @include justify-content(center);
+    display: flex;
+    justify-content: center;
     a {
       width: rem(168px);
       margin: 0 1rem;
@@ -110,8 +110,8 @@
   }
 
   .tasks {
-    @include display(flex);
-    @include flex-direction(row);
-    @include flex-wrap(wrap);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }

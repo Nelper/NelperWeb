@@ -22,32 +22,32 @@ header.navbar {
   font-family: $heading-font-family;
 
   .navbar-wrapper {
-    @include display(flex);
-    @include flex-direction(column);
+    display: flex;
+    flex-direction: column;
     @include outer-container;
     position: relative;
     z-index: 9999;
 
     @include media ($horizontal-bar-mode) {
-      @include flex-direction(row);
+      flex-direction: row;
     }
   }
 
   .menu-bar {
-    @include display(flex);
-    @include justify-content(space-between);
+    display: flex;
+    justify-content: space-between;
 
     @include media ($horizontal-bar-mode) {
-      @include flex(1);
+      flex: 1;
     }
 
     a {
-      @include display(flex);
+      display: flex;
     }
 
     .logo {
-      @include display(flex);
-      @include align-items(center);
+      display: flex;
+      align-items: center;
       max-height: $navigation-height;
       padding-left: $navigation-padding;
       padding-right: 2em;
@@ -106,14 +106,14 @@ header.navbar {
       display: none;
 
       @include media ($horizontal-bar-mode) {
-        @include display(flex);
+        display: flex;
       }
     }
   }
 
   ul.navbar-menu {
-    @include display(flex);
-    @include flex-direction(column);
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
     overflow: hidden;
     padding: 0;
@@ -121,8 +121,8 @@ header.navbar {
     z-index: 9999;
 
     @include media ($horizontal-bar-mode) {
-      @include display(flex);
-      @include flex-direction(row);
+      display: flex;
+      flex-direction: row;
       margin: 0;
       padding: 0;
     }
@@ -130,8 +130,8 @@ header.navbar {
 
   // The nav items
   ul li.nav-link {
-    @include display(flex);
-    @include align-items(stretch);
+    display: flex;
+    align-items: stretch;
     background: $navigation-background;
     line-height: $navigation-height;
     overflow: hidden;
@@ -144,7 +144,7 @@ header.navbar {
     }
 
     a {
-      @include flex(1);
+      flex: 1;
       padding-right: 1em;
       color: $navigation-color;
       font-weight: 400;
@@ -155,7 +155,7 @@ header.navbar {
       }
 
       @include media ($horizontal-bar-mode) {
-        @include flex(none);
+        flex: none;
         padding: 0 1em;
       }
     }

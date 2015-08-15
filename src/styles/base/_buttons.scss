@@ -85,8 +85,8 @@ button {
 }
 
 .btn-group {
-  @include display(flex);
-  @include flex-wrap(wrap);
+  display: flex;
+  flex-wrap: wrap;
   margin-bottom: -0.5rem;
 
   button {

@@ -4,10 +4,10 @@
   $content-bg-color: $color-white;
   $border-color: $color-black;
 
-  @include display(flex);
-  @include flex-direction(column);
-  @include flex-basis(18rem);
-  @include flex-grow(1);
+  display: flex;
+  flex-direction: column;
+  flex-basis: 18rem;
+  flex-grow: 1;
   height: em(300px);
   margin: 0.5rem;
   position: relative;
@@ -43,7 +43,7 @@
   }
 
   .card-content {
-    @include flex(1);
+    flex: 1;
     padding: 0.8rem;
     border-top: 1px solid $border-color;
   }

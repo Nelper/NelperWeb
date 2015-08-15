@@ -3,6 +3,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var shared = require('./webpack-shared.js');
+var autoprefixer = require('autoprefixer-core');
 
 var ROOT_PATH = path.resolve(__dirname);
 
@@ -13,7 +14,7 @@ module.exports = merge(shared.config, {
       loader: ExtractTextPlugin.extract('style', 'css'),
     }, {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass?sourceMap&' + shared.sassPaths),
+      loader: ExtractTextPlugin.extract('style', 'css!postcss!sass&' + shared.sassPaths),
     }, {
       test: /\.jsx?$/,
       loader: 'babel?stage=0',
@@ -31,7 +32,8 @@ module.exports = merge(shared.config, {
     }, {
       test: /\.json$/,
       loader: 'json-loader',
-    }]},
+    },
+  ]},
   plugins: [
     new ExtractTextPlugin('styles.css'),
     new webpack.DefinePlugin({
@@ -47,4 +49,5 @@ module.exports = merge(shared.config, {
     }),
     new webpack.optimize.DedupePlugin(),
   ],
+  postcss: [autoprefixer({browsers: ['last 2 versions']})],
 });
