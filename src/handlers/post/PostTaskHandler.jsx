@@ -61,7 +61,7 @@ export default class PostTaskHandler extends Component {
             {TaskCategoryUtils.getName(c)}
           </div>
           <div className="category-examples">
-            {TaskCategoryUtils.getExamples(c)}
+            {TaskCategoryUtils.getExamples(c)} and more!
           </div>
         </div>
       );
@@ -93,6 +93,11 @@ export default class PostTaskHandler extends Component {
           <div>
             <h2 className="title">Select your Task Category</h2>
             <div className="category-picker">{categories}</div>
+            <div className="other-row">
+              <div className="category" onClick={() => this._selectCategory('other')}>
+                <div className="other-icon" />
+              </div>
+            </div>
           </div> :
           <form onSubmit={::this._onSubmit}>
             <div className="input-row">

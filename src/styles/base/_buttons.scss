@@ -68,18 +68,34 @@ button {
 
   &.light {
     background-color: transparent;
-    border: none;
+    border: 0;
     color: $color-nelp-orange;
-    @include transition(background-color 250ms linear, color 250ms linear);
+    transition: background-color 250ms linear, color 250ms linear;
 
     &:hover {
       background-color: $color-nelp-orange;
       color: $color-white;
-      border: none;
+      border: 0;
     }
 
     &:focus {
       background-color: transparent;
+    }
+  }
+
+  &.back {
+    color: $color-nelp-orange;
+    background-color: transparent;
+    background-image: url('~images/icons/left-arrow-orange.png');
+    background-size: 0.75rem;
+    background-repeat: no-repeat;
+    background-position: 0.5rem center;
+    padding-left: 2rem;
+    border: 0;
+    font-weight: normal;
+
+    &:hover {
+      background-color: $color-white;
     }
   }
 }

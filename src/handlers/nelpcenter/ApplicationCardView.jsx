@@ -56,7 +56,7 @@ export default class TaskCardView extends Component {
           </div>
           <div className="info-row calendar">
             <div className="calendar-icon" />
-            <div className="text">Posted {moment(task.createdAt).fromNow()}</div>
+            <div className="text">Applied {moment(application.createdAt).fromNow()}</div>
           </div>
           <div className="info-row location">
             <div className="location-icon" />

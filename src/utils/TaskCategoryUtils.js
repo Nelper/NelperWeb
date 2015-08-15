@@ -17,47 +17,54 @@ export default class TaskCategoryUtils {
       colorLight: Color(colors.blue).lighten(0.2).hexString(),
       colorDark: Color(colors.blue).darken(0.5).hexString(),
       name: 'Business & Admin',
-      examples: 'Accounting, Files Organization, Resume Building, Letters Writing & Review, Advertisement Strategies, Social Media Account Management, Data Entry, and more!',
+      examples: 'Accounting, Files Organization, Resume Building, Letters Writing & Review, Advertisement Strategies, Social Media Account Management, Data Entry,',
     },
     'handywork': {
       color: colors.orange,
       colorLight: Color(colors.orange).lighten(0.3).hexString(),
       colorDark: Color(colors.orange).darken(0.5).hexString(),
       name: 'Handyman',
-      examples: 'Furniture Assembly, Carpentry, Electrical Work, Painting, Plumbing, Roofing, Window Services, Appliance Repair, Floor Installation, and more!',
+      examples: 'Furniture Assembly, Carpentry, Electrical Work, Painting, Plumbing, Roofing, Window Services, Appliance Repair, Floor Installation,',
     },
     'gardening': {
       color: colors.green,
       colorLight: Color(colors.green).lighten(0.4).hexString(),
       colorDark: Color(colors.green).darken(0.5).hexString(),
       name: 'Gardening',
-      examples: 'Garden Maintenance, Landscaping, Lawn Mowing, Raking Leaves, Outdoor Pest Control, Arborism, Fruit Tree Pruning, Tree Planting, Bushes Pruning, and more!',
+      examples: 'Garden Maintenance, Landscaping, Lawn Mowing, Raking Leaves, Outdoor Pest Control, Arborism, Fruit Tree Pruning, Tree Planting, Bushes Pruning,',
     },
     'housecleaning': {
       color: colors.purple,
       colorLight: Color(colors.purple).lighten(0.3).hexString(),
       colorDark: Color(colors.purple).darken(0.5).hexString(),
       name: 'Cleaning',
-      examples: 'House Cleaning, Laundry Services, Waste Removal, Guttering, Pool & Spa Cleaning, Steam Cleaning, Car Wash, and more!',
+      examples: 'House Cleaning, Laundry Services, Waste Removal, Guttering, Pool & Spa Cleaning, Steam Cleaning, Indoor Pest Control, Car Wash,',
     },
     'technology': {
       color: colors.yellow,
       colorLight: Color(colors.yellow).lighten(0.4).hexString(),
       colorDark: Color(colors.yellow).darken(0.5).hexString(),
       name: 'Electronic & IT Support',
-      examples: 'Computer Fixing, Hardware Setup, Internet Setup, Apple & iTunes Help, Cable Management, Printer/Scan Installation, TV & Sound System Installation, Email Setup, Tablets & Phones Support and more!',
+      examples: 'Computer Fixing, Internet Setup, Printer & Scanner Installation, TV & Sound System Installation, Email Setup, Tablets & Phones Support,',
     },
     'multimedia': {
       color: colors.red,
       colorLight: Color(colors.red).lighten(0.2).hexString(),
       colorDark: Color(colors.red).darken(0.5).hexString(),
       name: 'Multimedia & Design',
-      examples: 'Website Development & Design, Mobile App Development, Photo & Video Editing, Graphic Design, Print & Design, Video Intro Creation, Music Production, and more!',
+      examples: 'Website & App Development, Photo & Video Editing, Graphic Design, Printing, Videography & Photography, Music Production,',
+    },
+    'other': {
+      color: colors.red,
+      colorLight: Color(colors.red).lighten(0.2).hexString(),
+      colorDark: Color(colors.red).darken(0.5).hexString(),
+      name: 'Other',
     },
   }
 
   static list() {
-    return Object.keys(this._categories);
+    // Returns all the categories without 'other'
+    return Object.keys(this._categories).filter(c => c !== 'other');
   }
 
   static getImage(category) {

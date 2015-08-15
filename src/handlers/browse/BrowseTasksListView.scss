@@ -52,7 +52,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 50%;
-        border: 2px solid $color-black;
+        border: 1px solid $color-gray-medium;
 
         .category-icon {
           position: absolute;
@@ -62,7 +62,6 @@
           @include image(rem($category-image-size), rem($category-image-size));
           border-radius: 50%;
           background-color: $color-gray-light;
-          border: 2px solid $color-black;
         }
       }
 

@@ -2,26 +2,43 @@
 
   $state-icon-size: 32px;
 
+  .container {
+    padding-top: 0.5rem;
+  }
+
+  .detail-container {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid $color-gray-medium;
+  }
+
   .detail {
     margin-left: 1.5em;
-
-    > div {
-      margin-bottom: 0.5em;
-    }
   }
 
-  .detail-status {
+  .detail-row {
     display: flex;
     align-items: center;
+    margin-bottom: 1rem;
   }
 
-  .detail-status-icon {
-    width: rem(26px);
-    height: rem(26px);
-    margin: 0 0.5em;
-    background-position: center;
-    background-size: contain;
-    border-radius: 50%;
+  .detail-icon {
+    @include image(2rem);
+  }
+
+  .detail-text {
+    margin-left: 1rem;
+  }
+
+  .applicants-count {
+    background-image: url('~images/icons/applicants.png');
+  }
+
+  .price-offered {
+    background-image: url('~images/icons/money.png');
+  }
+
+  .calendar {
+    background-image: url('~images/icons/calendar.png');
   }
 
   .applications {

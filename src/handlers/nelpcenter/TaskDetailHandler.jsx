@@ -127,20 +127,29 @@ export default class TaskDetailHandler extends Component {
             </button>
           </div>
         </Dialog>
-        <div className="container pad-all">
+        <div className="detail-container container pad-all">
+          <button className="back" onClick={::this._back}>Back</button>
           <h2>{task.title}</h2>
           <div className="detail">
-            {this._renderStatus()}
-            <div>Description: {task.desc}</div>
-            <div>Offer: {task.priceOffered}</div>
+            <div className="description">{task.desc}</div>
+            <div className="detail-row">
+              <div className="detail-icon applicants-count" />
+              <div className="detail-text">{task.applications.length} applicants</div>
+            </div>
+            <div className="detail-row">
+              <div className="detail-icon price-offered" />
+              <div className="detail-text">My offer: ${task.priceOffered}</div>
+            </div>
+            <div className="detail-row">
+              <div className="detail-icon calendar" />
+              <div className="detail-text">Posted {moment(task.createdAt).fromNow()}</div>
+            </div>
             <div className="btn-group">
               <button className="secondary" onClick={::this._edit}>Edit</button>
               <button className="warning" onClick={::this._delete}>Delete</button>
-              <button onClick={::this._back}>Back</button>
             </div>
           </div>
         </div>
-        <div className="section-separator"/>
         <div className="container pad-all">
           <h2>Applicants</h2>
           <div className="applications">
