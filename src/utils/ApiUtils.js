@@ -17,7 +17,14 @@ class ApiUtils {
       .then(() => this._meFromParse(Parse.User.current()));
   }
 
-  register(email, password, name) {
+  /**
+   * Creates an account for the user.
+   * @param  {Object} user User info
+   * @param  {string} password [description]
+   * @param  {[type]} name    [description]
+   * @return {Promise}
+   */
+  register({email, password, name}) {
     let user = new Parse.User();
     user.set('username', email);
     user.set('email', email);
