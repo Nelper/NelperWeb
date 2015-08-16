@@ -52,17 +52,17 @@ export default class PostTaskHandler extends Component {
 
   render() {
     let categories = TaskCategoryUtils.list().map(c => {
+      let active = this.state.category === c;
+      let activeColor = TaskCategoryUtils.getDarkColor(c);
       return (
-        <div key={c} className="category" onClick={() => this._selectCategory(c)}>
-          <div className="category-icon" style={{
+        <div key={c} className={classNames('category', {'active': active})} onClick={() => this._selectCategory(c)}>
+          <div className="icon" style={{
             backgroundImage: `url('${TaskCategoryUtils.getImage(c)}')`,
+            borderColor: active ? activeColor : 'transparent',
           }} />
-          <div className="category-title">
-            {TaskCategoryUtils.getName(c)}
-          </div>
-          <div className="category-examples">
-            {TaskCategoryUtils.getExamples(c)} and more!
-          </div>
+          <div className="title" style={{
+            color: active ? activeColor : null,
+          }}>{TaskCategoryUtils.getName(c)}</div>
         </div>
       );
     });
@@ -82,110 +82,109 @@ export default class PostTaskHandler extends Component {
     });
 
     return (
-      <div className="post-task-handler container pad-all">
+      <div id="find-nelp-add-handler" className="container pad-all">
         <AddLocationDialogView
           opened={this.state.openCreateLocation}
           onLocationAdded={::this._onAddLocation}
           onCancel={::this._onCancelAddLocation} />
-
-        {
-          !this.state.category ?
-          <div>
-            <h2 className="title">Select your Task Category</h2>
-            <div className="category-picker">{categories}</div>
-            <div className="other-row">
-              <div className="category" onClick={() => this._selectCategory('other')}>
-                <div className="other-icon" />
-              </div>
+        <form onSubmit={::this._onSubmit}>
+          <div className="input-row">
+            <div className={classNames('step', {'done': this._validateCategory()})}>1</div>
+            <div className="input-content">
+              <label className="title">Select your Task Category</label>
+              <div className="category-picker">{categories}</div>
+              <input value={this.state.category ? '1' : ''}
+                className="category-input"
+                readOnly={true}
+                required={true}
+                onInvalid={(e) => e.target.setCustomValidity('Please select a category')} />
             </div>
-          </div> :
-          <form onSubmit={::this._onSubmit}>
-            <div className="input-row">
-              <div className={classNames('step', {'done': this._validateTitle()})}>1</div>
-              <div className="input-content">
-                <label className="title">Enter your Task Title</label>
+          </div>
+          <div className="input-row">
+            <div className={classNames('step', {'done': this._validateTitle()})}>2</div>
+            <div className="input-content">
+              <label className="title">Enter your Task Title</label>
+              <input
+                type="text"
+                required={true}
+                minLength={4}
+                maxLength={72}
+                value={this.state.title}
+                onChange={this._onTitleChanged.bind(this)} />
+            </div>
+          </div>
+          <div className="input-row">
+            <div className={classNames('step', {'done': this._validatePrice()})}>3</div>
+            <div className="input-content">
+              <label className="title">How much are you offering?</label>
+              <div className="price">
+                <div className="currency">$</div>
                 <input
-                  type="text"
+                  type="number"
+                  min={0}
+                  max={9999}
+                  maxLength={4}
                   required={true}
-                  minLength={4}
-                  maxLength={72}
-                  value={this.state.title}
-                  onChange={this._onTitleChanged.bind(this)} />
+                  value={this.state.priceOffered}
+                  onChange={this._onPriceOfferedChanged.bind(this)} />
               </div>
             </div>
-            <div className="input-row">
-              <div className={classNames('step', {'done': this._validatePrice()})}>2</div>
-              <div className="input-content">
-                <label className="title">How much are you offering?</label>
-                <div className="price">
-                  <div className="currency">$</div>
-                  <input
-                    type="number"
-                    min={0}
-                    max={9999}
-                    maxLength={4}
-                    required={true}
-                    value={this.state.priceOffered}
-                    onChange={this._onPriceOfferedChanged.bind(this)} />
+          </div>
+          <div className="input-row">
+            <div className={classNames('step', {'done': this._validateLocation()})}>4</div>
+            <div className="input-content">
+              <label className="title">Select your location</label>
+              <div className="location">
+                {
+                  locations.length ?
+                  <div>
+                    <select value={this.props.locations.indexOf(this.state.location)}
+                            onChange={::this._onLocationChanged}>
+                      {locations}
+                    </select>
+                  </div> :
+                  null
+                }
+                <button className="primary" onClick={::this._onOpenAddLocation}>Add</button>
+              </div>
+              <div className="address">{this.state.location && this.state.location.address}</div>
+            </div>
+          </div>
+          <div className="input-row">
+            <div className={classNames('step', {'done': this._validateDescription()})}>5</div>
+            <div className="input-content">
+              <label className="title">Briefly describe what you are looking for</label>
+              <textarea
+                required={true}
+                minLength={4}
+                value={this.state.desc}
+                onChange={this._onDescChanged.bind(this)} />
+            </div>
+          </div>
+          <div className="input-row">
+            <div className="step camera" />
+            <div className="input-content">
+              <label className="title">Attach pictures (optional)</label>
+              <div key="add" className="pictures">
+                <div className="add-picture">
+                  <div className="icon" />
+                  <input type="file" accept="image/*" onChange={::this._onFileChanged} />
                 </div>
+                {pictures}
               </div>
             </div>
-            <div className="input-row">
-              <div className={classNames('step', {'done': this._validateLocation()})}>3</div>
-              <div className="input-content">
-                <label className="title">Select your location</label>
-                <div className="location">
-                  {
-                    locations.length ?
-                    <div>
-                      <select value={this.props.locations.indexOf(this.state.location)}
-                              onChange={::this._onLocationChanged}>
-                        {locations}
-                      </select>
-                    </div> :
-                    null
-                  }
-                  <button className="primary" onClick={::this._onOpenAddLocation}>Add</button>
-                </div>
-                <div className="address">{this.state.location && this.state.location.address}</div>
-              </div>
+          </div>
+          {
+            this.state.loading ?
+            <Progress /> :
+            <div className="btn-group">
+              <button
+                type="submit"
+                className="primary">Create</button>
+              <button onClick={this._cancel.bind(this)}>Cancel</button>
             </div>
-            <div className="input-row">
-              <div className={classNames('step', {'done': this._validateDescription()})}>4</div>
-              <div className="input-content">
-                <label className="title">Briefly describe what you are looking for</label>
-                <textarea
-                  required={true}
-                  minLength={4}
-                  value={this.state.desc}
-                  onChange={this._onDescChanged.bind(this)} />
-              </div>
-            </div>
-            <div className="input-row">
-              <div className="step camera" />
-              <div className="input-content">
-                <label className="title">Attach pictures (optional)</label>
-                <div key="add" className="pictures">
-                  <div className="add-picture">
-                    <div className="icon" />
-                    <input type="file" accept="image/*" onChange={::this._onFileChanged} />
-                  </div>
-                  {pictures}
-                </div>
-              </div>
-            </div>
-            {
-              this.state.loading ?
-              <Progress /> :
-              <div className="btn-group">
-                <button
-                  type="submit"
-                  className="primary">Create</button>
-                <button onClick={this._cancel.bind(this)}>Back</button>
-              </div>
-            }
-          </form>
-        }
+          }
+        </form>
       </div>
     );
   }
@@ -317,14 +316,6 @@ export default class PostTaskHandler extends Component {
   }
 
   _cancel() {
-    this.setState({
-      category: '',
-      title: '',
-      priceOffered: '',
-      desc: '',
-      openCreateLocation: false,
-      pictures: [],
-      loading: false,
-    });
+    this.context.router.transitionTo('/center/tasks');
   }
 }

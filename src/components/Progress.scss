@@ -6,7 +6,7 @@
   width: 70px;
   height: 70px;
 
-  @include animation(rotate 1.0s linear infinite);
+  animation: rotate 1s linear infinite;
 
   .image {
     width: 56px;
@@ -21,6 +21,7 @@
     from {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(359deg);
     }

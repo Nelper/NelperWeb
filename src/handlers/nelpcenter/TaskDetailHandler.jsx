@@ -5,8 +5,9 @@ import moment from 'moment';
 import Progress from 'components/Progress';
 import Rating from 'components/Rating';
 import Dialog from 'components/Dialog';
-import FindNelpActions from 'actions/FindNelpActions';
-import FindNelpStore from 'stores/FindNelpStore';
+import Editable from 'components/Editable';
+import TaskActions from 'actions/TaskActions';
+import TaskStore from 'stores/TaskStore';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 import ViewProfileHandler from './ViewProfileHandler';
@@ -19,14 +20,14 @@ export default class TaskDetailHandler extends Component {
   }
 
   static getStores() {
-    return [FindNelpStore];
+    return [TaskStore];
   }
 
   static getPropsFromStores(props) {
-    let tasks = FindNelpStore.getState().myTasks;
+    let tasks = TaskStore.getState().myTasks;
     let task = tasks.find(t => t.objectId === props.params.id);
     if(!task) {
-      FindNelpActions.refreshMyTasks();
+      TaskActions.refreshMyTasks();
       return {
         isLoading: true,
         task: null,
@@ -46,16 +47,110 @@ export default class TaskDetailHandler extends Component {
 
   _setTaskAsViewed = false
 
+  componentDidMount() {
+    this._markTaskViewed();
+  }
+
   componentDidUpdate() {
-    // Mark the task as viewed once it's loaded.
+    this._markTaskViewed();
+  }
+
+  _markTaskViewed() {
     if(!this._setTaskAsViewed && this.props.task) {
       this._setTaskAsViewed = true;
       // Have to do this to avoid fireing this action in the
       // middle of a dispatch.
       setTimeout(() => {
-        FindNelpActions.setTaskViewed(this.props.task);
+        TaskActions.setTaskViewed(this.props.task);
       }, 0);
     }
+  }
+
+  _onDescChanged(desc) {
+    const task = this.props.task;
+    task.desc = desc;
+    TaskActions.updateTask(task);
+  }
+
+  _delete() {
+    this.setState({confirmDeleteOpened: true});
+  }
+
+  _confirmDelete() {
+    TaskActions.deleteTask(this.props.task);
+    this.context.router.goBack();
+  }
+
+  _cancelDelete() {
+    this.setState({confirmDeleteOpened: false});
+  }
+
+  _viewProfile(user) {
+    this.setState({selectedUser: user});
+  }
+
+  _onProfileClose() {
+    this.setState({selectedUser: null});
+  }
+
+  _accept(application) {
+    TaskActions.acceptApplication(application);
+  }
+
+  _deny(application) {
+    TaskActions.denyApplication(application);
+  }
+
+  _back() {
+    this.context.router.goBack();
+  }
+
+  _sortTasks(a, b) {
+    function toOrder(ele) {
+      switch(ele.state) {
+      case NELP_TASK_APPLICATION_STATE.ACCEPTED:
+        return 10;
+      case NELP_TASK_APPLICATION_STATE.PENDING:
+        return 20;
+      case NELP_TASK_APPLICATION_STATE.DENIED:
+        return 30;
+      }
+    }
+
+    return toOrder(a) > toOrder(b) ? 1 : -1;
+  }
+
+  _renderStateBadge(state) {
+    let icon;
+    switch (state) {
+      case 0:
+        icon = require('images/icons/state-pending.png');
+        break;
+      case 2:
+        icon = require('images/icons/state-accepted.png');
+        break;
+      case 3:
+        icon = require('images/icons/state-denied.png');
+        break;
+    }
+    return (
+      <div className="state-badge" style={{backgroundImage: `url('${icon}')`}} />
+    );
+  }
+
+  _renderStatus() {
+    let hasAcceptedApplication = this.props.task.applications.some(a => a.state === 2);
+    let icon = !hasAcceptedApplication ?
+      require('images/icons/state-pending.png') :
+      require('images/icons/state-accepted.png');
+    let text = !hasAcceptedApplication ? 'Pending' : 'Accepted';
+    return (
+      <div className="detail-status">
+        <div>Status: </div>
+        <div className="detail-status-icon" style={{backgroundImage: `url('${icon}')`}} />
+        <div>{text}</div>
+      </div>
+    );
   }
 
   render() {
@@ -131,7 +226,13 @@ export default class TaskDetailHandler extends Component {
           <button className="back" onClick={::this._back}>Back</button>
           <h2>{task.title}</h2>
           <div className="detail">
-            <div className="description">{task.desc}</div>
+            <div className="detail-row description">
+              <Editable
+                multiline={true}
+                onEditDone={::this._onDescChanged}
+                initialValue={task.desc}
+              />
+            </div>
             <div className="detail-row">
               <div className="detail-icon applicants-count" />
               <div className="detail-text">{task.applications.length} applicants</div>
@@ -142,10 +243,12 @@ export default class TaskDetailHandler extends Component {
             </div>
             <div className="detail-row">
               <div className="detail-icon calendar" />
-              <div className="detail-text">Posted {moment(task.createdAt).fromNow()}</div>
+              <div className="detail-text">
+                <div>Posted {moment(task.createdAt).fromNow()}</div>
+                <div>Expires {moment(task.createdAt).add(15, 'days').fromNow()}</div>
+              </div>
             </div>
             <div className="btn-group">
-              <button className="secondary" onClick={::this._edit}>Edit</button>
               <button className="warning" onClick={::this._delete}>Delete</button>
             </div>
           </div>
@@ -161,90 +264,5 @@ export default class TaskDetailHandler extends Component {
         </div>
       </div>
     );
-  }
-
-  _renderStateBadge(state) {
-    let icon;
-    switch (state) {
-      case 0:
-        icon = require('images/icons/state-pending.png');
-        break;
-      case 2:
-        icon = require('images/icons/state-accepted.png');
-        break;
-      case 3:
-        icon = require('images/icons/state-denied.png');
-        break;
-    }
-    return (
-      <div className="state-badge" style={{backgroundImage: `url('${icon}')`}} />
-    );
-  }
-
-  _renderStatus() {
-    let hasAcceptedApplication = this.props.task.applications.some(a => a.state === 2);
-    let icon = !hasAcceptedApplication ?
-      require('images/icons/state-pending.png') :
-      require('images/icons/state-accepted.png');
-    let text = !hasAcceptedApplication ? 'Pending' : 'Accepted';
-    return (
-      <div className="detail-status">
-        <div>Status: </div>
-        <div className="detail-status-icon" style={{backgroundImage: `url('${icon}')`}} />
-        <div>{text}</div>
-      </div>
-    );
-  }
-
-  _edit() {
-
-  }
-
-  _delete() {
-    this.setState({confirmDeleteOpened: true});
-  }
-
-  _confirmDelete() {
-    FindNelpActions.deleteTask(this.props.task);
-    this.context.router.goBack();
-  }
-
-  _cancelDelete() {
-    this.setState({confirmDeleteOpened: false});
-  }
-
-  _viewProfile(user) {
-    this.setState({selectedUser: user});
-  }
-
-  _onProfileClose() {
-    this.setState({selectedUser: null});
-  }
-
-  _accept(application) {
-    FindNelpActions.acceptApplication(application);
-  }
-
-  _deny(application) {
-    FindNelpActions.denyApplication(application);
-  }
-
-  _back() {
-    this.context.router.goBack();
-  }
-
-  _sortTasks(a, b) {
-    function toOrder(ele) {
-      switch(ele.state) {
-      case NELP_TASK_APPLICATION_STATE.ACCEPTED:
-        return 10;
-      case NELP_TASK_APPLICATION_STATE.PENDING:
-        return 20;
-      case NELP_TASK_APPLICATION_STATE.DENIED:
-        return 30;
-      }
-    }
-
-    return toOrder(a) > toOrder(b) ? 1 : -1;
   }
 }

@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
-import FindNelpStore from 'stores/FindNelpStore';
+import TaskStore from 'stores/TaskStore';
 
 @connectToStores
 export default class ViewProfileHandler extends Component {
 
   static getStores() {
-    return [FindNelpStore];
+    return [TaskStore];
   }
 
   static getPropsFromStores() {
-    return FindNelpStore.getState();
+    return TaskStore.getState();
   }
 
   state = {

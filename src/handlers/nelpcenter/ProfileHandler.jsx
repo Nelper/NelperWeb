@@ -4,6 +4,7 @@ import connectToStores from 'alt/utils/connectToStores';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import Icon from 'components/Icon';
+import Editable from 'components/Editable';
 
 @connectToStores
 export default class ProfileHandler extends Component {
@@ -21,8 +22,6 @@ export default class ProfileHandler extends Component {
   }
 
   state = {
-    editAbout: false,
-    aboutText: '',
     editSkills: false,
     skillText: '',
     editedSkill: null,
@@ -36,17 +35,16 @@ export default class ProfileHandler extends Component {
 
     let skills = user.skills.map(s => {
       return (
-        <div className="editable skill" key={s.objectId}>
-          <div className="editable-checkmark" />
-          <div className="editable-title">{s.title}</div>
-          <button className="editable-action" onClick={() => this._editSkill(s)}>
-            <div className="editable-icon-bg" />
-            <Icon className="editable-icon" svg={require('images/icons/edit.svg')}/>
-          </button>
-          <button className="editable-action" onClick={() => this._deleteSkill(s)}>
-            <div className="editable-icon-bg" />
-            <Icon className="editable-icon" svg={require('images/icons/delete.svg')}/>
-          </button>
+        <div className="skill" key={s.objectId}>
+          <Editable
+            deletable={true}
+            onEditStart={::this._editSkillStart}
+            onEditCancel={::this._editSkillCancel}
+            onEditDone={(val) => this._editSkillDone(s, val)}
+            onDelete={() => this._deleteSkill(s)}
+            initialValue={s.title}
+            editBoxRef={this.refs.skillEditBox}
+          />
         </div>
       );
     });
@@ -76,28 +74,12 @@ export default class ProfileHandler extends Component {
               About
             </div>
             <div className="section-content">
-              {
-                !this.state.editAbout ?
-                <div className="about editable">
-                  <div className="editable-title">{user.about || 'Write something about you'}</div>
-                  <button className="editable-action edit" onClick={::this._editAbout}>
-                    <div className="editable-icon-bg" />
-                    <Icon className="editable-icon" svg={require('images/icons/edit.svg')}/>
-                  </button>
-                </div> :
-                <div className="edit-box">
-                  <form onSubmit={::this._doneEditAbout}>
-                    <textarea
-                      placeholder="Write something about you..."
-                      value={this.state.aboutText}
-                      onChange={::this._onAboutTextChanged} />
-                    <div className="btn-group">
-                      <button type="submit" className="primary">OK</button>
-                      <button onClick={::this._cancelEditAbout}>Cancel</button>
-                    </div>
-                  </form>
-                </div>
-              }
+              <Editable
+                multiline={true}
+                onEditDone={::this._onEditAbout}
+                initialValue={user.about}
+                editPlaceholder="Write something about you..."
+              />
             </div>
           </div>
           <div className="section-row">
@@ -108,24 +90,11 @@ export default class ProfileHandler extends Component {
               <div className="skills">
                 {skills}
               </div>
+              <div ref="skillEditBox" />
               {
                 !this.state.editSkills ?
                 <button className="add-skill light primary" onClick={::this._addSkill}>Add new skill</button> :
-                <div className="edit-box">
-                  <form onSubmit={::this._doneEditSkills}>
-                    <input
-                      type="text"
-                      placeholder="Enter something you are good at"
-                      value={this.state.skillText}
-                      maxLength={30}
-                      required={true}
-                      onChange={::this._onSkillTextChanged} />
-                    <div className="btn-group">
-                      <button type="submit" className="primary">OK</button>
-                      <button onClick={::this._cancelEditSkills}>Cancel</button>
-                    </div>
-                  </form>
-                </div>
+                null
               }
             </div>
           </div>
@@ -178,43 +147,34 @@ export default class ProfileHandler extends Component {
     );
   }
 
-  _editAbout() {
-    this.setState({
-      aboutText: this.props.user.about,
-      editAbout: true,
-    });
-  }
-
-  _doneEditAbout(event) {
-    event.preventDefault();
-
-    UserActions.editAbout(this.state.aboutText);
-
-    this.setState({
-      editAbout: false,
-    });
-  }
-
-  _cancelEditAbout(event) {
-    event.preventDefault();
-    this.setState({
-      editAbout: false,
-    });
-  }
-
-  _onAboutTextChanged(event) {
-    this.setState({aboutText: event.target.value});
+  _onEditAbout(about) {
+    UserActions.editAbout(about)
   }
 
   _addSkill() {
-    this.setState({editSkills: true});
-  }
-
-  _editSkill(skill) {
     this.setState({
       editSkills: true,
-      skillText: skill.title,
-      editedSkill: skill,
+      skillText: '',
+    });
+  }
+
+  _editSkillStart() {
+    this.setState({
+      editSkills: true,
+    });
+  }
+
+  _editSkillCancel() {
+    this.setState({
+      editSkills: false,
+    });
+  }
+
+  _editSkillDone(skill, title) {
+    skill.title = title;
+    UserActions.editSkill(skill);
+    this.setState({
+      editSkills: false,
     });
   }
 

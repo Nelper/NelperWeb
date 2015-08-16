@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
 import TaskCardView from './TaskCardView';
-import FindNelpActions from 'actions/FindNelpActions';
-import FindNelpStore from 'stores/FindNelpStore';
+import TaskActions from 'actions/TaskActions';
+import TaskStore from 'stores/TaskStore';
 
 @connectToStores
 export default class TasksHandler extends Component {
@@ -13,15 +13,15 @@ export default class TasksHandler extends Component {
   }
 
   static getStores() {
-    return [FindNelpStore];
+    return [TaskStore];
   }
 
   static getPropsFromStores() {
-    return FindNelpStore.getState();
+    return TaskStore.getState();
   }
 
   componentDidMount() {
-    FindNelpActions.refreshMyTasks();
+    TaskActions.refreshMyTasks();
   }
 
   render() {

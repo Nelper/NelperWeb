@@ -345,6 +345,17 @@ class ApiUtils {
   }
 
   /**
+   * Update a task.
+   * @param  {Task} task The task to update
+   */
+  updateTask(task) {
+    let parseTask = new NelpTask();
+    parseTask.id = task.objectId;
+    parseTask.set('desc', task.desc);
+    parseTask.save();
+  }
+
+  /**
    * Delete a task.
    * @param  {Task} task The task to delete
    */

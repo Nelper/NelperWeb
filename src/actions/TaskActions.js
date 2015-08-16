@@ -2,7 +2,7 @@ import alt from 'app/alt';
 import ApiUtils from 'utils/ApiUtils';
 import {NELP_TASK_STATE} from 'utils/constants';
 
-class FindNelpActions {
+class TaskActions {
 
   constructor() {
     this.generateActions(
@@ -30,6 +30,11 @@ class FindNelpActions {
     return task;
   }
 
+  updateTask(task) {
+    ApiUtils.updateTask(task);
+    return task;
+  }
+
   deleteTask(task) {
     ApiUtils.deleteTask(task);
     return task;
@@ -51,4 +56,4 @@ class FindNelpActions {
   }
 }
 
-export default alt.createActions(FindNelpActions);
+export default alt.createActions(TaskActions);

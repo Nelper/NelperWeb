@@ -1,7 +1,7 @@
 import alt from 'app/alt';
-import FindNelpActions from 'actions/FindNelpActions';
+import TaskActions from 'actions/TaskActions';
 
-class FindNelpStore {
+class TaskStore {
 
   state = {
     myTasks: [],
@@ -11,13 +11,14 @@ class FindNelpStore {
 
   constructor() {
     this.bindListeners({
-      handleReceivedMyTasks: FindNelpActions.RECEIVED_MY_TASKS,
-      handleAddTask: FindNelpActions.ADD_TASK,
-      handleStartTaskCreate: FindNelpActions.START_TASK_CREATE,
-      handleReceivedCreatedTask: FindNelpActions.RECEIVED_CREATED_TASK,
-      handleDeleteTask: FindNelpActions.DELETE_TASK,
-      handleAcceptApplication: FindNelpActions.ACCEPT_APPLICATION,
-      handleDenyApplication: FindNelpActions.DENY_APPLICATION,
+      handleReceivedMyTasks: TaskActions.RECEIVED_MY_TASKS,
+      handleAddTask: TaskActions.ADD_TASK,
+      handleStartTaskCreate: TaskActions.START_TASK_CREATE,
+      handleReceivedCreatedTask: TaskActions.RECEIVED_CREATED_TASK,
+      handleDeleteTask: TaskActions.DELETE_TASK,
+      handleUpdateTask: TaskActions.UPDATE_TASK,
+      handleAcceptApplication: TaskActions.ACCEPT_APPLICATION,
+      handleDenyApplication: TaskActions.DENY_APPLICATION,
     });
   }
 
@@ -58,6 +59,15 @@ class FindNelpStore {
     });
   }
 
+  handleUpdateTask(task) {
+    let newTasks = this.state.myTasks;
+    let index = newTasks.findIndex(t => t.objectId === task.objectId);
+    newTasks[index] = task;
+    this.setState({
+      myTasks: newTasks,
+    });
+  }
+
   handleAcceptApplication(application) {
     application.state = 2;
     this.emitChange();
@@ -74,4 +84,4 @@ class FindNelpStore {
   }
 }
 
-export default alt.createStore(FindNelpStore, 'FindNelpStore');
+export default alt.createStore(TaskStore, 'TaskStore');
