@@ -40,7 +40,7 @@ class Id {
   }
 
   static fromString(str: string) {
-    var split = str.split(':');
+    const split = str.split(':');
     if (split.length !== 2) {
       throw new TypeError('Cannot create Id object from this string');
     }
@@ -56,7 +56,8 @@ function mappedFlatten(el) {
       objectId: el.id,
     };
   }
-  return flatten(el);
+
+  return flatten(el); // eslint-disable-line no-use-before-define
 }
 
 /**
@@ -70,7 +71,7 @@ function flatten(object) {
     return object;
   }
 
-  var flat = {
+  const flat = {
     id: new Id(object.className, object.id),
     className: object.className,
     objectId: object.id,
@@ -81,23 +82,26 @@ function flatten(object) {
   if (object.updatedAt) {
     flat.updatedAt = object.updatedAt;
   }
-  for (var attr in object.attributes) {
-    var val = object.attributes[attr];
-    if (val instanceof Parse.Object) {
-      // We replace it with a pointer
-      flat[attr] = mappedFlatten(val);
-    } else if (Array.isArray(val)) {
-      flat[attr] = val.map(mappedFlatten);
-    } else {
-      flat[attr] = val;
+  for (const attr in object.attributes) {
+    if (object.attributes.hasOwnProperty(attr)) {
+      const val = object.attributes[attr];
+      if (val instanceof Parse.Object) {
+        // We replace it with a pointer
+        flat[attr] = mappedFlatten(val);
+      } else if (Array.isArray(val)) {
+        flat[attr] = val.map(mappedFlatten);
+      } else {
+        flat[attr] = val;
+      }
     }
   }
 
   return flat;
 }
 
+
 if (!Parse.Object.prototype.toPlainObject) {
-  Parse.Object.prototype.toPlainObject = function() {
+  Parse.Object.prototype.toPlainObject = function toPlainObject() {
     return flatten(this);
   };
 }

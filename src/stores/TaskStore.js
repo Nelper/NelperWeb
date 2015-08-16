@@ -19,6 +19,7 @@ class TaskStore {
       handleUpdateTask: TaskActions.UPDATE_TASK,
       handleAcceptApplication: TaskActions.ACCEPT_APPLICATION,
       handleDenyApplication: TaskActions.DENY_APPLICATION,
+      handleSetTaskViewed: TaskActions.SET_TASK_VIEWED,
     });
   }
 
@@ -41,7 +42,7 @@ class TaskStore {
   }
 
   handleAddTask(task) {
-    let newTasks = this.state.myTasks; // Should use immutable data.
+    const newTasks = this.state.myTasks; // Should use immutable data.
     newTasks.unshift(task);
     this.setState({
       myTasks: newTasks,
@@ -51,8 +52,8 @@ class TaskStore {
   }
 
   handleDeleteTask(task) {
-    let newTasks = this.state.myTasks;
-    let index = newTasks.findIndex(t => t.objectId === task.objectId);
+    const newTasks = this.state.myTasks;
+    const index = newTasks.findIndex(t => t.objectId === task.objectId);
     newTasks.splice(index, 1);
     this.setState({
       myTasks: newTasks,
@@ -60,8 +61,8 @@ class TaskStore {
   }
 
   handleUpdateTask(task) {
-    let newTasks = this.state.myTasks;
-    let index = newTasks.findIndex(t => t.objectId === task.objectId);
+    const newTasks = this.state.myTasks;
+    const index = newTasks.findIndex(t => t.objectId === task.objectId);
     newTasks[index] = task;
     this.setState({
       myTasks: newTasks,
@@ -80,6 +81,7 @@ class TaskStore {
 
   handleSetTaskViewed(task) {
     task.applications.forEach(a => a.isNew = false);
+    task.isNew = false;
     this.emitChange();
   }
 }

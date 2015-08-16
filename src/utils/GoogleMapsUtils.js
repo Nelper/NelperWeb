@@ -1,6 +1,6 @@
 export default {
   load(callback) {
-    if(this.get()) {
+    if (this.get()) {
       // Simulate async, this is useful to be able to access refs in componentDidMount.
       setTimeout(() => callback.call(null, this.get()), 0);
       return;
@@ -9,7 +9,7 @@ export default {
       callback.call(null, this.get());
     };
 
-    let script = document.createElement('script');
+    const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = 'https://maps.googleapis.com/maps/api/js?' +
       'libraries=places&' +

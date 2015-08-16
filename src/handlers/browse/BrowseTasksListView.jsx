@@ -11,6 +11,7 @@ import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 export default class BrowseTasksListView extends Component {
 
   static propTypes = {
+    tasks: PropTypes.array.isRequired,
     onTaskSelected: PropTypes.func,
     onApply: PropTypes.func,
     onCancelApply: PropTypes.func,
@@ -20,18 +21,43 @@ export default class BrowseTasksListView extends Component {
     selectedTask: null,
   }
 
+  _taskDetail(task) {
+    // If we click the current task we close it else we
+    // select it.
+    if (task === this.state.selectedTask) {
+      this.setState({selectedTask: null});
+    } else {
+      this.setState({selectedTask: task});
+    }
+
+    if (this.props.onTaskSelected) {
+      this.props.onTaskSelected.call(null, task);
+    }
+  }
+
+  _apply(task) {
+    if (this.props.onApply) {
+      this.props.onApply.call(null, task);
+    }
+  }
+
+  _cancelApplication(task) {
+    if (this.props.onCancelApply) {
+      this.props.onCancelApply.call(null, task);
+    }
+  }
+
   render() {
-    let {tasks} = this.props;
+    const {tasks} = this.props;
 
-    let displayedTasks = tasks.map((t) => {
-
-      let distance = UserStore.state.user ?
+    const displayedTasks = tasks.map((t) => {
+      const distance = UserStore.isLogged() ?
         Math.round(LocationUtils.kilometersBetween(t.location, UserStore.state.user.location)) :
         null;
 
-      let pictures = t.pictures && t.pictures.map(p => {
+      const pictures = t.pictures && t.pictures.map((p, i) => {
         return (
-          <div className="task-picture" style={{backgroundImage: `url('${p.url}')`}} />
+          <div className="task-picture" style={{backgroundImage: `url('${p.url}')`}} key={i} />
         );
       });
 
@@ -119,31 +145,5 @@ export default class BrowseTasksListView extends Component {
         {displayedTasks}
       </div>
     );
-  }
-
-  _taskDetail(task) {
-    // If we click the current task we close it else we
-    // select it.
-    if(task === this.state.selectedTask) {
-      this.setState({selectedTask: null});
-    } else {
-      this.setState({selectedTask: task});
-    }
-
-    if(this.props.onTaskSelected) {
-      this.props.onTaskSelected.call(null, task);
-    }
-  }
-
-  _apply(task) {
-    if(this.props.onApply) {
-      this.props.onApply.call(null, task);
-    }
-  }
-
-  _cancelApplication(task) {
-    if(this.props.onCancelApply) {
-      this.props.onCancelApply.call(null, task);
-    }
   }
 }

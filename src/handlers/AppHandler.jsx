@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 import classNames from 'classnames';
 
@@ -8,6 +8,11 @@ import NavBar from 'components/NavBar';
 
 @connectToStores
 export default class AppHandler extends Component {
+
+  static propTypes = {
+    user: PropTypes.object,
+    children: PropTypes.node,
+  }
 
   static getStores() {
     return [UserStore];
@@ -19,16 +24,18 @@ export default class AppHandler extends Component {
 
   componentDidMount() {
     // If the user is logged in update its info from the server.
-    if(this.props.user) {
+    if (this.props.user) {
       UserActions.update();
     }
   }
 
   render() {
-    let {children, user} = this.props;
-    let showNavBar = !children.type.showNavBar || children.type.showNavBar();
+    const {children, user} = this.props;
+    const showNavBar = !children.type.showNavBar || children.type.showNavBar();
     return (
-      <div style={styles.app}>
+      <div style={{
+        height: '100%',
+      }}>
         {
           showNavBar ?
           <NavBar user={user} /> :
@@ -41,9 +48,3 @@ export default class AppHandler extends Component {
     );
   }
 }
-
-const styles = {
-  app: {
-    height: '100%',
-  },
-};

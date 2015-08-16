@@ -39,12 +39,12 @@ class ApiUtils {
    * @return {Promise} The registered user
    */
   register({email, password, name}) {
-    let user = new Parse.User();
-    user.set('username', email);
-    user.set('email', email);
-    user.set('password', password);
-    user.set('name', name);
-    return user.signUp()
+    const parseUser = new Parse.User();
+    parseUser.set('username', email);
+    parseUser.set('email', email);
+    parseUser.set('password', password);
+    parseUser.set('name', name);
+    return parseUser.signUp()
       .then((user) => {
         this._createUserBase(user);
         user.save();
@@ -74,13 +74,13 @@ class ApiUtils {
         .then((fbUser) => {
           user.set('name', fbUser.name);
           user.set('pictureURL', fbUser.picture.data.url);
-          if(!user.has('privateData')) {
+          if (!user.has('privateData')) {
             this._createUserBase(user);
             user.save();
             return user;
-          } else {
-            return user.get('privateData').fetch();
           }
+
+          return user.get('privateData').fetch();
         })
         .then(() => this._meFromParse(Parse.User.current()));
     });
@@ -110,8 +110,9 @@ class ApiUtils {
    * @param {GeoPoint} loc The user geo point
    */
   setUserLocation(loc) {
-    let pt = new Parse.GeoPoint(loc.latitude, loc.longitude);
-    let user = Parse.User.current();
+    const user = Parse.User.current();
+    if (!user) return;
+    const pt = new Parse.GeoPoint(loc.latitude, loc.longitude);
     user.set('location', pt);
     user.save();
   }
@@ -121,7 +122,7 @@ class ApiUtils {
    * @param {Location} loc The location to add
    */
   addUserLocation(loc) {
-    let privateData = Parse.User.current().get('privateData');
+    const privateData = Parse.User.current().get('privateData');
     privateData.add('locations', loc);
     privateData.save();
   }
@@ -131,7 +132,7 @@ class ApiUtils {
    * @param {File} file The picture's file
    */
   setUserPicture(file) {
-    let user = Parse.User.current();
+    const user = Parse.User.current();
     user.set('customPicture', file.file);
     user.save();
   }
@@ -141,7 +142,7 @@ class ApiUtils {
    * @param {string} about About text
    */
   editUserAbout(about) {
-    let user = Parse.User.current();
+    const user = Parse.User.current();
     user.set('about', about);
     user.save();
   }
@@ -151,7 +152,7 @@ class ApiUtils {
    * @param {Skill} skill The skill to add
    */
   addUserSkill(skill) {
-    let user = Parse.User.current();
+    const user = Parse.User.current();
     user.add('skills', skill);
     user.save();
   }
@@ -161,9 +162,9 @@ class ApiUtils {
    * @param {Skill} skill The skill to edit
    */
   editUserSkill(skill) {
-    let user = Parse.User.current();
-    let userSkills = user.get('skills');
-    let index = userSkills.findIndex(s => s.objectId === skill.objectId);
+    const user = Parse.User.current();
+    const userSkills = user.get('skills');
+    const index = userSkills.findIndex(s => s.objectId === skill.objectId);
     userSkills[index] = skill;
     user.save();
   }
@@ -173,7 +174,7 @@ class ApiUtils {
    * @param {Skill} skill The skill to delete
    */
   deleteUserSkill(skill) {
-    let user = Parse.User.current();
+    const user = Parse.User.current();
     user.remove('skills', skill);
     user.save();
   }
@@ -183,7 +184,7 @@ class ApiUtils {
    * @param {Experience} exp The experience
    */
   addUserExperience(exp) {
-    let user = Parse.User.current();
+    const user = Parse.User.current();
     user.add('experience', exp);
     user.save();
   }
@@ -193,9 +194,9 @@ class ApiUtils {
    * @param {Experience} exp The experience
    */
   editUserExperience(exp) {
-    let user = Parse.User.current();
-    let userExp = user.get('experience');
-    let index = userExp.findIndex(e => e.objectId === exp.objectId);
+    const user = Parse.User.current();
+    const userExp = user.get('experience');
+    const index = userExp.findIndex(e => e.objectId === exp.objectId);
     userExp[index] = exp;
     user.save();
   }
@@ -205,7 +206,7 @@ class ApiUtils {
    * @param {Experience} exp The experience
    */
   deleteUserExperience(exp) {
-    let user = Parse.User.current();
+    const user = Parse.User.current();
     user.remove('experience', exp);
     user.save();
   }
@@ -214,16 +215,16 @@ class ApiUtils {
    * List all tasks near a point.
    * @return {Promise} The list of tasks
    */
-  listNelpTasks(/*filters*/) {
+  listNelpTasks() {
     return new Parse.Query(NelpTask)
       .include('user')
-      //.notEqualTo('user', Parse.User.current())
+      // .notEqualTo('user', Parse.User.current())
       .equalTo('state', NELP_TASK_STATE.PENDING)
       .descending('createdAt')
       .limit(20)
       .find()
       .then((tasks) => {
-        if(Parse.User.current()) {
+        if (Parse.User.current()) {
           return new Parse.Query(NelpTaskApplication)
             .equalTo('user', Parse.User.current())
             .equalTo('state', NELP_TASK_APPLICATION_STATE.PENDING)
@@ -231,20 +232,20 @@ class ApiUtils {
             .find()
             .then((applications) => {
               return tasks.map((t) => {
-                let application = applications.find((a) => a.get('task').id === t.id);
-                let task = this._baseTaskFromParse(t);
+                const application = applications.find((a) => a.get('task').id === t.id);
+                const task = this._baseTaskFromParse(t);
                 task.user = this._userFromParse(t.get('user'));
                 task.application = application && application.toPlainObject();
                 return task;
               });
             });
-        } else {
-          return tasks.map((t) => {
-            let task = this._baseTaskFromParse(t);
-            task.user = this._userFromParse(t.get('user'));
-            return task;
-          });
         }
+
+        return tasks.map((t) => {
+          const task = this._baseTaskFromParse(t);
+          task.user = this._userFromParse(t.get('user'));
+          return task;
+        });
       });
   }
 
@@ -266,12 +267,12 @@ class ApiUtils {
           .notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED)
           .find()
           .then((applications) => {
-            return tasks.map((t) => {
-              let taskApplications = applications.filter((a) => {
-                return a.get('task').id === t.id;
+            return tasks.map((parseTask) => {
+              const taskApplications = applications.filter((a) => {
+                return a.get('task').id === parseTask.id;
               })
               .sort((ta1, ta2) => ta1.createdAt < ta2.createdAt ? 1 : -1);
-              let task = this._baseTaskFromParse(t);
+              const task = this._baseTaskFromParse(parseTask);
               task.applications = taskApplications.map(a => {
                 return {
                   objectId: a.id,
@@ -282,6 +283,7 @@ class ApiUtils {
                   task: task,
                 };
               });
+              // TODO: make this a getter on the task object
               task.isNew = task.applications.some(t => t.isNew);
               return task;
             });
@@ -303,14 +305,14 @@ class ApiUtils {
       .find()
       .then(applications => {
         return applications.map(a => {
-          let task = this._baseTaskFromParse(a.get('task'));
+          const task = this._baseTaskFromParse(a.get('task'));
           task.user = this._userFromParse(a.get('task').get('user'));
           return {
             objectId: a.id,
             createdAt: a.createdAt,
             state: a.get('state'),
             task: task,
-          }
+          };
         });
       });
   }
@@ -320,7 +322,7 @@ class ApiUtils {
    * @param {Task} task The task to create
    */
   addTask(task) {
-    let parseTask = new NelpTask();
+    const parseTask = new NelpTask();
     parseTask.set('title', task.title);
     parseTask.set('category', task.category);
     parseTask.set('desc', task.desc);
@@ -338,7 +340,7 @@ class ApiUtils {
     }));
     return parseTask.save()
       .then(t => {
-        let newtask = this._baseTaskFromParse(t);
+        const newtask = this._baseTaskFromParse(t);
         newtask.applications = [];
         return newtask;
       });
@@ -349,7 +351,7 @@ class ApiUtils {
    * @param  {Task} task The task to update
    */
   updateTask(task) {
-    let parseTask = new NelpTask();
+    const parseTask = new NelpTask();
     parseTask.id = task.objectId;
     parseTask.set('desc', task.desc);
     parseTask.save();
@@ -360,7 +362,7 @@ class ApiUtils {
    * @param  {Task} task The task to delete
    */
   deleteTask(task) {
-    let parseTask = new NelpTask();
+    const parseTask = new NelpTask();
     parseTask.id = task.objectId;
     parseTask.set('state', NELP_TASK_STATE.DELETED);
     parseTask.save();
@@ -371,9 +373,9 @@ class ApiUtils {
    * @param  {Task} task The task to apply on
    */
   applyForTask(task) {
-    let parseTask = new NelpTask();
+    const parseTask = new NelpTask();
     parseTask.id = task.objectId;
-    let parseApplication = new NelpTaskApplication();
+    const parseApplication = new NelpTaskApplication();
     parseApplication.set('state', NELP_TASK_APPLICATION_STATE.PENDING);
     parseApplication.set('user', Parse.User.current());
     parseApplication.set('task', parseTask);
@@ -387,7 +389,7 @@ class ApiUtils {
    * @param  {Task} task The task to cancel the application on
    */
   cancelApplyForTask(task) {
-    let taskApplication = new NelpTaskApplication();
+    const taskApplication = new NelpTaskApplication();
     taskApplication.id = task.application.objectId;
     taskApplication.set('state', NELP_TASK_APPLICATION_STATE.CANCELED);
     taskApplication.save();
@@ -398,10 +400,10 @@ class ApiUtils {
    * @param  {Application} application The application to accept
    */
   acceptApplication(application) {
-    let parseApplication = new NelpTaskApplication();
+    const parseApplication = new NelpTaskApplication();
     parseApplication.id = application.objectId;
     parseApplication.set('state', NELP_TASK_APPLICATION_STATE.ACCEPTED);
-    let parseTask = new NelpTask();
+    const parseTask = new NelpTask();
     parseTask.id = application.task.objectId;
     parseTask.set('state', NELP_TASK_STATE.ACCEPTED);
 
@@ -413,7 +415,7 @@ class ApiUtils {
    * @param  {Application} application The application to deny
    */
   denyApplication(application) {
-    let taskApplication = new NelpTaskApplication();
+    const taskApplication = new NelpTaskApplication();
     taskApplication.id = application.objectId;
     taskApplication.set('state', NELP_TASK_APPLICATION_STATE.DENIED);
     taskApplication.save();
@@ -424,10 +426,10 @@ class ApiUtils {
    * @param {Task} task The task to mask as viewed
    */
   setTaskViewed(task) {
-    let parseApplications = task.applications
+    const parseApplications = task.applications
       .filter(a => a.isNew)
       .map(a => {
-        let parseApplication = new NelpTaskApplication();
+        const parseApplication = new NelpTaskApplication();
         parseApplication.id = a.objectId;
         parseApplication.set('isNew', false);
         return parseApplication;
@@ -443,7 +445,7 @@ class ApiUtils {
    * @return {Promise} Info about the uploaded file
    */
   uploadFile(name, file) {
-    let parseFile = new Parse.File(name, file);
+    const parseFile = new Parse.File(name, file);
     return parseFile.save()
       .then((f) => {
         return {
@@ -455,15 +457,16 @@ class ApiUtils {
   }
 
   _meFromParse(parseUser) {
-    let user = this._userFromParse(parseUser);
+    const user = this._userFromParse(parseUser);
     user.privateData = parseUser.get('privateData').toPlainObject();
+    user.logged = true;
     return user;
   }
 
   _userFromParse(parseUser) {
-    let user = parseUser.toPlainObject();
+    const user = parseUser.toPlainObject();
     // If the user has uploaded a picture we use it.
-    if(parseUser.get('customPicture')) {
+    if (parseUser.get('customPicture')) {
       user.pictureURL = parseUser.get('customPicture').url();
     }
     return user;
@@ -485,7 +488,7 @@ class ApiUtils {
   }
 
   _taskPictures(parseTask) {
-    let pictures = parseTask.get('pictures');
+    const pictures = parseTask.get('pictures');
     return pictures && pictures.map(p => {
       return {
         url: p.url(),
@@ -498,7 +501,7 @@ class ApiUtils {
     user.set('about', '');
     user.set('skills', []);
     user.set('experience', []);
-    let userPrivate = new UserPrivateData();
+    const userPrivate = new UserPrivateData();
     userPrivate.set('locations', []);
     userPrivate.setACL(new Parse.ACL(user));
     user.set('privateData', userPrivate);
@@ -513,7 +516,7 @@ class ApiUtils {
   _getUserInfoFromFacebook() {
     return new Promise((resolve, reject) => {
       FB.api('me?fields=name,picture.type(large)', (response) => {
-        if(response.error) {
+        if (response.error) {
           reject(response.error);
           return;
         }

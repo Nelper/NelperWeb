@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
 
@@ -8,6 +8,11 @@ import Rating from 'components/Rating';
 
 @connectToStores
 export default class NelpCenterHandler extends Component {
+
+  static propTypes = {
+    user: PropTypes.object,
+    children: PropTypes.node,
+  }
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -22,13 +27,33 @@ export default class NelpCenterHandler extends Component {
   }
 
   componentDidMount() {
-    if(!this.props.children) {
+    if (!this.props.children) {
       this.context.router.replaceWith('/center/applications');
     }
   }
 
+  _logout() {
+    UserActions.logout();
+    this.context.router.transitionTo('/');
+  }
+
+  _settings() {
+    this.context.router.transitionTo('/profile/settings');
+  }
+
+  _uploadPicture() {
+    const files = event.target.files;
+    if (files.length > 0) {
+      const file = files[0];
+      ApiUtils.uploadFile(file.name, file)
+        .then(f => {
+          UserActions.setPicture(f);
+        });
+    }
+  }
+
   render() {
-    let {user} = this.props;
+    const {user} = this.props;
 
     return (
       <div className="nelp-center-handler">
@@ -71,25 +96,5 @@ export default class NelpCenterHandler extends Component {
         {this.props.children}
       </div>
     );
-  }
-
-  _logout() {
-    UserActions.logout();
-    this.context.router.transitionTo('/');
-  }
-
-  _settings() {
-    this.context.router.transitionTo('/profile/settings');
-  }
-
-  _uploadPicture() {
-    let files = event.target.files;
-    if(files.length > 0) {
-      let file = files[0];
-      ApiUtils.uploadFile(file.name, file)
-        .then(f => {
-          UserActions.setPicture(f);
-        });
-    }
   }
 }

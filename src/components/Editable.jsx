@@ -35,7 +35,7 @@ export default class Editable extends Component {
 
   componentDidUpdate() {
     const boxRef = this.props.editBoxRef || this.refs.editBox;
-    if(this.state.editing) {
+    if (this.state.editing) {
       React.render(this._renderEditBox(), boxRef.getDOMNode());
     } else {
       React.render(<div />, boxRef.getDOMNode());

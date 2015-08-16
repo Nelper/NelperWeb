@@ -12,6 +12,43 @@ export default class TaskCardView extends Component {
     onClick: PropTypes.func,
   }
 
+  _hasAcceptedApplications() {
+    return this.props.task.applications.some(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
+  }
+
+  _getTaskImageStyles(t) {
+    const hasImage = t.pictures && t.pictures.length > 0;
+    return {
+      backgroundImage: hasImage ? `url('${t.pictures[0].url}')` : null,
+    };
+  }
+
+  _renderStatus() {
+    let icon;
+    if (this._hasAcceptedApplications()) {
+      icon = require('images/icons/state-accepted.png');
+    } else {
+      icon = require('images/icons/applicants.png');
+    }
+
+    return (
+      <div className="status-icon" style={{backgroundImage: `url('${icon}')`}} />
+    );
+  }
+
+  _renderApplicants() {
+    const pendingApplications = this.props.task.applications.filter(a => a.state === NELP_TASK_APPLICATION_STATE.PENDING);
+    return (
+      <div className="applicants">
+      {
+        !this._hasAcceptedApplications() ?
+        (pendingApplications.length + (pendingApplications.length > 1 ? ' applicants' : ' applicant')) :
+        'Accepted'
+      }
+      </div>
+    );
+  }
+
   render() {
     const {task, onClick} = this.props;
     return (
@@ -19,7 +56,7 @@ export default class TaskCardView extends Component {
         className="task-card-view"
         onClick={onClick}>
         <CardImageHeader  className="header">
-          <div className="image-overlay" style={this._taskImageStyles(task)} />
+          <div className="image-overlay" style={this._getTaskImageStyles(task)} />
           <div className="category">
             {
               task.isNew ?
@@ -50,42 +87,5 @@ export default class TaskCardView extends Component {
         </CardContent>
       </Card>
     );
-  }
-
-  _renderStatus() {
-    let icon;
-    if(this._hasAcceptedApplications()) {
-      icon = require('images/icons/state-accepted.png');
-    } else {
-      icon = require('images/icons/applicants.png');
-    }
-
-    return (
-      <div className="status-icon" style={{backgroundImage: `url('${icon}')`}} />
-    );
-  }
-
-  _renderApplicants() {
-    const pendingApplications = this.props.task.applications.filter(a => a.state === NELP_TASK_APPLICATION_STATE.PENDING);
-    return (
-      <div className="applicants">
-      {
-        !this._hasAcceptedApplications() ?
-        (pendingApplications.length + (pendingApplications.length > 1 ? ' applicants' : ' applicant')) :
-        'Accepted'
-      }
-      </div>
-    );
-  }
-
-  _hasAcceptedApplications() {
-    return this.props.task.applications.some(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
-  }
-
-  _taskImageStyles(t) {
-    let hasImage = t.pictures && t.pictures.length > 0;
-    return {
-      backgroundImage: hasImage ? `url('${t.pictures[0].url}')` : null,
-    };
   }
 }

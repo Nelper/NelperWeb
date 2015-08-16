@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
 import NelpActions from 'actions/NelpActions';
@@ -12,6 +12,10 @@ import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
 @connectToStores
 export default class BrowseTasksHandler extends Component {
+
+  static propTypes = {
+    tasks: PropTypes.array.isRequired,
+  }
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -32,13 +36,11 @@ export default class BrowseTasksHandler extends Component {
   componentDidMount() {
     NelpActions.refreshTasks();
     // TODO(janic): this logic should be elsewhere.
-    if(!UserStore.state.user || !UserStore.state.user.location) {
+    if (!UserStore.state.user.location) {
       navigator.geolocation.getCurrentPosition((pos) => {
-        if(UserStore.state.user) {
-          UserActions.setLocation(pos.coords);
-        }
+        UserActions.setLocation(pos.coords);
 
-        if(!this.refs.map) {
+        if (!this.refs.map) {
           return;
         }
         this.refs.map.panTo(new GoogleMapsUtils.LatLng(
@@ -49,14 +51,53 @@ export default class BrowseTasksHandler extends Component {
     }
   }
 
-  render() {
-    let {taskFilter} = this.state;
+  _onMarkerClick(event, filterKey) {
+    this.setState({
+      taskFilter: filterKey,
+    });
+    this.refs.map.panTo(event.latLng);
+  }
 
-    let taskGroups = this.props.tasks
+  _onFilterChanged() {
+
+  }
+
+  _onTaskSelected(task) {
+    if (task.location) {
+      this.refs.map.panTo(new GoogleMapsUtils.LatLng(
+        task.location.latitude,
+        task.location.longitude,
+      ));
+    }
+  }
+
+  _onApply(task) {
+    // Make sure the user is logged to apply on a task.
+    if (!UserStore.isLogged()) {
+      this.context.router.transitionTo('/login', null, { nextPathname: '/nelp' });
+      return;
+    }
+    NelpActions.applyForTask(task);
+  }
+
+  _onCancelApply(task) {
+    NelpActions.cancelApplyForTask(task);
+  }
+
+  _closeDetail() {
+    this.setState({
+      taskCollapsed: true,
+    });
+  }
+
+  render() {
+    const {taskFilter} = this.state;
+
+    const taskGroups = this.props.tasks
       .filter(t => t.location)
       .reduce((prev, cur) => {
-        let mapKey = `${cur.location.latitude}:${cur.location.longitude}`;
-        if(prev[mapKey]) {
+        const mapKey = `${cur.location.latitude}:${cur.location.longitude}`;
+        if (prev[mapKey]) {
           prev[mapKey].push(cur);
         } else {
           prev[mapKey] = [cur];
@@ -64,9 +105,9 @@ export default class BrowseTasksHandler extends Component {
         return prev;
       }, {});
 
-    let markers = Object.keys(taskGroups)
+    const markers = Object.keys(taskGroups)
       .map(k => {
-        let cur = taskGroups[k];
+        const cur = taskGroups[k];
         return {
           key: k,
           position: new GoogleMapsUtils.LatLng(
@@ -77,12 +118,12 @@ export default class BrowseTasksHandler extends Component {
         };
       });
 
-    let filteredTasks = taskFilter ?
+    const filteredTasks = taskFilter ?
       taskGroups[this.state.taskFilter] :
       this.props.tasks;
 
-    let pos = UserStore.state.user && UserStore.state.user.location;
-    let center = pos ?
+    const pos = UserStore.state.user.location;
+    const center = pos ?
       new GoogleMapsUtils.LatLng(pos.latitude, pos.longitude) :
       new GoogleMapsUtils.LatLng(0, 0);
     return (
@@ -111,50 +152,5 @@ export default class BrowseTasksHandler extends Component {
         </div>
       </div>
     );
-  }
-
-  _onMarkerClick(event, filterKey) {
-    this.setState({
-      taskFilter: filterKey,
-    });
-    this.refs.map.panTo(event.latLng);
-  }
-
-  _onFilterChanged(/*filter*/) {
-
-  }
-
-  _resetFilter() {
-    this.setState({
-      taskFilter: null,
-    });
-  }
-
-  _onTaskSelected(task) {
-    if(task.location) {
-      this.refs.map.panTo(new GoogleMapsUtils.LatLng(
-        task.location.latitude,
-        task.location.longitude,
-      ));
-    }
-  }
-
-  _onApply(task) {
-    // Make sure the user is logged to apply on a task.
-    if(!UserStore.state.user) {
-      this.context.router.transitionTo('/login', null, { nextPathname: '/nelp' });
-      return;
-    }
-    NelpActions.applyForTask(task);
-  }
-
-  _onCancelApply(task) {
-    NelpActions.cancelApplyForTask(task);
-  }
-
-  _closeDetail() {
-    this.setState({
-      taskCollapsed: true,
-    });
   }
 }

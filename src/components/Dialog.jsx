@@ -3,9 +3,10 @@ import classNames from 'classnames';
 
 export default class Collapse extends Component {
 
-  static propTypes: {
+  static propTypes = {
     opened: PropTypes.boolean,
     onClose: PropTypes.func,
+    children: PropTypes.node,
   }
 
   state = {
@@ -18,7 +19,7 @@ export default class Collapse extends Component {
 
   componentDidMount() {
     let node = document.getElementById('dialog');
-    if(!node) {
+    if (!node) {
       node = document.createElement('div');
       node.id = 'dialog';
       document.body.appendChild(node);
@@ -27,29 +28,18 @@ export default class Collapse extends Component {
     document.addEventListener('click', this._documentClickListener);
 
 
-    if(this.props.opened) {
+    if (this.props.opened) {
       this._open();
     } else {
       this._renderPortal();
     }
   }
 
-  componentWillUnmount() {
-    if(this.state.opened) {
-      this._close();
-      React.unmountComponentAtNode(this._dialogNode);
-      this._dialogNode.className = '';
-    }
-
-    this._dialogNode = null;
-    document.removeEventListener('click', this._documentClickListener);
-  }
-
   componentWillReceiveProps(nextProps) {
-    if(typeof nextProps.opened !== 'undefined') {
-      if(nextProps.opened && !this.state.opened) {
+    if (typeof nextProps.opened !== 'undefined') {
+      if (nextProps.opened && !this.state.opened) {
         this._open();
-      } else if(!nextProps.opened && this.state.opened) {
+      } else if (!nextProps.opened && this.state.opened) {
         this._close();
       }
     }
@@ -59,8 +49,55 @@ export default class Collapse extends Component {
     this._renderPortal();
   }
 
-  render() {
-    return null;
+  componentWillUnmount() {
+    if (this.state.opened) {
+      this._close();
+      React.unmountComponentAtNode(this._dialogNode);
+      this._dialogNode.className = '';
+    }
+
+    this._dialogNode = null;
+    document.removeEventListener('click', this._documentClickListener);
+  }
+
+  _onDocumentClick(event) {
+    if (!this.state.opened) {
+      return;
+    }
+    if (event.target !== document.getElementById('dialog')) {
+      return;
+    }
+    event.stopPropagation();
+    this._close();
+  }
+
+  _open() {
+    this.setState({
+      opened: true,
+      closing: false,
+    });
+    // Make sure the body doesn't scroll when the popup is opened.
+    document.body.style.overflow = 'hidden';
+  }
+
+  _close() {
+    if (this.state.closing) {
+      return;
+    }
+    this.setState({
+      opened: false,
+      closing: true,
+    });
+
+    // Restore scroll.
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      this.setState({closing: false});
+    }, 251);
+
+    if (this.props.onClose) {
+      this.props.onClose.call(null);
+    }
   }
 
   _renderPortal() {
@@ -77,43 +114,7 @@ export default class Collapse extends Component {
     );
   }
 
-  _open() {
-    this.setState({
-      opened: true,
-      closing: false,
-    });
-    // Make sure the body doesn't scroll when the popup is opened.
-    document.body.style.overflow = 'hidden';
-  }
-
-  _close() {
-    if(this.state.closing) {
-      return;
-    }
-    this.setState({
-      opened: false,
-      closing: true,
-    });
-
-    // Restore scroll.
-    document.body.style.overflow = '';
-    setTimeout(() => {
-      this.setState({closing: false});
-    }, 251);
-
-    if(this.props.onClose) {
-      this.props.onClose.call(null);
-    }
-  }
-
-  _onDocumentClick(event) {
-    if(!this.state.opened) {
-      return;
-    }
-    if(event.target !== document.getElementById('dialog')) {
-      return;
-    }
-    event.stopPropagation();
-    this._close();
+  render() {
+    return null;
   }
 }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 import classNames from 'classnames';
 
@@ -13,6 +13,10 @@ import ApiUtils from 'utils/ApiUtils';
 
 @connectToStores
 export default class PostTaskHandler extends Component {
+
+  static propTypes = {
+    locations: PropTypes.object,
+  }
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -45,13 +49,151 @@ export default class PostTaskHandler extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.createdTask) {
-      this._taskCreated();
+    if (nextProps.createdTask) {
+      this._onTaskCreated();
     }
   }
 
+  _onOpenAddLocation(event) {
+    event.preventDefault();
+    this.setState({openCreateLocation: true});
+  }
+
+  _onAddLocation(location) {
+    UserActions.addLocation(location);
+    this.setState({
+      openCreateLocation: false,
+      location: location,
+    });
+  }
+
+  _onCancelAddLocation() {
+    this.setState({openCreateLocation: false});
+  }
+
+  _onLocationChanged(event) {
+    const location = this.props.locations[event.target.selectedIndex];
+    this.setState({
+      location,
+    });
+  }
+
+  _onTitleChanged(event) {
+    this.setState({
+      title: event.target.value,
+    });
+  }
+
+  _onPriceOfferedChanged(event) {
+    this.setState({
+      priceOffered: event.target.value,
+    });
+  }
+
+  _onPostalCodeChanged(event) {
+    this.setState({
+      postalCode: event.target.value,
+    });
+  }
+
+  _onDescChanged(event) {
+    this.setState({
+      desc: event.target.value,
+    });
+  }
+
+  _onFileChanged(event) {
+    const files = event.target.files;
+    if (files.length > 0) {
+      const file = files[0];
+      const picture = {
+        loading: true,
+        name: file.name,
+      };
+      const newPictures = this.state.pictures;
+      newPictures.push(picture);
+      this.setState({
+        pictures: newPictures,
+      });
+      ApiUtils.uploadFile(picture.name, file)
+        .then(f => {
+          picture.loading = false;
+          picture.objectId = f.objectId;
+          picture.url = f.url;
+          picture.file = f.file;
+          this.setState({
+            pictures: this.state.pictures,
+          });
+        });
+    }
+  }
+
+  _onSubmit(e) {
+    e.preventDefault();
+
+    if (!this._validateCategory() || !this._validateTitle() ||
+      !this._validatePrice() || !this._validateLocation() ||
+      !this._validateDescription()) {
+      return;
+    }
+
+    TaskActions.addTask({
+      title: this.state.title,
+      category: this.state.category,
+      desc: this.state.desc,
+      priceOffered: this.state.priceOffered,
+      location: this.state.location.coords,
+      city: this.state.location.city,
+      pictures: this.state.pictures,
+    });
+
+    this.setState({
+      loading: true,
+    });
+  }
+
+  _onTaskCreated() {
+    this.context.router.transitionTo('/center/tasks');
+  }
+
+  _validateCategory() {
+    return this.state.category.length > 0;
+  }
+
+  _validateTitle() {
+    return this.state.title.length >= 4;
+  }
+
+  _validatePrice() {
+    return this.state.priceOffered.length > 0;
+  }
+
+  _validateLocation() {
+    return !!this.state.location;
+  }
+
+  _validateDescription() {
+    return this.state.desc.length >= 4;
+  }
+
+  _selectCategory(c) {
+    this.setState({category: c});
+  }
+
+  _onCancel() {
+    this.setState({
+      category: '',
+      title: '',
+      priceOffered: '',
+      desc: '',
+      openCreateLocation: false,
+      pictures: [],
+      loading: false,
+    });
+  }
+
   render() {
-    let categories = TaskCategoryUtils.list().map(c => {
+    const categories = TaskCategoryUtils.list().map(c => {
       return (
         <div key={c} className="category" onClick={() => this._selectCategory(c)}>
           <div className="category-icon" style={{
@@ -67,13 +209,13 @@ export default class PostTaskHandler extends Component {
       );
     });
 
-    let locations = this.props.locations.map((l, i) => {
+    const locations = this.props.locations.map((l, i) => {
       return (
         <option value={i} key={i}>{l.name}</option>
       );
     });
 
-    let pictures = this.state.pictures.map(p => {
+    const pictures = this.state.pictures.map(p => {
       return (
         <div className={classNames('picture', {'loading': p.loading})} style={{backgroundImage: `url('${p.url}')`}} key={p.name}>
           <div className="picture-name">{p.name}</div>
@@ -181,150 +323,12 @@ export default class PostTaskHandler extends Component {
                 <button
                   type="submit"
                   className="primary">Create</button>
-                <button onClick={this._cancel.bind(this)}>Back</button>
+                <button onClick={::this._onCancel}>Back</button>
               </div>
             }
           </form>
         }
       </div>
     );
-  }
-
-  _validateCategory() {
-    return this.state.category.length > 0;
-  }
-
-  _validateTitle() {
-    return this.state.title.length >= 4;
-  }
-
-  _validatePrice() {
-    return this.state.priceOffered.length > 0;
-  }
-
-  _validateLocation() {
-    return !!this.state.location;
-  }
-
-  _validateDescription() {
-    return this.state.desc.length >= 4;
-  }
-
-  _selectCategory(c) {
-    this.setState({category: c});
-  }
-
-  _onOpenAddLocation(event) {
-    event.preventDefault();
-    this.setState({openCreateLocation: true});
-  }
-
-  _onAddLocation(location) {
-    UserActions.addLocation(location);
-    this.setState({
-      openCreateLocation: false,
-      location: location,
-    });
-  }
-
-  _onCancelAddLocation() {
-    this.setState({openCreateLocation: false});
-  }
-
-  _onLocationChanged(event) {
-    let location = this.props.locations[event.target.selectedIndex];
-    this.setState({
-      location,
-    });
-  }
-
-  _onTitleChanged(event) {
-    this.setState({
-      title: event.target.value,
-    });
-  }
-
-  _onPriceOfferedChanged(event) {
-    this.setState({
-      priceOffered: event.target.value,
-    });
-  }
-
-  _onPostalCodeChanged(event) {
-    this.setState({
-      postalCode: event.target.value,
-    });
-  }
-
-  _onDescChanged(event) {
-    this.setState({
-      desc: event.target.value,
-    });
-  }
-
-  _onFileChanged(event) {
-    let files = event.target.files;
-    if(files.length > 0) {
-      let file = files[0];
-      let picture = {
-        loading: true,
-        name: file.name,
-      };
-      let newPictures = this.state.pictures;
-      newPictures.push(picture);
-      this.setState({
-        pictures: newPictures,
-      });
-      ApiUtils.uploadFile(picture.name, file)
-        .then(f => {
-          picture.loading = false;
-          picture.objectId = f.objectId;
-          picture.url = f.url;
-          picture.file = f.file;
-          this.setState({
-            pictures: this.state.pictures,
-          });
-        });
-    }
-  }
-
-  _onSubmit(e) {
-    e.preventDefault();
-
-    if(!this._validateCategory() || !this._validateTitle() ||
-      !this._validatePrice() || !this._validateLocation() ||
-      !this._validateDescription()) {
-      return;
-    }
-
-    TaskActions.addTask({
-      title: this.state.title,
-      category: this.state.category,
-      desc: this.state.desc,
-      priceOffered: this.state.priceOffered,
-      location: this.state.location.coords,
-      city: this.state.location.city,
-      pictures: this.state.pictures,
-    });
-
-    this.setState({
-      loading: true,
-    });
-  }
-
-  _taskCreated() {
-    this.context.router.transitionTo('/center/tasks');
-  }
-
-  _cancel() {
-    this.setState({
-      category: '',
-      title: '',
-      priceOffered: '',
-      desc: '',
-      openCreateLocation: false,
-      pictures: [],
-      loading: false,
-    });
   }
 }

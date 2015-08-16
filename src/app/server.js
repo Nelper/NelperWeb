@@ -1,3 +1,5 @@
+// TODO: Use babel on this file.
+/* eslint-disable */
 var express = require('express'),
   path = require('path'),
   app = express(),
@@ -10,3 +12,4 @@ app.use(function(req, res) {
 });
 
 app.listen(port);
+/* eslint-enable */

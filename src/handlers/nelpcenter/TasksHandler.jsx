@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
 import TaskCardView from './TaskCardView';
@@ -7,6 +7,10 @@ import TaskStore from 'stores/TaskStore';
 
 @connectToStores
 export default class TasksHandler extends Component {
+
+  static propTypes = {
+    myTasks: PropTypes.array,
+  }
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -24,10 +28,31 @@ export default class TasksHandler extends Component {
     TaskActions.refreshMyTasks();
   }
 
-  render() {
-    let {myTasks} = this.props;
+  /**
+   * Sort tasks with isNew first
+   */
+  _sortTasks(t1, t2) {
+    function hasNew(t) {
+      return t.applications.some(a => a.state === 0 && a.isNew);
+    }
 
-    let tasks = myTasks.map((t) => {
+    const [n1, n2] = [hasNew(t1), hasNew(t2)];
+    if (n1 === n2) {
+      return 0;
+    } else if (n1 > n2) {
+      return -1;
+    }
+    return 1;
+  }
+
+  _taskDetail(task) {
+    this.context.router.transitionTo(`/center/tasks/detail/${task.objectId}`, null, {task});
+  }
+
+  render() {
+    const {myTasks} = this.props;
+
+    const tasks = myTasks.map((t) => {
       return (
         <TaskCardView
           key={t.objectId}
@@ -43,27 +68,5 @@ export default class TasksHandler extends Component {
         </div>
       </div>
     );
-  }
-
-  /**
-   * Sort tasks with isNew first
-   */
-  _sortTasks(t1, t2) {
-    function hasNew(t) {
-      return t.applications.some(a => a.state === 0 && a.isNew);
-    }
-
-    let [n1, n2] = [hasNew(t1), hasNew(t2)];
-    if(n1 === n2) {
-      return 0;
-    } else if(n1 > n2) {
-      return -1;
-    } else {
-      return 1;
-    }
-  }
-
-  _taskDetail(task) {
-    this.context.router.transitionTo(`/center/tasks/detail/${task.objectId}`, null, {task});
   }
 }

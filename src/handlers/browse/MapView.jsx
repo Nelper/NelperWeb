@@ -8,6 +8,7 @@ export default class MapView extends Component {
   static propTypes = {
     initialCenter: PropTypes.object,
     initialZoom: PropTypes.object,
+    markers: PropTypes.array,
   }
 
   state = {
@@ -17,7 +18,7 @@ export default class MapView extends Component {
   loaded = false
 
   componentDidMount() {
-    if(!GoogleMapsUtils.get()) {
+    if (!GoogleMapsUtils.get()) {
       GoogleMapsUtils.load(() => {
         this.setState({
           googleMapsAPI: GoogleMapsUtils.get(),
@@ -26,13 +27,18 @@ export default class MapView extends Component {
     }
   }
 
-  render() {
+  _onDragEnd() {
+    this.setState({
+      location: this.refs.map.getCenter(),
+    });
+  }
 
-    if(!this.state.googleMapsAPI) {
+  render() {
+    if (!this.state.googleMapsAPI) {
       return null;
     }
 
-    let markers = this.props.markers.map((m) => {
+    const markers = this.props.markers.map((m) => {
       return (
         <Marker
           key={m.key}
@@ -42,7 +48,8 @@ export default class MapView extends Component {
     });
 
     return (
-      <GoogleMap containerProps={{
+      <GoogleMap
+        containerProps={{
           style: {
             width: '100%',
             height: '100%',
@@ -60,12 +67,6 @@ export default class MapView extends Component {
   panTo(latLng) {
     this.setState({
       location: latLng,
-    });
-  }
-
-  _onDragEnd() {
-    this.setState({
-      location: this.refs.map.getCenter(),
     });
   }
 }

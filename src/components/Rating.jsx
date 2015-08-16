@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 
 import Icon from './Icon';
@@ -6,7 +6,9 @@ import Icon from './Icon';
 export default class Rating extends Component {
 
   static propTypes = {
-    rating: React.PropTypes.number,
+    rating: PropTypes.number,
+    dark: PropTypes.bool,
+    small: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -16,7 +18,7 @@ export default class Rating extends Component {
 
   render() {
     const items = [];
-    for(let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
       items.push(
         <Icon
           svg={require('images/icons/star.svg')}

@@ -1,13 +1,12 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 
-export default class Icon extends React.Component {
+export default class Icon extends Component {
 
-  static propTypes: {
-    svg: React.PropTypes.string.isRequired,
+  static propTypes = {
+    svg: PropTypes.string.isRequired,
   }
 
-  render () {
-
+  render() {
     return (
       <i {...this.props}
         svg={null}

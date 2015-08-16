@@ -1,12 +1,16 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 
 export default class LoginHandler extends Component {
 
+  static propTypes = {
+    location: PropTypes.object.isRequired,
+  }
+
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
   }
 
   static showNavBar() {
@@ -17,7 +21,12 @@ export default class LoginHandler extends Component {
     email: '',
     password: '',
   }
-  userStoreListener = this._onUserChanged.bind(this)
+
+  constructor(props) {
+    super(props);
+
+    this.userStoreListener = this._onUserChanged.bind(this);
+  }
 
   componentDidMount() {
     UserStore.listen(this.userStoreListener);
@@ -25,42 +34,6 @@ export default class LoginHandler extends Component {
 
   componentWillUnmount() {
     UserStore.unlisten(this.userStoreListener);
-  }
-
-  render() {
-    return (
-      <div id="login-handler" className="login-common">
-        <div className="content">
-          <img
-              className="nelpy"
-              src={require('images/logo-nobg-lg.png')} />
-          <h2 className="title">Nelper</h2>
-          <form onSubmit={::this._onSubmit}>
-            <input
-                type='email'
-                value={this.state.email}
-                placeholder='Email'
-                onChange={this._onEmailChanged.bind(this)} />
-            <input
-                type='password'
-                value={this.state.password}
-                placeholder='Password'
-                onChange={this._onPasswordChanged.bind(this)} />
-            <button className="login" onClick={::this._login}>Login</button>
-          </form>
-          <button className="facebook"
-              onClick={this._loginWithFacebook.bind(this)}>
-            Sign in with Facebook
-          </button>
-          <button
-              onClick={::this._register}
-              className="register">
-            Register with Email
-          </button>
-          <a className="forgot" href="/">I forgot my password</a>
-        </div>
-      </div>
-    );
   }
 
   _onEmailChanged(event) {
@@ -80,33 +53,69 @@ export default class LoginHandler extends Component {
     this._login();
   }
 
-  _login() {
+  _onLogin() {
     UserActions.login({
       email: this.state.email,
       password: this.state.password,
     });
   }
 
-  _loginWithFacebook() {
+  _onLoginWithFacebook() {
     UserActions.loginWithFacebook();
   }
 
-  _register() {
+  _onRegister() {
     this.context.router.transitionTo('/register', null, { nextPathname: this.props.location.state.nextPathname });
   }
 
   _onUserChanged(state) {
-    if(state.user) {
+    if (state.user) {
       this._loginSuccess();
     }
   }
 
-  _loginSuccess() {
-    let {state} = this.props.location;
+  _onLoginSuccess() {
+    const {state} = this.props.location;
     if (state && state.nextPathname) {
       this.context.router.replaceWith(state.nextPathname);
     } else {
       this.context.router.replaceWith('/nelp');
     }
+  }
+
+  render() {
+    return (
+      <div id="login-handler" className="login-common">
+        <div className="content">
+          <img
+              className="nelpy"
+              src={require('images/logo-nobg-lg.png')} />
+          <h2 className="title">Nelper</h2>
+          <form onSubmit={::this._onSubmit}>
+            <input
+                type="email"
+                value={this.state.email}
+                placeholder="Email"
+                onChange={::this._onEmailChanged} />
+            <input
+                type="password"
+                value={this.state.password}
+                placeholder="Password"
+                onChange={::this._onPasswordChanged} />
+              <button className="login" onClick={::this._onLogin}>Login</button>
+          </form>
+          <button className="facebook"
+              onClick={::this._onLoginWithFacebook}>
+            Sign in with Facebook
+          </button>
+          <button
+              onClick={::this._onRegister}
+              className="register">
+            Register with Email
+          </button>
+          <a className="forgot" href="/">I forgot my password</a>
+        </div>
+      </div>
+    );
   }
 }

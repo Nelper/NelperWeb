@@ -29,7 +29,7 @@ import HowItWorksHandler from 'handlers/about/HowItWorksHandler';
 // Pass this function to onEnter for a route that needs
 // authentication to make sure the user is logged in.
 function requireAuth(nextState, transition) {
-  if (!UserStore.state.user) {
+  if (!UserStore.isLogged()) {
     transition.to('/login', null, { nextPathname: nextState.location.pathname });
   }
 }

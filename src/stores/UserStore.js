@@ -5,7 +5,11 @@ import UserActions from 'actions/UserActions';
 class UserStore {
 
   state = {
-    user: Storage.getItem('user'),
+    user: Storage.getItem('user') || {logged: false},
+  }
+
+  static isLogged() {
+    return this.getState().user.logged;
   }
 
   constructor() {
@@ -32,70 +36,70 @@ class UserStore {
   }
 
   handleSetLoc(loc) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.location = loc;
     this.setState({user});
     Storage.setItem('user', user);
   }
 
   handleAddLoc(loc) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.privateData.locations.push(loc);
     this.setState({user});
     Storage.setItem('user', user);
   }
 
   handleSetPicture(file) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.pictureURL = file.url;
     this.setState({user});
     Storage.setItem('user', user);
   }
 
   handleEditAbout(about) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.about = about;
     this.setState({user});
     Storage.setItem('user', user);
   }
 
   handleAddSkill(skill) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.skills.push(skill);
     this.setState({user});
     Storage.setItem('user', user);
   }
 
   handleEditSkill(skill) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.skills[user.skills.indexOf(skill)] = skill;
     this.setState({user});
     Storage.setItem('user', user);
   }
 
   handleDeleteSkill(skill) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.skills.splice(user.skills.indexOf(skill), 1);
     this.setState({user});
     Storage.setItem('user', user);
   }
 
   handleAddExperience(exp) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.experience.push(exp);
     this.setState({user});
     Storage.setItem('user', user);
   }
 
   handleEditExperience(exp) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.experience[user.experience.indexOf(exp)] = exp;
     this.setState({user});
     Storage.setItem('user', user);
   }
 
   handleDeleteExperience(exp) {
-    let user = this.state.user;
+    const user = this.state.user;
     user.experience.splice(user.experience.indexOf(exp), 1);
     this.setState({user});
     Storage.setItem('user', user);

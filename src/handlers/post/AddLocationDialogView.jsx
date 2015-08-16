@@ -20,11 +20,11 @@ export default class FindNelpAddHandler extends Component {
 
   componentDidMount() {
     GoogleMapsUtils.load((maps) => {
-      let addressInput = this.refs.address.getDOMNode();
-      let autocomplete = new maps.places.Autocomplete(addressInput);
+      const addressInput = this.refs.address.getDOMNode();
+      const autocomplete = new maps.places.Autocomplete(addressInput);
       maps.event.addListener(autocomplete, 'place_changed', () => {
-        let place = autocomplete.getPlace();
-        let comp = place.address_components.find(c => {
+        const place = autocomplete.getPlace();
+        const comp = place.address_components.find(c => {
           return c.types.some(t => t === 'locality');
         });
         this.setState({
@@ -41,8 +41,52 @@ export default class FindNelpAddHandler extends Component {
 
   componentWillUnmount() {
     // Cleanup the autocomplete container.
-    let autocompleteNode = document.querySelector('.pac-container');
+    const autocompleteNode = document.querySelector('.pac-container');
     document.body.removeChild(autocompleteNode);
+  }
+
+  _onNameChanged(event) {
+    this.setState({name: event.target.value});
+  }
+
+  _onAddressChanged(event) {
+    this.setState({address: event.target.value});
+  }
+
+  _onSubmit(event) {
+    event.preventDefault();
+    if (this.props.onLocationAdded) {
+      this.props.onLocationAdded.call(null, {
+        name: this.state.name,
+        address: this.state.address,
+        coords: this.state.coords,
+        city: this.state.city,
+      });
+    }
+
+    this.setState({
+      name: '',
+      address: '',
+      coords: null,
+      city: '',
+    });
+  }
+
+  _onCancel(event) {
+    if (event) {
+      event.preventDefault();
+    }
+
+    if (this.props.onCancel) {
+      this.props.onCancel.call(null);
+    }
+
+    this.setState({
+      name: '',
+      address: '',
+      coords: null,
+      city: '',
+    });
   }
 
   render() {
@@ -74,46 +118,5 @@ export default class FindNelpAddHandler extends Component {
         </form>
       </Dialog>
     );
-  }
-
-  _onNameChanged(event) {
-    this.setState({name: event.target.value});
-  }
-
-  _onAddressChanged(event) {
-    this.setState({address: event.target.value});
-  }
-
-  _onSubmit(event) {
-    event.preventDefault();
-    if(this.props.onLocationAdded) {
-      this.props.onLocationAdded.call(null, {
-        name: this.state.name,
-        address: this.state.address,
-        coords: this.state.coords,
-        city: this.state.city,
-      });
-    }
-    this.setState({
-      name: '',
-      address: '',
-      coords: null,
-      city: '',
-    });
-  }
-
-  _onCancel(event) {
-    if(event) {
-      event.preventDefault();
-    }
-    if(this.props.onCancel) {
-      this.props.onCancel.call(null);
-    }
-    this.setState({
-      name: '',
-      address: '',
-      coords: null,
-      city: '',
-    });
   }
 }

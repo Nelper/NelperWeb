@@ -14,50 +14,50 @@ export default class TaskCategoryUtils {
   static _categories = {
     'business': {
       color: colors.blue,
-      colorLight: Color(colors.blue).lighten(0.2).hexString(),
-      colorDark: Color(colors.blue).darken(0.5).hexString(),
+      colorLight: new Color(colors.blue).lighten(0.2).hexString(),
+      colorDark: new Color(colors.blue).darken(0.5).hexString(),
       name: 'Business & Admin',
       examples: 'Accounting, Files Organization, Resume Building, Letters Writing & Review, Advertisement Strategies, Social Media Account Management, Data Entry,',
     },
     'handywork': {
       color: colors.orange,
-      colorLight: Color(colors.orange).lighten(0.3).hexString(),
-      colorDark: Color(colors.orange).darken(0.5).hexString(),
+      colorLight: new Color(colors.orange).lighten(0.3).hexString(),
+      colorDark: new Color(colors.orange).darken(0.5).hexString(),
       name: 'Handyman',
       examples: 'Furniture Assembly, Carpentry, Electrical Work, Painting, Plumbing, Roofing, Window Services, Appliance Repair, Floor Installation,',
     },
     'gardening': {
       color: colors.green,
-      colorLight: Color(colors.green).lighten(0.4).hexString(),
-      colorDark: Color(colors.green).darken(0.5).hexString(),
+      colorLight: new Color(colors.green).lighten(0.4).hexString(),
+      colorDark: new Color(colors.green).darken(0.5).hexString(),
       name: 'Gardening',
       examples: 'Garden Maintenance, Landscaping, Lawn Mowing, Raking Leaves, Outdoor Pest Control, Arborism, Fruit Tree Pruning, Tree Planting, Bushes Pruning,',
     },
     'housecleaning': {
       color: colors.purple,
-      colorLight: Color(colors.purple).lighten(0.3).hexString(),
-      colorDark: Color(colors.purple).darken(0.5).hexString(),
+      colorLight: new Color(colors.purple).lighten(0.3).hexString(),
+      colorDark: new Color(colors.purple).darken(0.5).hexString(),
       name: 'Cleaning',
       examples: 'House Cleaning, Laundry Services, Waste Removal, Guttering, Pool & Spa Cleaning, Steam Cleaning, Indoor Pest Control, Car Wash,',
     },
     'technology': {
       color: colors.yellow,
-      colorLight: Color(colors.yellow).lighten(0.4).hexString(),
-      colorDark: Color(colors.yellow).darken(0.5).hexString(),
+      colorLight: new Color(colors.yellow).lighten(0.4).hexString(),
+      colorDark: new Color(colors.yellow).darken(0.5).hexString(),
       name: 'Electronic & IT Support',
       examples: 'Computer Fixing, Internet Setup, Printer & Scanner Installation, TV & Sound System Installation, Email Setup, Tablets & Phones Support,',
     },
     'multimedia': {
       color: colors.red,
-      colorLight: Color(colors.red).lighten(0.2).hexString(),
-      colorDark: Color(colors.red).darken(0.5).hexString(),
+      colorLight: new Color(colors.red).lighten(0.2).hexString(),
+      colorDark: new Color(colors.red).darken(0.5).hexString(),
       name: 'Multimedia & Design',
       examples: 'Website & App Development, Photo & Video Editing, Graphic Design, Printing, Videography & Photography, Music Production,',
     },
     'other': {
       color: colors.red,
-      colorLight: Color(colors.red).lighten(0.2).hexString(),
-      colorDark: Color(colors.red).darken(0.5).hexString(),
+      colorLight: new Color(colors.red).lighten(0.2).hexString(),
+      colorDark: new Color(colors.red).darken(0.5).hexString(),
       name: 'Other',
     },
   }
@@ -68,7 +68,7 @@ export default class TaskCategoryUtils {
   }
 
   static getImage(category) {
-    if(!this._categories[category]) {
+    if (!this._categories[category]) {
       return null;
     }
     return require(`images/categories/${category}.png`);

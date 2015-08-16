@@ -10,20 +10,20 @@ import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 export default class TaskCardView extends Component {
 
   static propTypes = {
-    application: PropTypes.object,
+    application: PropTypes.object.isRequired,
     onClick: PropTypes.func,
   }
 
   render() {
-    let {application, onClick} = this.props;
-    let task = application.task;
+    const {application, onClick} = this.props;
+    const task = application.task;
 
-    let distance = Math.round(LocationUtils.kilometersBetween(task.location, UserStore.state.user.location));
-    let statusIcon = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
+    const distance = Math.round(LocationUtils.kilometersBetween(task.location, UserStore.state.user.location));
+    const statusIcon = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
       require('images/icons/state-accepted.png') :
       require('images/icons/state-pending.png');
 
-    let statusText = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
+    const statusText = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
       'Accepted' :
       'Pending';
 

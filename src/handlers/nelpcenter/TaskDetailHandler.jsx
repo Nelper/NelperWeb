@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
+import invariant from 'invariant';
 import connectToStores from 'alt/utils/connectToStores';
 import moment from 'moment';
 
@@ -15,6 +16,11 @@ import ViewProfileHandler from './ViewProfileHandler';
 @connectToStores
 export default class TaskDetailHandler extends Component {
 
+  static propTypes = {
+    task: PropTypes.object,
+    isLoading: PropTypes.bool,
+  }
+
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
   }
@@ -24,9 +30,9 @@ export default class TaskDetailHandler extends Component {
   }
 
   static getPropsFromStores(props) {
-    let tasks = TaskStore.getState().myTasks;
-    let task = tasks.find(t => t.objectId === props.params.id);
-    if(!task) {
+    const tasks = TaskStore.getState().myTasks;
+    const task = tasks.find(t => t.objectId === props.params.id);
+    if (!task) {
       TaskActions.refreshMyTasks();
       return {
         isLoading: true,
@@ -43,9 +49,12 @@ export default class TaskDetailHandler extends Component {
   state = {
     selectedUser: null,
     confirmDeleteOpened: false,
-  }
+  };
 
-  _setTaskAsViewed = false
+  constructor(props) {
+    super(props);
+    this._setTaskAsViewed = false;
+  }
 
   componentDidMount() {
     this._markTaskViewed();
@@ -56,7 +65,7 @@ export default class TaskDetailHandler extends Component {
   }
 
   _markTaskViewed() {
-    if(!this._setTaskAsViewed && this.props.task) {
+    if (!this._setTaskAsViewed && this.props.task) {
       this._setTaskAsViewed = true;
       // Have to do this to avoid fireing this action in the
       // middle of a dispatch.
@@ -107,13 +116,15 @@ export default class TaskDetailHandler extends Component {
 
   _sortTasks(a, b) {
     function toOrder(ele) {
-      switch(ele.state) {
+      switch (ele.state) {
       case NELP_TASK_APPLICATION_STATE.ACCEPTED:
         return 10;
       case NELP_TASK_APPLICATION_STATE.PENDING:
         return 20;
       case NELP_TASK_APPLICATION_STATE.DENIED:
         return 30;
+      default:
+        invariant(false, 'Unknown task state');
       }
     }
 
@@ -123,15 +134,17 @@ export default class TaskDetailHandler extends Component {
   _renderStateBadge(state) {
     let icon;
     switch (state) {
-      case 0:
-        icon = require('images/icons/state-pending.png');
-        break;
-      case 2:
-        icon = require('images/icons/state-accepted.png');
-        break;
-      case 3:
-        icon = require('images/icons/state-denied.png');
-        break;
+    case 0:
+      icon = require('images/icons/state-pending.png');
+      break;
+    case 2:
+      icon = require('images/icons/state-accepted.png');
+      break;
+    case 3:
+      icon = require('images/icons/state-denied.png');
+      break;
+    default:
+      invariant(false, `Invalid task state. State: ${state}`);
     }
     return (
       <div className="state-badge" style={{backgroundImage: `url('${icon}')`}} />
@@ -139,11 +152,11 @@ export default class TaskDetailHandler extends Component {
   }
 
   _renderStatus() {
-    let hasAcceptedApplication = this.props.task.applications.some(a => a.state === 2);
-    let icon = !hasAcceptedApplication ?
-      require('images/icons/state-pending.png') :
-      require('images/icons/state-accepted.png');
-    let text = !hasAcceptedApplication ? 'Pending' : 'Accepted';
+    const hasAcceptedApplication = this.props.task.applications.some(a => a.state === 2);
+    const icon = !hasAcceptedApplication ?
+    require('images/icons/state-pending.png') :
+    require('images/icons/state-accepted.png');
+    const text = !hasAcceptedApplication ? 'Pending' : 'Accepted';
     return (
       <div className="detail-status">
         <div>Status: </div>
@@ -154,9 +167,9 @@ export default class TaskDetailHandler extends Component {
   }
 
   render() {
-    let {task, isLoading} = this.props;
-    let {confirmDeleteOpened} = this.state;
-    if(isLoading) {
+    const {task, isLoading} = this.props;
+    const {confirmDeleteOpened} = this.state;
+    if (isLoading) {
       return (
         <div className="container pad-all center">
           <Progress />
@@ -165,7 +178,7 @@ export default class TaskDetailHandler extends Component {
     }
 
     let applications;
-    if(task.applications.length === 0) {
+    if (task.applications.length === 0) {
       applications = <div>No applications yet!</div>;
     } else {
       applications = task.applications
@@ -190,15 +203,15 @@ export default class TaskDetailHandler extends Component {
             </div>
             {
               a.state === 0 ?
-                <div className="btn-group">
-                  <button className="primary" onClick={this._accept.bind(this, a)}>
-                    Accept
-                  </button>
-                  <button className="warning" onClick={this._deny.bind(this, a)}>
-                    Deny
-                  </button>
-                </div> :
-                null
+              <div className="btn-group">
+                <button className="primary" onClick={this._accept.bind(this, a)}>
+                  Accept
+                </button>
+                <button className="warning" onClick={this._deny.bind(this, a)}>
+                  Deny
+                </button>
+              </div> :
+              null
             }
             <button className="secondary" onClick={this._viewProfile.bind(this, a.user)}>
               View profile
@@ -231,7 +244,7 @@ export default class TaskDetailHandler extends Component {
                 multiline={true}
                 onEditDone={::this._onDescChanged}
                 initialValue={task.desc}
-              />
+                />
             </div>
             <div className="detail-row">
               <div className="detail-icon applicants-count" />

@@ -6,6 +6,10 @@ export default class SettingsHandler extends Component {
     router: React.PropTypes.object.isRequired,
   }
 
+  _onBack() {
+    this.context.router.goBack();
+  }
+
   render() {
     return (
       <div id="settings-handler">
@@ -13,9 +17,5 @@ export default class SettingsHandler extends Component {
         <button onClick={::this._onBack}>Back</button>
       </div>
     );
-  }
-
-  _onBack() {
-    this.context.router.goBack();
   }
 }

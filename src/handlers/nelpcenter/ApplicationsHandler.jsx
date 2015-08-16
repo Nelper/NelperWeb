@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
 import ApplicationCardView from './ApplicationCardView';
@@ -7,6 +7,10 @@ import ApplicationStore from 'stores/ApplicationStore';
 
 @connectToStores
 export default class ApplicationsHandler extends Component {
+
+  static propTypes = {
+    applications: PropTypes.array.isRequired,
+  }
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -25,8 +29,8 @@ export default class ApplicationsHandler extends Component {
   }
 
   render() {
-    let applications = this.props.applications.map(a => {
-      return <ApplicationCardView application={a} />
+    const applications = this.props.applications.map(a => {
+      return <ApplicationCardView application={a} />;
     });
 
     return (

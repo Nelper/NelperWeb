@@ -5,7 +5,7 @@ export default class HowItWorksHandler extends Component {
 
   render() {
     return (
-      <div id="how-it-works-handler">
+      <div className="how-it-works-handler">
         <div className="container what-is">
           <h1>What is Nelper?</h1>
           <p>
