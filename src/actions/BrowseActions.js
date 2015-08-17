@@ -1,16 +1,18 @@
 import alt from 'app/alt';
 import ApiUtils from 'utils/ApiUtils';
 
-class NelpActions {
+class BrowseActions {
 
   constructor() {
     this.generateActions('receivedTasks');
   }
 
-  refreshTasks() {
-    ApiUtils.listNelpTasks()
+  refreshTasks(filter, location) {
+    ApiUtils.listNelpTasks(filter, location)
       .then((tasks) => {
         this.actions.receivedTasks(tasks);
+      }).fail(err => {
+        console.log(err);
       });
   }
 
@@ -25,4 +27,4 @@ class NelpActions {
   }
 }
 
-export default alt.createActions(NelpActions);
+export default alt.createActions(BrowseActions);

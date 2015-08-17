@@ -63,8 +63,7 @@ export default class TaskCategoryUtils {
   }
 
   static list() {
-    // Returns all the categories without 'other'
-    return Object.keys(this._categories).filter(c => c !== 'other');
+    return Object.keys(this._categories);
   }
 
   static getImage(category) {

@@ -1,0 +1,33 @@
+.browse-tasks-filter-view {
+
+}
+
+.browse-tasks-filter-view-dialog {
+
+  h2 {
+    text-align: center;
+  }
+
+  .category-filters {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .category-icon {
+    @include image(3rem);
+    margin: 0.5rem;
+    border-radius: 50%;
+    transition: opacity 250ms linear, transform 300ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    opacity: 0.5;
+    transform: scale(1);
+    cursor: pointer;
+
+    &.is-selected {
+      opacity: 1;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}

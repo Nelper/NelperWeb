@@ -4,7 +4,7 @@ import classNames from 'classnames';
 export default class Collapse extends Component {
 
   static propTypes = {
-    opened: PropTypes.boolean,
+    opened: PropTypes.bool,
     onClose: PropTypes.func,
     children: PropTypes.node,
   }

@@ -152,6 +152,18 @@ export default class PostTaskHandler extends Component {
     });
   }
 
+  _onCancel() {
+    this.setState({
+      category: '',
+      title: '',
+      priceOffered: '',
+      desc: '',
+      openCreateLocation: false,
+      pictures: [],
+      loading: false,
+    });
+  }
+
   _onTaskCreated() {
     this.context.router.transitionTo('/center/tasks');
   }
@@ -180,20 +192,10 @@ export default class PostTaskHandler extends Component {
     this.setState({category: c});
   }
 
-  _onCancel() {
-    this.setState({
-      category: '',
-      title: '',
-      priceOffered: '',
-      desc: '',
-      openCreateLocation: false,
-      pictures: [],
-      loading: false,
-    });
-  }
-
   render() {
-    const categories = TaskCategoryUtils.list().map(c => {
+    const categories = TaskCategoryUtils.list()
+    .filter(c => c !== 'other') // We will add the 'other' category manually.
+    .map(c => {
       return (
         <div key={c} className="category" onClick={() => this._selectCategory(c)}>
           <div className="category-icon" style={{

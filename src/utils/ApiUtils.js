@@ -2,6 +2,7 @@ import {Parse} from 'parse';
 
 import './ParsePatches';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
+import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
 /**
  * Parse types
@@ -213,14 +214,30 @@ class ApiUtils {
 
   /**
    * List all tasks near a point.
+   * @param {object} filters Filters for the query
+   * @param {Array<string>} filters.categories Categories to include in the query
+   * @param {'date'|'distance'} filters.sort Sort order for the query
+   * @param {GeoPoint} location The user location for the distance sort filter
    * @return {Promise} The list of tasks
    */
-  listNelpTasks() {
-    return new Parse.Query(NelpTask)
+  listNelpTasks({categories, sort} = {}, location) {
+    const taskQuery = new Parse.Query(NelpTask);
+
+    // Filter by category. Dont add the filter if all categories are selected.
+    if (categories && categories.length !== TaskCategoryUtils.list().length) {
+      taskQuery.containedIn('category', categories);
+    }
+    if (sort && sort === 'distance') {
+      const point = new Parse.GeoPoint(location);
+      taskQuery.near('location', point);
+    } else {
+      taskQuery.descending('createdAt');
+    }
+
+    return taskQuery
       .include('user')
       // .notEqualTo('user', Parse.User.current())
       .equalTo('state', NELP_TASK_STATE.PENDING)
-      .descending('createdAt')
       .limit(20)
       .find()
       .then((tasks) => {

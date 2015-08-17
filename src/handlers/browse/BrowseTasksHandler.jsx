@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
-import NelpActions from 'actions/NelpActions';
+import BrowseActions from 'actions/BrowseActions';
 import UserActions from 'actions/UserActions';
 import NelpStore from 'stores/NelpStore';
 import UserStore from 'stores/UserStore';
-import NelpTaskFilterView from './NelpTaskFilterView';
+import BrowseTasksFilterView from './BrowseTasksFilterView';
 import NelpTaskListView from './BrowseTasksListView';
 import MapView from './MapView';
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
@@ -34,9 +34,12 @@ export default class BrowseTasksHandler extends Component {
   }
 
   componentDidMount() {
-    NelpActions.refreshTasks();
-    // TODO(janic): this logic should be elsewhere.
-    if (!UserStore.state.user.location) {
+    if (UserStore.state.user.location) {
+      BrowseActions.refreshTasks({sort: 'distance'}, UserStore.state.user.location);
+    } else {
+      BrowseActions.refreshTasks({sort: 'date'});
+
+      // TODO(janic): this logic should be elsewhere.
       navigator.geolocation.getCurrentPosition((pos) => {
         UserActions.setLocation(pos.coords);
 
@@ -58,8 +61,8 @@ export default class BrowseTasksHandler extends Component {
     this.refs.map.panTo(event.latLng);
   }
 
-  _onFilterChanged() {
-
+  _onFiltersChanged(filters) {
+    BrowseActions.refreshTasks(filters, UserStore.state.user.location);
   }
 
   _onTaskSelected(task) {
@@ -77,11 +80,11 @@ export default class BrowseTasksHandler extends Component {
       this.context.router.transitionTo('/login', null, { nextPathname: '/nelp' });
       return;
     }
-    NelpActions.applyForTask(task);
+    BrowseActions.applyForTask(task);
   }
 
   _onCancelApply(task) {
-    NelpActions.cancelApplyForTask(task);
+    BrowseActions.cancelApplyForTask(task);
   }
 
   _closeDetail() {
@@ -126,6 +129,7 @@ export default class BrowseTasksHandler extends Component {
     const center = pos ?
       new GoogleMapsUtils.LatLng(pos.latitude, pos.longitude) :
       new GoogleMapsUtils.LatLng(0, 0);
+
     return (
       <div id="nelp-handler">
         <div className="header-section">
@@ -139,7 +143,7 @@ export default class BrowseTasksHandler extends Component {
         <div className="task-section" ref="taskScroll">
           <div className="filters">
             <div className="container pad-hor">
-              <NelpTaskFilterView onFilterChanged={::this._onFilterChanged} />
+              <BrowseTasksFilterView onFiltersChanged={::this._onFiltersChanged} />
             </div>
           </div>
           <div className="container pad-hor">

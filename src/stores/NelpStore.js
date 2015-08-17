@@ -1,5 +1,5 @@
 import alt from 'app/alt';
-import NelpActions from 'actions/NelpActions';
+import BrowseActions from 'actions/BrowseActions';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 class NelpStore {
@@ -10,9 +10,9 @@ class NelpStore {
 
   constructor() {
     this.bindListeners({
-      handleReceivedTasks: NelpActions.RECEIVED_TASKS,
-      handleApply: NelpActions.APPLY_FOR_TASK,
-      handleCancelApply: NelpActions.CANCEL_APPLY_FOR_TASK,
+      handleReceivedTasks: BrowseActions.RECEIVED_TASKS,
+      handleApply: BrowseActions.APPLY_FOR_TASK,
+      handleCancelApply: BrowseActions.CANCEL_APPLY_FOR_TASK,
     });
   }
 
