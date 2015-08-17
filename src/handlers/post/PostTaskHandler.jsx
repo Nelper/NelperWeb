@@ -15,7 +15,7 @@ import ApiUtils from 'utils/ApiUtils';
 export default class PostTaskHandler extends Component {
 
   static propTypes = {
-    locations: PropTypes.object,
+    locations: PropTypes.array,
   }
 
   static contextTypes = {
@@ -141,7 +141,7 @@ export default class PostTaskHandler extends Component {
       title: this.state.title,
       category: this.state.category,
       desc: this.state.desc,
-      priceOffered: this.state.priceOffered,
+      priceOffered: parseInt(this.state.priceOffered, 10),
       location: this.state.location.coords,
       city: this.state.location.city,
       pictures: this.state.pictures,

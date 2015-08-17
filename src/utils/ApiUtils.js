@@ -227,11 +227,19 @@ class ApiUtils {
     if (categories && categories.length !== TaskCategoryUtils.list().length) {
       taskQuery.containedIn('category', categories);
     }
-    if (sort && sort === 'distance') {
+
+    switch (sort) {
+    case 'distance':
       const point = new Parse.GeoPoint(location);
       taskQuery.near('location', point);
-    } else {
+      break;
+    case 'price':
+      taskQuery.ascending('priceOffered');
+      break;
+    case 'date':
+    default:
       taskQuery.descending('createdAt');
+      break;
     }
 
     return taskQuery
@@ -482,9 +490,13 @@ class ApiUtils {
 
   _userFromParse(parseUser) {
     const user = parseUser.toPlainObject();
-    // If the user has uploaded a picture we use it.
+
     if (parseUser.get('customPicture')) {
+      // If the user has uploaded a picture we use it.
       user.pictureURL = parseUser.get('customPicture').url();
+    } else if (!user.pictureURL) {
+      // If the user has no picture at all use the placeholder.
+      user.pictureURL = require('images/user-no-picture.jpg');
     }
     return user;
   }

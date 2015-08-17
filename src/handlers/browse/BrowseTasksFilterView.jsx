@@ -97,6 +97,7 @@ export default class BrowseTasksFilterView extends Component {
             <div className="sort-filters">
               <button onClick={() => this._onSelectSort('date')}>Creation Date</button>
               <button onClick={() => this._onSelectSort('distance')}>Distance</button>
+              <button onClick={() => this._onSelectSort('price')}>Price</button>
             </div>
           </div>
         </Dialog>
