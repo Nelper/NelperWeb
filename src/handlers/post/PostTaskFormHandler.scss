@@ -1,4 +1,4 @@
-.post-task-handler {
+.post-task-form-handler {
 
   $step-size: 46px;
 
@@ -18,11 +18,6 @@
   input,
   select {
     margin: 0;
-  }
-
-  h2.title {
-    text-align: center;
-    margin-top: 1rem;
   }
 
   .input-row {
@@ -64,64 +59,6 @@
       flex: 1;
       position: relative;
     }
-  }
-
-  .category-picker {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-
-  .category {
-    display: flex;
-    flex-basis: 14rem;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 1;
-    margin: 0.5rem;
-    cursor: pointer;
-    transition: all 250ms linear;
-    border-radius: 3px;
-
-    @include media($medium-screen) {
-      flex-basis: 24rem;
-      flex-grow: 0;
-      padding: 1rem;
-    }
-
-    &:hover {
-      background-color: $color-white;
-    }
-  }
-
-  .category-icon {
-    @include image(4rem);
-    margin-bottom: 1rem;
-    position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 2px solid transparent;
-
-    @include media($medium-screen) {
-      @include image(5rem);
-    }
-  }
-
-  .category-title {
-    font-size: 1em;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-
-    @include media($medium-screen) {
-      font-size: 1.2em;
-    }
-  }
-
-  .category-examples {
-    text-align: center;
-    font-size: 0.9em;
   }
 
   .price {

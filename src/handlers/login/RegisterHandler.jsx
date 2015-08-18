@@ -78,7 +78,7 @@ export default class RegisterHandler extends Component {
       if (state && state.nextPathname) {
         this.context.router.replaceWith(state.nextPathname);
       } else {
-        this.context.router.replaceWith('/nelp');
+        this.context.router.replaceWith('/browse');
       }
     }
   }

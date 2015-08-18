@@ -42,7 +42,9 @@ export default class FindNelpAddHandler extends Component {
   componentWillUnmount() {
     // Cleanup the autocomplete container.
     const autocompleteNode = document.querySelector('.pac-container');
-    document.body.removeChild(autocompleteNode);
+    if (autocompleteNode) {
+      document.body.removeChild(autocompleteNode);
+    }
   }
 
   _onNameChanged(event) {

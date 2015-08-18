@@ -13,7 +13,8 @@ import RegisterHandler from 'handlers/login/RegisterHandler';
 
 import BrowseTasksHandler from 'handlers/browse/BrowseTasksHandler';
 
-import PostTaskHandler from 'handlers/post/PostTaskHandler';
+import PostTaskCategoriesHandler from 'handlers/post/PostTaskCategoriesHandler';
+import PostTaskFormHandler from 'handlers/post/PostTaskFormHandler';
 
 import NelpCenterHandler from 'handlers/nelpcenter/NelpCenterHandler';
 import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
@@ -41,7 +42,8 @@ export default (
     <Route path="/login" component={LoginHandler} />
     <Route path="/register" component={RegisterHandler} />
     <Route path="/browse" component={BrowseTasksHandler} />
-    <Route path="/post" component={PostTaskHandler} onEnter={requireAuth} />
+    <Route path="/post" component={PostTaskCategoriesHandler} />
+    <Route path="/post/:category" component={PostTaskFormHandler} onEnter={requireAuth} />
     <Route path="/center" component={NelpCenterHandler} onEnter={requireAuth}>
       <Route path="applications" component={ApplicationsHandler} />
       <Route path="tasks" component={TasksHandler} />

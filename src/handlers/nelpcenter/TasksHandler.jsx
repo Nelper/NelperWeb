@@ -52,10 +52,10 @@ export default class TasksHandler extends Component {
   render() {
     const {myTasks} = this.props;
 
-    const tasks = myTasks.map((t) => {
+    const tasks = myTasks.map((t, i) => {
       return (
         <TaskCardView
-          key={t.objectId}
+          key={t.objectId || i}
           task={t}
           onClick={() => this._taskDetail(t)} />
       );

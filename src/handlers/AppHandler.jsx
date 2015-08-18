@@ -24,7 +24,7 @@ export default class AppHandler extends Component {
 
   componentDidMount() {
     // If the user is logged in update its info from the server.
-    if (this.props.user) {
+    if (this.props.user.logged) {
       UserActions.update();
     }
   }

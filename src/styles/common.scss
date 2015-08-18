@@ -23,7 +23,8 @@
 @import 'handlers/browse/BrowseTasksFilterView';
 @import 'handlers/browse/BrowseTasksListView';
 
-@import 'handlers/post/PostTaskHandler';
+@import 'handlers/post/PostTaskCategoriesHandler';
+@import 'handlers/post/PostTaskFormHandler';
 @import 'handlers/post/AddLocationDialogView';
 
 @import 'handlers/nelpcenter/NelpCenterHandler';
