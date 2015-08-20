@@ -48,14 +48,14 @@ export default class NavBar extends Component {
   render() {
     const menuItems = !this.props.user.logged ? [
       this._renderNavItem('How it works', '/howitworks', 40),
-      this._renderNavItem('Nelp', '/browse', 10),
-      this._renderNavItem('Find Nelp', '/post', 20),
+      this._renderNavItem('Browse Tasks', '/browse', 10),
+      this._renderNavItem('Post a Task', '/post', 20),
       this._renderNavItem('Login', '/login', 30),
     ] : [
       this._renderNavItem('How it works', '/howitworks', 40),
-      this._renderNavItem('Browse', '/browse', 10),
-      this._renderNavItem('Post', '/post', 20),
+      this._renderNavItem('Browse Tasks', '/browse', 10),
       this._renderNavItem('Nelp Center', '/center', 50),
+      this._renderNavItem('Post a Task', '/post', 20),
     ];
 
     return (

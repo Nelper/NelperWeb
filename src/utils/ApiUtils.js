@@ -1,15 +1,8 @@
 import {Parse} from 'parse';
 
-import './ParsePatches';
+import  {NelpTask, NelpTaskApplication, UserPrivateData} from './ParseModels';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
-
-/**
- * Parse types
- */
-const NelpTask = Parse.Object.extend({className: 'NelpTask'});
-const NelpTaskApplication = Parse.Object.extend({className: 'NelpTaskApplication'});
-const UserPrivateData = Parse.Object.extend({className: 'UserPrivateData'});
 
 /**
  * Utils for communicating with the backend (Parse).

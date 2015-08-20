@@ -69,8 +69,10 @@ export default class NelpCenterHandler extends Component {
               <div className="user-name">
                 {user.name}
               </div>
-              <Rating rating={4} small={true}/>
-              <div className="tasks-summary">8 Tasks Completed</div>
+              <Link className="my-profile" to="/center/profile">
+                <div className="my-profile-icon" />
+                <button className="dark-small">MY PROFILE</button>
+              </Link>
             </div>
             <div>
             <div className="btn-group">
@@ -82,14 +84,11 @@ export default class NelpCenterHandler extends Component {
         </div>
         <div className="tab-bar">
           <div className="tabs">
-            <Link className="tab" to="/center/applications">
-              My Applications
-            </Link>
             <Link className="tab" to="/center/tasks">
               My Tasks
             </Link>
-            <Link className="tab" to="/center/profile">
-              Profile
+            <Link className="tab" to="/center/applications">
+              My Applications
             </Link>
           </div>
         </div>

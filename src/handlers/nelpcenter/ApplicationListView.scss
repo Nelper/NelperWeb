@@ -1,0 +1,112 @@
+.application-list-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+  color: $color-black;
+
+  .application {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-gray-medium;
+    }
+  }
+
+  .user-profile {
+    @include span-columns(5);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      .user-picture-overlay {
+        opacity: 1;
+      }
+    }
+  }
+
+  .user-picture {
+    @include image-fill();
+    width: 6rem;
+    height: 6rem;
+    margin-right: 1rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid $color-black;
+  }
+
+  .user-picture-overlay {
+    @include position(absolute, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparentize($color-black, 0.25);
+    border-radius: 50%;
+    transition: opacity 250ms linear;
+    opacity: 0;
+  }
+
+  .view-profile-icon {
+    @include image(2.5rem);
+    background-image: url('~images/icons/profile-white.png');
+  }
+
+  .view-profile-text {
+    font-size: 0.8em;
+    color: $color-white;
+  }
+
+  .user-info-name {
+    font-size: 1.25em;
+    font-weight: 500;
+  }
+
+  .rating {
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  .user-info-tasks-completed {
+    font-size: 0.8em;
+    margin-left: 1rem;
+  }
+
+  .price-offered {
+    @include span-columns(5);
+    display: flex;
+    align-items: center;
+  }
+
+  .price-offered-icon {
+    @include image(2.5rem);
+    margin-right: 0.5rem;
+    background-image: url('~images/icons/money.png');
+  }
+
+  .actions {
+    @include span-columns(2);
+    display: flex;
+  }
+
+  .btn-accept,
+  .btn-deny {
+    @include image(2.5rem);
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0.75rem;
+  }
+
+  .btn-accept {
+    background-image: url('~images/icons/state-accepted.png');
+  }
+
+  .btn-deny {
+    background-image: url('~images/icons/state-denied.png');
+  }
+}

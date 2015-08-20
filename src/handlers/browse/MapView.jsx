@@ -19,9 +19,9 @@ export default class MapView extends Component {
 
   componentDidMount() {
     if (!GoogleMapsUtils.get()) {
-      GoogleMapsUtils.load(() => {
+      GoogleMapsUtils.load().then((maps) => {
         this.setState({
-          googleMapsAPI: GoogleMapsUtils.get(),
+          googleMapsAPI: maps,
         });
       });
     }

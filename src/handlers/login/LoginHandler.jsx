@@ -70,7 +70,7 @@ export default class LoginHandler extends Component {
 
   _onUserChanged(state) {
     if (state.user) {
-      this._loginSuccess();
+      this._onLoginSuccess();
     }
   }
 

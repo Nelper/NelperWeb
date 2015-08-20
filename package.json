@@ -53,6 +53,7 @@
     "react-slick": "^0.6.6",
     "sass-loader": "^2.0.1",
     "slick-carousel": "^1.5.8",
+    "stripe": "^3.7.1",
     "style-loader": "^0.12.3",
     "svg-inline-loader": "^0.2.1",
     "url-loader": "^0.5.6",

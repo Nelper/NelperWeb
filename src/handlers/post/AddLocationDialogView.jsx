@@ -19,7 +19,7 @@ export default class FindNelpAddHandler extends Component {
   }
 
   componentDidMount() {
-    GoogleMapsUtils.load((maps) => {
+    GoogleMapsUtils.load().then((maps) => {
       const addressInput = this.refs.address.getDOMNode();
       const autocomplete = new maps.places.Autocomplete(addressInput);
       maps.event.addListener(autocomplete, 'place_changed', () => {

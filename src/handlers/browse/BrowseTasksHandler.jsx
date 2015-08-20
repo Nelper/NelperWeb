@@ -8,7 +8,7 @@ import UserStore from 'stores/UserStore';
 import BrowseTasksFilterView from './BrowseTasksFilterView';
 import NelpTaskListView from './BrowseTasksListView';
 import MapView from './MapView';
-import GoogleMapsUtils from 'utils/GoogleMapsUtils';
+import {LatLng} from 'utils/GoogleMapsUtils';
 
 @connectToStores
 export default class BrowseTasksHandler extends Component {
@@ -46,7 +46,7 @@ export default class BrowseTasksHandler extends Component {
         if (!this.refs.map) {
           return;
         }
-        this.refs.map.panTo(new GoogleMapsUtils.LatLng(
+        this.refs.map.panTo(new LatLng(
           pos.coords.latitude,
           pos.coords.longitude,
         ));
@@ -67,7 +67,7 @@ export default class BrowseTasksHandler extends Component {
 
   _onTaskSelected(task) {
     if (task.location) {
-      this.refs.map.panTo(new GoogleMapsUtils.LatLng(
+      this.refs.map.panTo(new LatLng(
         task.location.latitude,
         task.location.longitude,
       ));
@@ -113,7 +113,7 @@ export default class BrowseTasksHandler extends Component {
         const cur = taskGroups[k];
         return {
           key: k,
-          position: new GoogleMapsUtils.LatLng(
+          position: new LatLng(
             cur[0].location.latitude,
             cur[0].location.longitude,
           ),
@@ -127,8 +127,8 @@ export default class BrowseTasksHandler extends Component {
 
     const pos = UserStore.state.user.location;
     const center = pos ?
-      new GoogleMapsUtils.LatLng(pos.latitude, pos.longitude) :
-      new GoogleMapsUtils.LatLng(0, 0);
+      new LatLng(pos.latitude, pos.longitude) :
+      new LatLng(0, 0);
 
     return (
       <div id="nelp-handler">

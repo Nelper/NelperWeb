@@ -26,6 +26,8 @@ import SettingsHandler from 'handlers/profile/SettingsHandler';
 
 import HowItWorksHandler from 'handlers/about/HowItWorksHandler';
 
+import TestPaymentHandler from 'handlers/nelpcenter/TestPaymentHandler';
+
 
 // Pass this function to onEnter for a route that needs
 // authentication to make sure the user is logged in.
@@ -52,6 +54,7 @@ export default (
     </Route>
     <Route path="/settings" component={SettingsHandler} onEnter={requireAuth} />
     <Route path="/howitworks" component={HowItWorksHandler} />
+    <Route path="/testpayment" component={TestPaymentHandler} />
     <Route path="*" component={PageNotFoundHandler} />
   </Route>
 );

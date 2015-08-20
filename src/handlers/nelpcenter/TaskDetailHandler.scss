@@ -6,14 +6,26 @@
     padding-top: 0.5rem;
   }
 
-  .detail-container {
-    margin-bottom: 1rem;
-    border-bottom: 1px solid $color-gray-medium;
+  .back {
+    align-self: flex-start;
   }
 
-  .detail {
-    align-self: stretch;
-    margin-left: 1.5em;
+  .detail-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .other-info-container {
+    margin: 0 4rem;
+  }
+
+  .other-info-col {
+    @include span-columns(8);
+  }
+
+  .image-col {
+    @include span-columns(4);
   }
 
   .detail-row {
@@ -42,69 +54,12 @@
     background-image: url('~images/icons/calendar.png');
   }
 
-  .applications {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 1em;
-    color: $color-black;
+  .location {
+    background-image: url('~images/icons/pin.png');
   }
 
-  .application {
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin-bottom: 1em;
-
-    > div,
-    > button {
-      margin: 0.5em;
-    }
-
-  }
-
-  .user-picture {
-    width: 5rem;
-    height: 5rem;
-    position: relative;
-    border-radius: 50%;
-    border: 2px solid $color-black;
-    background-size: cover;
-    background-position: center;
-  }
-
-  .state-badge {
-    @include image(rem($state-icon-size), rem($state-icon-size));
-
-    position: absolute;
-    bottom: rem(-8px);
-    right: rem(-8px);
-
-    border-radius: 50%;
-    border: 2px solid $color-black;
-  }
-
-  .user-info {
-    flex-grow: 1;
-  }
-
-  .user-info-name-row {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-  }
-
-  .user-info-name {
-    font-size: 1.25em;
-    font-weight: 500;
-    margin-right: 1rem;
-  }
-
-  .user-info-tasks-completed {
-    font-size: 0.8em;
-  }
-
-  .user-info-member-since {
-    font-size: 0.8em;
+  .task-picture {
+    @include image-fill();
+    height: rem(200px);
   }
 }
