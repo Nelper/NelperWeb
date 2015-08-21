@@ -5,6 +5,7 @@ class TaskStore {
 
   state = {
     myTasks: [],
+    isLoading: true,
     createdTask: null,
     error: null,
   }
@@ -26,6 +27,7 @@ class TaskStore {
   handleReceivedMyTasks(tasks) {
     this.setState({
       myTasks: tasks,
+      isLoading: false,
     });
   }
 

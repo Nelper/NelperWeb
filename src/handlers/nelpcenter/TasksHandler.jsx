@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
 
+import Progress from 'components/Progress';
 import TaskCardView from './TaskCardView';
 import TaskActions from 'actions/TaskActions';
 import TaskStore from 'stores/TaskStore';
@@ -10,6 +12,7 @@ export default class TasksHandler extends Component {
 
   static propTypes = {
     myTasks: PropTypes.array,
+    isLoading: PropTypes.bool,
   }
 
   static contextTypes = {
@@ -50,7 +53,7 @@ export default class TasksHandler extends Component {
   }
 
   render() {
-    const {myTasks} = this.props;
+    const {myTasks, isLoading} = this.props;
 
     const tasks = myTasks.map((t, i) => {
       return (
@@ -61,10 +64,21 @@ export default class TasksHandler extends Component {
       );
     });
 
+    if (isLoading) {
+      return <div className="progress-center"><Progress /></div>;
+    }
+
     return (
       <div className="tasks-handler">
-        <div className="container pad-all tasks">
-          {tasks}
+        <div className="container pad-all">
+          {
+            !tasks.length ?
+            <div className="no-task">
+              <div className="no-task-text">You don't have any active task. Post a task now and find the help you need!</div>
+              <Link to="/post"><button className="primary">Post a Task</button></Link>
+            </div> :
+            <div className="tasks">{tasks}</div>
+          }
         </div>
       </div>
     );

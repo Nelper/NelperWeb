@@ -61,6 +61,19 @@
     }
   }
 
+  .category-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+  }
+
+  .category-icon {
+    @include image($step-size);
+    margin-right: 1rem;
+    margin-top: 0.25rem;
+    border-radius: 50%;
+  }
+
   .price {
     display: flex;
     align-items: center;

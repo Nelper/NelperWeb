@@ -205,6 +205,12 @@ export default class PostTaskFormHandler extends Component {
           onCancel={::this._onCancelAddLocation} />
         <form onSubmit={::this._onSubmit}>
           <div className="input-row">
+            <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(this.props.params.category)}')`}}/>
+            <div className="input-content category-title">
+              {TaskCategoryUtils.getName(this.props.params.category)}
+            </div>
+          </div>
+          <div className="input-row">
             <div className={classNames('step', {'done': this._validateTitle()})}>1</div>
             <div className="input-content">
               <label className="title">Enter your Task Title</label>

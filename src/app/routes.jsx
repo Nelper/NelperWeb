@@ -28,13 +28,31 @@ import HowItWorksHandler from 'handlers/about/HowItWorksHandler';
 
 import TestPaymentHandler from 'handlers/nelpcenter/TestPaymentHandler';
 
+/**
+ * Allows chaining multiple handler functions for the onEnter prop.
+ * The functions are executed in order.
+ * If a function returns false, the next ones wont be executed.
+ * @param  {Array<Function>} functions The handler functions to execute
+ * @return {Function}                  The onEnter function
+ */
+/* function chain(...functions) {
+  return (nextState, transition) => {
+    for (const func of functions) {
+      if (func(nextState, transition) === false) {
+        return;
+      }
+    }
+  };
+}*/
 
 // Pass this function to onEnter for a route that needs
 // authentication to make sure the user is logged in.
 function requireAuth(nextState, transition) {
   if (!UserStore.isLogged()) {
     transition.to('/login', null, { nextPathname: nextState.location.pathname });
+    return false;
   }
+  return true;
 }
 
 // Routes.

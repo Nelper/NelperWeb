@@ -2,10 +2,10 @@
  * Wrapper around localStorage.
  */
 export default class Storage {
-  static getItem(key) {
+  static getItem(key, defaultValue) {
     const itemStr = localStorage.getItem(key);
     if (!itemStr) {
-      return null;
+      return defaultValue;
     }
     const item = JSON.parse(itemStr);
     return item.data;

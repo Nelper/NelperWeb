@@ -5,6 +5,7 @@ class ApplicationStore {
 
   state = {
     applications: [],
+    isLoading: true,
   }
 
   constructor() {
@@ -16,6 +17,7 @@ class ApplicationStore {
   handleReceivedApplications(applications) {
     this.setState({
       applications: applications,
+      isLoading: false,
     });
   }
 }

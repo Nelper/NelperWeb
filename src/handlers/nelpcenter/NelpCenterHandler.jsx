@@ -3,8 +3,9 @@ import {Link} from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
 
 import UserActions from 'actions/UserActions';
+import AppActions from 'actions/AppActions';
 import UserStore from 'stores/UserStore';
-import Rating from 'components/Rating';
+import AppStore from 'stores/AppStore';
 
 @connectToStores
 export default class NelpCenterHandler extends Component {
@@ -28,8 +29,28 @@ export default class NelpCenterHandler extends Component {
 
   componentDidMount() {
     if (!this.props.children) {
-      this.context.router.replaceWith('/center/applications');
+      this._redirectToSelectedTab();
     }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (!newProps.children) {
+      this._redirectToSelectedTab();
+    } else {
+      const path = newProps.location.pathname;
+      if (path !== `/center/${AppStore.state.nelpCenter.selectedTab}`) {
+        if (path === '/center/applications') {
+          // Prevents dispatch error... TODO: Find a better way to handle this.
+          setTimeout(() => AppActions.setSelectedTab('applications'), 0);
+        } else {
+          setTimeout(() => AppActions.setSelectedTab('tasks'), 0);
+        }
+      }
+    }
+  }
+
+  _redirectToSelectedTab() {
+    this.context.router.replaceWith(`/center/${AppStore.state.nelpCenter.selectedTab}`);
   }
 
   _logout() {
