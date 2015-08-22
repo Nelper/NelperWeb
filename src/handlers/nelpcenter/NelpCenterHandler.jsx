@@ -78,7 +78,7 @@ export default class NelpCenterHandler extends Component {
 
     return (
       <div className="nelp-center-handler">
-        <div className="header">
+        <div className="profile-header">
           <div className="container header-container pad-all">
             <div className="picture-picker">
               <div

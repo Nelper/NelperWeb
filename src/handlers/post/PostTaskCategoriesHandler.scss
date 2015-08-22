@@ -11,27 +11,27 @@
   }
 
   .category-picker {
+    @include outer-container;
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
   }
 
   .category {
+    @include span-columns(12);
+
     display: flex;
-    flex-basis: 14rem;
     flex-direction: column;
     align-items: center;
-    flex-grow: 1;
-    margin: 0.5rem;
+    padding: 1rem;
+    margin-bottom: flex-gutter(12);
+
     cursor: pointer;
     transition: all 250ms linear;
     border-radius: 3px;
 
     @include media($medium-screen) {
-      flex-basis: 24rem;
-      flex-grow: 0;
-      padding: 1rem;
+      @include span-columns(6);
+      @include omega(2n);
+      display: flex;
     }
 
     &:hover {

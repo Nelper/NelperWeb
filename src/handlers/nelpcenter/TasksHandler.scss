@@ -1,8 +1,13 @@
 .tasks-handler {
-  .tasks {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+
+  .task-card-view {
+    @include span-columns(12);
+    margin-bottom: flex-gutter(12);
+
+    @include media($medium-screen) {
+      @include span-columns(6);
+      @include omega(2n);
+    }
   }
 
   .no-task {

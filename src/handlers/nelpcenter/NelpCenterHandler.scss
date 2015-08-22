@@ -2,50 +2,35 @@
 
   $picture-size: 120px;
 
-  .header {
+  .profile-header {
     background-color: $color-blue-gray;
     color: $text-light;
   }
 
   .header-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    @include media($medium-screen) {
-      flex-direction: row;
-      align-items: flex-start;
-    }
+    flex-direction: row;
+    align-items: flex-start;
   }
 
   .info-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     align-self: center;
     flex: 1;
-
-    @include media($medium-screen) {
-      align-items: flex-start;
-    }
-
-    > * {
-      margin-bottom: 0.5rem;
-    }
   }
 
   .user-name {
     font-size: 1.5em;
+    margin-bottom: 0.5rem;
   }
 
   .picture-picker {
     position: relative;
     overflow: hidden;
     cursor: pointer;
-
-    @include media($medium-screen) {
-      margin-right: 2rem;
-    }
+    margin-right: 2rem;
 
     input {
       position: absolute;

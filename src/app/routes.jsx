@@ -68,8 +68,8 @@ export default (
       <Route path="applications" component={ApplicationsHandler} />
       <Route path="tasks" component={TasksHandler} />
       <Route path="tasks/detail/:id" component={TaskDetailHandler}  />
-      <Route path="profile" component={ProfileHandler} />
     </Route>
+    <Route path="/center/profile" component={ProfileHandler} />
     <Route path="/settings" component={SettingsHandler} onEnter={requireAuth} />
     <Route path="/howitworks" component={HowItWorksHandler} />
     <Route path="/testpayment" component={TestPaymentHandler} />
