@@ -2,44 +2,38 @@ import React, {Component, PropTypes} from 'react';
 
 import Icon from './Icon';
 
-/**
- * Editable and deletable text element.
- */
-export default class Editable extends Component {
+export class EditableBox extends Component {
 
   static propTypes = {
     multiline: PropTypes.bool,
     type: PropTypes.string,
-    deletable: PropTypes.bool,
-    editBoxRef: PropTypes.object,
-    initialValue: PropTypes.string,
-    onEditStart: PropTypes.func,
     onEditCancel: PropTypes.func,
     onEditDone: PropTypes.func,
-    onDelete: PropTypes.func,
+    initialValue: PropTypes.string,
   }
 
   static defaultProps = {
     multiline: false,
     type: 'text',
-    deletable: false,
-    editBoxRef: null,
     initialValue: '',
   }
 
   state = {
-    editing: false,
-    value: this.props.initialValue,
-    editValue: '',
+    editValue: this.props.initialValue,
   }
 
-  componentDidUpdate() {
-    const boxRef = this.props.editBoxRef || this.refs.editBox;
-    if (this.state.editing) {
-      React.render(this._renderEditBox(), boxRef.getDOMNode());
-    } else {
-      React.render(<div />, boxRef.getDOMNode());
-    }
+  _onDoneEdit(event) {
+    event.preventDefault();
+    const newValue = this.state.editValue;
+    this.props.onEditDone && this.props.onEditDone(newValue);
+  }
+
+  _onCancel(event) {
+    event.preventDefault();
+    this.setState({
+      editValue: this.props.initialValue,
+    });
+    this.props.onEditCancel && this.props.onEditCancel();
   }
 
   _onEditValueChanged(event) {
@@ -48,39 +42,7 @@ export default class Editable extends Component {
     });
   }
 
-  _onDoneEdit(event) {
-    event.preventDefault();
-    const newValue = this.state.editValue;
-    this.setState({
-      editing: false,
-      value: newValue,
-      editValue: '',
-    });
-    this.props.onEditDone && this.props.onEditDone(newValue);
-  }
-
-  _onCancel(event) {
-    event.preventDefault();
-    this.setState({
-      editing: false,
-      editValue: '',
-    });
-    this.props.onEditCancel && this.props.onEditCancel();
-  }
-
-  _onEdit() {
-    this.setState({
-      editing: true,
-      editValue: this.state.value,
-    });
-    this.props.onEditStart && this.props.onEditStart();
-  }
-
-  _onDelete() {
-    this.props.onDelete && this.props.onDelete();
-  }
-
-  _renderEditBox() {
+  render() {
     const input = this.props.multiline ?
       <textarea
         value={this.state.editValue}
@@ -104,13 +66,68 @@ export default class Editable extends Component {
       </div>
     );
   }
+}
+
+/**
+ * Editable and deletable text element.
+ */
+export default class Editable extends Component {
+
+  static propTypes = {
+    autoEditBox: PropTypes.bool,
+    multiline: PropTypes.bool,
+    type: PropTypes.string,
+    deletable: PropTypes.bool,
+    value: PropTypes.string,
+    onEditStart: PropTypes.func,
+    onEditCancel: PropTypes.func,
+    onEditDone: PropTypes.func,
+    onDelete: PropTypes.func,
+  }
+
+  static defaultProps = {
+    autoEditBox: true,
+    deletable: false,
+    value: '',
+  }
+
+  state = {
+    editing: false,
+  }
+
+  _onEdit() {
+    this.setState({
+      editing: true,
+    });
+    this.props.onEditStart && this.props.onEditStart();
+  }
+
+  _onDelete() {
+    this.props.onDelete && this.props.onDelete();
+  }
+
+  _onDoneEdit(newValue) {
+    this.setState({
+      editing: false,
+    });
+    this.props.onEditDone && this.props.onEditDone(newValue);
+  }
+
+  _onCancel() {
+    this.setState({
+      editing: false,
+    });
+    this.props.onEditCancel && this.props.onEditCancel();
+  }
 
   render() {
     return (
       <div className="editable-component">
+      {
+        !this.state.editing ?
         <div className="editable">
           <div className="editable-text">
-            {this.state.value}
+            {this.props.value}
           </div>
           <button className="editable-action" onClick={::this._onEdit}>
             <div className="editable-icon-bg" />
@@ -124,8 +141,20 @@ export default class Editable extends Component {
             </button> :
             null
           }
-        </div>
-        <div ref="editBox" />
+        </div> :
+        null
+      }
+      {
+        this.state.editing && this.props.autoEditBox ?
+        <EditableBox
+          multiline={this.props.multiline}
+          type={this.props.type}
+          onEditDone={::this._onDoneEdit}
+          onEditCancel={::this._onCancel}
+          initialValue={this.props.value}
+        /> :
+        null
+      }
       </div>
     );
   }

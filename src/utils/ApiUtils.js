@@ -358,9 +358,10 @@ class ApiUtils {
     }));
     return parseTask.save()
       .then(t => {
-        const newtask = this._baseTaskFromParse(t);
-        newtask.applications = [];
-        return newtask;
+        const newTask = this._baseTaskFromParse(t);
+        newTask.applications = [];
+        newTask.isNew = false;
+        return newTask;
       });
   }
 
@@ -436,6 +437,17 @@ class ApiUtils {
     const taskApplication = new NelpTaskApplication();
     taskApplication.id = application.objectId;
     taskApplication.set('state', NELP_TASK_APPLICATION_STATE.DENIED);
+    taskApplication.save();
+  }
+
+  /**
+   * Restore an application to pending on a task.
+   * @param  {Application} application The application to deny
+   */
+  restoreApplication(application) {
+    const taskApplication = new NelpTaskApplication();
+    taskApplication.id = application.objectId;
+    taskApplication.set('state', NELP_TASK_APPLICATION_STATE.PENDING);
     taskApplication.save();
   }
 

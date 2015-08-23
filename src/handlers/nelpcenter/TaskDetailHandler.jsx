@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import Slider from 'react-slick';
-import invariant from 'invariant';
 import connectToStores from 'alt/utils/connectToStores';
 import moment from 'moment';
 
@@ -76,6 +75,10 @@ export default class TaskDetailHandler extends Component {
     TaskActions.denyApplication(application);
   }
 
+  _onRestore(application) {
+    TaskActions.restoreApplication(application);
+  }
+
   _onViewProfile() {
 
   }
@@ -113,7 +116,7 @@ export default class TaskDetailHandler extends Component {
     const {confirmDeleteOpened} = this.state;
     if (isLoading) {
       return (
-        <div className="container pad-all center">
+        <div className="progress-center">
           <Progress />
         </div>
       );
@@ -152,7 +155,7 @@ export default class TaskDetailHandler extends Component {
             <Editable
               multiline={true}
               onEditDone={::this._onDescChanged}
-              initialValue={task.desc}
+              value={task.desc}
               />
           </div>
           <div className="other-info-container">
@@ -200,19 +203,26 @@ export default class TaskDetailHandler extends Component {
           </div>
         </div>
         <div className="container pad-all">
-          <h2>Applicants</h2>
-          <ApplicationListView
-            applications={pendingApplications}
-            onAccept={::this._onAccept}
-            onDeny={::this._onDeny}
-            onViewProfile={::this._onViewProfile}
-          />
+        {
+          pendingApplications.length || !deniedApplications.length ?
+          <div>
+            <h2>Applicants</h2>
+            <ApplicationListView
+              applications={pendingApplications}
+              onAccept={::this._onAccept}
+              onDeny={::this._onDeny}
+              onViewProfile={::this._onViewProfile}
+            />
+          </div> :
+          null
+        }
         {
           deniedApplications.length ?
           <div>
             <h2>Denied Applicants</h2>
             <ApplicationListView
               applications={deniedApplications}
+              onRestore={::this._onRestore}
               onViewProfile={::this._onViewProfile}
             />
           </div> :

@@ -1,5 +1,6 @@
 import alt from 'app/alt';
 import TaskActions from 'actions/TaskActions';
+import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 class TaskStore {
 
@@ -20,6 +21,7 @@ class TaskStore {
       handleUpdateTask: TaskActions.UPDATE_TASK,
       handleAcceptApplication: TaskActions.ACCEPT_APPLICATION,
       handleDenyApplication: TaskActions.DENY_APPLICATION,
+      handleRestoreApplication: TaskActions.RESTORE_APPLICATION,
       handleSetTaskViewed: TaskActions.SET_TASK_VIEWED,
     });
   }
@@ -72,12 +74,17 @@ class TaskStore {
   }
 
   handleAcceptApplication(application) {
-    application.state = 2;
+    application.state = NELP_TASK_APPLICATION_STATE.ACCEPTED;
     this.emitChange();
   }
 
   handleDenyApplication(application) {
-    application.state = 3;
+    application.state = NELP_TASK_APPLICATION_STATE.DENIED;
+    this.emitChange();
+  }
+
+  handleRestoreApplication(application) {
+    application.state = NELP_TASK_APPLICATION_STATE.PENDING;
     this.emitChange();
   }
 

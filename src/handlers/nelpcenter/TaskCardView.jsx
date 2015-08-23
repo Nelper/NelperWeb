@@ -12,15 +12,15 @@ export default class TaskCardView extends Component {
     onClick: PropTypes.func,
   }
 
-  _hasAcceptedApplications() {
-    return this.props.task.applications.some(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
-  }
-
   _getTaskImageStyles(t) {
     const hasImage = t.pictures && t.pictures.length > 0;
     return {
       backgroundImage: hasImage ? `url('${t.pictures[0].url}')` : null,
     };
+  }
+
+  _hasAcceptedApplications() {
+    return this.props.task.applications.some(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
   }
 
   _renderStatus() {

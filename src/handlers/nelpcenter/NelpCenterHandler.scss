@@ -1,6 +1,6 @@
 .nelp-center-handler {
 
-  $picture-size: 120px;
+  $picture-size: 100px;
 
   .profile-header {
     background-color: $color-blue-gray;
@@ -19,30 +19,12 @@
     align-items: flex-start;
     align-self: center;
     flex: 1;
+    margin-left: 0.5rem;
   }
 
   .user-name {
     font-size: 1.5em;
     margin-bottom: 0.5rem;
-  }
-
-  .picture-picker {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    margin-right: 2rem;
-
-    input {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      height: 300px;
-      padding: 0;
-      margin: 0;
-      opacity: 0;
-      font-size: 1000px;
-      cursor: pointer;
-    }
   }
 
   .my-profile {
@@ -85,6 +67,10 @@
     text-align: center;
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
+
+    &:hover {
+      color: $color-nelp-orange;
+    }
 
     &.active {
       color: $color-nelp-orange;

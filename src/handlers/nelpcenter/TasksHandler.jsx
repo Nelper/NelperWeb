@@ -35,14 +35,9 @@ export default class TasksHandler extends Component {
    * Sort tasks with isNew first
    */
   _sortTasks(t1, t2) {
-    function hasNew(t) {
-      return t.applications.some(a => a.state === 0 && a.isNew);
-    }
-
-    const [n1, n2] = [hasNew(t1), hasNew(t2)];
-    if (n1 === n2) {
+    if (t1.isNew === t2.isNew) {
       return 0;
-    } else if (n1 > n2) {
+    } else if (t1.isNew) {
       return -1;
     }
     return 1;
@@ -55,14 +50,16 @@ export default class TasksHandler extends Component {
   render() {
     const {myTasks, isLoading} = this.props;
 
-    const tasks = myTasks.map((t, i) => {
-      return (
-        <TaskCardView
-          key={t.objectId || i}
-          task={t}
-          onClick={() => this._taskDetail(t)} />
-      );
-    });
+    const tasks = myTasks
+      .sort(this._sortTasks)
+      .map((t, i) => {
+        return (
+          <TaskCardView
+            key={t.objectId || i}
+            task={t}
+            onClick={() => this._taskDetail(t)} />
+        );
+      });
 
     if (isLoading) {
       return <div className="progress-center"><Progress /></div>;

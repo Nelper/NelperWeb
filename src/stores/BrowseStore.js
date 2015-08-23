@@ -2,7 +2,7 @@ import alt from 'app/alt';
 import BrowseActions from 'actions/BrowseActions';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
-class NelpStore {
+class BrowseStore {
 
   state = {
     tasks: [],
@@ -35,4 +35,4 @@ class NelpStore {
   }
 }
 
-export default alt.createStore(NelpStore, 'NelpStore');
+export default alt.createStore(BrowseStore, 'BrowseStore');

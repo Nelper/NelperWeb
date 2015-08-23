@@ -3,7 +3,7 @@ import connectToStores from 'alt/utils/connectToStores';
 
 import BrowseActions from 'actions/BrowseActions';
 import UserActions from 'actions/UserActions';
-import NelpStore from 'stores/NelpStore';
+import BrowseStore from 'stores/BrowseStore';
 import UserStore from 'stores/UserStore';
 import BrowseTasksFilterView from './BrowseTasksFilterView';
 import NelpTaskListView from './BrowseTasksListView';
@@ -22,11 +22,11 @@ export default class BrowseTasksHandler extends Component {
   }
 
   static getStores() {
-    return [NelpStore];
+    return [BrowseStore];
   }
 
   static getPropsFromStores() {
-    return NelpStore.getState();
+    return BrowseStore.getState();
   }
 
   state = {

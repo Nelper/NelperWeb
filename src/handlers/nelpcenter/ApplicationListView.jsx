@@ -8,6 +8,7 @@ export default class ApplicationListView extends Component {
     applications: PropTypes.array.isRequired,
     onAccept: PropTypes.func,
     onDeny: PropTypes.func,
+    onRestore: PropTypes.func,
     onViewProfile: PropTypes.func,
   }
 
@@ -17,6 +18,10 @@ export default class ApplicationListView extends Component {
 
   _onDeny(application) {
     this.props.onDeny && this.props.onDeny(application);
+  }
+
+  _onRestore(application) {
+    this.props.onRestore && this.props.onRestore(application);
   }
 
   _onViewProfile(application) {
@@ -57,7 +62,9 @@ export default class ApplicationListView extends Component {
                 <div className="btn-accept" onClick={() => this._onAccept(a)} />
                 <div className="btn-deny" onClick={() => this._onDeny(a)} />
               </div> :
-              null
+              <div className="btn-group actions">
+                <div className="btn-restore" onClick={() => this._onRestore(a)} />
+              </div>
             }
           </div>
         );

@@ -1,9 +1,107 @@
 .profile-handler {
 
+  $picture-size: 120px;
   $action-icon-size: 18px;
 
+  .profile-header {
+    background-color: $color-blue-gray;
+    color: $text-light;
+  }
+
+  .profile-header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: center;
+    flex: 1;
+  }
+
+  .user-name {
+    font-size: 1.5em;
+  }
+
+  .rating {
+    margin-bottom: 0.5rem;
+  }
+
+  .tasks-completed {
+    margin-bottom: 0.5rem;
+    font-size: 0.9em;
+  }
+
+  .member-since {
+    font-size: 0.9em;
+  }
+
+  .picture-picker {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin-right: 2rem;
+
+    input {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 300px;
+      padding: 0;
+      margin: 0;
+      opacity: 0;
+      font-size: 1000px;
+      cursor: pointer;
+    }
+
+    ::-webkit-file-upload-button {
+      cursor: pointer;
+    }
+
+    &:hover {
+      .edit-picture-overlay {
+        opacity: 1;
+      }
+    }
+  }
+
+  .picture {
+    height: rem($picture-size);
+    width: rem($picture-size);
+    border-radius: 50%;
+
+    border: solid 3px $color-white;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .edit-picture-overlay {
+    @include position(absolute, 3px); // Make up for the border.
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparentize($color-black, 0.25);
+    transition: opacity 250ms linear;
+    opacity: 0;
+    border-radius: 50%;
+  }
+
+  .edit-picture-icon {
+    @include image(2.5rem);
+    background-image: url('~images/icons/camera-white.png');
+  }
+
+  .edit-picture-text {
+    font-size: 0.9em;
+  }
+
   .section-row {
-    width: 100%;
+    @include row();
     margin-bottom: 2rem;
   }
 

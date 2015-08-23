@@ -21,7 +21,7 @@ class TaskActions {
 
   addTask(task) {
     task.applications = [];
-    task.isNew = true;
+    task.isNew = false;
     task.state = NELP_TASK_STATE.PENDING;
     ApiUtils.addTask(task)
       .then((t) => {
@@ -52,6 +52,11 @@ class TaskActions {
 
   denyApplication(application) {
     ApiUtils.denyApplication(application);
+    return application;
+  }
+
+  restoreApplication(application) {
+    ApiUtils.restoreApplication(application);
     return application;
   }
 }

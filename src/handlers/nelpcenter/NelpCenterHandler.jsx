@@ -62,17 +62,6 @@ export default class NelpCenterHandler extends Component {
     this.context.router.transitionTo('/profile/settings');
   }
 
-  _uploadPicture() {
-    const files = event.target.files;
-    if (files.length > 0) {
-      const file = files[0];
-      ApiUtils.uploadFile(file.name, file)
-        .then(f => {
-          UserActions.setPicture(f);
-        });
-    }
-  }
-
   render() {
     const {user} = this.props;
 
@@ -80,12 +69,9 @@ export default class NelpCenterHandler extends Component {
       <div className="nelp-center-handler">
         <div className="profile-header">
           <div className="container header-container pad-all">
-            <div className="picture-picker">
-              <div
-                className="picture"
-                style={{backgroundImage: `url('${user.pictureURL}')`}} />
-              <input type="file" onChange={::this._uploadPicture} />
-            </div>
+            <div
+              className="picture"
+              style={{backgroundImage: `url('${user.pictureURL}')`}} />
             <div className="info-container">
               <div className="user-name">
                 {user.name}
@@ -95,11 +81,9 @@ export default class NelpCenterHandler extends Component {
                 <button className="dark-small">MY PROFILE</button>
               </Link>
             </div>
-            <div>
             <div className="btn-group">
               <button className="secondary" onClick={::this._settings}>Settings</button>
               <button className="secondary" onClick={::this._logout}>Logout</button>
-            </div>
             </div>
           </div>
         </div>
