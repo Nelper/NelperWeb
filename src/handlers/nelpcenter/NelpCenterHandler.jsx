@@ -67,27 +67,25 @@ export default class NelpCenterHandler extends Component {
 
     return (
       <div className="nelp-center-handler">
-        <div className="profile-header">
-          <div className="container header-container pad-all">
-            <div
-              className="picture"
-              style={{backgroundImage: `url('${user.pictureURL}')`}} />
-            <div className="info-container">
-              <div className="user-name">
-                {user.name}
-              </div>
-              <Link className="my-profile" to="/center/profile">
-                <div className="my-profile-icon" />
-                <button className="dark-small">MY PROFILE</button>
-              </Link>
+        <div className="profile-header container">
+          <div
+            className="picture"
+            style={{backgroundImage: `url('${user.pictureURL}')`}} />
+          <div className="info-container">
+            <div className="user-name">
+              {user.name}
             </div>
-            <div className="btn-group">
-              <button className="secondary" onClick={::this._settings}>Settings</button>
-              <button className="secondary" onClick={::this._logout}>Logout</button>
-            </div>
+            <Link className="my-profile" to="/center/profile">
+              <div className="my-profile-icon" />
+              <button className="dark-small">MY PROFILE</button>
+            </Link>
+          </div>
+          <div className="btn-group">
+            <button className="secondary" onClick={::this._settings}>Settings</button>
+            <button className="secondary" onClick={::this._logout}>Logout</button>
           </div>
         </div>
-        <div className="tab-bar">
+        <div className="tab-bar container">
           <div className="tabs">
             <Link className="tab" to="/center/tasks">
               My Tasks

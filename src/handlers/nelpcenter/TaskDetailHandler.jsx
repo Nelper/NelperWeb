@@ -135,7 +135,7 @@ export default class TaskDetailHandler extends Component {
       .filter(a => a.state === NELP_TASK_APPLICATION_STATE.DENIED);
 
     return (
-      <div className="find-nelp-detail-handler">
+      <div className="find-nelp-detail-handler container">
         <Dialog opened={confirmDeleteOpened}>
           <h1>Warning!</h1>
           <p className="dialog-text">Are your sure you want to delete the task '{task.title}'?</p>
@@ -148,8 +148,8 @@ export default class TaskDetailHandler extends Component {
             </button>
           </div>
         </Dialog>
-        <div className="detail-container container pad-all">
-          <button className="back" onClick={::this._back}>Back</button>
+        <button className="back" onClick={::this._back}>Back</button>
+        <div className="detail-container panel pad-all">
           <h2>{task.title}</h2>
           <div className="detail-row description">
             <Editable
@@ -202,10 +202,9 @@ export default class TaskDetailHandler extends Component {
             <button className="warning" onClick={::this._delete}>Delete</button>
           </div>
         </div>
-        <div className="container pad-all">
         {
           pendingApplications.length || !deniedApplications.length ?
-          <div>
+          <div className="panel pad-all">
             <h2>Applicants</h2>
             <ApplicationListView
               applications={pendingApplications}
@@ -218,7 +217,7 @@ export default class TaskDetailHandler extends Component {
         }
         {
           deniedApplications.length ?
-          <div>
+          <div className="panel pad-all">
             <h2>Denied Applicants</h2>
             <ApplicationListView
               applications={deniedApplications}
@@ -228,7 +227,6 @@ export default class TaskDetailHandler extends Component {
           </div> :
           null
         }
-        </div>
       </div>
     );
   }

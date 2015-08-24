@@ -19,20 +19,20 @@ $base-z-index: 0;
 $color-nelp-green: #80bf62;
 $color-nelp-blue: #858ba0;
 $color-nelp-orange-light: #d98b30;
-$color-nelp-orange: #F32A18;
-$color-blue-gray: #545866;
-$color-red: #E84C49;
+$color-nelp-orange: #f32a18;
+$color-blue-gray: #1e87d1;
+$color-red: #e84c49;
 
 $color-nelp-red-1: #d95330;
 $color-nelp-red-2: #de1f1f;
 
 $color-gray-darker: #212121;
 $color-gray-dark: #676767;
-$color-gray-medium: #9E9E9E;
+$color-gray-medium: #979797;
 $color-gray-light: #eaeaea;
 
 $color-white: #f7f7f7;
-$color-white-light: #FFF8EB;
+$color-white-light: #fff8eb;
 $color-black: #2c2c2c;
 
 // Font Colors
@@ -46,7 +46,7 @@ $text-dark: $color-black;
 
 // Border
 $base-border-color: $color-gray-medium;
-$base-border: 2px solid $base-border-color;
+$base-border: 1px solid $base-border-color;
 
 // Forms
 $form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);

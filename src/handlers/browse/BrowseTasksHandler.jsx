@@ -132,8 +132,8 @@ export default class BrowseTasksHandler extends Component {
 
     return (
       <div id="nelp-handler">
-        <div className="header-section">
-          <div className="container map">
+        <div className="container header-section">
+          <div className="map">
             <MapView
               markers={markers}
               initialCenter={center}
@@ -141,8 +141,8 @@ export default class BrowseTasksHandler extends Component {
           </div>
         </div>
         <div className="task-section" ref="taskScroll">
-          <div className="filters">
-            <div className="container pad-hor">
+          <div className="filters container pad-all">
+            <div>
               <BrowseTasksFilterView onFiltersChanged={::this._onFiltersChanged} />
             </div>
           </div>

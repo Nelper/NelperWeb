@@ -3,14 +3,14 @@
   $picture-size: 100px;
 
   .profile-header {
-    background-color: $color-blue-gray;
-    color: $text-light;
-  }
-
-  .header-container {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    padding: 1rem;
+    background-color: $color-blue-gray;
+    color: $text-light;
+    border-left: $base-border;
+    border-right: $base-border;
   }
 
   .info-container {
@@ -49,7 +49,10 @@
 
   .tab-bar {
     background-color: $color-white;
-    border-bottom: solid 1px $color-gray-medium;
+    border-bottom: $base-border;
+    border-left: $base-border;
+    border-right: $base-border;
+    border-radius: 0 0 3px 3px;
     color: $color-black;
   }
 

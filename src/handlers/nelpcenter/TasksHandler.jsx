@@ -67,7 +67,7 @@ export default class TasksHandler extends Component {
 
     return (
       <div className="tasks-handler">
-        <div className="container pad-all">
+        <div className="container pad-vert">
           {
             !tasks.length ?
             <div className="no-task">

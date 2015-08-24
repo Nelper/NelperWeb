@@ -1,5 +1,5 @@
 body {
-  @include font-feature-settings("kern", "liga", "pnum");
+  @include font-feature-settings('kern', 'liga', 'pnum');
   -webkit-font-smoothing: antialiased;
   color: $base-font-color;
   font-family: $base-font-family;
@@ -29,7 +29,7 @@ p {
 }
 
 a {
-  color: $action-color;
+  color: $text-dark;
   text-decoration: none;
   transition: color 0.1s linear;
 
@@ -47,9 +47,9 @@ a {
 
 hr {
   border-bottom: $base-border;
-  border-left: none;
-  border-right: none;
-  border-top: none;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
   margin: $base-spacing 0;
 }
 

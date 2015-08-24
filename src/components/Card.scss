@@ -11,7 +11,8 @@
   cursor: pointer;
 
   background-color: $content-bg-color;
-  box-shadow: 0 1px 4px 0 transparentize($color-black, 0.63);
+  //box-shadow: 0 1px 4px 0 transparentize($color-black, 0.63);
+  border: $base-border;
   border-radius: 3px;
 
   .card-hover {

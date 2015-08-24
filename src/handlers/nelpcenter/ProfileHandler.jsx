@@ -141,34 +141,32 @@ export default class ProfileHandler extends Component {
     });
 
     return (
-      <div className="profile-handler">
+      <div className="profile-handler container">
         <div className="profile-header">
-          <div className="container profile-header-container pad-all">
-            <div className="picture-picker">
-              <div
-                className="picture"
-                style={{backgroundImage: `url('${user.pictureURL}')`}} />
-              <div className="edit-picture-overlay">
-                <div className="edit-picture-icon" />
-                <div className="edit-picture-text">Edit picture</div>
-              </div>
-              <input type="file" onChange={::this._onUploadPicture} />
+          <div className="picture-picker">
+            <div
+              className="picture"
+              style={{backgroundImage: `url('${user.pictureURL}')`}} />
+            <div className="edit-picture-overlay">
+              <div className="edit-picture-icon" />
+              <div className="edit-picture-text">Edit picture</div>
             </div>
-            <div className="info-container">
-              <div className="user-name">
-                {user.name}
-              </div>
-              <Rating rating={4} />
-              <div className="tasks-completed">8 tasks completed</div>
-              <div className="member-since">
-                Member since {moment(user.createdAt).format('MMMM Do YYYY')}
-              </div>
+            <input type="file" onChange={::this._onUploadPicture} />
+          </div>
+          <div className="info-container">
+            <div className="user-name">
+              {user.name}
+            </div>
+            <Rating rating={4} />
+            <div className="tasks-completed">8 tasks completed</div>
+            <div className="member-since">
+              Member since {moment(user.createdAt).format('MMMM Do YYYY')}
             </div>
           </div>
         </div>
-        <div className="container pad-all">
+        <div className="container">
           <button className="back" onClick={::this._onBack}>Back</button>
-          <div className="section-row">
+          <div className="panel section-row">
             <div className="section-title">
               About
             </div>
@@ -181,7 +179,7 @@ export default class ProfileHandler extends Component {
               />
             </div>
           </div>
-          <div className="section-row">
+          <div className="panel section-row">
             <div className="section-title">
               Skills
             </div>
@@ -199,7 +197,7 @@ export default class ProfileHandler extends Component {
               }
             </div>
           </div>
-          <div className="section-row">
+          <div className="panel section-row">
             <div className="section-title">
               Experience
             </div>
