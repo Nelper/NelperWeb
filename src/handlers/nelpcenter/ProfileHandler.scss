@@ -10,8 +10,6 @@
     padding: 1rem;
     background-color: $color-blue-gray;
     color: $text-light;
-    border: 1px solid $color-gray-medium;
-    border-radius: 3px;
   }
 
   .info-container {
@@ -102,7 +100,6 @@
 
   .section-row {
     @include row();
-    margin-bottom: 2rem;
   }
 
   .section-title {
@@ -124,67 +121,6 @@
     @include media($large-screen) {
       @include span-columns(7);
     }
-  }
-
-  .editable {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 3px;
-
-    &:hover {
-      background-color: $color-white;
-
-      .editable-action {
-        opacity: 1;
-      }
-    }
-  }
-
-  .editable-title {
-    flex: 1;
-  }
-
-  .editable-action {
-    position: relative;
-    padding: 0.5rem;
-    background-color: transparent;
-    border: 0;
-    width: 40px;
-    height: 40px;
-
-    @include media($medium-screen) {
-      opacity: 0;
-    }
-
-    &:hover {
-      .editable-icon {
-        fill: $color-white;
-      }
-
-      .editable-icon-bg {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-  }
-
-  .editable-icon {
-    @include position(absolute, 0.5rem);
-    @include transition(fill 300ms ease-in-out);
-    width: rem(24px);
-    height: rem(24px);
-    fill: $color-gray-medium;
-  }
-
-  .editable-icon-bg {
-    @include position(absolute, 0);
-    @include transition(transform 300ms cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 300ms cubic-bezier(0.68, -0.55, 0.27, 1.55));
-    transform: scale(0);
-    opacity: 0;
-    background-color: $color-nelp-orange;
-    border-radius: 50%;
   }
 
   .skills {

@@ -9,8 +9,6 @@
     padding: 1rem;
     background-color: $color-blue-gray;
     color: $text-light;
-    border-left: $base-border;
-    border-right: $base-border;
   }
 
   .info-container {
@@ -48,11 +46,6 @@
   }
 
   .tab-bar {
-    background-color: $color-white;
-    border-bottom: $base-border;
-    border-left: $base-border;
-    border-right: $base-border;
-    border-radius: 0 0 3px 3px;
     color: $color-black;
   }
 

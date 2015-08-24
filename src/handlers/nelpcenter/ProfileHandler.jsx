@@ -142,7 +142,7 @@ export default class ProfileHandler extends Component {
 
     return (
       <div className="profile-handler container">
-        <div className="profile-header">
+        <div className="profile-header header-panel">
           <div className="picture-picker">
             <div
               className="picture"
@@ -165,8 +165,7 @@ export default class ProfileHandler extends Component {
           </div>
         </div>
         <div className="container">
-          <button className="back" onClick={::this._onBack}>Back</button>
-          <div className="panel section-row">
+          <div className="panel pad-all section-row">
             <div className="section-title">
               About
             </div>
@@ -179,7 +178,7 @@ export default class ProfileHandler extends Component {
               />
             </div>
           </div>
-          <div className="panel section-row">
+          <div className="panel pad-all section-row">
             <div className="section-title">
               Skills
             </div>
@@ -197,7 +196,7 @@ export default class ProfileHandler extends Component {
               }
             </div>
           </div>
-          <div className="panel section-row">
+          <div className="panel pad-all section-row">
             <div className="section-title">
               Experience
             </div>

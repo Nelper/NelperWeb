@@ -4,6 +4,7 @@ import connectToStores from 'alt/utils/connectToStores';
 import moment from 'moment';
 
 import ApplicationListView from './ApplicationListView';
+import AcceptedApplicationView from './AcceptedApplicationView';
 import Progress from 'components/Progress';
 import Dialog from 'components/Dialog';
 import Editable from 'components/Editable';
@@ -83,21 +84,22 @@ export default class TaskDetailHandler extends Component {
 
   }
 
-  _cancelDelete() {
+  _onCancelDelete() {
     this.setState({confirmDeleteOpened: false});
   }
 
-  _confirmDelete() {
+  _onConfirmDelete() {
     TaskActions.deleteTask(this.props.task);
     this.context.router.goBack();
   }
 
-  _delete() {
+  _onDelete() {
     this.setState({confirmDeleteOpened: true});
   }
 
-  _back() {
-    this.context.router.goBack();
+  _getAcceptedApplication() {
+    return this.props.task.applications
+      .find(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
   }
 
   _markTaskViewed() {
@@ -134,21 +136,61 @@ export default class TaskDetailHandler extends Component {
     const deniedApplications = task.applications
       .filter(a => a.state === NELP_TASK_APPLICATION_STATE.DENIED);
 
+
+    const acceptedApplication = this._getAcceptedApplication();
+    let applicationsSection;
+    if (acceptedApplication) {
+      applicationsSection = (
+        <div className="panel pad-all">
+          <AcceptedApplicationView application={acceptedApplication} />
+        </div>
+      );
+    } else {
+      applicationsSection = (
+        <div>
+        {
+          pendingApplications.length || !deniedApplications.length ?
+          <div className="panel pad-all">
+            <h2>Applicants</h2>
+            <ApplicationListView
+              applications={pendingApplications}
+              onAccept={::this._onAccept}
+              onDeny={::this._onDeny}
+              onViewProfile={::this._onViewProfile}
+            />
+          </div> :
+          null
+        }
+        {
+          deniedApplications.length ?
+          <div className="panel pad-all">
+            <h2>Denied Applicants</h2>
+            <ApplicationListView
+              applications={deniedApplications}
+              onRestore={::this._onRestore}
+              onViewProfile={::this._onViewProfile}
+            />
+          </div> :
+          null
+        }
+        </div>
+      );
+    }
+
     return (
       <div className="find-nelp-detail-handler container">
         <Dialog opened={confirmDeleteOpened}>
           <h1>Warning!</h1>
           <p className="dialog-text">Are your sure you want to delete the task '{task.title}'?</p>
           <div className="btn-group dialog-buttons">
-            <button onClick={::this._cancelDelete}>
+            <button onClick={::this._onCancelDelete}>
               Cancel
             </button>
-            <button onClick={::this._confirmDelete} className="primary">
+            <button onClick={::this._onConfirmDelete} className="primary">
               Delete
             </button>
           </div>
         </Dialog>
-        <button className="back" onClick={::this._back}>Back</button>
         <div className="detail-container panel pad-all">
           <h2>{task.title}</h2>
           <div className="detail-row description">
@@ -199,34 +241,10 @@ export default class TaskDetailHandler extends Component {
             </div>
           </div>
           <div className="btn-group">
-            <button className="warning" onClick={::this._delete}>Delete</button>
+            <button className="warning" onClick={::this._onDelete}>Delete</button>
           </div>
         </div>
-        {
-          pendingApplications.length || !deniedApplications.length ?
-          <div className="panel pad-all">
-            <h2>Applicants</h2>
-            <ApplicationListView
-              applications={pendingApplications}
-              onAccept={::this._onAccept}
-              onDeny={::this._onDeny}
-              onViewProfile={::this._onViewProfile}
-            />
-          </div> :
-          null
-        }
-        {
-          deniedApplications.length ?
-          <div className="panel pad-all">
-            <h2>Denied Applicants</h2>
-            <ApplicationListView
-              applications={deniedApplications}
-              onRestore={::this._onRestore}
-              onViewProfile={::this._onViewProfile}
-            />
-          </div> :
-          null
-        }
+        {applicationsSection}
       </div>
     );
   }

@@ -7,11 +7,16 @@
   $list-items-padding: 1rem;
 
   width: 100%;
+  padding: 0 1rem;
 
   .task {
     width: 100%;
-    border-bottom: 1px solid $color-gray-medium;
+
     padding: $list-items-padding 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-gray-medium;
+    }
 
     .header {
       display: flex;

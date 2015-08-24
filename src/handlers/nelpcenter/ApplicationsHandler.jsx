@@ -44,7 +44,7 @@ export default class ApplicationsHandler extends Component {
 
     return (
       <div className="applications-handler">
-        <div className="container pad-vert">
+        <div className="container pad-hor-sm">
         {
           !applications.length ?
           <div className="no-application">

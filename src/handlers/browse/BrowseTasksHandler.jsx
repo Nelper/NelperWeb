@@ -131,7 +131,7 @@ export default class BrowseTasksHandler extends Component {
       new LatLng(0, 0);
 
     return (
-      <div id="nelp-handler">
+      <div className="nelp-handler">
         <div className="container header-section">
           <div className="map">
             <MapView
@@ -146,7 +146,7 @@ export default class BrowseTasksHandler extends Component {
               <BrowseTasksFilterView onFiltersChanged={::this._onFiltersChanged} />
             </div>
           </div>
-          <div className="container pad-hor">
+          <div className="container panel">
             <NelpTaskListView
               tasks={filteredTasks}
               onTaskSelected={::this._onTaskSelected}

@@ -67,11 +67,33 @@ body {
 
 .panel {
   background-color: $color-white;
-  border-radius: 3px;
   border: $base-border;
   margin-bottom: 1rem;
 
-  &.pad-all {
-    padding: 1rem;
+  @include media($max-width-screen) {
+    border-left: 0;
+    border-right: 0;
+  }
+}
+
+.pad-all {
+  padding: 1rem;
+}
+
+.pad-hor-sm {
+  @include media($max-width-screen) {
+    padding: 0 0.5rem;
+  }
+}
+
+.header-panel {
+  background-color: $color-white;
+  border: $base-border;
+  border-top: 0;
+  margin-bottom: 1rem;
+
+  @include media($max-width-screen) {
+    border-left: 0;
+    border-right: 0;
   }
 }
