@@ -213,7 +213,7 @@ class ApiUtils {
    * @param {GeoPoint} location The user location for the distance sort filter
    * @return {Promise} The list of tasks
    */
-  listNelpTasks({categories, sort} = {}, location) {
+  listNelpTasks({categories, sort = 'date', skip = 0, limit = 5}, location) {
     const taskQuery = new Parse.Query(NelpTask);
 
     // Filter by category. Dont add the filter if all categories are selected.
@@ -239,7 +239,8 @@ class ApiUtils {
       .include('user')
       // .notEqualTo('user', Parse.User.current())
       .equalTo('state', NELP_TASK_STATE.PENDING)
-      .limit(20)
+      .skip(skip)
+      .limit(limit)
       .find()
       .then((tasks) => {
         if (Parse.User.current()) {

@@ -6,6 +6,7 @@ class BrowseStore {
 
   state = {
     tasks: [],
+    filter: {},
   }
 
   constructor() {
@@ -16,10 +17,32 @@ class BrowseStore {
     });
   }
 
-  handleReceivedTasks(tasks) {
-    this.setState({
-      tasks: tasks,
-    });
+  handleReceivedTasks({tasks, filter}) {
+    // If the filter changed discard old tasks.
+    if (filter.sort !== this.state.filter.sort ||
+        filter.categories !== this.state.filter.categories) {
+      this.setState({
+        tasks,
+        filter,
+      });
+    } else {
+      // Merge new tasks with the old ones.
+      // TODO: Should probably use a Map to optimise this.
+      const newTasks = [...this.state.tasks];
+      const curTasks = this.state.tasks;
+      for (const task of tasks) {
+        const index = curTasks.findIndex(t => t.objectId === task.objectId);
+        if (index < 0) {
+          newTasks.push(task);
+        } else {
+          newTasks[index] = task;
+        }
+      }
+      this.setState({
+        tasks: newTasks,
+        filter,
+      });
+    }
   }
 
   handleApply(task) {

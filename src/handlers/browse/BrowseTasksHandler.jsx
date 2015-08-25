@@ -30,14 +30,16 @@ export default class BrowseTasksHandler extends Component {
   }
 
   state = {
+    filters: UserStore.state.user.location ? {sort: 'distance'} : {sort: 'date'},
     taskFilter: null,
+    isLoadingMore: false,
   }
 
   componentDidMount() {
     if (UserStore.state.user.location) {
-      BrowseActions.refreshTasks({sort: 'distance'}, UserStore.state.user.location);
+      BrowseActions.refreshTasks(this.state.filters, UserStore.state.user.location);
     } else {
-      BrowseActions.refreshTasks({sort: 'date'});
+      BrowseActions.refreshTasks(this.state.filters);
 
       // TODO(janic): this logic should be elsewhere.
       navigator.geolocation.getCurrentPosition((pos) => {
@@ -54,6 +56,12 @@ export default class BrowseTasksHandler extends Component {
     }
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.tasks.length !== this.props.tasks.length) {
+      this.setState({isLoadingMore: false});
+    }
+  }
+
   _onMarkerClick(event, filterKey) {
     this.setState({
       taskFilter: filterKey,
@@ -62,6 +70,7 @@ export default class BrowseTasksHandler extends Component {
   }
 
   _onFiltersChanged(filters) {
+    this.setState({filters});
     BrowseActions.refreshTasks(filters, UserStore.state.user.location);
   }
 
@@ -85,6 +94,14 @@ export default class BrowseTasksHandler extends Component {
 
   _onCancelApply(task) {
     BrowseActions.cancelApplyForTask(task);
+  }
+
+  _onLoadMore() {
+    BrowseActions.refreshTasks(
+      Object.assign({skip: this.props.tasks.length - 1, limit: 6}, this.state.filters),
+      UserStore.state.user.location,
+    );
+    this.setState({isLoadingMore: true});
   }
 
   _closeDetail() {
@@ -151,7 +168,10 @@ export default class BrowseTasksHandler extends Component {
               tasks={filteredTasks}
               onTaskSelected={::this._onTaskSelected}
               onApply={::this._onApply}
-              onCancelApply={::this._onCancelApply} />
+              onCancelApply={::this._onCancelApply}
+              onLoadMore={::this._onLoadMore}
+              isLoading={this.state.isLoadingMore}
+            />
           </div>
         </div>
       </div>

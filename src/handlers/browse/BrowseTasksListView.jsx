@@ -15,10 +15,44 @@ export default class BrowseTasksListView extends Component {
     onTaskSelected: PropTypes.func,
     onApply: PropTypes.func,
     onCancelApply: PropTypes.func,
+    onLoadMore: PropTypes.func,
+    isLoading: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    onTaskSelected: () => {},
+    onApply: () => {},
+    onCancelApply: () => {},
+    onLoadMore: () => {},
+    isLoading: false,
   }
 
   state = {
     selectedTask: null,
+  }
+
+  componentDidMount() {
+    document.addEventListener('scroll', this._onScroll);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this._onScroll);
+  }
+
+  _onScroll = () => {
+    if (this.props.isLoading) {
+      return;
+    }
+
+    const lastEle = this.refs.displayedTasks.getDOMNode().lastChild;
+    if (this._shouldLoadMore(lastEle, 200)) {
+      this.props.onLoadMore();
+    }
+  }
+
+  _shouldLoadMore(ele, offset = 0) {
+    const rect = ele.getBoundingClientRect();
+    return rect.bottom <= window.innerHeight + offset;
   }
 
   _taskDetail(task) {
@@ -30,21 +64,15 @@ export default class BrowseTasksListView extends Component {
       this.setState({selectedTask: task});
     }
 
-    if (this.props.onTaskSelected) {
-      this.props.onTaskSelected.call(null, task);
-    }
+    this.props.onTaskSelected(task);
   }
 
   _apply(task) {
-    if (this.props.onApply) {
-      this.props.onApply.call(null, task);
-    }
+    this.props.onApply(task);
   }
 
   _cancelApplication(task) {
-    if (this.props.onCancelApply) {
-      this.props.onCancelApply.call(null, task);
-    }
+    this.props.onCancelApply(task);
   }
 
   render() {
@@ -142,7 +170,7 @@ export default class BrowseTasksListView extends Component {
     });
 
     return (
-      <div className="nelp-task-list-view">
+      <div className="nelp-task-list-view" ref="displayedTasks">
         {displayedTasks}
       </div>
     );

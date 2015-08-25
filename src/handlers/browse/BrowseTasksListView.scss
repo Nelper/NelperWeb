@@ -96,11 +96,15 @@
       }
 
       .price {
-        @include flex-basis(rem(80px));
+        flex-basis: rem(90px);
+        background-image: url('~images/icons/money.png');
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding-top: rem(18px);
+        padding-bottom: rem(26px);
         text-align: center;
-        padding: 0.3rem 0;
         border-radius: 3px;
-        background-color: $color-price-green;
         color: $color-white;
         font-size: 1.1em;
       }

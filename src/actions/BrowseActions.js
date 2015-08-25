@@ -10,7 +10,7 @@ class BrowseActions {
   refreshTasks(filter, location) {
     ApiUtils.listNelpTasks(filter, location)
       .then((tasks) => {
-        this.actions.receivedTasks(tasks);
+        this.actions.receivedTasks({tasks, filter});
       }).fail(err => {
         console.log(err);
       });
