@@ -1,12 +1,34 @@
+/**
+ * The task states enum.
+ * @readonly
+ * @enum {number}
+ */
 export const NELP_TASK_STATE = {
+  /** The task has been created and is waiting for the poster to accept an applicant */
   PENDING: 0,
+  /** The task has an accepted applicant and is waiting to be completed. */
   ACCEPTED: 1,
+  /** The task has been deleted by the poster */
   DELETED: 2,
+  /** The task has been completed */
+  COMPLETED: 3,
 };
 
+ /**
+  * The application states enum.
+  * @readonly
+  * @enum {number}
+  */
 export const NELP_TASK_APPLICATION_STATE = {
+  /**
+   * The application has been created and is waiting for a
+   * response from the task poster
+   */
   PENDING: 0,
+  /** The applicant canceled his application */
   CANCELED: 1,
+  /** The application has been accepted by the task poster */
   ACCEPTED: 2,
+  /** The application has been denied by the task poster */
   DENIED: 3,
 };

@@ -225,6 +225,7 @@ class ApiUtils {
     case 'distance':
       const point = new Parse.GeoPoint(location);
       taskQuery.near('location', point);
+      taskQuery.ascending('location');
       break;
     case 'price':
       taskQuery.ascending('priceOffered');
@@ -357,6 +358,9 @@ class ApiUtils {
         url: p.url,
       };
     }));
+
+    parseTask.setACL(new Parse.ACL(Parse.User.current()));
+
     return parseTask.save()
       .then(t => {
         const newTask = this._baseTaskFromParse(t);

@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import classNames from 'classnames';
 
 import BrowseActions from 'actions/BrowseActions';
 import UserActions from 'actions/UserActions';
@@ -30,7 +31,8 @@ export default class BrowseTasksHandler extends Component {
   }
 
   state = {
-    filters: UserStore.state.user.location ? {sort: 'distance'} : {sort: 'date'},
+    filters: {category: null, price: null, range: null},
+    sort: UserStore.state.user.location ? {sort: 'distance'} : {sort: 'date'},
     taskFilter: null,
     isLoadingMore: false,
   }
@@ -71,7 +73,18 @@ export default class BrowseTasksHandler extends Component {
 
   _onFiltersChanged(filters) {
     this.setState({filters});
-    BrowseActions.refreshTasks(filters, UserStore.state.user.location);
+    BrowseActions.refreshTasks(
+      Object.assign({}, this.state.sort, filters),
+      UserStore.state.user.location,
+    );
+  }
+
+  _onSort(sort) {
+    this.setState({sort: {sort}}); // TODO: no sort.sort plz. -_-
+    BrowseActions.refreshTasks(
+      Object.assign({}, {sort}, this.state.filters),
+      UserStore.state.user.location,
+    );
   }
 
   _onTaskSelected(task) {
@@ -98,7 +111,7 @@ export default class BrowseTasksHandler extends Component {
 
   _onLoadMore() {
     BrowseActions.refreshTasks(
-      Object.assign({skip: this.props.tasks.length - 1, limit: 6}, this.state.filters),
+      Object.assign({skip: this.props.tasks.length - 1, limit: 6}, this.state.sort, this.state.filters),
       UserStore.state.user.location,
     );
     this.setState({isLoadingMore: true});
@@ -111,7 +124,7 @@ export default class BrowseTasksHandler extends Component {
   }
 
   render() {
-    const {taskFilter} = this.state;
+    const {taskFilter, sort} = this.state;
 
     const taskGroups = this.props.tasks
       .filter(t => t.location)
@@ -158,12 +171,32 @@ export default class BrowseTasksHandler extends Component {
           </div>
         </div>
         <div className="task-section" ref="taskScroll">
-          <div className="filters container pad-all">
-            <div>
-              <BrowseTasksFilterView onFiltersChanged={::this._onFiltersChanged} />
-            </div>
+          <div className="filters container">
+            <BrowseTasksFilterView onFiltersChanged={::this._onFiltersChanged} />
           </div>
           <div className="container panel">
+            <div className="sort-view">
+              <div className="toggle-group sort-view-toggle-group">
+                <button
+                  className={classNames('toggle', {'on': sort.sort === 'price'})}
+                  onClick={() => this._onSort('price')}
+                >
+                  Price
+                </button>
+                <button
+                  className={classNames('toggle', {'on': sort.sort === 'distance'})}
+                  onClick={() => this._onSort('distance')}
+                >
+                  Distance
+                </button>
+                <button
+                  className={classNames('toggle', {'on': sort.sort === 'date'})}
+                  onClick={() => this._onSort('date')}
+                >
+                  Creation date
+                </button>
+              </div>
+            </div>
             <NelpTaskListView
               tasks={filteredTasks}
               onTaskSelected={::this._onTaskSelected}

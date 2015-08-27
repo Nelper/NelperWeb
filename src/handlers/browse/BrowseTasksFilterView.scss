@@ -1,13 +1,5 @@
 .browse-tasks-filter-view {
 
-}
-
-.browse-tasks-filter-view-dialog {
-
-  h2 {
-    text-align: center;
-  }
-
   .category-filters {
     display: flex;
     flex-wrap: wrap;
@@ -29,5 +21,16 @@
     &:hover {
       transform: scale(1.1);
     }
+  }
+
+  .category-all {
+    background-image: url('~images/categories/all.png');
+  }
+}
+
+.browse-tasks-filter-view-dialog {
+
+  h2 {
+    text-align: center;
   }
 }

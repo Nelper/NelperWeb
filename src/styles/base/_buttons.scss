@@ -114,6 +114,25 @@ button {
       background-color: $color-white;
     }
   }
+
+  &.toggle {
+    padding: 0.5rem 1rem;
+    color: $color-blue-gray;
+    background-color: transparent;
+    border: 1px solid $color-blue-gray;
+    border-radius: 0;
+    font-weight: normal;
+
+    &:hover {
+      color: $color-white;
+      background-color: $color-blue-gray;
+    }
+
+    &.on {
+      color: $color-white;
+      background-color: $color-blue-gray;
+    }
+  }
 }
 
 .btn-group {
@@ -128,5 +147,11 @@ button {
     &:last-child {
       margin-right: 0;
     }
+  }
+}
+
+.toggle-group {
+  button:not(:last-child) {
+    border-right: 0;
   }
 }

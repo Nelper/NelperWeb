@@ -181,7 +181,7 @@
       }
 
       .task-picture {
-        height: 250px;
+        height: rem(200px);
         @include image-fill();
 
         img {

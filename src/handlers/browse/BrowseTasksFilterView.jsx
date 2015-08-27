@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 
-import Dialog from 'components/Dialog';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
 export default class BrowseTasksFilterView extends Component {
@@ -13,60 +12,42 @@ export default class BrowseTasksFilterView extends Component {
   constructor(props) {
     super(props);
 
-    const selectedCategories = TaskCategoryUtils.list().reduce((prev, cur) => {
-      prev[cur] = true;
-      return prev;
-    }, {});
-
     this.state = {
-      selectedCategories,
-      sortBy: 'date',
-      isDirty: false,
-      filtersDialogOpened: false,
+      allCategories: true,
+      selectedCategories: [],
     };
   }
 
-  _onOpenFiltersDialog() {
-    this.setState({
-      filtersDialogOpened: true,
-      isDirty: false,
-    });
-  }
-
-  _onDialogClose() {
-    if (this.state.isDirty) {
-      const selectedCategories = Object.keys(this.state.selectedCategories)
-        .filter(c => this.state.selectedCategories[c]);
-      this.props.onFiltersChanged && this.props.onFiltersChanged({
-        categories: selectedCategories,
-        sort: this.state.sortBy,
-      });
-    }
-
-    this.setState({
-      filtersDialogOpened: false,
-      isDirty: false,
-    });
-  }
-
   _onSelectCategory(category) {
-    const selectedCategories = this.state.selectedCategories;
-    selectedCategories[category] = !selectedCategories[category];
+    const curSelectedCategories = this.state.selectedCategories;
+    curSelectedCategories[category] = !curSelectedCategories[category];
+
+    const selectedCategories = Object.keys(curSelectedCategories)
+      .filter(c => this.state.selectedCategories[c]);
+
+    this.props.onFiltersChanged && this.props.onFiltersChanged({
+      categories: selectedCategories,
+    });
+
     this.setState({
-      selectedCategories,
-      isDirty: true,
+      allCategories: false,
+      selectedCategories: curSelectedCategories,
     });
   }
 
-  _onSelectSort(sort) {
+  _onSelectAllCategories() {
+    this.props.onFiltersChanged && this.props.onFiltersChanged({
+      categories: null,
+    });
+
     this.setState({
-      sortBy: sort,
-      isDirty: true,
+      allCategories: true,
+      selectedCategories: [],
     });
   }
 
   render() {
-    const {filtersDialogOpened, selectedCategories} = this.state;
+    const {selectedCategories} = this.state;
 
     const categoryFilters = TaskCategoryUtils.list().map(c => {
       const isSelected = selectedCategories[c];
@@ -84,24 +65,13 @@ export default class BrowseTasksFilterView extends Component {
 
     return (
       <div className="browse-tasks-filter-view">
-        <Dialog
-          opened={filtersDialogOpened}
-          onClose={::this._onDialogClose}
-        >
-          <div className="browse-tasks-filter-view-dialog">
-            <h2>Category filter</h2>
-            <div className="category-filters">
-              {categoryFilters}
-            </div>
-            <h2>Sort by</h2>
-            <div className="sort-filters">
-              <button onClick={() => this._onSelectSort('date')}>Creation Date</button>
-              <button onClick={() => this._onSelectSort('distance')}>Distance</button>
-              <button onClick={() => this._onSelectSort('price')}>Price</button>
-            </div>
-          </div>
-        </Dialog>
-        <button onClick={::this._onOpenFiltersDialog}>View filters</button>
+        <div className="category-filters">
+          <div key="all"
+            className={classNames('category-icon', 'category-all', {'is-selected': this.state.allCategories})}
+            onClick={::this._onSelectAllCategories}
+          />
+          {categoryFilters}
+        </div>
       </div>
     );
   }
