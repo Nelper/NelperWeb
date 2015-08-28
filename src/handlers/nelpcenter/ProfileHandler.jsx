@@ -4,7 +4,6 @@ import moment from 'moment';
 
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
-import Icon from 'components/Icon';
 import Editable, {EditableBox} from 'components/Editable';
 import Rating from 'components/Rating';
 

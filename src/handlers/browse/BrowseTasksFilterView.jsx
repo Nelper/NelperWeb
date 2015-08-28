@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 
+import NumericInput from 'components/NumericInput';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
 export default class BrowseTasksFilterView extends Component {
@@ -15,6 +16,10 @@ export default class BrowseTasksFilterView extends Component {
     this.state = {
       allCategories: true,
       selectedCategories: [],
+      minPriceActive: true,
+      minPrice: 0,
+      maxDistanceActive: true,
+      maxDistance: 0,
     };
   }
 
@@ -46,6 +51,10 @@ export default class BrowseTasksFilterView extends Component {
     });
   }
 
+  _onMinPriceChanged(minPrice) {
+    this.setState({minPrice});
+  }
+
   render() {
     const {selectedCategories} = this.state;
 
@@ -71,6 +80,9 @@ export default class BrowseTasksFilterView extends Component {
             onClick={::this._onSelectAllCategories}
           />
           {categoryFilters}
+        </div>
+        <div className="other-filters">
+          <NumericInput value={this.state.minPrice} onChange={::this._onMinPriceChanged} />
         </div>
       </div>
     );
