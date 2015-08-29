@@ -5,9 +5,10 @@
   "main": "webpack.config.js",
   "scripts": {
     "deploy": "npm run build && npm run start-server",
-    "start-server": "iojs ./src/app/server.js",
-    "build": "webpack --config webpack.config.js",
-    "watch": "webpack-dev-server --progress --colors --hot --inline --history-api-fallback --config webpack-dev.config.js",
+    "start-server": "node ./build/server/server.js",
+    "build": "webpack --config webpack/webpack.config.js",
+    "watch": "webpack-dev-server --progress --colors --hot --inline --history-api-fallback --config webpack/webpack-dev.config.js",
+    "watch-server": "webpack --watch --config webpack/webpack.config.js",
     "clean": "rm -rf ./build",
     "test": "jest",
     "lint": "eslint ./src"
@@ -43,6 +44,7 @@
     "node-neat": "^1.7.2",
     "node-sass": "^3.3.1",
     "normalize.css": "^3.0.3",
+    "null-loader": "^0.1.1",
     "parse": "^1.5.0",
     "postcss-loader": "^0.6.0",
     "radium": "^0.13.8",

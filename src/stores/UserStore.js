@@ -37,7 +37,7 @@ class UserStore {
 
   handleSetLoc(loc) {
     const user = this.state.user;
-    user.location = loc;
+    user.location = {latitude: loc.latitude, longitude: loc.longitude};
     this.setState({user});
     Storage.setItem('user', user);
   }

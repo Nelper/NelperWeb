@@ -1,6 +1,9 @@
 export default class GoogleMapsUtils {
   static load() {
     return new Promise((resolve) => {
+      if (__SERVER__) {
+        resolve(null);
+      }
       if (this.get()) {
         // Simulate async, this is useful to be able to access refs in componentDidMount.
         setTimeout(() => resolve(this.get()), 0);
@@ -21,6 +24,9 @@ export default class GoogleMapsUtils {
   }
 
   static get() {
+    if (__SERVER__) {
+      return null;
+    }
     return (window.google && window.google.maps) || null;
   }
 }
