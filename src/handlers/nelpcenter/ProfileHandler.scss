@@ -8,7 +8,7 @@
     flex-direction: row;
     align-items: flex-start;
     padding: 1rem;
-    background-color: $color-blue-gray;
+    background-color: $color-primary;
     color: $text-light;
   }
 
@@ -71,7 +71,7 @@
     width: rem($picture-size);
     border-radius: 50%;
 
-    border: solid 3px $color-white;
+    border: solid 3px $color-background-light;
     background-size: cover;
     background-position: center;
   }
@@ -139,6 +139,6 @@
   .edit-box {
     padding: 1rem;
     border-radius: 3px;
-    background-color: $color-white;
+    background-color: $color-background-light;
   }
 }

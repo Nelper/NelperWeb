@@ -14,7 +14,7 @@
     margin-bottom: 2rem;
     font-size: 1.8em;
     text-align: center;
-    border-bottom: solid 1px $color-gray-medium;
+    border-bottom: solid 1px $color-gray-light;
   }
 
   h3 {
@@ -37,8 +37,8 @@
   .dark-section {
     width: 100%;
     padding: 1rem;
-    background-color: $color-blue-gray;
-    color: $color-white;
+    background-color: $color-primary;
+    color: $color-background-light;
     box-shadow: 0 10px 16px 1px rgba(0, 0, 0, 0.2);
 
     .container {
@@ -71,7 +71,7 @@
   .info-row {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid $color-gray-medium;
+    border-bottom: 1px solid $color-gray-light;
     margin-bottom: 3rem;
     padding-bottom: 3rem;
 

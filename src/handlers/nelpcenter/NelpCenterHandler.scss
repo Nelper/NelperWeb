@@ -7,7 +7,7 @@
     flex-direction: row;
     align-items: flex-start;
     padding: 1rem;
-    background-color: $color-blue-gray;
+    background-color: $color-primary;
     color: $text-light;
   }
 
@@ -40,7 +40,7 @@
     width: rem($picture-size);
     border-radius: 50%;
 
-    border: solid 3px $color-white;
+    border: solid 3px $color-background-light;
     background-size: cover;
     background-position: center;
   }
@@ -65,13 +65,13 @@
     border-bottom: 3px solid transparent;
 
     &:hover {
-      color: $color-nelp-orange;
+      color: $color-primary;
     }
 
     &.active {
-      color: $color-nelp-orange;
+      color: $color-primary;
       border-top: 3px solid transparent;
-      border-bottom: 3px solid $color-nelp-orange;
+      border-bottom: 3px solid $color-primary;
     }
   }
 }

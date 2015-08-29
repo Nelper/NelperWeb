@@ -34,7 +34,7 @@
   .content {
     display: flex;
     flex-direction: column;
-    background-color: $color-white;
+    background-color: $color-background-light;
     box-shadow: 0px 2px 16px 2px transparentize($color-black, 0.4);
     border-radius: 3px;
     min-height: em(200px);

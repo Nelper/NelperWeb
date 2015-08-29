@@ -1,10 +1,10 @@
 .nelp-task-list-view {
 
-  $color-price-green: $color-nelp-green;
+  $color-price-green: $color-money;
   $user-image-size: 86px;
   $category-image-size: 38px;
   $collapse-image-size: 26px;
-  $list-items-padding: 1rem;
+  $list-items-padding: 0.5rem;
 
   width: 100%;
   padding: 0 1rem;
@@ -15,7 +15,7 @@
     padding: $list-items-padding 0;
 
     &:not(:last-child) {
-      border-bottom: 1px solid $color-gray-medium;
+      border-bottom: 1px solid $color-gray-light;
     }
 
     .header {
@@ -57,7 +57,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 50%;
-        border: 1px solid $color-gray-medium;
+        border: 1px solid $color-gray-light;
 
         .category-icon {
           position: absolute;
@@ -66,7 +66,7 @@
 
           @include image(rem($category-image-size), rem($category-image-size));
           border-radius: 50%;
-          background-color: $color-gray-light;
+          background-color: $color-background;
         }
       }
 
@@ -98,14 +98,13 @@
       .price {
         flex-basis: rem(90px);
         background-image: url('~images/icons/money.png');
-        background-size: contain;
+        background-size: 65px;
         background-position: center;
         background-repeat: no-repeat;
-        padding-top: rem(18px);
-        padding-bottom: rem(26px);
+        height: rem(36px);
         text-align: center;
         border-radius: 3px;
-        color: $color-white;
+        color: $color-background-light;
         font-size: 1.1em;
       }
 

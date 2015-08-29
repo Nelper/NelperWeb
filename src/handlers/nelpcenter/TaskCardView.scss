@@ -25,7 +25,7 @@
     left: -$is-new-icon-size * 1.75;
     width: $is-new-icon-size * 3.5;
     height: $is-new-icon-size * 3.5;
-    background-color: $color-white;
+    background-color: $color-background-light;
     transform: rotate(45deg);
   }
 
@@ -79,8 +79,8 @@
     text-align: center;
     padding: 0.3rem 0;
     border-radius: 3px;
-    background-color: $color-nelp-green;
-    color: $color-white;
+    background-color: $color-money;
+    color: $color-background-light;
     font-size: 1.1em;
   }
 

@@ -1,12 +1,17 @@
 .browse-tasks-filter-view {
 
+  display: flex;
+  align-items: center;
+
   .category-filters {
     display: flex;
     flex-wrap: wrap;
+    flex: 1;
+    margin-left: 1.5rem;
   }
 
   .category-icon {
-    @include image(3rem);
+    @include image(2.5rem);
     margin: 0.5rem;
     border-radius: 50%;
     transition: opacity 250ms linear, transform 300ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -26,11 +31,72 @@
   .category-all {
     background-image: url('~images/categories/all.png');
   }
-}
 
-.browse-tasks-filter-view-dialog {
+  .other-filters {
+    position: relative;
+    margin-right: 4.5rem;
+  }
 
-  h2 {
-    text-align: center;
+  .other-filters-btn {
+    position: relative;
+    z-index: 100;
+  }
+
+  .other-filters-dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    z-index: 99;
+    top: -0.5rem;
+    left: -2rem;
+    right: -2rem;
+    padding: 1rem;
+    padding-top: 3.5rem;
+    background-color: $color-background-light;
+    border: $base-border;
+    transition: all 300ms ease-in-out;
+    transform-origin: top center;
+    transform: scaleX(0.8) scaleY(0.15);
+    opacity: 0;
+
+    &.opened {
+      transform: scaleX(1) scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  .filter-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .filter-subtitle {
+    margin-bottom: 1rem;
+    font-size: 0.9em;
+  }
+
+  .filter-input {
+    width: 8rem;
+  }
+
+  .filter-distance,
+  .filter-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filter-distance {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: $base-border;
+  }
+
+  .expand-icon {
+    transition: transform 300ms ease-in-out;
+
+    &.expanded {
+      transform: rotateX(180deg);
+    }
   }
 }

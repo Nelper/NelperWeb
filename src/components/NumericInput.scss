@@ -1,17 +1,26 @@
 .numeric-input-component {
   display: flex;
-  border: solid 1px $color-blue-gray;
+  border: solid 1px $color-primary;
+
+  &.disabled {
+    border: solid 1px $color-gray-medium;
+
+    .plus-button,
+    .minus-button {
+      background-color: $color-gray-medium;
+    }
+  }
 
   input {
     flex: 1;
     margin: 0;
     border: 0;
-    @include appearance(none);
+    text-align: center;
   }
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
-      @include appearance(none);
+    @include appearance(none);
   }
 
   .plus-button,
@@ -21,10 +30,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-basis: 4rem;
+    flex-basis: 2rem;
     cursor: pointer;
-    background-color: $color-blue-gray;
-    color: $color-white;
+    background-color: $color-primary;
+    color: $color-background-light;
     font-size: 1.5em;
   }
 }

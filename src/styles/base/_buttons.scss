@@ -1,9 +1,8 @@
 @mixin btn-color($color) {
   background-color: $color;
-  border-bottom: solid 2px darken($color, 15%);
 
   &:hover {
-    background-color: darken($color, 10%);
+    background-color: lighten($color, 5%);
   }
 }
 
@@ -11,10 +10,9 @@
 button {
   @include appearance(none);
   -webkit-font-smoothing: antialiased;
-  border-radius: $base-border-radius;
-  border: none;
-  border-top: solid 3px transparent;
-  color: $color-white;
+  border-radius: 0;
+  border: 0;
+  color: $color-background-light;
   cursor: pointer;
   display: inline-block;
   font-family: $heading-font-family;
@@ -30,7 +28,7 @@ button {
   outline: none;
   @include transition(background-color 250ms linear);
 
-  @include btn-color($color-gray-medium);
+  @include btn-color($color-gray-light);
 
   &:disabled {
     cursor: not-allowed;
@@ -38,38 +36,38 @@ button {
   }
 
   &.primary {
-    @include btn-color($color-nelp-green);
+    @include btn-color($color-primary);
   }
 
   &.secondary {
-    @include btn-color($color-nelp-blue);
+    @include btn-color($color-secondary);
   }
 
   &.warning {
-    @include btn-color($color-red);
+    @include btn-color($color-primary);
   }
 
   &.dark-big {
-    @include btn-color($color-blue-gray);
+    @include btn-color($color-primary);
 
-    background-color: $color-blue-gray;
-    border: 2px solid $color-gray-light;
+    background-color: $color-primary;
+    border: 2px solid $color-background;
     border-radius: 8px;
     padding: 1rem 4rem;
     font-size: 1.5em;
     @include transition(background-color 250ms linear, color 250ms linear);
 
     &:hover {
-      background-color: $color-gray-light;
-      color: $color-blue-gray;
+      background-color: $color-background;
+      color: $color-primary;
     }
   }
 
   &.dark-small {
-    @include btn-color($color-blue-gray);
+    @include btn-color($color-primary);
 
-    background-color: $color-blue-gray;
-    border: 2px solid $color-gray-light;
+    background-color: $color-primary;
+    border: 2px solid $color-background;
     border-radius: 3px;
     padding: 0.25rem 1.5rem;
     font-size: 1em;
@@ -77,20 +75,20 @@ button {
     transition: background-color 250ms linear, color 250ms linear;
 
     &:hover {
-      background-color: $color-gray-light;
-      color: $color-blue-gray;
+      background-color: $color-background;
+      color: $color-primary;
     }
   }
 
   &.light {
     background-color: transparent;
     border: 0;
-    color: $color-nelp-orange;
+    color: $color-primary;
     transition: background-color 250ms linear, color 250ms linear;
 
     &:hover {
-      background-color: $color-nelp-orange;
-      color: $color-white;
+      background-color: $color-primary;
+      color: $color-background-light;
       border: 0;
     }
 
@@ -99,8 +97,47 @@ button {
     }
   }
 
+  &.border-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: 1px solid $color-primary;
+    color: $color-primary;
+    fill: $color-primary;
+    transition: all 250ms ease-in-out;
+
+    &:hover {
+      background-color: $color-primary;
+      color: $color-background-light;
+      fill: $color-background-light;
+      border: 1px solid $color-primary;
+    }
+
+    &.disabled {
+      border: 1px solid $color-gray-medium;
+      color: $color-gray-medium;
+      fill: $color-gray-medium;
+
+      &:hover {
+        background-color: $color-gray-medium;
+        color: $color-background-light;
+        fill: $color-background-light;
+        border: 1px solid $color-gray-medium;
+      }
+    }
+
+    i {
+      width: 2rem;
+      height: 2rem;
+      margin-top: -1rem;
+      margin-bottom: -1rem;
+      margin-left: 1rem;
+    }
+  }
+
   &.back {
-    color: $color-nelp-orange;
+    color: $color-primary;
     background-color: transparent;
     background-image: url('~images/icons/left-arrow-orange.png');
     background-size: 0.75rem;
@@ -111,26 +148,26 @@ button {
     font-weight: normal;
 
     &:hover {
-      background-color: $color-white;
+      background-color: $color-background-light;
     }
   }
 
   &.toggle {
     padding: 0.5rem 1rem;
-    color: $color-blue-gray;
+    color: $color-primary;
     background-color: transparent;
-    border: 1px solid $color-blue-gray;
+    border: 1px solid $color-primary;
     border-radius: 0;
     font-weight: normal;
 
     &:hover {
-      color: $color-white;
-      background-color: $color-blue-gray;
+      color: $color-background-light;
+      background-color: $color-primary;
     }
 
     &.on {
-      color: $color-white;
-      background-color: $color-blue-gray;
+      color: $color-background-light;
+      background-color: $color-primary;
     }
   }
 }

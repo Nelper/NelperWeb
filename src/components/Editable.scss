@@ -9,7 +9,7 @@
     border-radius: 3px;
 
     &:hover {
-      background-color: $color-white;
+      background-color: $color-background-light;
 
       .editable-action {
         opacity: 1;
@@ -35,7 +35,7 @@
 
     &:hover {
       .editable-icon {
-        fill: $color-white;
+        fill: $color-background-light;
       }
 
       .editable-icon-bg {
@@ -50,7 +50,7 @@
     @include transition(fill 300ms ease-in-out);
     width: rem(24px);
     height: rem(24px);
-    fill: $color-gray-medium;
+    fill: $color-gray-light;
   }
 
   .editable-icon-bg {
@@ -58,7 +58,7 @@
     @include transition(transform 300ms cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 300ms cubic-bezier(0.68, -0.55, 0.27, 1.55));
     transform: scale(0);
     opacity: 0;
-    background-color: $color-nelp-orange;
+    background-color: $color-primary;
     border-radius: 50%;
   }
 }
@@ -66,5 +66,5 @@
 .edit-box-component {
   padding: 1rem;
   border-radius: 3px;
-  background-color: $color-white;
+  background-color: $color-background-light;
 }

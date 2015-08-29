@@ -32,11 +32,11 @@
     }
 
     &.register {
-      background-color: $color-nelp-orange-light;
+      background-color: $color-primary;
 
       &:hover,
       &:focus {
-        background-color: darken($color-nelp-orange-light, 10%);
+        background-color: darken($color-primary, 10%);
       }
     }
   }
@@ -47,7 +47,7 @@
     text-decoration: underline;
 
     &:hover {
-      color: $color-gray-dark;
+      color: lighten($color-black, 15%);
     }
   }
 }

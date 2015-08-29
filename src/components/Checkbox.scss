@@ -1,0 +1,17 @@
+.checkbox-component {
+  @include user-select(none);
+
+  padding-left: 2rem;
+  min-height: 2rem;
+  min-width: 2rem;
+  line-height: 2rem;
+  background-image: url('~images/icons/checkbox.png');
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+  background-position: left center;
+  cursor: pointer;
+
+  &.checked {
+    background-image: url('~images/icons/checkbox-selected.png');
+  }
+}

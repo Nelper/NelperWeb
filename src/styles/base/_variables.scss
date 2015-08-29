@@ -16,36 +16,29 @@ $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
-$color-nelp-green: #80bf62;
-$color-nelp-blue: #858ba0;
-$color-nelp-orange-light: #d98b30;
-$color-nelp-orange: #f32a18;
-$color-blue-gray: #1e87d1;
-$color-red: #e84c49;
+$color-primary: #ed4b4e;
+$color-secondary: #5a6a7b;
+$color-money: #80bf62;
 
-$color-nelp-red-1: #d95330;
-$color-nelp-red-2: #de1f1f;
+$color-gray-medium: #979797;
+$color-gray-light: #bbb;
 
-$color-gray-darker: #212121;
-$color-gray-dark: #676767;
-$color-gray-medium: #bbb;
-$color-gray-light: #eaeaea;
+$color-background: #eaeaea;
+$color-background-light: #f7f7f7;
 
-$color-white: #f7f7f7;
-$color-white-light: #fff8eb;
 $color-black: #2c2c2c;
 
 // Font Colors
-$base-background-color: $color-gray-light;
+$base-background-color: $color-background;
 $base-font-color: $color-black;
-$action-color: $color-blue-gray;
+$action-color: $color-primary;
 
-$text-light: $color-gray-light;
+$text-light: $color-background;
 $text-medium: #757575;
 $text-dark: $color-black;
 
 // Border
-$base-border-color: $color-gray-medium;
+$base-border-color: $color-gray-light;
 $base-border: 1px solid $base-border-color;
 
 // Forms

@@ -1,7 +1,7 @@
 .card-component {
 
-  $header-bg-color: #58595b;
-  $content-bg-color: $color-white;
+  $header-bg-color: $color-secondary;
+  $content-bg-color: $color-background-light;
   $border-color: $color-black;
 
   display: flex;
@@ -16,7 +16,7 @@
 
   .card-hover {
     @include position(absolute, 0);
-    background-color: $color-white;
+    background-color: $color-background-light;
     transition: opacity 250ms linear;
     opacity: 0;
 

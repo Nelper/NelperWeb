@@ -57,7 +57,7 @@ body {
 
 .section-separator {
   height: 0.5rem;
-  background-color: $color-blue-gray;
+  background-color: $color-primary;
 }
 
 // Google maps autocomplete container
@@ -66,7 +66,7 @@ body {
 }
 
 .panel {
-  background-color: $color-white;
+  background-color: $color-background-light;
   border: $base-border;
   margin-bottom: 1rem;
 
@@ -87,7 +87,7 @@ body {
 }
 
 .header-panel {
-  background-color: $color-white;
+  background-color: $color-background-light;
   border: $base-border;
   border-top: 0;
   margin-bottom: 1rem;

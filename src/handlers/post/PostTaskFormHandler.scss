@@ -36,7 +36,7 @@
       border-radius: 50%;
       border: 2px solid $color-black;
       font-size: 1.3em;
-      background-color: $color-gray-light;
+      background-color: $color-background;
       transition: background-color 250ms linear;
 
       @include media($medium-screen) {
@@ -44,7 +44,7 @@
       }
 
       &.done {
-        background-color: $color-nelp-green;
+        background-color: $color-money;
       }
 
       &.camera {
@@ -133,7 +133,7 @@
 
       margin: 0.5em;
       border-radius: 3px;
-      background-color: $color-white;
+      background-color: $color-background-light;
 
       .icon {
         @include image(3rem, 3rem);
@@ -165,7 +165,7 @@
       height: 5rem;
       margin: 0.5rem;
       padding: 0.5rem;
-      background-color: $color-white;
+      background-color: $color-background-light;
       border-radius: 3px;
 
       @include image-fill;
