@@ -4,8 +4,8 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "deploy": "npm run start-server && npm run build",
-    "start-server": "node ./build/server/server.js",
+    "prestart": "npm run build",
+    "start": "node ./build/server/server.js",
     "build": "webpack --config webpack/webpack.config.js",
     "watch": "webpack-dev-server --progress --colors --hot --inline --history-api-fallback --config webpack/webpack-dev.config.js",
     "watch-server": "webpack --watch --config webpack/webpack.config.js",
