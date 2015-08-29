@@ -106,6 +106,7 @@ button {
     color: $color-primary;
     fill: $color-primary;
     transition: all 250ms ease-in-out;
+    font-weight: normal;
 
     &:hover {
       background-color: $color-primary;

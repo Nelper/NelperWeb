@@ -20,7 +20,9 @@ class BrowseStore {
   handleReceivedTasks({tasks, filter}) {
     // If the filter changed discard old tasks.
     if (filter.sort !== this.state.filter.sort ||
-        filter.categories !== this.state.filter.categories) {
+        filter.categories !== this.state.filter.categories ||
+        filter.minPrice !== this.state.filter.minPrice ||
+        filter.maxDistance !== this.state.filter.maxDistance) {
       this.setState({
         tasks,
         filter,

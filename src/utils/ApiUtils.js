@@ -213,22 +213,30 @@ class ApiUtils {
    * @param {GeoPoint} location The user location for the distance sort filter
    * @return {Promise} The list of tasks
    */
-  listNelpTasks({categories, sort = 'date', skip = 0, limit = 5}, location) {
+  listNelpTasks({categories, minPrice, maxDistance, sort = 'date', skip = 0, limit = 20}, location) {
     const taskQuery = new Parse.Query(NelpTask);
+    const point = new Parse.GeoPoint(location);
 
     // Filter by category. Dont add the filter if all categories are selected.
     if (categories && categories.length !== TaskCategoryUtils.list().length) {
       taskQuery.containedIn('category', categories);
     }
 
+    if (minPrice) {
+      taskQuery.greaterThanOrEqualTo('priceOffered', minPrice);
+    }
+
+    if (maxDistance) {
+      taskQuery.withinKilometers('location', point, maxDistance);
+    }
+
     switch (sort) {
     case 'distance':
-      const point = new Parse.GeoPoint(location);
       taskQuery.near('location', point);
       taskQuery.ascending('location');
       break;
     case 'price':
-      taskQuery.ascending('priceOffered');
+      taskQuery.descending('priceOffered');
       break;
     case 'date':
     default:

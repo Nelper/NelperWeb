@@ -12,54 +12,103 @@ export default class BrowseTasksFilterView extends Component {
     onFiltersChanged: PropTypes.func.isRequired,
   }
 
-  constructor(props) {
-    super(props);
+  static defaultProps = {
+    onFiltersChanged: () => {},
+  }
 
-    this.state = {
-      allCategories: true,
-      selectedCategories: [],
-      otherFiltersOpened: false,
-      maxDistanceActive: false,
-      maxDistance: 5,
-      minPriceActive: false,
-      minPrice: 20,
-    };
+  state = {
+    allCategories: true,
+    selectedCategories: [],
+    otherFiltersOpened: false,
+    maxDistanceActive: false,
+    maxDistance: 5,
+    minPriceActive: false,
+    minPrice: 20,
+  }
+
+  _documentClickListener = this._onDocumentClick.bind(this)
+
+  componentDidMount() {
+    document.addEventListener('click', this._documentClickListener);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this._documentClickListener);
   }
 
   _onSelectCategory(category) {
     const curSelectedCategories = this.state.selectedCategories;
     curSelectedCategories[category] = !curSelectedCategories[category];
 
-    const selectedCategories = Object.keys(curSelectedCategories)
-      .filter(c => this.state.selectedCategories[c]);
-
-    this.props.onFiltersChanged && this.props.onFiltersChanged({
-      categories: selectedCategories,
-    });
-
     this.setState({
       allCategories: false,
       selectedCategories: curSelectedCategories,
     });
+
+    this._filtersChanged(
+      false,
+      curSelectedCategories,
+      this.state.maxDistanceActive,
+      this.state.maxDistance,
+      this.state.minPriceActive,
+      this.state.minPrice,
+    );
   }
 
   _onSelectAllCategories() {
-    this.props.onFiltersChanged && this.props.onFiltersChanged({
-      categories: null,
-    });
-
     this.setState({
       allCategories: true,
       selectedCategories: [],
     });
+
+    this._filtersChanged(
+      true,
+      null,
+      this.state.maxDistanceActive,
+      this.state.maxDistance,
+      this.state.minPriceActive,
+      this.state.minPrice,
+    );
   }
 
-  _onToggleOtherFilters() {
+  _onDocumentClick(event) {
+    function isInside(node, target) {
+      let cur = target;
+      while (cur) {
+        if (cur === node) {
+          return true;
+        }
+        cur = cur.parentNode;
+      }
+      return false;
+    }
+
+    if (!this.state.otherFiltersOpened || event.defaultPrevented) {
+      return;
+    }
+    if (isInside(this.refs.filterDropdown.getDOMNode(), event.target)) {
+      return;
+    }
+    event.stopPropagation();
+    this.setState({otherFiltersOpened: false});
+  }
+
+  _onToggleOtherFilters(event) {
+    event.preventDefault();
     this.setState({otherFiltersOpened: !this.state.otherFiltersOpened});
   }
 
   _onMaxDistanceCheck() {
     this.setState({maxDistanceActive: !this.state.maxDistanceActive});
+
+    this._filtersChanged(
+      this.state.allCategories,
+      this.state.selectedCategories,
+      !this.state.maxDistanceActive,
+      this.state.maxDistance,
+      this.state.minPriceActive,
+      this.state.minPrice,
+    );
   }
 
   _onMaxDistanceChange(maxDistance) {
@@ -67,16 +116,56 @@ export default class BrowseTasksFilterView extends Component {
       maxDistance,
       maxDistanceActive: true,
     });
+
+    this._filtersChanged(
+      this.state.allCategories,
+      this.state.selectedCategories,
+      true,
+      maxDistance,
+      this.state.minPriceActive,
+      this.state.minPrice,
+    );
   }
 
   _onMinPriceCheck() {
     this.setState({minPriceActive: !this.state.minPriceActive});
+
+    this._filtersChanged(
+      this.state.allCategories,
+      this.state.selectedCategories,
+      this.state.maxDistanceActive,
+      this.state.maxDistance,
+      !this.state.minPriceActive,
+      this.state.minPrice,
+    );
   }
 
   _onMinPriceChange(minPrice) {
     this.setState({
       minPrice,
       minPriceActive: true,
+    });
+
+    this._filtersChanged(
+      this.state.allCategories,
+      this.state.selectedCategories,
+      this.state.maxDistanceActive,
+      this.state.maxDistance,
+      true,
+      minPrice,
+    );
+  }
+
+  _filtersChanged(allCategories, categories, maxDistanceActive, maxDistance, minPriceActive, minPrice) {
+    const selectedCategories = !allCategories ?
+      Object.keys(categories)
+        .filter(c => categories[c]) :
+      null;
+
+    this.props.onFiltersChanged({
+      categories: selectedCategories,
+      maxDistance: maxDistanceActive ? maxDistance : null,
+      minPrice: minPriceActive ? minPrice : null,
     });
   }
 
@@ -113,7 +202,7 @@ export default class BrowseTasksFilterView extends Component {
           {categoryFilters}
         </div>
         <div className="other-filters">
-          <div className={classNames('other-filters-dropdown', {'opened': otherFiltersOpened})}>
+          <div ref="filterDropdown" className={classNames('other-filters-dropdown', {'opened': otherFiltersOpened})}>
             <div className="filter-distance">
               <div className="filter-title">
                 <Checkbox
@@ -125,6 +214,7 @@ export default class BrowseTasksFilterView extends Component {
               <div className="filter-subtitle">Within</div>
               <div className="filter-input">
                 <NumericInput
+                  step={1}
                   disabled={!maxDistanceActive}
                   value={this.state.maxDistance}
                   onChange={::this._onMaxDistanceChange}

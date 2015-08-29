@@ -171,7 +171,11 @@ export default class BrowseTasksListView extends Component {
 
     return (
       <div className="nelp-task-list-view" ref="displayedTasks">
-        {displayedTasks}
+        {
+          !displayedTasks.length ?
+          <div className="no-task">No task found</div> :
+          displayedTasks
+        }
       </div>
     );
   }

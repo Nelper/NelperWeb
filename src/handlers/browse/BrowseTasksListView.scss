@@ -2,7 +2,9 @@
 
   $color-price-green: $color-money;
   $user-image-size: 86px;
+  $user-image-size-sm: 70px;
   $category-image-size: 38px;
+  $category-image-size-sm: 30px;
   $collapse-image-size: 26px;
   $list-items-padding: 0.5rem;
 
@@ -48,8 +50,8 @@
       }
 
       .user-picture {
-        width: rem($user-image-size);
-        height: rem($user-image-size);
+        width: rem($user-image-size-sm);
+        height: rem($user-image-size-sm);
         position: relative;
         flex-shrink: 1;
 
@@ -59,14 +61,23 @@
         border-radius: 50%;
         border: 1px solid $color-gray-light;
 
+        @include media($medium-screen) {
+          width: rem($user-image-size);
+          height: rem($user-image-size);
+        }
+
         .category-icon {
           position: absolute;
           bottom: rem(-5px);
           right: rem(-5px);
+          @include image(rem($category-image-size-sm), rem($category-image-size-sm));
 
-          @include image(rem($category-image-size), rem($category-image-size));
           border-radius: 50%;
           background-color: $color-background;
+
+          @include media($medium-screen) {
+            @include image(rem($category-image-size), rem($category-image-size));
+          }
         }
       }
 
@@ -75,8 +86,12 @@
 
         .title {
           font-weight: bold;
-          font-size: 1.2em;
+          font-size: 1em;
           @include ellipsis;
+
+          @include media($medium-screen) {
+            font-size: 1.2em;
+          }
         }
 
         .user-name {
@@ -96,12 +111,14 @@
       }
 
       .price {
-        flex-basis: rem(90px);
+        flex-basis: rem(70px);
         background-image: url('~images/icons/money.png');
         background-size: 65px;
         background-position: center;
         background-repeat: no-repeat;
         height: rem(36px);
+        padding-top: rem(5px);
+        padding-left: rem(5px);
         text-align: center;
         border-radius: 3px;
         color: $color-background-light;
@@ -219,5 +236,10 @@
         transform: rotate(0deg);
       }
     }
+  }
+
+  .no-task {
+    padding: 2rem;
+    text-align: center;
   }
 }

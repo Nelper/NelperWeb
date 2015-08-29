@@ -31,7 +31,7 @@ export default class BrowseTasksHandler extends Component {
   }
 
   state = {
-    filters: {category: null, price: null, range: null},
+    filters: {category: null, minPrice: null, maxDistance: null},
     sort: UserStore.state.user.location ? {sort: 'distance'} : {sort: 'date'},
     taskFilter: null,
     isLoadingMore: false,
@@ -39,9 +39,9 @@ export default class BrowseTasksHandler extends Component {
 
   componentDidMount() {
     if (UserStore.state.user.location) {
-      BrowseActions.refreshTasks(this.state.filters, UserStore.state.user.location);
+      BrowseActions.refreshTasks(Object.assign({}, this.state.filters, this.state.sort), UserStore.state.user.location);
     } else {
-      BrowseActions.refreshTasks(this.state.filters);
+      BrowseActions.refreshTasks(Object.assign({}, this.state.filters, this.state.sort));
 
       // TODO(janic): this logic should be elsewhere.
       navigator.geolocation.getCurrentPosition((pos) => {
@@ -111,7 +111,7 @@ export default class BrowseTasksHandler extends Component {
 
   _onLoadMore() {
     BrowseActions.refreshTasks(
-      Object.assign({skip: this.props.tasks.length - 1, limit: 6}, this.state.sort, this.state.filters),
+      Object.assign({skip: this.props.tasks.length - 1, limit: 20}, this.state.sort, this.state.filters),
       UserStore.state.user.location,
     );
     this.setState({isLoadingMore: true});

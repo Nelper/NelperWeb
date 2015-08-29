@@ -2,6 +2,11 @@
 
   display: flex;
   align-items: center;
+  flex-direction: column;
+
+  @include media($medium-screen) {
+    flex-direction: row;
+  }
 
   .category-filters {
     display: flex;
