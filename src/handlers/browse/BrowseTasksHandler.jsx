@@ -6,6 +6,7 @@ import BrowseActions from 'actions/BrowseActions';
 import UserActions from 'actions/UserActions';
 import BrowseStore from 'stores/BrowseStore';
 import UserStore from 'stores/UserStore';
+import Progress from 'components/Progress';
 import BrowseTasksFilterView from './BrowseTasksFilterView';
 import NelpTaskListView from './BrowseTasksListView';
 import MapView from './MapView';
@@ -197,14 +198,18 @@ export default class BrowseTasksHandler extends Component {
                 </button>
               </div>
             </div>
-            <NelpTaskListView
-              tasks={filteredTasks}
-              onTaskSelected={::this._onTaskSelected}
-              onApply={::this._onApply}
-              onCancelApply={::this._onCancelApply}
-              onLoadMore={::this._onLoadMore}
-              isLoading={this.state.isLoadingMore}
-            />
+            {
+              this.props.isLoading ?
+              <Progress /> :
+              <NelpTaskListView
+                tasks={filteredTasks}
+                onTaskSelected={::this._onTaskSelected}
+                onApply={::this._onApply}
+                onCancelApply={::this._onCancelApply}
+                onLoadMore={::this._onLoadMore}
+                isLoading={this.state.isLoadingMore}
+              />
+            }
           </div>
         </div>
       </div>

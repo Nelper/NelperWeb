@@ -7,6 +7,7 @@ class BrowseStore {
   state = {
     tasks: [],
     filter: {},
+    isLoading: true,
   }
 
   constructor() {
@@ -26,6 +27,7 @@ class BrowseStore {
       this.setState({
         tasks,
         filter,
+        isLoading: false,
       });
     } else {
       // Merge new tasks with the old ones.
@@ -43,6 +45,7 @@ class BrowseStore {
       this.setState({
         tasks: newTasks,
         filter,
+        isLoading: false,
       });
     }
   }
