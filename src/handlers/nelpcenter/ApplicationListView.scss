@@ -83,7 +83,7 @@
     margin-left: 1rem;
   }
 
-  .price-offered {
+  .list-price-offered {
     @include span-columns(6);
     display: flex;
     align-items: center;
@@ -92,12 +92,6 @@
       @include span-columns(4);
       display: flex;
     }
-  }
-
-  .price-offered-icon {
-    @include image(2.5rem);
-    margin-right: 0.5rem;
-    background-image: url('~images/icons/money.png');
   }
 
   .actions {

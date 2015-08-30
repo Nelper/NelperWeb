@@ -52,8 +52,7 @@ export default class ApplicationListView extends Component {
                 </div>
               </div>
             </div>
-            <div className="price-offered">
-              <div className="price-offered-icon" />
+            <div className="list-price-offered">
               Asking for ${a.task.priceOffered}
             </div>
             {

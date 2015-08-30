@@ -1,4 +1,4 @@
-import 'babel/polyfill';
+import 'babel-core/polyfill';
 import express from 'express';
 import path from 'path';
 import React from 'react';
