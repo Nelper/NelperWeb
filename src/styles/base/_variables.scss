@@ -1,7 +1,10 @@
 // Typography
-$base-font-family: 'ABeeZee';
-$heading-font-family: 'ABeeZee';
-$content-font-family: 'PT Sans';
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+$base-font-family: 'Proxima Nova';
+$heading-font-family: 'Proxima Nova';
+$content-font-family: 'Proxima Nova';
 
 // Font Sizes
 $base-font-size: 1em;
