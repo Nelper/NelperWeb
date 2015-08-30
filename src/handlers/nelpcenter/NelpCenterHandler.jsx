@@ -78,7 +78,7 @@ export default class NelpCenterHandler extends Component {
               </div>
               <Link className="my-profile" to="/center/profile">
                 <div className="my-profile-icon" />
-                <button className="dark-small">MY PROFILE</button>
+                <button className="border-btn inverse">MY PROFILE</button>
               </Link>
             </div>
             <div className="btn-group">

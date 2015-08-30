@@ -84,7 +84,7 @@ module.exports = [
         loader: 'null-loader',
       }, {
         test: /\.jsx?$/,
-        loaders: ['babel?stage=0'],
+        loaders: ['babel?stage=0&optional=runtime'],
         include: path.resolve(ROOT_PATH, 'src'),
       }]),
     },

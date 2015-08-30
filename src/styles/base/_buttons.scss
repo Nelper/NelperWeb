@@ -113,7 +113,18 @@ button,
       background-color: $color-primary;
       color: $color-background-light;
       fill: $color-background-light;
-      border: 1px solid $color-primary;
+    }
+
+    &.inverse {
+      border-color: $color-background-light;
+      color: $color-background-light;
+      fill: $color-background-light;
+
+      &:hover {
+        background-color: $color-background-light;
+        color: $color-primary;
+        fill: $color-primary;
+      }
     }
 
     &.disabled {

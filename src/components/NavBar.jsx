@@ -45,6 +45,10 @@ export default class NavBar extends Component {
     );
   }
 
+  _renderDropdown() {
+
+  }
+
   render() {
     const menuItems = !this.props.user.logged ? [
       this._renderNavItem('How it works', '/howitworks', 40),
