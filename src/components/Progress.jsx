@@ -9,7 +9,15 @@ export default class Progress extends Component {
   render() {
     return (
       <div className="progress">
-        <div className="image"/>
+        <div className="bubble-container">
+          <div className="bubble" />
+        </div>
+        <div className="bubble-container">
+          <div className="bubble" />
+        </div>
+        <div className="bubble-container">
+          <div className="bubble" />
+        </div>
       </div>
     );
   }

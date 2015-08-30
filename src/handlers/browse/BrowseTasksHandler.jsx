@@ -17,6 +17,7 @@ export default class BrowseTasksHandler extends Component {
 
   static propTypes = {
     tasks: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
   }
 
   static contextTypes = {
@@ -200,7 +201,7 @@ export default class BrowseTasksHandler extends Component {
             </div>
             {
               this.props.isLoading ?
-              <Progress /> :
+              <div className="progress-center"><Progress /></div> :
               <NelpTaskListView
                 tasks={filteredTasks}
                 onTaskSelected={::this._onTaskSelected}
