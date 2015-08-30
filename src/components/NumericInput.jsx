@@ -26,11 +26,13 @@ export default class NumericInput extends Component {
     return (
       <div className={classNames('numeric-input-component', {'disabled': this.props.disabled})}>
         <div className="minus-button" onClick={() => this._onChange(value - step)}>-</div>
-        <input
-          type="number"
-          value={this.props.value}
-          onChange={(e) => this._onChange(parseInt(e.target.value, 10))}
-        />
+        <div className="input-container">
+          <input
+            type="number"
+            value={this.props.value}
+            onChange={(e) => this._onChange(parseInt(e.target.value, 10))}
+          />
+        </div>
         <div className="plus-button" onClick={() => this._onChange(value + step)}>+</div>
       </div>
     );

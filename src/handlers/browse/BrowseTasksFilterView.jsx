@@ -239,8 +239,9 @@ export default class BrowseTasksFilterView extends Component {
               </div>
             </div>
           </div>
-          <button
+          <div
             className={classNames(
+              'button',
               'border-btn',
               'other-filters-btn',
               {'disabled': !maxDistanceActive && !minPriceActive},
@@ -249,7 +250,7 @@ export default class BrowseTasksFilterView extends Component {
           >
             <span>More filters</span>
             <Icon className={classNames('expand-icon', {'expanded': otherFiltersOpened})} svg={require('images/icons/expand.svg')} />
-          </button>
+          </div>
         </div>
       </div>
     );

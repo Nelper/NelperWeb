@@ -7,7 +7,8 @@
 }
 
 #{$all-button-inputs},
-button {
+button,
+.button {
   @include appearance(none);
   -webkit-font-smoothing: antialiased;
   border-radius: 0;
@@ -178,7 +179,8 @@ button {
   flex-wrap: wrap;
   margin-bottom: -0.5rem;
 
-  button {
+  button,
+  .button {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
 
@@ -189,7 +191,8 @@ button {
 }
 
 .toggle-group {
-  button:not(:last-child) {
+  button:not(:last-child),
+  .button:not(:last-child) {
     border-right: 0;
   }
 }
