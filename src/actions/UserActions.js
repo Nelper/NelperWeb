@@ -39,7 +39,7 @@ class UserActions {
 
   logout() {
     ApiUtils.logout();
-    this.actions.receivedUser(null);
+    this.actions.receivedUser({logged: false});
     // Refresh the page to prevent a weird bug with
     // facebook login after logging out.
     window.location.reload();

@@ -19,9 +19,19 @@ class ApiUtils {
   login({email, password}) {
     return Parse.User.logIn(email, password)
       .then((user) => {
+        this._initSession();
         return user.get('privateData').fetch();
       })
       .then(() => this._meFromParse(Parse.User.current()));
+  }
+
+  becomeUser(userId, token) {
+    return new Parse.Query(Parse.User)
+      .include('privateData')
+      .get(userId, {
+        sessionToken: token,
+      })
+      .then((user) => this._meFromParse(user));
   }
 
   /**
@@ -40,6 +50,7 @@ class ApiUtils {
     parseUser.set('name', name);
     return parseUser.signUp()
       .then((user) => {
+        this._initSession();
         this._createUserBase(user);
         user.save();
         return user;
@@ -64,6 +75,7 @@ class ApiUtils {
         },
       });
     }).then((user) => {
+      this._initSession();
       return this._getUserInfoFromFacebook()
         .then((fbUser) => {
           user.set('name', fbUser.name);
@@ -85,6 +97,10 @@ class ApiUtils {
    */
   logout() {
     Parse.User.logOut();
+    if (__CLIENT__) {
+      document.cookie = 'p_session=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      document.cookie = 'p_user=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
   }
 
   /**
@@ -497,6 +513,15 @@ class ApiUtils {
           objectId: f.name(),
         };
       });
+  }
+
+  _initSession() {
+    if (__CLIENT__) {
+      const parseSessionToken = Parse.User.current().getSessionToken();
+      const parseUserId = Parse.User.current().id;
+      document.cookie = `p_session=${parseSessionToken}`;
+      document.cookie = `p_user=${parseUserId}`;
+    }
   }
 
   _meFromParse(parseUser) {
