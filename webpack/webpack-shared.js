@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const neat = require('node-neat');
@@ -13,10 +14,12 @@ const common = {
   },
   output: {
     path: path.resolve(ROOT_PATH, 'build/client'),
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
     publicPath: '/',
-    filename: 'bundle.js',
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin('shared.js'),
     new HtmlWebpackPlugin({
       template: path.resolve(ROOT_PATH, 'src/app/index.html'),
       inject: 'body',

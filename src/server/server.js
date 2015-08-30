@@ -22,7 +22,8 @@ const htmlTemplate =
   <body>
     <div id="app" class="main-app">{content}</div>
     <div id="fb-root"></div>
-    <script src="/bundle.js"></script>
+    <script src="/shared.js"></script>
+    <script src="/main.js"></script>
   </body>
 </html>`;
 

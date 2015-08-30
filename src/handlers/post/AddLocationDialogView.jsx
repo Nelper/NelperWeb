@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import Dialog from 'components/Dialog';
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
-export default class FindNelpAddHandler extends Component {
+export default class AddLocationDialogView extends Component {
 
   static propTypes = {
     opened: PropTypes.bool,

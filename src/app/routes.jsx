@@ -8,14 +8,6 @@ import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
 
 import HomeHandler from 'handlers/home/HomeHandler';
 
-import LoginHandler from 'handlers/login/LoginHandler';
-import RegisterHandler from 'handlers/login/RegisterHandler';
-
-import BrowseTasksHandler from 'handlers/browse/BrowseTasksHandler';
-
-import PostTaskCategoriesHandler from 'handlers/post/PostTaskCategoriesHandler';
-import PostTaskFormHandler from 'handlers/post/PostTaskFormHandler';
-
 import NelpCenterHandler from 'handlers/nelpcenter/NelpCenterHandler';
 import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
 import TasksHandler from 'handlers/nelpcenter/TasksHandler';
@@ -23,8 +15,6 @@ import ProfileHandler from 'handlers/nelpcenter/ProfileHandler';
 import TaskDetailHandler from 'handlers/nelpcenter/TaskDetailHandler';
 
 import SettingsHandler from 'handlers/profile/SettingsHandler';
-
-import HowItWorksHandler from 'handlers/about/HowItWorksHandler';
 
 import TestPaymentHandler from 'handlers/nelpcenter/TestPaymentHandler';
 
@@ -55,15 +45,51 @@ function requireAuth(nextState, transition) {
   return true;
 }
 
+function getBrowseComponent(cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/browse/BrowseTasksHandler'));
+  });
+}
+
+function getPostCategoriesComponent(cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/post/PostTaskCategoriesHandler'));
+  });
+}
+
+function getPostFormComponent(cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/post/PostTaskFormHandler'));
+  });
+}
+
+function getHowItWorksComponent(cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/about/HowItWorksHandler'));
+  });
+}
+
+function getLoginComponent(cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/login/LoginHandler'));
+  });
+}
+
+function getRegisterComponent(cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/login/RegisterHandler'));
+  });
+}
+
 // Routes.
 export default (
   <Route component={AppHandler}>
     <Route path="/" component={HomeHandler} />
-    <Route path="/login" component={LoginHandler} />
-    <Route path="/register" component={RegisterHandler} />
-    <Route path="/browse" component={BrowseTasksHandler} />
-    <Route path="/post" component={PostTaskCategoriesHandler} />
-    <Route path="/post/:category" component={PostTaskFormHandler} onEnter={requireAuth} />
+    <Route path="/login" getComponents={getLoginComponent} />
+    <Route path="/register" getComponents={getRegisterComponent} />
+    <Route path="/browse" getComponents={getBrowseComponent} />
+    <Route path="/post" getComponents={getPostCategoriesComponent} />
+    <Route path="/post/:category" getComponents={getPostFormComponent} onEnter={requireAuth} />
     <Route path="/center" component={NelpCenterHandler} onEnter={requireAuth}>
       <Route path="applications" component={ApplicationsHandler} />
       <Route path="tasks" component={TasksHandler} />
@@ -71,7 +97,7 @@ export default (
     </Route>
     <Route path="/center/profile" component={ProfileHandler} />
     <Route path="/settings" component={SettingsHandler} onEnter={requireAuth} />
-    <Route path="/howitworks" component={HowItWorksHandler} />
+    <Route path="/howitworks" getComponents={getHowItWorksComponent} />
     <Route path="/testpayment" component={TestPaymentHandler} />
     <Route path="*" component={PageNotFoundHandler} />
   </Route>

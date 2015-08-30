@@ -20,7 +20,7 @@ module.exports = [
         loader: ExtractTextPlugin.extract('style', 'css!postcss!sass?' + shared.sassPaths),
       }, {
         test: /\.jsx?$/,
-        loader: 'babel?stage=0',
+        loader: 'babel?stage=0&optional=runtime',
         include: path.resolve(ROOT_PATH, 'src'),
       }]),
     },

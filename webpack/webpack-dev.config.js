@@ -28,7 +28,7 @@ module.exports = merge(shared.config, {
       loaders: ['style', 'css', 'sass?' + shared.sassPaths],
     }, {
       test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel?stage=0'],
+      loaders: ['react-hot', 'babel?stage=0&optional=runtime'],
       include: path.resolve(ROOT_PATH, 'src'),
     }]),
   },
