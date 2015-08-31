@@ -49,18 +49,18 @@ export default class TaskCardView extends Component {
           </div>
           <div className="info-row status">
             <div className="status-icon" style={{backgroundImage: `url('${statusIcon}')`}} />
-            <div className="text">{statusText}</div>
+            <div className="text status-text">{statusText}</div>
             <div className="price">
               {'$' + task.priceOffered}
             </div>
           </div>
           <div className="info-row calendar">
             <div className="calendar-icon" />
-            <div className="text">Applied {moment(application.createdAt).fromNow()}</div>
+            <div className="text calendar-text">Applied {moment(application.createdAt).fromNow()}</div>
           </div>
           <div className="info-row location">
             <div className="location-icon" />
-            <div className="text">
+            <div className="text location-text">
               <div className="city">{task.city}</div>
               <div className="distance">{distance} km away from you</div>
             </div>

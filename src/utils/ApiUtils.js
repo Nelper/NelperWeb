@@ -323,6 +323,7 @@ class ApiUtils {
                   createdAt: a.createdAt,
                   isNew: a.get('isNew'),
                   state: a.get('state'),
+                  price: a.get('price'),
                   user: this._userFromParse(a.get('user')),
                   task: task,
                 };
@@ -356,6 +357,7 @@ class ApiUtils {
             createdAt: a.createdAt,
             state: a.get('state'),
             task: task,
+            price: a.get('price'),
           };
         });
       });

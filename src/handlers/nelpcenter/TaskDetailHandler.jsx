@@ -153,8 +153,11 @@ export default class TaskDetailHandler extends Component {
         <div>
         {
           pendingApplications.length || !deniedApplications.length ?
-          <div className="panel pad-all">
-            <h2>Applicants</h2>
+          <div className="panel">
+            <div className="panel-title">
+              <div className="pending-icon" />
+              <h2>Nelpers</h2>
+            </div>
             <ApplicationListView
               applications={pendingApplications}
               onAccept={::this._onAccept}
@@ -166,8 +169,11 @@ export default class TaskDetailHandler extends Component {
         }
         {
           deniedApplications.length ?
-          <div className="panel pad-all">
-            <h2>Denied Applicants</h2>
+          <div className="panel">
+            <div className="panel-title">
+              <div className="denied-icon" />
+              <h2>Denied Nelpers</h2>
+            </div>
             <ApplicationListView
               applications={deniedApplications}
               onRestore={::this._onRestore}
@@ -196,34 +202,35 @@ export default class TaskDetailHandler extends Component {
         </Dialog>
         <div className="detail-container panel pad-all">
           <h2>{task.title}</h2>
-          <div className="detail-row description">
-            <Editable
-              multiline={true}
-              onEditDone={::this._onDescChanged}
-              value={task.desc}
-              />
-          </div>
           <div className="other-info-container">
             <div className="other-info-col">
-              <div className="detail-row">
-                <div className="detail-icon applicants-count" />
-                <div className="detail-text">{task.applications.length} applicants</div>
+              <div className="description">
+                <Editable
+                  multiline={true}
+                  onEditDone={::this._onDescChanged}
+                  value={task.desc}
+                  />
               </div>
-              <div className="detail-row">
-                <div className="detail-icon price-offered" />
-                <div className="detail-text">${task.priceOffered} offered</div>
-              </div>
-              <div className="detail-row">
-                <div className="detail-icon calendar" />
-                <div className="detail-text">
-                  <div>Posted {moment(task.createdAt).fromNow()}</div>
-                  <div>Expires {moment(task.createdAt).add(15, 'days').fromNow()}</div>
+              <div className="other-info-split">
+                <div className="detail-row">
+                  <div className="detail-icon applicants-count" />
+                  <div className="detail-text">{task.applications.length} Nelpers</div>
                 </div>
-              </div>
-              <div className="detail-row">
-                <div className="detail-icon location" />
-                <div className="detail-text">
-                  {task.city}
+                <div className="detail-row">
+                  <div className="price">${task.priceOffered}</div>
+                </div>
+                <div className="detail-row">
+                  <div className="detail-icon calendar" />
+                  <div className="detail-text">
+                    <div>Posted {moment(task.createdAt).fromNow()}</div>
+                    <div>Expires {moment(task.createdAt).add(15, 'days').fromNow()}</div>
+                  </div>
+                </div>
+                <div className="detail-row">
+                  <div className="detail-icon location" />
+                  <div className="detail-text">
+                    {task.city}
+                  </div>
                 </div>
               </div>
             </div>
@@ -239,8 +246,11 @@ export default class TaskDetailHandler extends Component {
                   arrows={true}>
                   {pictures}
                 </Slider> :
-                null
+                <div className="no-pictures"></div>
               }
+              <div className="edit-pictures">
+                <button className="secondary">Edit pictures</button>
+              </div>
             </div>
           </div>
           <div className="btn-group">

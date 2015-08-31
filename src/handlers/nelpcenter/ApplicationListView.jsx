@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
+import classNames from 'classnames';
 
 import Rating from 'components/Rating';
+import Icon from 'components/Icon';
 
 export default class ApplicationListView extends Component {
 
@@ -28,9 +30,18 @@ export default class ApplicationListView extends Component {
     this.props.onViewProfile && this.props.onViewProfile(application);
   }
 
+  _renderSamePriceIcon(application) {
+    if (!application.price || application.price === application.task.priceOffered) {
+      return <Icon className="price-icon price-even" svg={require('images/icons/check.svg')} />;
+    } else if (application.price < application.task.priceOffered) {
+      return <Icon className="price-icon price-down" svg={require('images/icons/arrow.svg')} />;
+    }
+    return <Icon className="price-icon price-up" svg={require('images/icons/arrow.svg')} />;
+  }
+
   render() {
     const applications = !this.props.applications.length ?
-      <div>No applications yet!</div> :
+      <div className="no-applications">No applications yet!</div> :
       this.props.applications.map(a => {
         return (
           <div key={a.objectId} className="application">
@@ -53,7 +64,8 @@ export default class ApplicationListView extends Component {
               </div>
             </div>
             <div className="list-price-offered">
-              Asking for ${a.task.priceOffered}
+              <div className="list-price">${a.price || a.task.priceOffered}</div>
+              {this._renderSamePriceIcon(a)}
             </div>
             {
               a.state === 0 ?

@@ -2,9 +2,8 @@
   $category-icon-size: 64px;
   $is-new-icon-size: 1.5rem;
   $status-icon-size: 2.5rem;
-  $calendar-icon-size: 2.5rem;
-
-  height: rem(346px);
+  $calendar-icon-size: 2rem;
+  $location-icon-size: 2rem;
 
   .is-new {
     position: absolute;
@@ -40,6 +39,8 @@
 
   .title {
     @include ellipsis();
+    margin-bottom: 1rem;
+    font-weight: bold;
     font-size: 1.2em;
   }
 
@@ -52,7 +53,11 @@
 
   .text {
     flex: 1;
-    margin-left: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  .status {
+    margin-bottom: 2rem;
   }
 
   .status-icon {
@@ -60,24 +65,42 @@
     border-radius: 50%;
   }
 
-  .price {
-    @include flex-basis(rem(80px));
-    text-align: center;
-    padding: 0.3rem 0;
-    border-radius: 3px;
-    background-color: $color-money;
-    color: $color-background-light;
+  .status-text {
     font-size: 1.1em;
+  }
+
+  .price {
+    flex-basis: rem(80px);
+    text-align: center;
+    background-image: url('~images/icons/money.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 76px;
+    padding-top: 8px;
+    height: 41px;
+    padding-left: 6px;
+    font-size: 1.2em;
+    color: $color-background-light;
   }
 
   .calendar-icon {
     @include image($calendar-icon-size, $calendar-icon-size);
     background-image: url('~images/icons/calendar.png');
+    margin: 0 0.25rem;
+  }
+
+  .calendar-text {
+    font-size: 0.9em;
   }
 
   .location-icon {
-    @include image($calendar-icon-size, $calendar-icon-size);
+    @include image($location-icon-size, $location-icon-size);
     background-image: url('~images/icons/pin.png');
+    margin: 0 0.25rem;
+  }
+
+  .location-text {
+    font-size: 0.9em;
   }
 
   .distance {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="91px" height="91px" viewBox="0 0 91 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Icons" sketch:type="MSArtboardGroup" transform="translate(-1091.000000, -246.000000)">
+            <g id="2" sketch:type="MSLayerGroup" transform="translate(90.000000, 246.000000)">
+                <g id="arrow" transform="translate(1010.370089, 1.000000)" sketch:type="MSShapeGroup">
+                    <rect id="Rectangle-21" x="28.4318182" y="0" width="16.1363636" height="81.4285714"></rect>
+                    <rect id="Rectangle-21-Copy" transform="translate(24.666667, 66.428571) rotate(-45.000000) translate(-24.666667, -66.428571) " x="16.5984848" y="41.7857143" width="16.1363636" height="49.2857143"></rect>
+                    <rect id="Rectangle-21-Copy-2" transform="translate(48.333333, 66.428571) scale(-1, 1) rotate(-45.000000) translate(-48.333333, -66.428571) " x="40.2651515" y="41.7857143" width="16.1363636" height="49.2857143"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

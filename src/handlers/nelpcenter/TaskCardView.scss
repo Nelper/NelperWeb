@@ -53,14 +53,16 @@
 
   .title {
     @include ellipsis();
+    margin-bottom: 1rem;
     font-size: 1.2em;
+    font-weight: bold;
   }
 
   .applicants-row {
     display: flex;
     align-items: center;
     flex: 1;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
     padding: 0 1rem;
   }
 
@@ -70,32 +72,37 @@
 
   .applicants {
     flex: 1;
-    margin-left: 0.5rem;
+    margin-left: 1rem;
     font-size: 1em;
   }
 
   .price {
     flex-basis: rem(80px);
     text-align: center;
-    padding: 0.3rem 0;
-    border-radius: 3px;
-    background-color: $color-money;
+    background-image: url('~images/icons/money.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 76px;
+    padding-top: 8px;
+    height: 41px;
+    padding-left: 6px;
+    font-size: 1.2em;
     color: $color-background-light;
-    font-size: 1.1em;
   }
 
   .calendar-row {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     padding: 0 1rem;
-    font-size: 0.75em;
+    font-size: 0.8em;
     text-align: center;
   }
 
   .calendar-icon {
     @include image($calendar-icon-size, $calendar-icon-size);
+    flex-shrink: 0;
     background-image: url('~images/icons/calendar.png');
-    margin: 0 0.5rem;
+    margin: 0 2rem;
   }
 }

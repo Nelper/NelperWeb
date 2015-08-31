@@ -1,37 +1,67 @@
 .find-nelp-detail-handler {
 
-  $state-icon-size: 32px;
-
   .detail-container {
-    display: flex;
-    flex-direction: column;
     margin-bottom: 1rem;
   }
 
   .other-info-container {
-    margin: 0 4rem;
+    @include outer-container();
+    margin: 0 2rem;
+    margin-bottom: 2rem;
   }
 
   .other-info-col {
     @include span-columns(8);
   }
 
+  .other-info-split > div {
+    @include span-columns(8 of 8);
+    display: flex;
+
+    @include media($large-screen) {
+      @include span-columns(4 of 8);
+      @include omega(2n);
+      display: flex;
+    }
+  }
+
   .image-col {
     @include span-columns(4);
+    @include omega();
+  }
+
+  .no-pictures {
+    background-color: $color-gray-light;
+    height: rem(200px);
+  }
+
+  .task-picture {
+    @include image-fill();
+    height: rem(200px);
+  }
+
+  .edit-pictures {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
   }
 
   .detail-row {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 
   .detail-icon {
-    @include image(2rem);
+    @include image(2.5rem);
   }
 
   .detail-text {
     margin-left: 1rem;
+  }
+
+  .description {
+    margin-bottom: 1rem;
   }
 
   .applicants-count {
@@ -42,6 +72,20 @@
     background-image: url('~images/icons/money.png');
   }
 
+  .price {
+    flex-basis: rem(80px);
+    text-align: center;
+    background-image: url('~images/icons/money.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 76px;
+    padding-top: 8px;
+    height: 41px;
+    padding-left: 6px;
+    font-size: 1.2em;
+    color: $color-background-light;
+  }
+
   .calendar {
     background-image: url('~images/icons/calendar.png');
   }
@@ -50,8 +94,15 @@
     background-image: url('~images/icons/pin.png');
   }
 
-  .task-picture {
-    @include image-fill();
-    height: rem(200px);
+  .pending-icon {
+    @include image(2.5rem);
+    margin-right: 1rem;
+    background-image: url('~images/icons/state-pending.png');
+  }
+
+  .denied-icon {
+    @include image(2.5rem);
+    margin-right: 1rem;
+    background-image: url('~images/icons/state-denied.png');
   }
 }

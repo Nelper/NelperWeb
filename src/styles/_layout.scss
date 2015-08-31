@@ -76,6 +76,18 @@ body {
   }
 }
 
+.panel-title {
+  display: flex;
+  align-items: center;
+  border-bottom: $base-border;
+  padding: 1rem;
+  margin-bottom: 0;
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
 .pad-all {
   padding: 1rem;
 }
