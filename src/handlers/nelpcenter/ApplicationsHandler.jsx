@@ -28,7 +28,9 @@ export default class ApplicationsHandler extends Component {
   }
 
   componentDidMount() {
-    ApplicationActions.refreshMyApplications();
+    if (__CLIENT__) {
+      ApplicationActions.refreshMyApplications();
+    }
   }
 
   render() {

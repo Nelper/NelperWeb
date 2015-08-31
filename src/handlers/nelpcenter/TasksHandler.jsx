@@ -28,7 +28,9 @@ export default class TasksHandler extends Component {
   }
 
   componentDidMount() {
-    TaskActions.refreshMyTasks();
+    if (__CLIENT__) {
+      TaskActions.refreshMyTasks();
+    }
   }
 
   /**

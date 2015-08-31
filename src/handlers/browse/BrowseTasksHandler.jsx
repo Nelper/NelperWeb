@@ -40,23 +40,25 @@ export default class BrowseTasksHandler extends Component {
   }
 
   componentDidMount() {
-    if (UserStore.state.user.location) {
-      BrowseActions.refreshTasks(Object.assign({}, this.state.filters, this.state.sort), UserStore.state.user.location);
-    } else {
-      BrowseActions.refreshTasks(Object.assign({}, this.state.filters, this.state.sort));
+    if (__CLIENT__) {
+      if (UserStore.state.user.location) {
+        BrowseActions.refreshTasks(Object.assign({}, this.state.filters, this.state.sort), UserStore.state.user.location);
+      } else {
+        BrowseActions.refreshTasks(Object.assign({}, this.state.filters, this.state.sort));
 
-      // TODO(janic): this logic should be elsewhere.
-      navigator.geolocation.getCurrentPosition((pos) => {
-        UserActions.setLocation(pos.coords);
+        // TODO(janic): this logic should be elsewhere.
+        navigator.geolocation.getCurrentPosition((pos) => {
+          UserActions.setLocation(pos.coords);
 
-        if (!this.refs.map) {
-          return;
-        }
-        this.refs.map.panTo(new LatLng(
-          pos.coords.latitude,
-          pos.coords.longitude,
-        ));
-      });
+          if (!this.refs.map) {
+            return;
+          }
+          this.refs.map.panTo(new LatLng(
+            pos.coords.latitude,
+            pos.coords.longitude,
+          ));
+        });
+      }
     }
   }
 
@@ -98,13 +100,13 @@ export default class BrowseTasksHandler extends Component {
     }
   }
 
-  _onApply(task) {
+  _onApply(task, price) {
     // Make sure the user is logged to apply on a task.
     if (!UserStore.isLogged()) {
       this.context.router.transitionTo('/login', null, { nextPathname: '/nelp' });
       return;
     }
-    BrowseActions.applyForTask(task);
+    BrowseActions.applyForTask(task, price);
   }
 
   _onCancelApply(task) {

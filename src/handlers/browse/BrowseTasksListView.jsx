@@ -3,6 +3,8 @@ import Slider from 'react-slick';
 import classNames from 'classnames';
 import moment from 'moment';
 
+import Dialog from 'components/Dialog';
+import NumericInput from 'components/NumericInput';
 import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import LocationUtils from 'utils/LocationUtils';
@@ -29,6 +31,9 @@ export default class BrowseTasksListView extends Component {
 
   state = {
     selectedTask: null,
+    makeOfferDialogOpened: false,
+    makeOfferValue: 0,
+    makeOfferTask: null,
   }
 
   componentDidMount() {
@@ -50,6 +55,10 @@ export default class BrowseTasksListView extends Component {
     }
   }
 
+  _onMakeOfferValueChange(value) {
+    this.setState({makeOfferValue: value});
+  }
+
   _shouldLoadMore(ele, offset = 0) {
     const rect = ele.getBoundingClientRect();
     return rect.bottom <= window.innerHeight + offset;
@@ -67,11 +76,30 @@ export default class BrowseTasksListView extends Component {
     this.props.onTaskSelected(task);
   }
 
-  _apply(task) {
-    this.props.onApply(task);
+  _onMakeOffer(task) {
+    this.setState({
+      makeOfferDialogOpened: true,
+      makeOfferValue: task.priceOffered,
+      makeOfferTask: task,
+    });
   }
 
-  _cancelApplication(task) {
+  _onMakeOfferCancel() {
+    this.setState({
+      makeOfferDialogOpened: false,
+      makeOfferTask: null,
+    });
+  }
+
+  _onMakeOfferConfirm() {
+    this.props.onApply(this.state.makeOfferTask, this.state.makeOfferValue);
+    this.setState({
+      makeOfferDialogOpened: false,
+      makeOfferTask: null,
+    });
+  }
+
+  _onCancelOffer(task) {
     this.props.onCancelApply(task);
   }
 
@@ -94,6 +122,16 @@ export default class BrowseTasksListView extends Component {
           'task',
           {'collapsed': t !== this.state.selectedTask},
         )}>
+          <Dialog opened={this.state.makeOfferDialogOpened}>
+            <h2>Make an offer</h2>
+            <div className="dialog-text">
+              <NumericInput value={this.state.makeOfferValue} onChange={::this._onMakeOfferValueChange} />
+            </div>
+            <div className="btn-group dialog-buttons">
+              <button onClick={::this._onMakeOfferCancel}>Cancel</button>
+              <button onClick={::this._onMakeOfferConfirm} className="primary">Apply</button>
+            </div>
+          </Dialog>
           <div className="header" onClick={() => this._taskDetail(t)}>
             <div className="content">
               <div className="user-picture" style={{backgroundImage: `url('${t.user.pictureURL}')`}}>
@@ -138,10 +176,10 @@ export default class BrowseTasksListView extends Component {
               <div className="btn-group controls">
                 {
                   t.application && t.application.state === NELP_TASK_APPLICATION_STATE.PENDING ?
-                  <button className="warning" onClick={() => this._cancelApplication(t)}>
-                    ???
+                  <button className="primary" onClick={() => this._onCancelOffer(t)}>
+                    Cancel offer
                   </button> :
-                  <button className="primary" onClick={() => this._apply(t)}>
+                  <button className="primary" onClick={() => this._onMakeOffer(t)}>
                     Make an offer
                   </button>
                 }

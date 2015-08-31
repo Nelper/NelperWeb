@@ -32,7 +32,10 @@ export default class TaskDetailHandler extends Component {
     const tasks = TaskStore.getState().myTasks;
     const task = tasks.find(t => t.objectId === props.params.id);
     if (!task) {
-      TaskActions.refreshMyTasks();
+      if (__CLIENT__) {
+        TaskActions.refreshMyTasks();
+      }
+
       return {
         isLoading: true,
         task: null,

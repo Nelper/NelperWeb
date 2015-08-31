@@ -420,7 +420,7 @@ class ApiUtils {
    * Create an application for the user on a task.
    * @param  {Task} task The task to apply on
    */
-  applyForTask(task) {
+  applyForTask(task, price) {
     const parseTask = new NelpTask();
     parseTask.id = task.objectId;
     const parseApplication = new NelpTaskApplication();
@@ -428,6 +428,7 @@ class ApiUtils {
     parseApplication.set('user', Parse.User.current());
     parseApplication.set('task', parseTask);
     parseApplication.set('isNew', true);
+    parseApplication.set('price', price);
     task.application = parseApplication.toPlainObject(); // TODO(janic): remove this side effect hack.
     parseApplication.save();
   }

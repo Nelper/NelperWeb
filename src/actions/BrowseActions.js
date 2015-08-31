@@ -16,8 +16,8 @@ class BrowseActions {
       });
   }
 
-  applyForTask(task) {
-    ApiUtils.applyForTask(task);
+  applyForTask(task, price) {
+    ApiUtils.applyForTask(task, price);
     return task;
   }
 
