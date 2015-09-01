@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
-import moment from 'moment';
 
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import Editable, {EditableBox} from 'components/Editable';
 import Rating from 'components/Rating';
+import ApiUtils from 'utils/ApiUtils';
 
 @connectToStores
 export default class ProfileHandler extends Component {
@@ -29,6 +29,7 @@ export default class ProfileHandler extends Component {
   state = {
     addingSkill: false,
     addingExperience: false,
+    addingEducation: false,
   }
 
   _onUploadPicture() {
@@ -110,6 +111,36 @@ export default class ProfileHandler extends Component {
     UserActions.deleteExperience(exp);
   }
 
+  _onAddEducation() {
+    this.setState({
+      addingEducation: true,
+    });
+  }
+
+  _onAddEducationDone(title) {
+    UserActions.addEducation({
+      title,
+    });
+    this.setState({
+      addingEducation: false,
+    });
+  }
+
+  _onAddEducationCancel() {
+    this.setState({
+      addingEducation: false,
+    });
+  }
+
+  _onEditEducationDone(ed, title) {
+    exp.title = title;
+    UserActions.editEducation(ed);
+  }
+
+  _onDeleteEducation(ed) {
+    UserActions.deleteEducation(ed);
+  }
+
   render() {
     const {user} = this.props;
 
@@ -121,6 +152,19 @@ export default class ProfileHandler extends Component {
             onEditDone={(val) => this._onEditSkillDone(s, val)}
             onDelete={() => this._onDeleteSkill(s)}
             value={s.title}
+          />
+        </div>
+      );
+    });
+
+    const education = user.education.map(e => {
+      return (
+        <div className="education" key={e.objectId}>
+          <Editable
+            deletable={true}
+            onEditDone={(val) => this._onEditEducationDone(e, val)}
+            onDelete={() => this._onDeleteEducation(e)}
+            value={e.title}
           />
         </div>
       );
@@ -158,15 +202,13 @@ export default class ProfileHandler extends Component {
             </div>
             <Rating rating={4} />
             <div className="tasks-completed">8 tasks completed</div>
-            <div className="member-since">
-              Member since {moment(user.createdAt).format('MMMM Do YYYY')}
-            </div>
           </div>
         </div>
         <div className="container">
           <div className="panel pad-all section-row">
             <div className="section-title">
-              About
+              <div className="section-icon section-icon-about" />
+              <div>About</div>
             </div>
             <div className="section-content">
               <Editable
@@ -179,7 +221,8 @@ export default class ProfileHandler extends Component {
           </div>
           <div className="panel pad-all section-row">
             <div className="section-title">
-              Skills
+              <div className="section-icon section-icon-skills" />
+              <div>Skills</div>
             </div>
             <div className="section-content">
               <div className="skills">
@@ -187,7 +230,7 @@ export default class ProfileHandler extends Component {
               </div>
               {
                 !this.state.addingSkill ?
-                <button className="add-skill light primary" onClick={::this._onAddSkill}>Add new skill</button> :
+                <button className="add-skill link-button" onClick={::this._onAddSkill}>Add skill</button> :
                 <EditableBox
                   onEditDone={::this._onAddSkillDone}
                   onEditCancel={::this._onAddSkillCancel}
@@ -197,21 +240,41 @@ export default class ProfileHandler extends Component {
           </div>
           <div className="panel pad-all section-row">
             <div className="section-title">
-              Experience
+              <div className="section-icon section-icon-education" />
+              <div>Education</div>
             </div>
             <div className="section-content">
-              <div className="experience">
-                {experience}
+              <div className="education">
+                {education}
               </div>
               {
-                !this.state.addingExperience ?
-                <button className="light primary" onClick={::this._onAddExperience}>Add new experience</button> :
+                !this.state.addingEducation ?
+                <button className="link-button" onClick={::this._onAddEducation}>Add education</button> :
                 <EditableBox
-                  onEditDone={::this._onAddExperienceDone}
-                  onEditCancel={::this._onAddExperienceCancel}
+                  onEditDone={::this._onAddEducationDone}
+                  onEditCancel={::this._onAddEducationCancel}
                 />
               }
             </div>
+          </div>
+        </div>
+        <div className="panel pad-all section-row">
+          <div className="section-title">
+            <div className="section-icon section-icon-work" />
+            <div>Work experience</div>
+          </div>
+          <div className="section-content">
+            <div className="experience">
+              {experience}
+            </div>
+            {
+              !this.state.addingExperience ?
+              <button className="link-button" onClick={::this._onAddExperience}>Add work experience</button> :
+              <EditableBox
+                onEditDone={::this._onAddExperienceDone}
+                onEditCancel={::this._onAddExperienceCancel}
+              />
+            }
           </div>
         </div>
       </div>

@@ -6,15 +6,6 @@
     align-items: center;
     padding: 0.5rem 1rem;
     margin-bottom: 0.5rem;
-    border-radius: 3px;
-
-    &:hover {
-      background-color: $color-background-light;
-
-      .editable-action {
-        opacity: 1;
-      }
-    }
   }
 
   .editable-text {
@@ -28,10 +19,6 @@
     border: 0;
     width: 40px;
     height: 40px;
-
-    @include media($medium-screen) {
-      opacity: 0;
-    }
 
     &:hover {
       .editable-icon {
@@ -64,7 +51,6 @@
 }
 
 .edit-box-component {
-  padding: 1rem;
-  border-radius: 3px;
+  padding: rem(7px);
   background-color: $color-background-light;
 }

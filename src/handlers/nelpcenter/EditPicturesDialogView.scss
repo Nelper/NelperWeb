@@ -1,0 +1,68 @@
+.edit-pictures-dialog-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  .edit-picture-list {
+    flex: 1;
+  }
+
+  .edit-picture {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .edit-picture-delete-icon {
+    margin-right: 0.5rem;
+  }
+
+  .edit-picture-image {
+    @include image-fill();
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+  }
+
+  .edit-picture-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+    margin-left: 3.5rem;
+    border: $base-border;
+  }
+
+  .add-picture {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    margin-left: 3.5rem;
+    background-color: $color-background-light;
+
+    .add-picture-icon {
+      @include image(3rem);
+      margin: 0.5rem;
+      background-image: url('~images/icons/plus.png');
+      cursor: pointer;
+    }
+
+    input {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0;
+      margin: 0;
+      opacity: 0;
+      font-size: 100px;
+      cursor: pointer;
+    }
+
+    ::-webkit-file-upload-button {
+      cursor: pointer;
+    }
+  }
+}

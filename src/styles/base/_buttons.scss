@@ -81,20 +81,31 @@ button,
     }
   }
 
-  &.light {
+  &.link-button {
+    display: flex;
+    align-items: center;
     background-color: transparent;
     border: 0;
     color: $color-primary;
-    transition: background-color 250ms linear, color 250ms linear;
+    fill: $color-primary;
+    transition: all 250ms ease-out;
+    font-size: 1.1em;
+    font-weight: normal;
 
     &:hover {
-      background-color: $color-primary;
-      color: $color-background-light;
-      border: 0;
+      opacity: 0.7;
     }
 
     &:focus {
       background-color: transparent;
+    }
+
+    i {
+      width: 1.75rem;
+      height: 1.75rem;
+      margin-top: -1rem;
+      margin-bottom: -1rem;
+      margin-right: 1rem;
     }
   }
 
@@ -106,7 +117,7 @@ button,
     border: 1px solid $color-primary;
     color: $color-primary;
     fill: $color-primary;
-    transition: all 250ms ease-in-out;
+    transition: all 250ms ease-out;
     font-weight: normal;
 
     &:hover {

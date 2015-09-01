@@ -5,9 +5,11 @@ import moment from 'moment';
 
 import ApplicationListView from './ApplicationListView';
 import AcceptedApplicationView from './AcceptedApplicationView';
+import EditPicturesDialogView from './EditPicturesDialogView';
 import Progress from 'components/Progress';
 import Dialog from 'components/Dialog';
 import Editable from 'components/Editable';
+import Icon from 'components/Icon';
 import TaskActions from 'actions/TaskActions';
 import TaskStore from 'stores/TaskStore';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
@@ -50,6 +52,7 @@ export default class TaskDetailHandler extends Component {
 
   state = {
     confirmDeleteOpened: false,
+    editPicturesOpened: false,
   };
 
   constructor(props) {
@@ -100,6 +103,22 @@ export default class TaskDetailHandler extends Component {
     this.setState({confirmDeleteOpened: true});
   }
 
+  _onEditPictures() {
+    this.setState({editPicturesOpened: true});
+  }
+
+  _onEditPicturesClose() {
+    this.setState({editPicturesOpened: false});
+  }
+
+  _onEditPicturesAdd(picture) {
+    TaskActions.addPicture(this.props.task, picture);
+  }
+
+  _onEditPicturesDelete(picture) {
+    TaskActions.deletePicture(this.props.task, picture);
+  }
+
   _getAcceptedApplication() {
     return this.props.task.applications
       .find(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
@@ -118,7 +137,7 @@ export default class TaskDetailHandler extends Component {
 
   render() {
     const {task, isLoading} = this.props;
-    const {confirmDeleteOpened} = this.state;
+    const {confirmDeleteOpened, editPicturesOpened} = this.state;
     if (isLoading) {
       return (
         <div className="progress-center">
@@ -200,6 +219,13 @@ export default class TaskDetailHandler extends Component {
             </button>
           </div>
         </Dialog>
+        <EditPicturesDialogView
+          pictures={task.pictures || []}
+          opened={editPicturesOpened}
+          onClose={::this._onEditPicturesClose}
+          onAddPicture={::this._onEditPicturesAdd}
+          onDeletePicture={::this._onEditPicturesDelete}
+        />
         <div className="detail-container panel pad-all">
           <h2>{task.title}</h2>
           <div className="other-info-container">
@@ -249,12 +275,14 @@ export default class TaskDetailHandler extends Component {
                 <div className="no-pictures"></div>
               }
               <div className="edit-pictures">
-                <button className="secondary">Edit pictures</button>
+                <button className="secondary" onClick={::this._onEditPictures}>Edit pictures</button>
               </div>
             </div>
           </div>
           <div className="btn-group">
-            <button className="warning" onClick={::this._onDelete}>Delete</button>
+            <div className="button link-button" onClick={::this._onDelete}>
+              <Icon svg={require('images/icons/delete.svg')}/>Delete
+            </div>
           </div>
         </div>
         {applicationsSection}

@@ -59,6 +59,14 @@ class TaskActions {
     ApiUtils.restoreApplication(application);
     return application;
   }
+
+  addPicture(task, picture) {
+    ApiUtils.addTaskPicture(task, picture);
+  }
+
+  deletePicture(task, picture) {
+    ApiUtils.deleteTaskPicture(task, picture);
+  }
 }
 
 export default alt.createActions(TaskActions);

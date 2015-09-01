@@ -19,6 +19,7 @@
 @import 'components/Editable';
 @import 'components/NumericInput';
 @import 'components/Checkbox';
+@import 'components/IconButton';
 
 @import 'handlers/browse/BrowseTasksHandler';
 @import 'handlers/browse/NelpTaskDetail';
@@ -38,6 +39,7 @@
 @import 'handlers/nelpcenter/ApplicationCardView';
 @import 'handlers/nelpcenter/ApplicationListView';
 @import 'handlers/nelpcenter/AcceptedApplicationView';
+@import 'handlers/nelpcenter/EditPicturesDialogView';
 
 @import 'handlers/about/HowItWorksHandler';
 

@@ -222,6 +222,38 @@ class ApiUtils {
   }
 
   /**
+   * Add an education item to the user's profile.
+   * @param {Education} ed The education
+   */
+  addUserEducation(ed) {
+    const user = Parse.User.current();
+    user.add('education', ed);
+    user.save();
+  }
+
+  /**
+   * Edit an education item on the user's profile.
+   * @param {Education} ed The education
+   */
+  editUserEducation(ed) {
+    const user = Parse.User.current();
+    const userExp = user.get('education');
+    const index = userExp.findIndex(e => e.objectId === ed.objectId);
+    userExp[index] = ed;
+    user.save();
+  }
+
+  /**
+   * Delete an education item from the user's profile.
+   * @param {Education} ed The education
+   */
+  deleteUserEducation(ed) {
+    const user = Parse.User.current();
+    user.remove('education', ed);
+    user.save();
+  }
+
+  /**
    * List all tasks near a point.
    * @param {object} filters Filters for the query
    * @param {Array<string>} filters.categories Categories to include in the query
@@ -575,6 +607,7 @@ class ApiUtils {
   _createUserBase(user) {
     user.set('about', '');
     user.set('skills', []);
+    user.set('education', []);
     user.set('experience', []);
     const userPrivate = new UserPrivateData();
     userPrivate.set('locations', []);

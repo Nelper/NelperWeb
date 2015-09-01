@@ -25,6 +25,9 @@ class UserStore {
       handleAddExperience: UserActions.ADD_EXPERIENCE,
       handleEditExperience: UserActions.EDIT_EXPERIENCE,
       handleDeleteExperience: UserActions.DELETE_EXPERIENCE,
+      handleAddEducation: UserActions.ADD_EDUCATION,
+      handleEditEducation: UserActions.EDIT_EDUCATION,
+      handleDeleteEducation: UserActions.DELETE_EDUCATION,
     });
   }
 
@@ -101,6 +104,27 @@ class UserStore {
   handleDeleteExperience(exp) {
     const user = this.state.user;
     user.experience.splice(user.experience.indexOf(exp), 1);
+    this.setState({user});
+    Storage.setItem('user', user);
+  }
+
+  handleAddEducation(ed) {
+    const user = this.state.user;
+    user.education.push(ed);
+    this.setState({user});
+    Storage.setItem('user', user);
+  }
+
+  handleEditEducation(ed) {
+    const user = this.state.user;
+    user.education[user.education.indexOf(ed)] = ed;
+    this.setState({user});
+    Storage.setItem('user', user);
+  }
+
+  handleDeleteEducation(ed) {
+    const user = this.state.user;
+    user.education.splice(user.education.indexOf(ed), 1);
     this.setState({user});
     Storage.setItem('user', user);
   }

@@ -97,6 +97,22 @@ class UserActions {
     return exp;
   }
 
+  addEducation(ed) {
+    ed.objectId = createId();
+    ApiUtils.addUserEducation(ed);
+    return ed;
+  }
+
+  editEducation(ed) {
+    ApiUtils.editUserEducation(ed);
+    return ed;
+  }
+
+  deleteEducation(ed) {
+    ApiUtils.deleteUserEducation(ed);
+    return ed;
+  }
+
   update() {
     ApiUtils.updateUser()
       .then((user) => {

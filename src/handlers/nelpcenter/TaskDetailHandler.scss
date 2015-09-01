@@ -11,7 +11,11 @@
   }
 
   .other-info-col {
-    @include span-columns(8);
+    @include span-columns(12);
+
+    @include media($medium-screen) {
+      @include span-columns(8);
+    }
   }
 
   .other-info-split > div {
@@ -26,8 +30,12 @@
   }
 
   .image-col {
-    @include span-columns(4);
-    @include omega();
+    @include span-columns(12);
+
+    @include media($medium-screen) {
+      @include span-columns(4);
+      @include omega();
+    }
   }
 
   .no-pictures {

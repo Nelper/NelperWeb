@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
 
 export default class Progress extends Component {
 
   static propTypes = {
-    rating: React.PropTypes.number,
+    small: React.PropTypes.bool,
+  }
+
+  static defaultProps = {
+    small: false,
   }
 
   render() {
     return (
-      <div className="progress">
+      <div className={classNames('progress', {'small': this.props.small})}>
         <div className="bubble-container">
           <div className="bubble" />
         </div>

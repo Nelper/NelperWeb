@@ -104,22 +104,25 @@
 
   .section-title {
     @include span-columns(12);
+    display: flex;
+    align-items: center;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
     font-size: 1.5em;
+    font-weight: bold;
+  }
 
-    @include media($large-screen) {
-      @include span-columns(3);
-      text-align: right;
-    }
+  .section-icon {
+    @include image(3.5rem);
+    margin-left: 1rem;
+    margin-right: 2rem;
   }
 
   .section-content {
     @include span-columns(12);
-    padding-left: 1rem;
 
-    @include media($large-screen) {
-      @include span-columns(7);
+    @include media($medium-screen) {
+      padding-left: 5.5rem;
     }
   }
 
@@ -136,9 +139,19 @@
     }
   }
 
-  .edit-box {
-    padding: 1rem;
-    border-radius: 3px;
-    background-color: $color-background-light;
+  .section-icon-about {
+    background-image: url('~images/icons/about.png');
+  }
+
+  .section-icon-skills {
+    background-image: url('~images/icons/skills.png');
+  }
+
+  .section-icon-education {
+    background-image: url('~images/icons/education.png');
+  }
+
+  .section-icon-work {
+    background-image: url('~images/icons/work.png');
   }
 }
