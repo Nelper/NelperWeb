@@ -32,7 +32,7 @@ export default class ProfileHandler extends Component {
     addingEducation: false,
   }
 
-  _onUploadPicture() {
+  _onUploadPicture(event) {
     const files = event.target.files;
     if (files.length > 0) {
       const file = files[0];

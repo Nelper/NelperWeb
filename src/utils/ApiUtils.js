@@ -439,6 +439,38 @@ class ApiUtils {
     parseTask.save();
   }
 
+  addTaskPicture(task, picture) {
+    const parseTask = new NelpTask();
+    parseTask.id = task.objectId;
+    const parsePictures = task.pictures
+      .concat([picture])
+      .map(p => {
+        return {
+          __type: 'File',
+          name: p.name,
+          url: p.url,
+        };
+      });
+    parseTask.set('pictures', parsePictures);
+    parseTask.save();
+  }
+
+  deleteTaskPicture(task, picture) {
+    const parseTask = new NelpTask();
+    parseTask.id = task.objectId;
+    const parsePictures = task.pictures
+      .filter(p => p !== picture)
+      .map(p => {
+        return {
+          __type: 'File',
+          name: p.name,
+          url: p.url,
+        };
+      });
+    parseTask.set('pictures', parsePictures);
+    parseTask.save();
+  }
+
   /**
    * Delete a task.
    * @param  {Task} task The task to delete

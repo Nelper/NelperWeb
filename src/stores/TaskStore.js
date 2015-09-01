@@ -23,6 +23,8 @@ class TaskStore {
       handleDenyApplication: TaskActions.DENY_APPLICATION,
       handleRestoreApplication: TaskActions.RESTORE_APPLICATION,
       handleSetTaskViewed: TaskActions.SET_TASK_VIEWED,
+      handleAddPicture: TaskActions.ADD_PICTURE,
+      handleDeletePicture: TaskActions.DELETE_PICTURE,
     });
   }
 
@@ -91,6 +93,17 @@ class TaskStore {
   handleSetTaskViewed(task) {
     task.applications.forEach(a => a.isNew = false);
     task.isNew = false;
+    this.emitChange();
+  }
+
+  handleAddPicture({task, picture}) {
+    task.pictures.push(picture);
+    this.emitChange();
+  }
+
+  handleDeletePicture({task, picture}) {
+    const index = task.pictures.findIndex(p => p === picture);
+    task.pictures.splice(index, 1);
     this.emitChange();
   }
 }

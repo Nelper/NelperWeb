@@ -62,10 +62,12 @@ class TaskActions {
 
   addPicture(task, picture) {
     ApiUtils.addTaskPicture(task, picture);
+    return {task, picture};
   }
 
   deletePicture(task, picture) {
     ApiUtils.deleteTaskPicture(task, picture);
+    return {task, picture};
   }
 }
 

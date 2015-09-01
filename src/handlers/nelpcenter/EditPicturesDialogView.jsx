@@ -57,7 +57,7 @@ export default class EditPicturesDialogView extends Component {
             <IconButton
               className="edit-picture-delete-icon"
               icon={require('images/icons/delete.svg')}
-              onClick={this.onDeletePicture}
+              onClick={() => this.props.onDeletePicture(p)}
             /> : null
           }
           {
