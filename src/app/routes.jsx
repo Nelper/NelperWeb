@@ -13,6 +13,7 @@ import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
 import TasksHandler from 'handlers/nelpcenter/TasksHandler';
 import ProfileHandler from 'handlers/nelpcenter/ProfileHandler';
 import TaskDetailHandler from 'handlers/nelpcenter/TaskDetailHandler';
+import ApplicationDetailHandler from 'handlers/nelpcenter/ApplicationDetailHandler';
 
 import SettingsHandler from 'handlers/profile/SettingsHandler';
 
@@ -90,12 +91,15 @@ export default (
     <Route path="/browse" getComponents={getBrowseComponent} />
     <Route path="/post" getComponents={getPostCategoriesComponent} />
     <Route path="/post/:category" getComponents={getPostFormComponent} onEnter={requireAuth} />
-    <Route path="/center" component={NelpCenterHandler} onEnter={requireAuth}>
-      <Route path="applications" component={ApplicationsHandler} />
-      <Route path="tasks" component={TasksHandler} />
-      <Route path="tasks/detail/:id" component={TaskDetailHandler}  />
+    <Route onEnter={requireAuth} name="Nelp Center">
+      <Route path="/center" component={NelpCenterHandler}>
+        <Route path="applications" component={ApplicationsHandler} />
+        <Route path="tasks" component={TasksHandler} />
+      </Route>
+      <Route path="/center/tasks/detail/:id" component={TaskDetailHandler} name="Task Detail" />
+      <Route path="/center/applications/detail/:id" component={ApplicationDetailHandler} name="Application Detail"  />
+      <Route path="/center/profile" component={ProfileHandler} />
     </Route>
-    <Route path="/center/profile" component={ProfileHandler} />
     <Route path="/settings" component={SettingsHandler} onEnter={requireAuth} />
     <Route path="/howitworks" getComponents={getHowItWorksComponent} />
     <Route path="/testpayment" component={TestPaymentHandler} />

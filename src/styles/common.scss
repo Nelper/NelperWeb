@@ -20,6 +20,7 @@
 @import 'components/NumericInput';
 @import 'components/Checkbox';
 @import 'components/IconButton';
+@import 'components/Breadcrumbs';
 
 @import 'handlers/browse/BrowseTasksHandler';
 @import 'handlers/browse/NelpTaskDetail';
@@ -33,6 +34,7 @@
 @import 'handlers/nelpcenter/NelpCenterHandler';
 @import 'handlers/nelpcenter/TasksHandler';
 @import 'handlers/nelpcenter/ApplicationsHandler';
+@import 'handlers/nelpcenter/ApplicationDetailHandler';
 @import 'handlers/nelpcenter/ProfileHandler';
 @import 'handlers/nelpcenter/TaskDetailHandler';
 @import 'handlers/nelpcenter/TaskCardView';

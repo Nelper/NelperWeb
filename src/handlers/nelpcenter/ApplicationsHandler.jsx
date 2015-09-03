@@ -33,9 +33,13 @@ export default class ApplicationsHandler extends Component {
     }
   }
 
+  _onShowApplicationDetail(application) {
+    this.context.router.transitionTo(`/center/applications/detail/${application.objectId}`);
+  }
+
   render() {
     const applications = this.props.applications.map(a => {
-      return <ApplicationCardView key={a.objectId} application={a} />;
+      return <ApplicationCardView key={a.objectId} application={a} onClick={() => this._onShowApplicationDetail(a)} />;
     });
 
     if (this.props.isLoading) {

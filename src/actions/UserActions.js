@@ -5,7 +5,7 @@ import createId from 'utils/createId';
 class UserActions {
 
   constructor() {
-    this.generateActions('receivedUser');
+    this.generateActions('receivedUser', 'receivedPicture');
   }
 
   login(loginInfo) {
@@ -56,8 +56,10 @@ class UserActions {
   }
 
   setPicture(file) {
-    ApiUtils.setUserPicture(file);
-    return file;
+    ApiUtils.setUserPicture(file)
+      .then((picture) => {
+        this.actions.receivedPicture(picture);
+      });
   }
 
   editAbout(about) {

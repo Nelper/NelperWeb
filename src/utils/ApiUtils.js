@@ -134,7 +134,7 @@ class ApiUtils {
   addUserLocation(loc) {
     const privateData = Parse.User.current().get('privateData');
     privateData.add('locations', loc);
-    privateData.save();
+    return privateData.save();
   }
 
   /**
@@ -144,7 +144,9 @@ class ApiUtils {
   setUserPicture(file) {
     const user = Parse.User.current();
     user.set('customPicture', file.file);
-    user.save();
+    return user.save().then(u => {
+      return this._fileFromParse(u.get('customPicture'));
+    });
   }
 
   /**
@@ -154,7 +156,7 @@ class ApiUtils {
   editUserAbout(about) {
     const user = Parse.User.current();
     user.set('about', about);
-    user.save();
+    return user.save();
   }
 
   /**
@@ -574,11 +576,7 @@ class ApiUtils {
     const parseFile = new Parse.File(name, file);
     return parseFile.save()
       .then((f) => {
-        return {
-          url: f.url(),
-          file: parseFile,
-          objectId: f.name(),
-        };
+        return this._fileFromParse(f);
       });
   }
 
@@ -629,10 +627,7 @@ class ApiUtils {
   _taskPictures(parseTask) {
     const pictures = parseTask.get('pictures');
     return pictures && pictures.map(p => {
-      return {
-        url: p.url(),
-        name: p.name(),
-      };
+      return this._fileFromParse(p);
     });
   }
 
@@ -645,6 +640,14 @@ class ApiUtils {
     userPrivate.set('locations', []);
     userPrivate.setACL(new Parse.ACL(user));
     user.set('privateData', userPrivate);
+  }
+
+  _fileFromParse(parseFile) {
+    return {
+      url: parseFile.url(),
+      file: parseFile,
+      objectId: parseFile.name(),
+    };
   }
 
   /**

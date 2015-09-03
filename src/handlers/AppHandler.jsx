@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import UserStore from 'stores/UserStore';
 import UserActions from 'actions/UserActions';
 import NavBar from 'components/NavBar';
+import Breadcrumbs from 'components/Breadcrumbs';
 
 @connectToStores
 export default class AppHandler extends Component {
@@ -31,7 +32,7 @@ export default class AppHandler extends Component {
 
   render() {
     const {children, user} = this.props;
-    const showNavBar = !children.type.showNavBar || children.type.showNavBar();
+    const showNavBar = !children || !children.type.showNavBar || children.type.showNavBar();
     return (
       <div style={{
         height: '100%',
@@ -42,6 +43,7 @@ export default class AppHandler extends Component {
           null
         }
         <div className={classNames('main-app-content', {'has-navbar': showNavBar})}>
+          <Breadcrumbs />
           {children}
         </div>
       </div>

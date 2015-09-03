@@ -1,0 +1,25 @@
+.breadcrumbs-component {
+
+  display: flex;
+  padding: 1rem;
+
+  .breadcrumbs-route {
+    display: flex;
+    align-items: center;
+    color: $color-gray-medium;
+
+    &:not(.active-route) {
+      cursor: pointer;
+
+      &:hover {
+        color: $color-black;
+      }
+    }
+  }
+
+  .breadcrumbs-separator {
+    @include image(rem(22px));
+    margin: 0 0.5rem;
+    background-image: url('~images/icons/arrow-separator.png');
+  }
+}

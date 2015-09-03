@@ -46,7 +46,7 @@ export default class TasksHandler extends Component {
   }
 
   _taskDetail(task) {
-    this.context.router.transitionTo(`/center/tasks/detail/${task.objectId}`, null, {task});
+    this.context.router.transitionTo(`/center/tasks/detail/${task.objectId}`);
   }
 
   render() {

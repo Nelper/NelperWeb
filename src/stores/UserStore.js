@@ -17,7 +17,7 @@ class UserStore {
       handleReceivedUser: UserActions.RECEIVED_USER,
       handleSetLoc: UserActions.SET_LOCATION,
       handleAddLoc: UserActions.ADD_LOCATION,
-      handleSetPicture: UserActions.SET_PICTURE,
+      handleReceivedPicture: UserActions.RECEIVED_PICTURE,
       handleEditAbout: UserActions.EDIT_ABOUT,
       handleAddSkill: UserActions.ADD_SKILL,
       handleEditSkill: UserActions.EDIT_SKILL,
@@ -52,7 +52,7 @@ class UserStore {
     Storage.setItem('user', user);
   }
 
-  handleSetPicture(file) {
+  handleReceivedPicture(file) {
     const user = this.state.user;
     user.pictureURL = file.url;
     this.setState({user});

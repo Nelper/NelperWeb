@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import classNames from 'classnames';
 
 import Rating from 'components/Rating';
 import Icon from 'components/Icon';
