@@ -392,6 +392,7 @@ class ApiUtils {
             state: a.get('state'),
             task: task,
             price: a.get('price'),
+            acceptedAt: a.get('acceptedAt'),
           };
         });
       });
@@ -520,6 +521,7 @@ class ApiUtils {
     const parseApplication = new NelpTaskApplication();
     parseApplication.id = application.objectId;
     parseApplication.set('state', NELP_TASK_APPLICATION_STATE.ACCEPTED);
+    parseApplication.set('acceptedAt', new Date());
     const parseTask = new NelpTask();
     parseTask.id = application.task.objectId;
     parseTask.set('state', NELP_TASK_STATE.ACCEPTED);

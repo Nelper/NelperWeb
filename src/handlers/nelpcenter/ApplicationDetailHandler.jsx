@@ -50,6 +50,43 @@ export default class ApplicationDetailHandler extends Component {
     };
   }
 
+  _renderProgressBar() {
+    const acceptedState = 1;
+    const pendingState = acceptedState + 1;
+    return (
+      <div className="progress-bar-container">
+        <div className="title-task-completion">Task Completion</div>
+        <div className="progress-bar">
+          <div className="progress-bar-node completed">1</div>
+          <div className={classNames(
+            'progress-bar-edge',
+            {'pending': pendingState === 1},
+            {'completed': acceptedState >= 1},
+          )} />
+          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 1})}>2</div>
+          <div className={classNames(
+            'progress-bar-edge',
+            {'pending': pendingState === 2},
+            {'completed': acceptedState >= 2},
+          )} />
+          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 2})}>3</div>
+          <div className={classNames(
+            'progress-bar-edge',
+            {'pending': pendingState === 3},
+            {'completed': acceptedState >= 3},
+          )} />
+          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 3})}>4</div>
+        </div>
+        <div className="progress-bar-titles">
+          <div className="progress-bar-title">Accepted</div>
+          <div className="progress-bar-title">Payment sent</div>
+          <div className="progress-bar-title">Payment requested</div>
+          <div className="progress-bar-title">Funds released</div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const {application, isLoading} = this.props;
     if (isLoading) {
@@ -62,6 +99,7 @@ export default class ApplicationDetailHandler extends Component {
 
     const task = application.task;
     const hasPictures = task.pictures && task.pictures.length > 0;
+    const accepted = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED;
 
     const statusIcon = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
       require('images/icons/state-accepted.png') :
@@ -82,19 +120,33 @@ export default class ApplicationDetailHandler extends Component {
             </div>
           </div>
           <div className="summary-item">
-            <div className="summary-item-title">Your offer</div>
+            <div className="summary-item-title">{accepted ? 'Agreed Price' : 'Your offer'}</div>
             <div className="summary-item-price">${application.price}</div>
           </div>
           <div className="summary-item">
-            <div className="summary-item-title">Applied</div>
+            <div className="summary-item-title">{accepted ? 'Accepted' : 'Applied'}</div>
             <div className="summary-item-applied">
               <div className="summary-item-applied-icon" />
               <div className="summary-item-applied-text">
-                {moment(application.createdAt).fromNow()}
+                {
+                  accepted ?
+                  moment(application.acceptedAt).fromNow() :
+                  moment(application.createdAt).fromNow()
+                }
               </div>
             </div>
           </div>
         </div>
+        {
+          accepted ?
+          <div className="panel task-progress">
+            {this._renderProgressBar()}
+            <div className="task-progress-btn-container">
+              <button className="primary">I have completed the task!</button>
+            </div>
+          </div> :
+          null
+        }
         <div className="panel task-poster-section">
           <div className="task-poster-profile">
             <div
@@ -168,9 +220,13 @@ export default class ApplicationDetailHandler extends Component {
               position: new LatLng(task.location),
             }]}/>
         </div>
-        <div className="cancel-button-container">
-          <button className="white-button">Cancel Application</button>
-        </div>
+        {
+          !accepted ?
+          <div className="cancel-button-container">
+            <button className="white-button">Cancel Application</button>
+          </div> :
+          null
+        }
       </div>
     );
   }

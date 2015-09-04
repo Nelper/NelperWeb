@@ -55,7 +55,80 @@
   }
 
   /**
-   * Second Panel: Info about the Task Poster.
+   * Task progress (accepted only)
+   */
+
+  .task-progress {
+    padding: 1rem;
+  }
+
+  .progress-bar-container {
+    margin-bottom: 2rem;
+  }
+
+  .progress-bar {
+    display: flex;
+    align-items: center;
+  }
+
+  .progress-bar-node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1px solid $color-black;
+    color: $color-background-light;
+    background-color: $color-gray-medium;
+
+    &.pending {
+      background-color: $color-pending;
+    }
+
+    &.completed {
+      background-color: $color-accepted;
+    }
+  }
+
+  .progress-bar-edge {
+    flex: 1;
+    height: 1rem;
+    margin: 0 -1rem;
+    background-color: $color-background;
+    border: $base-border;
+
+    &.pending {
+      background-color: $color-pending;
+    }
+
+    &.completed {
+      background-color: $color-accepted;
+    }
+  }
+
+  .title-task-completion {
+    text-align: center;
+    color: $color-gray-medium;
+    font-size: 0.9em;
+  }
+
+  .progress-bar-titles {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .progress-bar-title {
+  }
+
+  .task-progress-btn-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  /**
+   * Info about the Task Poster.
    */
 
   .task-poster-section {
@@ -82,7 +155,9 @@
   }
 
   .task-poster-picture {
-    @include image(6rem);
+    @include image-fill();
+    width: 6rem;
+    height: 6rem;
     flex-shrink: 0;
     margin-right: 1rem;
     border-radius: 50%;
@@ -128,7 +203,7 @@
   }
 
   /**
-   * Third Panel: Task info section.
+   * Task info section.
    */
 
   .task-info-section {
