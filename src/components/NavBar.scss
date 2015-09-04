@@ -44,6 +44,7 @@
 
     a {
       display: flex;
+      z-index: 99999;
     }
 
     .logo {
@@ -150,6 +151,7 @@
       padding-right: 1em;
       color: $navigation-color;
       font-weight: 400;
+      z-index: 99999;
 
       @include media($horizontal-bar-mode) {
         flex: none;
