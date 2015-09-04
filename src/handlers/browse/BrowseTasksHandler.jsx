@@ -7,9 +7,9 @@ import UserActions from 'actions/UserActions';
 import BrowseStore from 'stores/BrowseStore';
 import UserStore from 'stores/UserStore';
 import Progress from 'components/Progress';
+import MapView from 'components/MapView';
 import BrowseTasksFilterView from './BrowseTasksFilterView';
 import NelpTaskListView from './BrowseTasksListView';
-import MapView from './MapView';
 import {LatLng} from 'utils/GoogleMapsUtils';
 
 @connectToStores
@@ -161,7 +161,7 @@ export default class BrowseTasksHandler extends Component {
 
     const pos = UserStore.state.user.location;
     const center = pos ?
-      new LatLng(pos.latitude, pos.longitude) :
+      new LatLng(pos) :
       new LatLng(0, 0);
 
     return (

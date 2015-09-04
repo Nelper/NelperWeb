@@ -189,20 +189,9 @@
       .task-pictures {
         width: 100%;
         margin-bottom: 1rem;
-        overflow: hidden;
 
         @include media($medium-screen) {
           width: rem(250px);
-        }
-      }
-
-      .task-picture {
-        height: rem(200px);
-        @include image-fill();
-
-        img {
-          width: 100%;
-          margin: auto;
         }
       }
     }

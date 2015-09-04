@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from 'react';
-import Slider from 'react-slick';
 import classNames from 'classnames';
 import moment from 'moment';
 
 import Dialog from 'components/Dialog';
 import NumericInput from 'components/NumericInput';
+import TaskPictureSlider from 'components/TaskPictureSlider';
 import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import LocationUtils from 'utils/LocationUtils';
@@ -111,12 +111,6 @@ export default class BrowseTasksListView extends Component {
         Math.round(LocationUtils.kilometersBetween(t.location, UserStore.state.user.location)) :
         null;
 
-      const pictures = t.pictures && t.pictures.map((p, i) => {
-        return (
-          <div className="task-picture" style={{backgroundImage: `url('${p.url}')`}} key={i} />
-        );
-      });
-
       return (
         <div key={t.objectId} className={classNames(
           'task',
@@ -189,16 +183,7 @@ export default class BrowseTasksListView extends Component {
             {
               t.pictures && t.pictures.length > 0 ?
               <div className="task-pictures">
-                <Slider
-                  dots={true}
-                  infinite={false}
-                  speed={500}
-                  slidesToShow={1}
-                  slidesToScroll={1}
-                  arrows={true}
-                >
-                  {pictures}
-                </Slider>
+                <TaskPictureSlider task={t} />
               </div> :
               null
             }

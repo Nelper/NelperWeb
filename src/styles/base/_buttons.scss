@@ -27,7 +27,7 @@ button,
   vertical-align: middle;
   white-space: nowrap;
   outline: none;
-  @include transition(background-color 250ms linear);
+  transition: background-color 250ms linear, color 250ms linear;
 
   @include btn-color($color-gray-light);
 
@@ -192,6 +192,18 @@ button,
     &.on {
       color: $color-background-light;
       background-color: $color-primary;
+    }
+  }
+
+  &.white-button {
+    background-color: $color-background-light;
+    color: $color-gray-medium;
+    border: $base-border;
+    font-weight: normal;
+
+    &:hover {
+      background-color: $color-gray-light;
+      color: $color-background-light;
     }
   }
 }

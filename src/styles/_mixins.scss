@@ -19,3 +19,17 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+@mixin price-tag() {
+  width: 80px;
+  text-align: center;
+  background-image: url('~images/icons/money.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 76px;
+  padding-top: 8px;
+  height: 41px;
+  padding-left: 6px;
+  font-size: 1.2em;
+  color: $color-background-light;
+}

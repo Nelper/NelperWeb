@@ -7,8 +7,13 @@ export default class MapView extends Component {
 
   static propTypes = {
     initialCenter: PropTypes.object,
-    initialZoom: PropTypes.object,
+    initialZoom: PropTypes.number,
     markers: PropTypes.array,
+  }
+
+  static defaultProps = {
+    initialZoom: 15,
+    markers: [],
   }
 
   state = {
@@ -56,7 +61,7 @@ export default class MapView extends Component {
           },
         }}
         ref="map"
-        defaultZoom={15}
+        defaultZoom={this.props.initialZoom}
         onDragend={::this._onDragEnd}
         center={this.state.location}>
         {markers}

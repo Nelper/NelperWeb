@@ -32,8 +32,13 @@ export default class GoogleMapsUtils {
 }
 
 export class LatLng {
-  constructor(lat, lng) {
-    this.lat = lat;
-    this.lng = lng;
+  constructor(latOrObj, lng) {
+    if (typeof latOrObj === 'object') {
+      this.lat = latOrObj.latitude;
+      this.lng = latOrObj.longitude;
+    } else {
+      this.lat = latOrObj;
+      this.lng = lng;
+    }
   }
 }

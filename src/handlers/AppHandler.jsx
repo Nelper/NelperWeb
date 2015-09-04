@@ -43,7 +43,9 @@ export default class AppHandler extends Component {
           null
         }
         <div className={classNames('main-app-content', {'has-navbar': showNavBar})}>
-          <Breadcrumbs />
+          <div className="container">
+            <Breadcrumbs />
+          </div>
           {children}
         </div>
       </div>

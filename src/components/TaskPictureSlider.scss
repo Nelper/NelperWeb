@@ -1,0 +1,8 @@
+.task-picture-slider-component {
+  width: 100%;
+  overflow: hidden;
+
+  .task-picture {
+    @include image-fill();
+  }
+}
