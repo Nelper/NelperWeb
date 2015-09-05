@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 
-export default class Collapse extends Component {
+export default class Dialog extends Component {
 
   static propTypes = {
     opened: PropTypes.bool,
@@ -11,9 +11,12 @@ export default class Collapse extends Component {
 
   state = {
     opened: false,
+    opening: false,
     closing: false,
   }
 
+  _openingTimeout = null
+  _closingTimeout = null
   _dialogNode = null
   _documentClickListener = this._onDocumentClick.bind(this)
 
@@ -55,13 +58,14 @@ export default class Collapse extends Component {
       React.unmountComponentAtNode(this._dialogNode);
       this._dialogNode.className = '';
     }
-
+    clearTimeout(this._openingTimeout);
+    clearTimeout(this._closingTimeout);
     this._dialogNode = null;
     document.removeEventListener('click', this._documentClickListener);
   }
 
   _onDocumentClick(event) {
-    if (!this.state.opened) {
+    if (!this.state.opened || this.state.opening) {
       return;
     }
     if (event.target !== document.getElementById('dialog')) {
@@ -74,8 +78,14 @@ export default class Collapse extends Component {
   _open() {
     this.setState({
       opened: true,
+      opening: true,
       closing: false,
     });
+
+    this._openingTimeout = setTimeout(() => {
+      this.setState({opening: false});
+    }, 251);
+
     // Make sure the body doesn't scroll when the popup is opened.
     document.body.style.overflow = 'hidden';
   }
@@ -86,12 +96,13 @@ export default class Collapse extends Component {
     }
     this.setState({
       opened: false,
+      opening: false,
       closing: true,
     });
 
     // Restore scroll.
     document.body.style.overflow = '';
-    setTimeout(() => {
+    this._closingTimeout = setTimeout(() => {
       this.setState({closing: false});
     }, 251);
 
