@@ -44,7 +44,6 @@
 
     a {
       display: flex;
-      z-index: 99999;
     }
 
     .logo {
@@ -103,7 +102,6 @@
 
   nav {
     min-height: $navigation-height;
-    z-index: 99999;
 
     &.collapsed {
       display: none;
@@ -121,7 +119,6 @@
     overflow: hidden;
     padding: 0;
     width: 100%;
-    z-index: 9999;
 
     @include media ($horizontal-bar-mode) {
       display: flex;
@@ -140,7 +137,6 @@
     overflow: hidden;
 
     text-align: right;
-    z-index: 9999;
 
     @include media($horizontal-bar-mode) {
       background: transparent;
@@ -151,7 +147,6 @@
       padding-right: 1em;
       color: $navigation-color;
       font-weight: 400;
-      z-index: 99999;
 
       @include media($horizontal-bar-mode) {
         flex: none;

@@ -608,11 +608,12 @@ class ApiUtils {
 
     if (parseUser.get('customPicture')) {
       // If the user has uploaded a picture we use it.
-      user.pictureURL = parseUser.get('customPicture').url();
+      user.pictureURL = this._fixParseFileURL(parseUser.get('customPicture').url());
     } else if (!user.pictureURL) {
       // If the user has no picture at all use the placeholder.
       user.pictureURL = require('images/user-no-picture.jpg');
     }
+
     return user;
   }
 
@@ -651,10 +652,14 @@ class ApiUtils {
 
   _fileFromParse(parseFile) {
     return {
-      url: parseFile.url(),
+      url: this._fixParseFileURL(parseFile.url()),
       file: parseFile,
       objectId: parseFile.name(),
     };
+  }
+
+  _fixParseFileURL(url) {
+    return url.replace(/http:\/\//, 'https://s3.amazonaws.com/');
   }
 
   /**
