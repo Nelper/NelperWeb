@@ -21,7 +21,7 @@
   }
 
   .summary-item-title {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     color: $color-gray-medium;
     font-size: 1.1em;
   }
@@ -63,7 +63,7 @@
   }
 
   .progress-bar-container {
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
     padding: 0 4rem;
   }
 
@@ -116,6 +116,7 @@
   }
 
   .title-task-completion {
+    margin-bottom: -0.5rem;
     text-align: center;
     color: $color-gray-medium;
     font-size: 0.9em;
@@ -131,7 +132,7 @@
     width: $title-width;
     margin-left: -$title-width / 2;
     color: $color-gray-medium;
-    font-size: 0.9em;
+    font-size: 1rem;
     text-align: center;
     white-space: nowrap;
 
@@ -143,6 +144,12 @@
   .task-progress-btn-container {
     display: flex;
     justify-content: center;
+  }
+
+  .task-progress-completed-btn {
+    font-size: 1.1em;
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   /**
@@ -223,11 +230,15 @@
     background-image: url('~images/icons/chat-red.png');
   }
 
+  .task-poster-chat-btn {
+    font-size: 1.1em;
+  }
+
   .task-poster-contact {
     display: flex;
     justify-content: space-around;
-    margin-top: 1rem;
-    padding-top: 1rem;
+    margin-top: 3rem;
+    padding: 3rem 0;
     border-top: $base-border;
   }
 
@@ -261,7 +272,7 @@
 
   .task-info-section {
     padding: 1rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.15rem;
     margin-bottom: 0;
   }
 
@@ -278,11 +289,8 @@
   }
 
   .task-info-title {
-    font-size: 1.2rem;
-  }
-
-  .task-info-desc {
-    white-space: pre-line;
+    font-size: 1.3rem;
+    font-weight: bold;
   }
 
   .task-info-other-row {
@@ -310,14 +318,15 @@
   }
 
   .task-info-desc {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+    white-space: pre-line;
   }
 
   .task-info-calendar-row {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .task-info-calendar {
@@ -355,11 +364,31 @@
 
   .task-info-price-text {
     margin-right: 0.5rem;
+    font-weight: bold;
+    color: $color-gray-medium;
   }
 
   .task-info-price {
     @include price-tag();
     transform: scale(0.9);
+  }
+
+  .task-info-exact-location {
+    display: flex;
+    align-items: center;
+  }
+
+  .task-info-exact-location-icon {
+    @include image(2.5rem);
+    background-image: url('~images/icons/pin.png');
+  }
+
+  .task-info-exact-location-text {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: $base-border;
+    font-size: 0.9em;
+    white-space: pre-line;
   }
 
   .map-message {

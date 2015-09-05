@@ -569,12 +569,8 @@ class ApiUtils {
     Parse.Object.saveAll(parseApplications);
   }
 
-  requestTaskPosterInfo(task) {
-    return Parse.Cloud.run('taskPosterInfo', {applicationId: task.application.objectId})
-      .then(info => {
-        debugger;
-        return info;
-      });
+  requestTaskPosterInfo(application) {
+    return Parse.Cloud.run('taskPosterInfo', {applicationId: application.objectId});
   }
 
   /**

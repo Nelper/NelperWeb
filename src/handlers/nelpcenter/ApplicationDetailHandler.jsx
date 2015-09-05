@@ -50,11 +50,11 @@ export default class ApplicationDetailHandler extends Component {
   }
 
   componentDidMount() {
-
+    this._getTaskPosterInfo();
   }
 
-  componentWillUpdate() {
-
+  componentDidUpdate() {
+    this._getTaskPosterInfo();
   }
 
   _getTaskPosterInfo() {
@@ -68,7 +68,7 @@ export default class ApplicationDetailHandler extends Component {
   }
 
   _renderProgressBar() {
-    const acceptedState = 1;
+    const acceptedState = 2;
     const pendingState = acceptedState + 1;
     return (
       <div className="progress-bar-container">
@@ -173,7 +173,7 @@ export default class ApplicationDetailHandler extends Component {
             <IconButton />
             {this._renderProgressBar()}
             <div className="task-progress-btn-container">
-              <button className="primary">I have completed the task!</button>
+              <button className="primary task-progress-completed-btn">I have completed the task!</button>
             </div>
           </div> :
           null
@@ -194,7 +194,7 @@ export default class ApplicationDetailHandler extends Component {
             </div>
             <div className="task-poster-chat">
               <div className="task-poster-chat-icon" />
-              <button className="border-btn">Chat with the Task Poster</button>
+              <button className="border-btn task-poster-chat-btn">Chat with the Task Poster</button>
             </div>
           </div>
           {
@@ -203,13 +203,13 @@ export default class ApplicationDetailHandler extends Component {
               <div className="task-poster-contact-email">
                 <div className="task-poster-contact-email-icon" />
                 <div className="task-poster-contact-email-text">
-                  {task.user.email}
+                  {task.email}
                 </div>
               </div>
               <div className="task-poster-contact-phone">
                 <div className="task-poster-contact-phone-icon" />
                 <div className="task-poster-contact-phone-text">
-                  {task.user.phone}
+                  {task.phone}
                 </div>
               </div>
             </div> :
@@ -231,7 +231,14 @@ export default class ApplicationDetailHandler extends Component {
               </div>
               {
                 accepted ?
-                null :
+                <div>
+                  <div className="task-info-exact-location">
+                    <div className="task-info-exact-location-icon" />
+                    <div className="task-info-exact-location-text">
+                      {task.exactLocation && task.exactLocation.address.replace(',', '\n').replace(',', '\n')}
+                    </div>
+                  </div>
+                </div> :
                 <div>
                   <div className="task-info-calendar-row">
                     <div className="task-info-calendar">

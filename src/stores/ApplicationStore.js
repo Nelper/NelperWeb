@@ -22,10 +22,11 @@ class ApplicationStore {
     });
   }
 
-  handleReceivedTaskPosterInfo({task, info}) {
-    task.phone = info.phone;
-    task.email = info.email;
-    task.exactLocation = info.location;
+  handleReceivedTaskPosterInfo({application, info}) {
+    application.hasTaskPosterInfo = true;
+    application.task.phone = info.phone;
+    application.task.email = info.email;
+    application.task.exactLocation = info.location;
     this.emitChange();
   }
 }
