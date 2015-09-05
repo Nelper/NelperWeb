@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import Progress from 'components/Progress';
 import MapView from 'components/MapView';
+import IconButton from 'components/IconButton';
 import TaskPictureSlider from 'components/TaskPictureSlider';
 import ApplicationActions from 'actions/ApplicationActions';
 import ApplicationStore from 'stores/ApplicationStore';
@@ -14,8 +15,6 @@ import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 @connectToStores
 export default class ApplicationDetailHandler extends Component {
-
-  static displayName = 'Application detail'
 
   static propTypes = {
     application: PropTypes.object,
@@ -50,6 +49,24 @@ export default class ApplicationDetailHandler extends Component {
     };
   }
 
+  componentDidMount() {
+
+  }
+
+  componentWillUpdate() {
+
+  }
+
+  _getTaskPosterInfo() {
+    if (!__CLIENT__) {
+      return;
+    }
+    const application = this.props.application;
+    if (application && !application.hasTaskPosterInfo) {
+      ApplicationActions.requestTaskPosterInfo(application);
+    }
+  }
+
   _renderProgressBar() {
     const acceptedState = 1;
     const pendingState = acceptedState + 1;
@@ -57,31 +74,44 @@ export default class ApplicationDetailHandler extends Component {
       <div className="progress-bar-container">
         <div className="title-task-completion">Task Completion</div>
         <div className="progress-bar">
-          <div className="progress-bar-node completed">1</div>
+          <div className="progress-bar-node completed">
+            <span>1</span>
+            <div className="progress-bar-title completed">Accepted</div>
+          </div>
           <div className={classNames(
             'progress-bar-edge',
             {'pending': pendingState === 1},
             {'completed': acceptedState >= 1},
           )} />
-          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 1})}>2</div>
+          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 1})}>
+            <span>2</span>
+            <div className={classNames('progress-bar-title', {'completed': acceptedState >= 1})}>
+              Payment sent
+            </div>
+          </div>
           <div className={classNames(
             'progress-bar-edge',
+            'long-edge',
             {'pending': pendingState === 2},
             {'completed': acceptedState >= 2},
           )} />
-          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 2})}>3</div>
+          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 2})}>
+            <span>3</span>
+            <div className={classNames('progress-bar-title', {'completed': acceptedState >= 2})}>
+              Payment requested
+            </div>
+          </div>
           <div className={classNames(
             'progress-bar-edge',
             {'pending': pendingState === 3},
             {'completed': acceptedState >= 3},
           )} />
-          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 3})}>4</div>
-        </div>
-        <div className="progress-bar-titles">
-          <div className="progress-bar-title">Accepted</div>
-          <div className="progress-bar-title">Payment sent</div>
-          <div className="progress-bar-title">Payment requested</div>
-          <div className="progress-bar-title">Funds released</div>
+          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 3})}>
+            <span>4</span>
+            <div className={classNames('progress-bar-title', {'completed': acceptedState >= 3})}>
+              Funds released
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -140,6 +170,7 @@ export default class ApplicationDetailHandler extends Component {
         {
           accepted ?
           <div className="panel task-progress">
+            <IconButton />
             {this._renderProgressBar()}
             <div className="task-progress-btn-container">
               <button className="primary">I have completed the task!</button>
@@ -148,22 +179,42 @@ export default class ApplicationDetailHandler extends Component {
           null
         }
         <div className="panel task-poster-section">
-          <div className="task-poster-profile">
-            <div
-              className="task-poster-picture"
-              style={{backgroundImage: `url('${task.user.pictureURL}')`}}
-            >
-              <div className="task-poster-picture-overlay">
-                <div className="task-poster-picture-icon" />
-                <div className="task-poster-picture-text">View Profile</div>
+          <div className="task-poster-profile-row">
+            <div className="task-poster-profile">
+              <div
+                className="task-poster-picture"
+                style={{backgroundImage: `url('${task.user.pictureURL}')`}}
+              >
+                <div className="task-poster-picture-overlay">
+                  <div className="task-poster-picture-icon" />
+                  <div className="task-poster-picture-text">View Profile</div>
+                </div>
               </div>
+              <div className="task-poster-name">{task.user.name}</div>
             </div>
-            <div className="task-poster-name">{task.user.name}</div>
+            <div className="task-poster-chat">
+              <div className="task-poster-chat-icon" />
+              <button className="border-btn">Chat with the Task Poster</button>
+            </div>
           </div>
-          <div className="task-poster-chat">
-            <div className="task-poster-chat-icon" />
-            <button className="border-btn">Chat with the Task Poster</button>
-          </div>
+          {
+            accepted ?
+            <div className="task-poster-contact">
+              <div className="task-poster-contact-email">
+                <div className="task-poster-contact-email-icon" />
+                <div className="task-poster-contact-email-text">
+                  {task.user.email}
+                </div>
+              </div>
+              <div className="task-poster-contact-phone">
+                <div className="task-poster-contact-phone-icon" />
+                <div className="task-poster-contact-phone-text">
+                  {task.user.phone}
+                </div>
+              </div>
+            </div> :
+            null
+          }
         </div>
         <div className="panel task-info-section">
           <div className="task-info-title-row">
@@ -178,27 +229,33 @@ export default class ApplicationDetailHandler extends Component {
               <div className="task-info-desc">
                 {task.desc}
               </div>
-              <div className="task-info-calendar-row">
-                <div className="task-info-calendar">
-                  <div className="task-info-calendar-icon" />
-                  <div className="task-info-calendar-text">
-                    <div className="task-info-calendar-posted">
-                      Posted {moment(task.createdAt).fromNow()}
+              {
+                accepted ?
+                null :
+                <div>
+                  <div className="task-info-calendar-row">
+                    <div className="task-info-calendar">
+                      <div className="task-info-calendar-icon" />
+                      <div className="task-info-calendar-text">
+                        <div className="task-info-calendar-posted">
+                          Posted {moment(task.createdAt).fromNow()}
+                        </div>
+                        <div className="task-info-calendar-expires">
+                          Expires {moment(task.createdAt).add(15, 'day').fromNow()}
+                        </div>
+                      </div>
                     </div>
-                    <div className="task-info-calendar-expires">
-                      Expires {moment(task.createdAt).add(15, 'day').fromNow()}
+                    <div className="task-info-location">
+                      <div className="task-info-location-icon" />
+                      <div className="task-info-location-text">{task.city}</div>
                     </div>
                   </div>
+                  <div className="task-info-price-row">
+                    <div className="task-info-price-text">Task Poster is offering</div>
+                    <div className="task-info-price">${task.priceOffered}</div>
+                  </div>
                 </div>
-                <div className="task-info-location">
-                  <div className="task-info-location-icon" />
-                  <div className="task-info-location-text">{task.city}</div>
-                </div>
-              </div>
-              <div className="task-info-price-row">
-                <div className="task-info-price-text">Task Poster is offering</div>
-                <div className="task-info-price">${task.priceOffered}</div>
-              </div>
+              }
             </div>
               {
                 hasPictures ?

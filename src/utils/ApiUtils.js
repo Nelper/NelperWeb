@@ -283,7 +283,6 @@ class ApiUtils {
     switch (sort) {
     case 'distance':
       taskQuery.near('location', point);
-      taskQuery.ascending('location');
       break;
     case 'price':
       taskQuery.descending('priceOffered');
@@ -420,7 +419,9 @@ class ApiUtils {
       };
     }));
 
-    parseTask.setACL(new Parse.ACL(Parse.User.current()));
+    const acl = new Parse.ACL(Parse.User.current());
+    acl.setPublicReadAccess(true);
+    parseTask.setACL(acl);
 
     return parseTask.save()
       .then(t => {
@@ -566,6 +567,14 @@ class ApiUtils {
       });
 
     Parse.Object.saveAll(parseApplications);
+  }
+
+  requestTaskPosterInfo(task) {
+    return Parse.Cloud.run('taskPosterInfo', {applicationId: task.application.objectId})
+      .then(info => {
+        debugger;
+        return info;
+      });
   }
 
   /**

@@ -11,6 +11,7 @@ class ApplicationStore {
   constructor() {
     this.bindListeners({
       handleReceivedApplications: ApplicationActions.RECEIVED_APPLICATIONS,
+      handleReceivedTaskPosterInfo: ApplicationActions.RECEIVED_TASK_POSTER_INFO,
     });
   }
 
@@ -19,6 +20,13 @@ class ApplicationStore {
       applications: applications,
       isLoading: false,
     });
+  }
+
+  handleReceivedTaskPosterInfo({task, info}) {
+    task.phone = info.phone;
+    task.email = info.email;
+    task.exactLocation = info.location;
+    this.emitChange();
   }
 }
 

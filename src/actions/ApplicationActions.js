@@ -4,7 +4,10 @@ import ApiUtils from 'utils/ApiUtils';
 class ApplicationActions {
 
   constructor() {
-    this.generateActions('receivedApplications');
+    this.generateActions(
+      'receivedApplications',
+      'receivedTaskPosterInfo',
+    );
   }
 
   refreshMyApplications() {
@@ -12,6 +15,13 @@ class ApplicationActions {
       .then((applications) => {
         this.actions.receivedApplications(applications);
       });
+  }
+
+  requestTaskPosterInfo(application) {
+    ApiUtils.requestTaskPosterInfo(application)
+    .then(info => {
+      this.actions.receivedTaskPosterInfo({application, info});
+    });
   }
 }
 

@@ -63,7 +63,8 @@
   }
 
   .progress-bar-container {
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
+    padding: 0 4rem;
   }
 
   .progress-bar {
@@ -76,12 +77,14 @@
     align-items: center;
     justify-content: center;
     z-index: 99;
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    position: relative;
     border-radius: 50%;
     border: 1px solid $color-black;
     color: $color-background-light;
     background-color: $color-gray-medium;
+    font-size: 1.3em;
 
     &.pending {
       background-color: $color-pending;
@@ -99,6 +102,10 @@
     background-color: $color-background;
     border: $base-border;
 
+    &.long-edge {
+      flex: 1.5;
+    }
+
     &.pending {
       background-color: $color-pending;
     }
@@ -114,12 +121,23 @@
     font-size: 0.9em;
   }
 
-  .progress-bar-titles {
-    display: flex;
-    justify-content: space-between;
-  }
-
   .progress-bar-title {
+    $title-width: rem(200px);
+
+    position: absolute;
+    top: 3rem;
+    // Center horizontally on the node.
+    left: 50%;
+    width: $title-width;
+    margin-left: -$title-width / 2;
+    color: $color-gray-medium;
+    font-size: 0.9em;
+    text-align: center;
+    white-space: nowrap;
+
+    &.completed {
+      color: $color-black;
+    }
   }
 
   .task-progress-btn-container {
@@ -132,14 +150,17 @@
    */
 
   .task-poster-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 1rem;
 
     @include media($medium-screen) {
       padding: 1rem 6rem;
     }
+  }
+
+  .task-poster-profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .task-poster-profile {
@@ -202,6 +223,38 @@
     background-image: url('~images/icons/chat-red.png');
   }
 
+  .task-poster-contact {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: $base-border;
+  }
+
+  .task-poster-contact-email {
+    display: flex;
+    align-items: center;
+  }
+
+  .task-poster-contact-email-icon {
+    @include image(2rem);
+    background-image: url('~images/icons/email.png');
+    margin-right: 1rem;
+  }
+
+  .task-poster-contact-phone {
+    display: flex;
+    align-items: center;
+  }
+
+  .task-poster-contact-phone-icon {
+    @include image(2rem);
+    background-image: url('~images/icons/phone.png');
+    margin-right: 1rem;
+  }
+
+
+
   /**
    * Task info section.
    */
@@ -226,6 +279,10 @@
 
   .task-info-title {
     font-size: 1.2rem;
+  }
+
+  .task-info-desc {
+    white-space: pre-line;
   }
 
   .task-info-other-row {

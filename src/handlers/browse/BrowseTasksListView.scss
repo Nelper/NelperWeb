@@ -172,6 +172,7 @@
 
         .desc {
           font-family: $content-font-family;
+          white-space: pre-line;
           margin-bottom: 1rem;
 
           @include media($medium-screen) {
