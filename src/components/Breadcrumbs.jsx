@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
 
-export default class Checkbox extends Component {
+export default class Breadcrumbs extends Component {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -27,6 +27,7 @@ export default class Checkbox extends Component {
       const isLast = i === routes.length - 1;
       return (
         <div
+          key={i}
           className={classNames('breadcrumbs-route', {'active-route': isLast})}
           onClick={() => this._onRouteClick(b, routes.length - i - 1)}
         >

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 export default class Dialog extends Component {
@@ -117,7 +118,7 @@ export default class Dialog extends Component {
       {'closing': this.state.closing},
     );
 
-    React.render(
+    ReactDOM.render(
       <div className="content">
         {this.props.children}
       </div>,

@@ -3,11 +3,11 @@
   width: 3rem;
   height: 3rem;
   cursor: pointer;
+  fill: $color-gray-light;
+  transition: fill 300ms ease-in-out;
 
   &:hover {
-    .icon-button-component-icon {
-      fill: $color-background-light;
-    }
+    fill: $color-background-light;
 
     .icon-button-component-bg {
       transform: scale(1);
@@ -17,8 +17,6 @@
 
   .icon-button-component-icon {
     @include position(absolute, 0.75rem);
-    @include transition(fill 300ms ease-in-out);
-    fill: $color-gray-light;
   }
 
   .icon-button-component-bg {

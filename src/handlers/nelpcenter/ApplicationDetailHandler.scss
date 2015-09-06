@@ -59,7 +59,7 @@
    */
 
   .task-progress {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .progress-bar-container {
@@ -144,12 +144,25 @@
   .task-progress-btn-container {
     display: flex;
     justify-content: center;
+    margin-bottom: 0.5rem;
   }
 
   .task-progress-completed-btn {
     font-size: 1.1em;
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+
+  .task-progress-help {
+    fill: $color-gray-medium;
+
+    &:hover {
+      fill: $color-background-light;
+    }
+
+    .icon-button-component-icon {
+      @include position(absolute, 0.5rem);
+    }
   }
 
   /**
@@ -376,6 +389,7 @@
   .task-info-exact-location {
     display: flex;
     align-items: center;
+    margin-bottom: 2rem;
   }
 
   .task-info-exact-location-icon {

@@ -2,15 +2,19 @@ import 'babel-core/polyfill';
 import express from 'express';
 import path from 'path';
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import {Router} from 'react-router';
 import Location from 'react-router/lib/Location';
+import {IntlProvider} from 'react-intl';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import {Parse} from 'parse';
 
-import routes from 'app/routes';
+import getRoutes from 'app/getRoutes';
 import alt from 'app/alt';
 import ApiUtils from 'utils/ApiUtils';
+import IntlUtils from 'utils/IntlUtils';
+import formats from 'utils/IntlFormats';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -39,22 +43,32 @@ Parse.initialize(
   'PjVCIvICgrOZjwSG5AiuKCjdyrzHjfalWbAK5mwR'
 );
 
-app.use(cookieParser());
-app.use(morgan('combined'));
+const locale = 'fr-CA';
 
 app.use(express.static(path.resolve(__dirname, '../../build/client'), {index: false}));
 
+app.use(morgan('combined'));
+app.use(cookieParser());
+
 app.use((req, res, next) => {
-  function renderPage() {
+  function renderPage(messages) {
     const location = new Location(req.path, req.query);
-    Router.run(routes, location, (error, initialState, transition) => {
+    Router.run(getRoutes(), location, (error, initialState, transition) => {
       if (error) {
         return next(error);
       }
       if (transition.isCancelled && transition.redirectInfo) {
         return res.redirect(transition.redirectInfo.pathname);
       }
-      const html = React.renderToString(<Router location={location} {...initialState} />);
+      const html = ReactDOMServer.renderToString(
+        <Router location={location} createElement={(Component, props) => {
+          return (
+            <IntlProvider locale={locale} messages={messages} formats={formats}>
+              <Component {...props} />
+            </IntlProvider>
+          );
+        }} {...initialState} />
+      );
       alt.flush();
       return res.send(htmlTemplate.replace('{content}', html));
     });
@@ -63,24 +77,27 @@ app.use((req, res, next) => {
   const parseToken = req.cookies.p_session;
   const parseUser = req.cookies.p_user;
 
-  // If the user is logged get it from parse.
-  // TODO: Serialize the user store to use it directly on the client.
-  if (parseToken && parseUser) {
-    ApiUtils.becomeUser(parseUser, parseToken)
-      .then((user) => {
-        alt.bootstrap(JSON.stringify({
-          UserStore: {
-            user,
-          },
-        }));
-        renderPage();
-      }, (err) => {
-        console.log(err);
-        renderPage();
-      });
-  } else {
-    renderPage();
-  }
+  IntlUtils.init(locale).then((messages) => {
+    // If the user is logged get it from parse.
+    // TODO: Serialize the user store to use it directly on the client.
+    if (parseToken && parseUser) {
+      ApiUtils.becomeUser(parseUser, parseToken)
+        .then((user) => {
+          alt.bootstrap(JSON.stringify({
+            UserStore: {
+              user,
+            },
+          }));
+          renderPage(messages);
+        }, (err) => {
+          console.log(err);
+          renderPage(messages);
+        });
+    } else {
+      renderPage(messages);
+    }
+  })
+  .catch(err => console.error(err));
 });
 
 app.listen(port);

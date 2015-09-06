@@ -49,7 +49,7 @@ export default class BrowseTasksListView extends Component {
       return;
     }
 
-    const lastEle = this.refs.displayedTasks.getDOMNode().lastChild;
+    const lastEle = this.refs.displayedTasks.lastChild;
     if (this._shouldLoadMore(lastEle, 200)) {
       this.props.onLoadMore();
     }

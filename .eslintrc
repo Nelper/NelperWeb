@@ -31,6 +31,6 @@
         "/^_?render.+$/",
         "render"
       ]}],
-      "react/no-multi-comp": [0]
-    }
+    "react/no-multi-comp": [0]
   }
+}

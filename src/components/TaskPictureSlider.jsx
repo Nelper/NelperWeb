@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Slider from 'react-slick';
 
-export default class Rating extends Component {
+export default class TaskPictureSlider extends Component {
 
   static propTypes = {
     task: PropTypes.object.isRequired,

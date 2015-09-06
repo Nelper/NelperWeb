@@ -8,6 +8,10 @@
     align-items: center;
     color: $color-gray-medium;
 
+    &.active-route {
+      color: $color-black;
+    }
+
     &:not(.active-route) {
       cursor: pointer;
 

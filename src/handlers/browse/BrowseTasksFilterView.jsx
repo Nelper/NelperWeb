@@ -86,7 +86,7 @@ export default class BrowseTasksFilterView extends Component {
     if (!this.state.otherFiltersOpened || event.defaultPrevented) {
       return;
     }
-    if (isInside(this.refs.filterDropdown.getDOMNode(), event.target)) {
+    if (isInside(this.refs.filterDropdown, event.target)) {
       return;
     }
     event.stopPropagation();

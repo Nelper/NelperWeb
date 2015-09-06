@@ -1,10 +1,14 @@
 import 'babel-core/polyfill';
 import React from 'react';
+import ReactDOM from 'react-dom';
+import {IntlProvider} from 'react-intl';
 import {Router} from 'react-router';
 import {history} from 'react-router/lib/BrowserHistory';
 import {Parse} from 'parse';
 
-import routes from './routes';
+import IntlUtils from 'utils/IntlUtils';
+import getRoutes from './getRoutes';
+import formats from 'utils/IntlFormats';
 
 import 'normalize.css/normalize.css';
 import 'styles/common.scss';
@@ -31,9 +35,21 @@ window.fbAsyncInit = () => {
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-// Render the app!
-React.render((
-  <Router history={history}>
-    {routes}
-  </Router>
-), document.getElementById('app'));
+const locale = 'fr-CA';
+
+function renderApp(messages) {
+  // Render the app!
+  ReactDOM.render((
+    <Router history={history} createElement={(Component, props) => {
+      return (
+        <IntlProvider locale={locale} messages={messages} formats={formats}>
+          <Component {...props} />
+        </IntlProvider>
+      );
+    }}>
+      {getRoutes()}
+    </Router>
+  ), document.getElementById('app'));
+}
+
+IntlUtils.init(locale).then(renderApp);

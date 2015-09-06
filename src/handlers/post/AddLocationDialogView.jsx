@@ -20,7 +20,7 @@ export default class AddLocationDialogView extends Component {
 
   componentDidMount() {
     GoogleMapsUtils.load().then((maps) => {
-      const addressInput = this.refs.address.getDOMNode();
+      const addressInput = this.refs.address;
       const autocomplete = new maps.places.Autocomplete(addressInput);
       maps.event.addListener(autocomplete, 'place_changed', () => {
         const place = autocomplete.getPlace();

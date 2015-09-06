@@ -112,7 +112,10 @@ class ApiUtils {
       .then((user) => {
         return user.get('privateData').fetch();
       })
-      .then(() => this._meFromParse(Parse.User.current()));
+      .then(() => {
+        this._initSession();
+        return this._meFromParse(Parse.User.current());
+      });
   }
 
   /**
