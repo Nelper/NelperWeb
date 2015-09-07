@@ -2,3 +2,8 @@
  * Put hacks here.
  * SHAME ON YOU!
  */
+
+// Fix red-box-react z-index so it appears over the app navbar.
+.src-redbox---redbox---1q8IF {
+  z-index: 999999;
+}

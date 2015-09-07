@@ -1,6 +1,7 @@
 {
   "extends": "airbnb",
   "rules": {
+    "no-undef": [2],
     "react/sort-comp": [0, {
       "order": [
         "displayName",

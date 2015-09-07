@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
-import moment from 'moment';
+import {FormattedRelative} from 'react-intl';
 
 import Dialog from 'components/Dialog';
 import NumericInput from 'components/NumericInput';
@@ -139,7 +139,7 @@ export default class BrowseTasksListView extends Component {
                   <div className="user-col">
                     <div className="user-name">By {t.user.name}</div>
                     <div className="date">
-                      Created {moment(t.createdAt).fromNow()}
+                      <FormattedRelative value={t.createdAt} />
                     </div>
                   </div>
                   <div className="location-col">

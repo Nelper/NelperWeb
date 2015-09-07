@@ -8,18 +8,16 @@ const commonLoaders = require('./common-loaders');
 const ROOT_PATH = path.resolve(__dirname, '..');
 
 module.exports = merge(shared.config, {
-  debug: true,
-  devtool: 'source-map',
-  cache: true,
+  devtool: 'eval',
   entry: [
-    'webpack/hot/dev-server',
+    'webpack-hot-middleware/client',
   ],
   module: {
-    preLoaders: [{
+    /* preLoaders: [{
       test: /\.jsx?$/,
       loader: 'eslint-loader',
       include: path.resolve(ROOT_PATH, 'src'),
-    }],
+    }],*/
     loaders: commonLoaders.concat([{
       test: /\.css$/,
       loaders: ['style', 'css'],
@@ -28,7 +26,7 @@ module.exports = merge(shared.config, {
       loaders: ['style', 'css', 'postcss', 'sass?' + shared.sassPaths],
     }, {
       test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel?stage=0&optional=runtime'],
+      loaders: ['babel'],
       include: path.resolve(ROOT_PATH, 'src'),
     }]),
   },
@@ -39,5 +37,7 @@ module.exports = merge(shared.config, {
       '__SERVER__': false,
       '__DEVELOPMENT__': true,
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
   ],
 });

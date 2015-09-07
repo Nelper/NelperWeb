@@ -16,26 +16,10 @@ import ApiUtils from 'utils/ApiUtils';
 import IntlUtils from 'utils/IntlUtils';
 import formats from 'utils/IntlFormats';
 
+import template from './template';
+
 const app = express();
 const port = process.env.PORT || 8080;
-
-const htmlTemplate =
-`<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <title>Nelper</title>
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link href="/styles.css" rel="stylesheet">
-  </head>
-  <body>
-    <div id="app" class="main-app">{content}</div>
-    <div id="fb-root"></div>
-    <script src="/shared.js"></script>
-    <script src="/main.js"></script>
-  </body>
-</html>`;
 
 Parse.initialize(
   'w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN',
@@ -70,7 +54,7 @@ app.use((req, res, next) => {
         }} {...initialState} />
       );
       alt.flush();
-      return res.send(htmlTemplate.replace('{content}', html));
+      return res.send(template.replace('{content}', html));
     });
   }
 
