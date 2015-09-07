@@ -15,6 +15,7 @@ export default {
 
   routes: {
     nelpcenter: "Nelp Center",
+    taskDetail: "Task Detail",
     applicationDetail: "Application Detail",
   },
 

@@ -31,8 +31,8 @@ export default class IntlUtils {
 
       require('expose?ReactIntl!react-intl');
 
-      switch (locale.toUpperCase()) {
-      case 'FR-CA':
+      switch (locale.split('-')[0].toUpperCase()) {
+      case 'FR':
         if (polyfillIntl) {
           require.ensure([
             'intl',

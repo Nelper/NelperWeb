@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
+import {FormattedMessage, FormattedRelative} from 'react-intl';
 import Slider from 'react-slick';
 import connectToStores from 'alt/utils/connectToStores';
-import moment from 'moment';
 
 import ApplicationListView from './ApplicationListView';
 import AcceptedApplicationView from './AcceptedApplicationView';
@@ -12,6 +12,7 @@ import Editable from 'components/Editable';
 import Icon from 'components/Icon';
 import TaskActions from 'actions/TaskActions';
 import TaskStore from 'stores/TaskStore';
+import DateUtils from 'utils/DateUtils';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 @connectToStores
@@ -248,8 +249,16 @@ export default class TaskDetailHandler extends Component {
                 <div className="detail-row">
                   <div className="detail-icon calendar" />
                   <div className="detail-text">
-                    <div>Posted {moment(task.createdAt).fromNow()}</div>
-                    <div>Expires {moment(task.createdAt).add(15, 'days').fromNow()}</div>
+                    <div>
+                      <FormattedMessage id="common.postedRelative" values={{
+                        formattedAgo: <span className="to-lower"><FormattedRelative value={task.createdAt} /></span>,
+                      }}/>
+                    </div>
+                    <div>
+                      <FormattedMessage id="common.expiresRelative" values={{
+                        formattedAgo: <span className="to-lower"><FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} /></span>,
+                      }}/>
+                    </div>
                   </div>
                 </div>
                 <div className="detail-row">

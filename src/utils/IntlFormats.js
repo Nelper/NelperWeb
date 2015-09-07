@@ -3,7 +3,7 @@ export default {
     priceTag: {
       style: 'currency',
       currency: 'CAD',
-      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
     },
   },
 };
