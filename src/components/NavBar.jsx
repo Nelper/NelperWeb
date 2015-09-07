@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import classNames from 'classnames';
+import {FormattedMessage} from 'react-intl';
 
 export default class NavBar extends Component {
 
@@ -51,15 +52,15 @@ export default class NavBar extends Component {
 
   render() {
     const menuItems = !this.props.user.logged ? [
-      this._renderNavItem('How it works', '/howitworks', 40),
-      this._renderNavItem('Browse Tasks', '/browse', 10),
-      this._renderNavItem('Post a Task', '/post', 20),
-      this._renderNavItem('Login', '/login', 30),
+      this._renderNavItem(<FormattedMessage id="navBar.howWorks"/>, '/howitworks', 40),
+      this._renderNavItem(<FormattedMessage id="navBar.browse"/>, '/browse', 10),
+      this._renderNavItem(<FormattedMessage id="navBar.post"/>, '/post', 20),
+      this._renderNavItem(<FormattedMessage id="navBar.login"/>, '/login', 30),
     ] : [
-      this._renderNavItem('How it works', '/howitworks', 40),
-      this._renderNavItem('Browse Tasks', '/browse', 10),
-      this._renderNavItem('Nelp Center', '/center', 50),
-      this._renderNavItem('Post a Task', '/post', 20),
+      this._renderNavItem(<FormattedMessage id="navBar.howWorks"/>, '/howitworks', 40),
+      this._renderNavItem(<FormattedMessage id="navBar.browse"/>, '/browse', 10),
+      this._renderNavItem(<FormattedMessage id="navBar.center"/>, '/center', 50),
+      this._renderNavItem(<FormattedMessage id="navBar.post"/>, '/post', 20),
     ];
 
     return (

@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 import classNames from 'classnames';
+import {FormattedMessage} from 'react-intl';
 
 import BrowseActions from 'actions/BrowseActions';
 import UserActions from 'actions/UserActions';
@@ -185,19 +186,19 @@ export default class BrowseTasksHandler extends Component {
                   className={classNames('toggle', {'on': sort.sort === 'price'})}
                   onClick={() => this._onSort('price')}
                 >
-                  Price
+                  <FormattedMessage id="browse.price"/>
                 </button>
                 <button
                   className={classNames('toggle', {'on': sort.sort === 'distance'})}
                   onClick={() => this._onSort('distance')}
                 >
-                  Distance
+                  <FormattedMessage id="browse.distance"/>
                 </button>
                 <button
                   className={classNames('toggle', {'on': sort.sort === 'date'})}
                   onClick={() => this._onSort('date')}
                 >
-                  Creation date
+                  <FormattedMessage id="browse.date"/>
                 </button>
               </div>
             </div>

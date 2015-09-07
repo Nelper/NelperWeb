@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {FormattedMessage} from 'react-intl';
 
 export default class TaskCardView extends Component {
 
@@ -9,7 +10,9 @@ export default class TaskCardView extends Component {
   render() {
     return (
       <div className="accepted-application-view">
-        <h2>Accepted applicant</h2>
+        <h2>
+          <FormattedMessage id="nelpcenter.taskDetail.nelperAccepted"/>
+        </h2>
       </div>
     );
   }

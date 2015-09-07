@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import moment from 'moment';
+import {FormattedMessage, FormattedRelative} from 'react-intl';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';
 import UserStore from 'stores/UserStore';
@@ -24,8 +24,8 @@ export default class TaskCardView extends Component {
       require('images/icons/state-pending.png');
 
     const statusText = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
-      'Accepted' :
-      'Pending';
+      <FormattedMessage id="common.accepted"/> :
+      <FormattedMessage id="common.pending"/>;
 
     return (
       <Card
@@ -56,13 +56,21 @@ export default class TaskCardView extends Component {
           </div>
           <div className="info-row calendar">
             <div className="calendar-icon" />
-            <div className="text calendar-text">Applied {moment(application.createdAt).fromNow()}</div>
+            <div className="text calendar-text">
+              <FormattedMessage id="nelpcenter.main.applied" values={{
+                moment: <FormattedRelative value={application.createdAt} />,
+              }}/>
+            </div>
           </div>
           <div className="info-row location">
             <div className="location-icon" />
             <div className="text location-text">
               <div className="city">{task.city}</div>
-              <div className="distance">{distance} km away from you</div>
+              <div className="distance">
+                <FormattedMessage id="nelpcenter.main.awayFrom" values={{
+                  distance: distance,
+                }}/>
+              </div>
             </div>
           </div>
         </CardContent>

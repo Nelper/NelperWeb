@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
+import {FormattedMessage} from 'react-intl';
 
 import NumericInput from 'components/NumericInput';
 import Checkbox from 'components/Checkbox';
@@ -206,12 +207,14 @@ export default class BrowseTasksFilterView extends Component {
             <div className="filter-distance">
               <div className="filter-title">
                 <Checkbox
-                  title="Distance range"
+                  title={<FormattedMessage id="browse.disRange"/>}
                   selected={maxDistanceActive}
                   onCheck={::this._onMaxDistanceCheck}
                 />
               </div>
-              <div className="filter-subtitle">Within</div>
+              <div className="filter-subtitle">
+                <FormattedMessage id="browse.within"/>
+            </div>
               <div className="filter-input">
                 <NumericInput
                   step={1}
@@ -224,12 +227,14 @@ export default class BrowseTasksFilterView extends Component {
             <div className="filter-price">
               <div className="filter-title">
                 <Checkbox
-                  title="Price range"
+                  title={<FormattedMessage id="browse.priceRange"/>}
                   selected={minPriceActive}
                   onCheck={::this._onMinPriceCheck}
                 />
               </div>
-              <div className="filter-subtitle">Higher than</div>
+              <div className="filter-subtitle">
+                <FormattedMessage id="browse.higherThan"/>
+              </div>
               <div className="filter-input">
                 <NumericInput
                   disabled={!minPriceActive}
@@ -248,7 +253,9 @@ export default class BrowseTasksFilterView extends Component {
             )}
             onClick={::this._onToggleOtherFilters}
           >
-            <span>More filters</span>
+            <span>
+              <FormattedMessage id="browse.moreFilters"/>
+            </span>
             <Icon className={classNames('expand-icon', {'expanded': otherFiltersOpened})} svg={require('images/icons/expand.svg')} />
           </div>
         </div>

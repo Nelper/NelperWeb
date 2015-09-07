@@ -176,7 +176,9 @@ export default class TaskDetailHandler extends Component {
           <div className="panel">
             <div className="panel-title">
               <div className="pending-icon" />
-              <h2>Nelpers</h2>
+              <h2>
+                <FormattedMessage id="nelpcenter.taskDetail.nelperPending"/>
+              </h2>
             </div>
             <ApplicationListView
               applications={pendingApplications}
@@ -192,7 +194,9 @@ export default class TaskDetailHandler extends Component {
           <div className="panel">
             <div className="panel-title">
               <div className="denied-icon" />
-              <h2>Denied Nelpers</h2>
+              <h2>
+                <FormattedMessage id="nelpcenter.taskDetail.nelperDenied"/>
+              </h2>
             </div>
             <ApplicationListView
               applications={deniedApplications}
@@ -209,7 +213,9 @@ export default class TaskDetailHandler extends Component {
     return (
       <div className="find-nelp-detail-handler container">
         <Dialog opened={confirmDeleteOpened}>
-          <h1>Warning!</h1>
+          <h1>
+            <FormattedMessage id="common.warning"/>
+          </h1>
           <p className="dialog-text">
             <FormattedMessage id="nelpcenter.taskDetail.deleteConfirm" values={{
               title: task.title,
@@ -217,10 +223,10 @@ export default class TaskDetailHandler extends Component {
           </p>
           <div className="btn-group dialog-buttons">
             <button onClick={::this._onCancelDelete}>
-              Cancel
+              <FormattedMessage id="common.cancel"/>
             </button>
             <button onClick={::this._onConfirmDelete} className="primary">
-              Delete
+              <FormattedMessage id="common.delete"/>
             </button>
           </div>
         </Dialog>
@@ -245,7 +251,11 @@ export default class TaskDetailHandler extends Component {
               <div className="other-info-split">
                 <div className="detail-row">
                   <div className="detail-icon applicants-count" />
-                  <div className="detail-text">{task.applications.length} Nelpers</div>
+                  <div className="detail-text">
+                    <FormattedMessage id="nelpcenter.common.nelperCount" values={{
+                      num: task.applications.length,
+                    }}/>
+                  </div>
                 </div>
                 <div className="detail-row">
                   <div className="price">${task.priceOffered}</div>
@@ -255,12 +265,18 @@ export default class TaskDetailHandler extends Component {
                   <div className="detail-text">
                     <div>
                       <FormattedMessage id="common.postedRelative" values={{
-                        formattedAgo: <span className="to-lower"><FormattedRelative value={task.createdAt} /></span>,
+                        formattedAgo:
+                        <span className="to-lower">
+                          <FormattedRelative value={task.createdAt} />
+                        </span>,
                       }}/>
                     </div>
                     <div>
                       <FormattedMessage id="common.expiresRelative" values={{
-                        formattedAgo: <span className="to-lower"><FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} /></span>,
+                        formattedAgo:
+                        <span className="to-lower">
+                          <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} />
+                        </span>,
                       }}/>
                     </div>
                   </div>
@@ -288,13 +304,16 @@ export default class TaskDetailHandler extends Component {
                 <div className="no-pictures"></div>
               }
               <div className="edit-pictures">
-                <button className="secondary" onClick={::this._onEditPictures}>Edit pictures</button>
+                <button className="secondary" onClick={::this._onEditPictures}>
+                  <FormattedMessage id="nelpcenter.common.editPic"/>
+                </button>
               </div>
             </div>
           </div>
           <div className="btn-group">
             <div className="button link-button" onClick={::this._onDelete}>
-              <Icon svg={require('images/icons/delete.svg')}/>Delete
+              <Icon svg={require('images/icons/delete.svg')}/>
+              <FormattedMessage id="nelpcenter.common.deleteTask"/>
             </div>
           </div>
         </div>
