@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import Progress from 'components/Progress';
 import MapView from 'components/MapView';
 import IconButton from 'components/IconButton';
+import Dialog from 'components/Dialog';
 import TaskPictureSlider from 'components/TaskPictureSlider';
 import ApplicationActions from 'actions/ApplicationActions';
 import ApplicationStore from 'stores/ApplicationStore';
@@ -50,12 +51,24 @@ export default class ApplicationDetailHandler extends Component {
     };
   }
 
+  state = {
+    showProgressHelpDialog: false,
+  }
+
   componentDidMount() {
     this._getTaskPosterInfo();
   }
 
   componentDidUpdate() {
     this._getTaskPosterInfo();
+  }
+
+  _onShowProgressHelp() {
+    this.setState({showProgressHelpDialog: true});
+  }
+
+  _onShowProgressHelpClose() {
+    this.setState({showProgressHelpDialog: false});
   }
 
   _getTaskPosterInfo() {
@@ -146,6 +159,15 @@ export default class ApplicationDetailHandler extends Component {
 
     return (
       <div className="application-detail-handler container">
+        <Dialog opened={this.state.showProgressHelpDialog} onClose={::this._onShowProgressHelpClose}>
+          <h1>Help</h1>
+          <div className="dialog-content">
+            <FormattedMessage id="nelpcenter.applicationDetail.progressHelp" />
+          </div>
+          <div className="dialog-buttons">
+            <button onClick={::this._onShowProgressHelpClose}>Close</button>
+          </div>
+        </Dialog>
         <div className="panel application-summary">
           <div className="summary-item">
             <div className="summary-item-title">
@@ -187,7 +209,11 @@ export default class ApplicationDetailHandler extends Component {
         {
           accepted ?
           <div className="panel task-progress">
-            <IconButton className="task-progress-help" icon={require('images/icons/help.svg')} />
+            <IconButton
+              className="task-progress-help"
+              icon={require('images/icons/help.svg')}
+              onClick={::this._onShowProgressHelp}
+            />
             {this._renderProgressBar()}
             <div className="task-progress-btn-container">
               <button className="primary task-progress-completed-btn">

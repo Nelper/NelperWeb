@@ -32,6 +32,7 @@ export default {
       progressPayment: "Paiement demandé",
       progressReleased: "Fonds relâchés",
       completed: "J'ai complété la tâche!",
+      progressHelp: "",
 
       chat: "Chatter avec le posteur",
 

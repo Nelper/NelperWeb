@@ -118,7 +118,8 @@ export default class Dialog extends Component {
       {'closing': this.state.closing},
     );
 
-    ReactDOM.render(
+    ReactDOM.unstable_renderSubtreeIntoContainer(
+      this,
       <div className="content">
         {this.props.children}
       </div>,
