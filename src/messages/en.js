@@ -39,5 +39,10 @@ export default {
       locationShown: "Location shown",
       locationWithin: "Task location within 400m",
     },
+
+    taskDetail: {
+
+      deleteConfirm: "Are your sure you want to delete the task {title}?",
+    },
   },
 };

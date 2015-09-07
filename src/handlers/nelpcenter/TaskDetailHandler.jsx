@@ -210,7 +210,11 @@ export default class TaskDetailHandler extends Component {
       <div className="find-nelp-detail-handler container">
         <Dialog opened={confirmDeleteOpened}>
           <h1>Warning!</h1>
-          <p className="dialog-text">Are your sure you want to delete the task '{task.title}'?</p>
+          <p className="dialog-text">
+            <FormattedMessage id="nelpcenter.taskDetail.deleteConfirm" values={{
+              title: task.title,
+            }}/>
+          </p>
           <div className="btn-group dialog-buttons">
             <button onClick={::this._onCancelDelete}>
               Cancel
