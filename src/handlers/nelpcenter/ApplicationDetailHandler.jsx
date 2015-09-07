@@ -8,6 +8,7 @@ import MapView from 'components/MapView';
 import IconButton from 'components/IconButton';
 import Dialog from 'components/Dialog';
 import TaskPictureSlider from 'components/TaskPictureSlider';
+import TaskProgress from './TaskProgress';
 import ApplicationActions from 'actions/ApplicationActions';
 import ApplicationStore from 'stores/ApplicationStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
@@ -79,60 +80,6 @@ export default class ApplicationDetailHandler extends Component {
     if (application && !application.hasTaskPosterInfo && application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED) {
       ApplicationActions.requestTaskPosterInfo(application);
     }
-  }
-
-  _renderProgressBar() {
-    const acceptedState = 2;
-    const pendingState = acceptedState + 1;
-    return (
-      <div className="progress-bar-container">
-        <div className="title-task-completion">
-          <FormattedMessage id="nelpcenter.applicationDetail.completion" />
-        </div>
-        <div className="progress-bar">
-          <div className="progress-bar-node completed">
-            <span>1</span>
-            <div className="progress-bar-title completed">
-              <FormattedMessage id="nelpcenter.applicationDetail.progressAccepted" />
-            </div>
-          </div>
-          <div className={classNames(
-            'progress-bar-edge',
-            {'pending': pendingState === 1},
-            {'completed': acceptedState >= 1},
-          )} />
-          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 1})}>
-            <span>2</span>
-            <div className={classNames('progress-bar-title', {'completed': acceptedState >= 1})}>
-              <FormattedMessage id="nelpcenter.applicationDetail.progressSent" />
-            </div>
-          </div>
-          <div className={classNames(
-            'progress-bar-edge',
-            'long-edge',
-            {'pending': pendingState === 2},
-            {'completed': acceptedState >= 2},
-          )} />
-          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 2})}>
-            <span>3</span>
-            <div className={classNames('progress-bar-title', {'completed': acceptedState >= 2})}>
-              <FormattedMessage id="nelpcenter.applicationDetail.progressPayment" />
-            </div>
-          </div>
-          <div className={classNames(
-            'progress-bar-edge',
-            {'pending': pendingState === 3},
-            {'completed': acceptedState >= 3},
-          )} />
-          <div className={classNames('progress-bar-node', {'completed': acceptedState >= 3})}>
-            <span>4</span>
-            <div className={classNames('progress-bar-title', {'completed': acceptedState >= 3})}>
-              <FormattedMessage id="nelpcenter.applicationDetail.progressReleased" />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   render() {
@@ -214,7 +161,12 @@ export default class ApplicationDetailHandler extends Component {
               icon={require('images/icons/help.svg')}
               onClick={::this._onShowProgressHelp}
             />
-            {this._renderProgressBar()}
+            <TaskProgress step={1} steps={[
+              {title: <FormattedMessage id="nelpcenter.applicationDetail.progressAccepted" />},
+              {title: <FormattedMessage id="nelpcenter.applicationDetail.progressSent" />},
+              {title: <FormattedMessage id="nelpcenter.applicationDetail.progressPayment" />},
+              {title: <FormattedMessage id="nelpcenter.applicationDetail.progressReleased" />},
+            ]} />
             <div className="task-progress-btn-container">
               <button className="primary task-progress-completed-btn">
                 <FormattedMessage id="nelpcenter.applicationDetail.completed" />

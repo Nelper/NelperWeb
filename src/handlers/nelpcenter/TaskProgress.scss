@@ -1,0 +1,78 @@
+.task-progress-view {
+  margin-bottom: 6rem;
+  padding: 0 4rem;
+
+  .progress-bar {
+    display: flex;
+    align-items: center;
+  }
+
+  .progress-bar-node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    width: 2.5rem;
+    height: 2.5rem;
+    position: relative;
+    border-radius: 50%;
+    border: 1px solid $color-black;
+    color: $color-background-light;
+    background-color: $color-gray-medium;
+    font-size: 1.3em;
+
+    &.pending {
+      background-color: $color-pending;
+    }
+
+    &.completed {
+      background-color: $color-accepted;
+    }
+  }
+
+  .progress-bar-edge {
+    flex: 1;
+    height: 1rem;
+    margin: 0 -1rem;
+    background-color: $color-background;
+    border: $base-border;
+
+    &.long-edge {
+      flex: 1.5;
+    }
+
+    &.pending {
+      background-color: $color-pending;
+    }
+
+    &.completed {
+      background-color: $color-accepted;
+    }
+  }
+
+  .title-task-completion {
+    margin-bottom: -0.5rem;
+    text-align: center;
+    color: $color-gray-medium;
+    font-size: 0.9em;
+  }
+
+  .progress-bar-title {
+    $title-width: rem(200px);
+
+    position: absolute;
+    top: 3rem;
+    // Center horizontally on the node.
+    left: 50%;
+    width: $title-width;
+    margin-left: -$title-width / 2;
+    color: $color-gray-medium;
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+
+    &.completed {
+      color: $color-black;
+    }
+  }
+}

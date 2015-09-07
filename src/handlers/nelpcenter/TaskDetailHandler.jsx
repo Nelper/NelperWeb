@@ -164,9 +164,7 @@ export default class TaskDetailHandler extends Component {
     let applicationsSection;
     if (acceptedApplication) {
       applicationsSection = (
-        <div className="panel pad-all">
-          <AcceptedApplicationView application={acceptedApplication} />
-        </div>
+        <AcceptedApplicationView application={acceptedApplication} />
       );
     } else {
       applicationsSection = (
