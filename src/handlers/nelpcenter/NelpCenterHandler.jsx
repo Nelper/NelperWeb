@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
+import {FormattedMessage} from 'react-intl';
 
 import UserActions from 'actions/UserActions';
 import AppActions from 'actions/AppActions';
@@ -89,10 +90,10 @@ export default class NelpCenterHandler extends Component {
           <div className="tab-bar">
             <div className="tabs">
               <Link className="tab" to="/center/tasks">
-                My Tasks
+                <FormattedMessage id="nelpcenter.main.myTasks"/>
               </Link>
               <Link className="tab" to="/center/applications">
-                My Applications
+                <FormattedMessage id="nelpcenter.main.myApplications"/>
               </Link>
             </div>
           </div>

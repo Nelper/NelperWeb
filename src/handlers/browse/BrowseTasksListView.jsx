@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
-import {FormattedRelative} from 'react-intl';
+import {FormattedMessage, FormattedRelative} from 'react-intl';
 
 import Dialog from 'components/Dialog';
 import NumericInput from 'components/NumericInput';
@@ -137,7 +137,7 @@ export default class BrowseTasksListView extends Component {
                 </div>
                 <div className="infos">
                   <div className="user-col">
-                    <div className="user-name">By {t.user.name}</div>
+                    <div className="user-name">{t.user.name}</div>
                     <div className="date">
                       <FormattedRelative value={t.createdAt} />
                     </div>
@@ -149,7 +149,9 @@ export default class BrowseTasksListView extends Component {
                     {
                       distance !== null ?
                       <div className="distance">
-                        {distance} km away from you
+                        <FormattedMessage id="nelpcenter.main.awayFrom" values={{
+                          distance: distance,
+                        }}/>
                       </div> :
                       null
                     }
@@ -196,7 +198,7 @@ export default class BrowseTasksListView extends Component {
       <div className="nelp-task-list-view" ref="displayedTasks">
         {
           !displayedTasks.length ?
-          <div className="no-task">No task found</div> :
+          <div className="no-task"><FormattedMessage id="browse.noTask"/></div> :
           displayedTasks
         }
       </div>
