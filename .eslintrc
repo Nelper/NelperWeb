@@ -1,5 +1,9 @@
 {
   "extends": "airbnb",
+  "globals": {
+    "__CLIENT__": true,
+    "__SERVER__": true,
+  },
   "rules": {
     "no-undef": [2],
     "react/sort-comp": [0, {

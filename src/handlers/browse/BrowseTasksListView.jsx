@@ -118,7 +118,7 @@ export default class BrowseTasksListView extends Component {
         )}>
           <Dialog opened={this.state.makeOfferDialogOpened}>
             <h2>Make an offer</h2>
-            <div className="dialog-text">
+            <div className="dialog-content">
               <NumericInput value={this.state.makeOfferValue} onChange={::this._onMakeOfferValueChange} />
             </div>
             <div className="btn-group dialog-buttons">
