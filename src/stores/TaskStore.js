@@ -25,6 +25,7 @@ class TaskStore {
       handleSetTaskViewed: TaskActions.SET_TASK_VIEWED,
       handleAddPicture: TaskActions.ADD_PICTURE,
       handleDeletePicture: TaskActions.DELETE_PICTURE,
+      handleReceivedApplicantInfo: TaskActions.RECEIVED_APPLICANT_INFO,
     });
   }
 
@@ -104,6 +105,13 @@ class TaskStore {
   handleDeletePicture({task, picture}) {
     const index = task.pictures.findIndex(p => p === picture);
     task.pictures.splice(index, 1);
+    this.emitChange();
+  }
+
+  handleReceivedApplicantInfo({application, info}) {
+    application.hasApplicantInfo = true;
+    application.phone = info.phone;
+    application.email = info.email;
     this.emitChange();
   }
 }

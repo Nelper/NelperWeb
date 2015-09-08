@@ -15,7 +15,9 @@ export default class TaskCardView extends Component {
   _getTaskImageStyles(t) {
     const hasImage = t.pictures && t.pictures.length > 0;
     return {
-      backgroundImage: hasImage ? `url('${t.pictures[0].url}')` : null,
+      backgroundImage: hasImage ?
+        `url('${t.pictures[0].url}')` :
+        `url('${TaskCategoryUtils.getImage(t.category)}')`,
     };
   }
 

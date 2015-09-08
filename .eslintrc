@@ -3,6 +3,7 @@
   "globals": {
     "__CLIENT__": true,
     "__SERVER__": true,
+    "FB": true
   },
   "rules": {
     "no-undef": [2],

@@ -1,8 +1,7 @@
 // Typography
-
-$base-font-family: 'Proxima Nova';
-$heading-font-family: 'Proxima Nova';
-$content-font-family: 'Proxima Nova';
+$base-font-family: 'Lato';
+$heading-font-family: 'Lato';
+$content-font-family: 'Lato';
 
 // Font Sizes
 $base-font-size: 1em;
@@ -25,6 +24,7 @@ $color-money: #80bf62;
 
 $color-gray-medium: #979797;
 $color-gray-light: #bbb;
+$color-gray-lighter: #dcdcdc;
 
 $color-background: #eaeaea;
 $color-background-light: #f7f7f7;
@@ -48,4 +48,4 @@ $base-border: 1px solid $base-border-color;
 $form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
 $form-box-shadow-focus: none;
 
-$navbar-height: 60px;
+$navbar-height: 70px;

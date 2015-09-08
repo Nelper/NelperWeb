@@ -9,6 +9,7 @@ class TaskActions {
       'receivedMyTasks',
       'startTaskCreate',
       'receivedCreatedTask',
+      'receivedApplicantInfo'
     );
   }
 
@@ -68,6 +69,13 @@ class TaskActions {
   deletePicture(task, picture) {
     ApiUtils.deleteTaskPicture(task, picture);
     return {task, picture};
+  }
+
+  requestApplicantInfo(application) {
+    ApiUtils.requestApplicantInfo(application)
+      .then(info => {
+        this.actions.receivedApplicantInfo({application, info});
+      });
   }
 }
 

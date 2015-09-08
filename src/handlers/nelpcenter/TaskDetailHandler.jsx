@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import connectToStores from 'alt/utils/connectToStores';
 
 import ApplicationListView from './ApplicationListView';
-import AcceptedApplicationView from './AcceptedApplicationView';
+import AcceptedApplicationView from './AcceptedTaskView';
 import EditPicturesDialogView from './EditPicturesDialogView';
 import Progress from 'components/Progress';
 import Dialog from 'components/Dialog';
@@ -164,7 +164,7 @@ export default class TaskDetailHandler extends Component {
     let applicationsSection;
     if (acceptedApplication) {
       applicationsSection = (
-        <AcceptedApplicationView application={acceptedApplication} />
+        <AcceptedApplicationView task={task} application={acceptedApplication} />
       );
     } else {
       applicationsSection = (
@@ -244,7 +244,7 @@ export default class TaskDetailHandler extends Component {
                   multiline={true}
                   onEditDone={::this._onDescChanged}
                   value={task.desc}
-                  />
+                />
               </div>
               <div className="other-info-split">
                 <div className="detail-row">

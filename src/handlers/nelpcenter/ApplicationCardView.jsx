@@ -32,6 +32,9 @@ export default class TaskCardView extends Component {
         className="application-card-view"
         onClick={onClick}>
         <CardImageHeader>
+          <div className="image-overlay" style={{
+            backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`,
+          }} />
           <div className="category">
             {
               task.isNew ?

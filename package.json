@@ -8,7 +8,7 @@
     "start": "npm run start-server",
     "start-server": "node ./build/server/server.js",
     "build": "webpack --config webpack/webpack.config.js",
-    "watch": "babel-node ./src/server/dev-server.js",
+    "watch": "webpack-dev-server --progress --colors --hot --inline --history-api-fallback --config webpack/webpack-dev.config.js",
     "watch-server": "webpack --watch --config webpack/webpack.config.js",
     "clean": "rm -rf ./build",
     "test": "jest",

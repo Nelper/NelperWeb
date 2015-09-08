@@ -20,6 +20,11 @@ const common = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('shared.js'),
+    new HtmlWebpackPlugin({
+      template: path.resolve(ROOT_PATH, 'src/app/index.html'),
+      inject: 'body',
+      favicon: path.resolve(ROOT_PATH, 'src/images/favicon.ico'),
+    }),
   ],
 };
 

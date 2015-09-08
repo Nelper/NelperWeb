@@ -1,5 +1,5 @@
 .navbar {
-  $navigation-padding: 1em;
+  $navigation-padding: 1rem;
   $navigation-background: $color-background-light;
   $navigation-color: $color-black;
   $navigation-color-hover: $color-primary;
@@ -51,20 +51,20 @@
       align-items: center;
       max-height: $navigation-height;
       padding-left: $navigation-padding;
-      padding-right: 2em;
+      padding-right: 2rem;
 
       color: $color-black;
-      font-weight: 400;
-      font-size: 1.4em;
+      font-weight: bold;
+      font-size: 1.5em;
 
       img {
         max-height: $navigation-height;
-        padding: 4px;
+        padding: 6px;
         max-width: none;
       }
 
       .title {
-        margin-left: 0.8rem;
+        margin-left: 0.5rem;
         color: $color-primary;
 
         &:hover {
@@ -116,7 +116,6 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    overflow: hidden;
     padding: 0;
     width: 100%;
 
@@ -134,7 +133,6 @@
     align-items: stretch;
     background: $navigation-background;
     line-height: $navigation-height;
-    overflow: hidden;
 
     text-align: right;
 
@@ -146,7 +144,7 @@
       flex: 1;
       padding-right: 1em;
       color: $navigation-color;
-      font-weight: 400;
+      font-weight: 300;
 
       @include media($horizontal-bar-mode) {
         flex: none;
@@ -160,10 +158,9 @@
     }
 
     &.active {
-      background-color: darken($navigation-background, 10);
-
       a {
         color: $color-primary;
+        font-weight: bold;
       }
     }
   }
@@ -171,5 +168,59 @@
   .active-nav-item a {
     border-bottom: 1px solid $navigation-active-link-color;
     padding-bottom: 3px;
+  }
+
+  .navbar-profile {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .navbar-separator {
+    height: 2.5rem;
+    border-left: 1px solid $color-gray-lighter;
+  }
+
+  .navbar-profile-picture {
+    @include image(3rem);
+    margin-left: 2rem;
+    border-radius: 50%;
+  }
+
+  .navbar-profile-icon {
+    @include image(1.5rem);
+    background-image: url('~images/icons/expand.png');
+    margin-left: 0.5rem;
+  }
+
+  .navbar-dropdown {
+    position: absolute;
+    top: $navbar-height;
+    right: 0;
+    z-index: 99999;
+
+    background-color: $color-background-light;
+    white-space: nowrap;
+    box-shadow: 0 9px 8px 2px rgba(0, 0, 0, 0.13);
+    border: 1px solid $color-gray-lighter;
+
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+    transform: scaleX(0.75) scaleY(0);
+    opacity: 0;
+    transform-origin: top center;
+
+    &.opened {
+      transform: scaleX(1) scaleY(1);
+      opacity: 1;
+    }
+
+    .nav-link a {
+      flex: 1;
+      padding-right: 1rem;
+      padding-left: 3rem;
+      text-align: right;
+    }
   }
 }

@@ -40,7 +40,7 @@ export default class TaskProgress extends Component {
     return (
       <div className="task-progress-view">
         <div className="title-task-completion">
-          <FormattedMessage id="nelpcenter.applicationDetail.completion" />
+          <FormattedMessage id="nelpcenter.common.completion" />
         </div>
         <div className="progress-bar">
           {nodesAndEdges}

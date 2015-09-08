@@ -58,6 +58,8 @@ export default {
       nelperCount: "{num, plural, zero{No pending Nelper} one{{num} pending Nelper} other{{num} pending Nelpers}}",
       deleteTask: "Delete this task",
       editPic: "Edit my pictures",
+
+      completion: "Task Completion",
     },
 
     applicationDetail: {
@@ -66,7 +68,6 @@ export default {
       agreed: "Agreed Price",
       offer: "Your Offer",
 
-      completion: "Task Completion",
       progressAccepted: "Accepted",
       progressSent: "Payment sent",
       progressPayment: "Payment requested",
@@ -86,6 +87,18 @@ export default {
       nelperDenied: "Denied Nelpers",
       nelperAccepted: "Accepted Nelper",
       deleteConfirm: "Are your sure you want to delete the task {title}?",
+
+      progressAccepted: "Nelper Accepted",
+      progressSent: "Payment sent",
+      progressApproved: "Approved Task Completion",
+      progressRating: "Rating & Feedback",
+    },
+
+    acceptedTaskView: {
+      proceedPayment: "Proceed to payment",
+      aboutNelperPay: "About NelperPay",
+
+      chat: "Chat with your Nelper",
     },
   },
 };

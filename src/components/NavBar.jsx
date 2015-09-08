@@ -15,6 +15,8 @@ export default class NavBar extends Component {
 
   state = {
     collapsed: true,
+    insideProfile: false,
+    insideDropDown: false,
   }
 
   _onToggleMenu() {
@@ -24,20 +26,34 @@ export default class NavBar extends Component {
   }
 
   _onActive() {
-    setTimeout(() => {
-      if (!this.state.collapsed) {
-        this.setState({
-          collapsed: true,
-        });
-      }
-    }, 200);
+    this.setState({
+      collapsed: true,
+      insideProfile: false,
+      insideDropDown: false,
+    });
+  }
+
+  _onProfileEnter() {
+    this.setState({insideProfile: true});
+  }
+
+  _onProfileLeave() {
+    this.setState({insideProfile: false});
+  }
+
+  _onDropdownEnter() {
+    this.setState({insideDropDown: true});
+  }
+
+  _onDropdownLeave() {
+    this.setState({insideDropDown: false});
   }
 
   _renderNavItem(title, href, key) {
     const active = this.context.router.isActive(href);
     return (
       <li
-        className={'nav-link' + (active ? ' active' : '')}
+        className={classNames('nav-link', {'active': active})}
         key={key}>
         <Link to={href} onClick={::this._onActive}>
           {title}
@@ -46,21 +62,45 @@ export default class NavBar extends Component {
     );
   }
 
-  _renderDropdown() {
-
+  _renderProfileDropdown() {
+    return (
+      <li
+        className="nav-link navbar-profile"
+        key="profile"
+        onMouseEnter={::this._onProfileEnter}
+        onMouseLeave={::this._onProfileLeave}
+      >
+        <div className="navbar-separator" />
+        <div className="navbar-profile-picture" style={{
+          backgroundImage: `url('${this.props.user.pictureURL}')`,
+        }} />
+        <div className="navbar-profile-icon" />
+        <ul
+          className={classNames(
+            'navbar-dropdown',
+            {'opened': this.state.insideProfile || this.state.insideDropDown}
+          )}
+          onMouseEnter={::this._onDropdownEnter}
+          onMouseLeave={::this._onDropdownLeave}
+        >
+          {this._renderNavItem('View Profile', '/profile', 70)}
+          {this._renderNavItem('Settings', '/settings', 80)}
+          {this._renderNavItem('Logout', '/logout', 90)}
+        </ul>
+      </li>
+    );
   }
 
   render() {
     const menuItems = !this.props.user.logged ? [
-      this._renderNavItem(<FormattedMessage id="navBar.howWorks"/>, '/howitworks', 40),
       this._renderNavItem(<FormattedMessage id="navBar.browse"/>, '/browse', 10),
       this._renderNavItem(<FormattedMessage id="navBar.post"/>, '/post', 20),
       this._renderNavItem(<FormattedMessage id="navBar.login"/>, '/login', 30),
     ] : [
-      this._renderNavItem(<FormattedMessage id="navBar.howWorks"/>, '/howitworks', 40),
       this._renderNavItem(<FormattedMessage id="navBar.browse"/>, '/browse', 10),
       this._renderNavItem(<FormattedMessage id="navBar.center"/>, '/center', 50),
       this._renderNavItem(<FormattedMessage id="navBar.post"/>, '/post', 20),
+      this._renderProfileDropdown(),
     ];
 
     return (

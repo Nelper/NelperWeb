@@ -133,7 +133,7 @@ export default class ProfileHandler extends Component {
   }
 
   _onEditEducationDone(ed, title) {
-    exp.title = title;
+    ed.title = title;
     UserActions.editEducation(ed);
   }
 

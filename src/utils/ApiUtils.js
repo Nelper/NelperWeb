@@ -572,8 +572,22 @@ class ApiUtils {
     Parse.Object.saveAll(parseApplications);
   }
 
+  /**
+   * Requests the task poster contact info.
+   * @param  {TaskApplication} application The application for which the infos are requested
+   * @return {Promise} The contact info
+   */
   requestTaskPosterInfo(application) {
     return Parse.Cloud.run('taskPosterInfo', {applicationId: application.objectId});
+  }
+
+  /**
+   * Requests the applicant contact info.
+   * @param  {TaskApplication} application The application for which the infos are requested
+   * @return {Promise} The contact info
+   */
+  requestApplicantInfo(application) {
+    return Parse.Cloud.run('applicantInfo', {applicationId: application.objectId});
   }
 
   /**

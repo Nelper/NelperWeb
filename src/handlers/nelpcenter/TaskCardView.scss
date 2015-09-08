@@ -4,12 +4,8 @@
   $status-icon-size: 2.5rem;
   $calendar-icon-size: 2.5rem;
 
-  .header {
-    overflow: hidden;
-  }
-
   .image-overlay {
-    @include position(absolute, 0);
+    @include position(absolute, -2rem);
     @include image-fill();
     filter: blur(16px);
   }

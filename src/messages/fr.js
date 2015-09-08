@@ -58,6 +58,8 @@ export default {
       nelperCount: "{num, plural, zero{Aucun Nelper en attente} one{{num} Nelper en attente} other{{num} Nelpers en attente}}",
       deleteTask: "Supprimer cette tâche",
       editPic: "Modifier mes images",
+
+      completion: "Progrès de la tâche",
     },
 
     applicationDetail: {
@@ -66,7 +68,6 @@ export default {
       agreed: "Prix convenu",
       offer: "Votre offre",
 
-      completion: "Progrès de la tâche",
       progressAccepted: "Accepté",
       progressSent: "Paiement envoyé",
       progressPayment: "Paiement demandé",
@@ -74,7 +75,7 @@ export default {
       completed: "J'ai complété la tâche!",
       progressHelp: "",
 
-      chat: "Discuter avec l'afficheur'",
+      chat: "Discuter avec l'afficheur",
 
       offering: "L'afficheur offre",
       locationShown: "Location affichée",
@@ -87,6 +88,18 @@ export default {
       nelperDenied: "Nelpers refusés",
       nelperAccepted: "Nelper accepté",
       deleteConfirm: "Êtes-vous certain de vouloir supprimer '{title}'?",
+
+      progressAccepted: "Nelper Accepted",
+      progressSent: "Payment sent",
+      progressApproved: "Approved Task Completion",
+      progressRating: "Rating & Feedback",
+    },
+
+    acceptedTaskView: {
+      proceedPayment: "Passer au paiement",
+      aboutNelperPay: "À propos de NelperPay",
+
+      chat: "Discuter avec votre Nelper",
     },
   },
 };

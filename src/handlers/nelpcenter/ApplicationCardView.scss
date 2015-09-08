@@ -5,6 +5,12 @@
   $calendar-icon-size: 2rem;
   $location-icon-size: 2rem;
 
+  .image-overlay {
+    @include position(absolute, -2rem);
+    @include image-fill();
+    filter: blur(16px);
+  }
+
   .is-new {
     position: absolute;
     top: -$is-new-icon-size * 1.75;
@@ -57,7 +63,7 @@
   }
 
   .status {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .status-icon {

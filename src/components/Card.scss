@@ -32,6 +32,7 @@
     background-size: cover;
     background-color: $header-bg-color;
     position: relative;
+    overflow: hidden;
   }
 
   .card-content {
