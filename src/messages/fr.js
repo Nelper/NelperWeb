@@ -71,10 +71,13 @@ export default {
 
       applied: "Appliqué {moment}",
       awayFrom: "{distance} km de votre emplacement",
+
+      posted: "Publiée {moment}",
+      expires: "Expire {moment}",
     },
 
     common: {
-      nelperCount: "{num, plural, zero{Aucun Nelper en attente} one{{num} Nelper en attente} other{{num} Nelpers en attente}}",
+      nelperCount: "{num, plural, zero{Aucun Nelper en attente} one{{num} Nelper en attente} other{{num} Nelpers en attente}}", // need fix, zero{} doesnt work, one{} is called instead
       deleteTask: "Supprimer cette tâche",
       editPic: "Modifier mes images",
 

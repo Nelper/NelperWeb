@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import moment from 'moment';
+import {FormattedMessage, FormattedRelative} from 'react-intl';
+import DateUtils from 'utils/DateUtils';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
@@ -44,8 +45,10 @@ export default class TaskCardView extends Component {
       <div className="applicants">
       {
         !this._hasAcceptedApplications() ?
-        (pendingApplications.length + (pendingApplications.length > 1 ? ' applicants' : ' applicant')) :
-        'Accepted'
+        <FormattedMessage id="nelpcenter.common.nelperCount" values={{
+          num: pendingApplications.length,
+        }}/> :
+        <FormattedMessage id="common.accepted"/>
       }
       </div>
     );
@@ -82,9 +85,17 @@ export default class TaskCardView extends Component {
             </div>
           </div>
           <div className="calendar-row">
-            <div>Posted {moment(task.createdAt).fromNow()}</div>
+            <div>
+              <FormattedMessage id="nelpcenter.main.posted" values={{
+                moment: <FormattedRelative value={task.createdAt} />,
+              }}/>
+            </div>
             <div className="calendar-icon" />
-            <div>Expires {moment(task.createdAt).add(14, 'day').fromNow()}</div>
+            <div>
+              <FormattedMessage id="nelpcenter.main.expires" values={{
+                moment: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} />,
+              }}/>
+            </div>
           </div>
         </CardContent>
       </Card>
