@@ -31,6 +31,25 @@ export default {
     center: "Nelp Center",
   },
 
+  home: {
+    topSectionTitle: "Your task completion marketplace",
+    topSectionDesc: "With Nelper, connect with people around you and either have your tasks completed or complete other people's tasks.",
+
+    browseTitle: "Browse Tasks",
+    browseDesc: "Browse & find tasks to complete.",
+    nelpcenterTitle: "Nelp Center",
+    nelpcenterDesc: "Manage your tasks and applications.",
+    postTitle: "Post a Task",
+    postDesc: "Find a Nelper to complete your task.",
+
+    getCompletedTitle: "Get your tasks completed",
+    getCompletedDesc: "There's someone in your neighborhood who can help.<br />Posting a task is <strong>free</strong>.",
+    getStarted: "Get started now",
+
+    becomeNelperTitle: "Become a Nelper",
+    becomeNelperDesc: "Join the community now by completing tasks",
+  },
+
   browse: {
     moreFilters: "Plus de filtres",
     higherThan: "Plus de",

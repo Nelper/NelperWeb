@@ -23,6 +23,8 @@
 @import 'components/Breadcrumbs';
 @import 'components/TaskPictureSlider';
 
+@import 'handlers/home/HomeHandler';
+
 @import 'handlers/browse/BrowseTasksHandler';
 @import 'handlers/browse/NelpTaskDetail';
 @import 'handlers/browse/BrowseTasksFilterView';
