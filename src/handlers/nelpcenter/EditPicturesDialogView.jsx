@@ -63,7 +63,7 @@ export default class EditPicturesDialogView extends Component {
           {
             !p.loading ?
             <div className="edit-picture-image" style={{backgroundImage: `url('${p.url}')`}} /> :
-            <div className="edit-picture-loading"><Progress small={true} /></div>
+            <div className="edit-picture-loading"><Progress small /></div>
           }
           <div className="edit-picture-title">{p.name}</div>
         </div>

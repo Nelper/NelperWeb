@@ -70,14 +70,14 @@ export default {
       myApplications: "Mes applications",
 
       applied: "Applied {moment}",
-      awayFrom: "{distance} km away from you",
+      awayFrom: "{distance, number} km away from you",
 
       posted: "Posted {moment}",
       expires: "Expires in {moment}",
     },
 
     common: {
-      nelperCount: "{num, plural, zero{No pending Nelper} one{{num} pending Nelper} other{{num} pending Nelpers}}",
+      nelperCount: "{num, plural, =0 {No pending Nelper} =1 {{num} pending Nelper} other {{num} pending Nelpers}}",
       deleteTask: "Delete this task",
       editPic: "Edit my pictures",
 

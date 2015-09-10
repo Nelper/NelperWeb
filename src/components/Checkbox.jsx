@@ -6,7 +6,7 @@ export default class Checkbox extends Component {
   static propTypes = {
     selected: PropTypes.bool,
     onCheck: PropTypes.func,
-    title: PropTypes.string,
+    title: PropTypes.node,
   }
 
   _onCheck() {

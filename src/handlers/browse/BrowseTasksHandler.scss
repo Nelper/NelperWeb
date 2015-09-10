@@ -41,6 +41,10 @@
   .sort-view-toggle-group {
     button {
       width: rem(150px);
+
+      .lang-fr & {
+        width: rem(175px);
+      }
     }
   }
 }

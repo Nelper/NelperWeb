@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
 import {FormattedMessage} from 'react-intl';
 
-import UserActions from 'actions/UserActions';
 import AppActions from 'actions/AppActions';
 import UserStore from 'stores/UserStore';
 import AppStore from 'stores/AppStore';
@@ -54,39 +53,10 @@ export default class NelpCenterHandler extends Component {
     this.context.router.replaceWith(`/center/${AppStore.state.nelpCenter.selectedTab}`);
   }
 
-  _logout() {
-    UserActions.logout();
-    this.context.router.transitionTo('/');
-  }
-
-  _settings() {
-    this.context.router.transitionTo('/profile/settings');
-  }
-
   render() {
-    const {user} = this.props;
-
     return (
       <div className="nelp-center-handler container">
         <div className="header-panel">
-          <div className="profile-header">
-            <div
-              className="picture"
-              style={{backgroundImage: `url('${user.pictureURL}')`}} />
-            <div className="info-container">
-              <div className="user-name">
-                {user.name}
-              </div>
-              <Link className="my-profile" to="/center/profile">
-                <div className="my-profile-icon" />
-                <button className="border-btn inverse">MY PROFILE</button>
-              </Link>
-            </div>
-            <div className="btn-group">
-              <button className="secondary" onClick={::this._settings}>Settings</button>
-              <button className="secondary" onClick={::this._logout}>Logout</button>
-            </div>
-          </div>
           <div className="tab-bar">
             <div className="tabs">
               <Link className="tab" to="/center/tasks">

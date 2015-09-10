@@ -8,16 +8,15 @@ import UserStore from 'stores/UserStore';
 import AppHandler from 'handlers/AppHandler';
 import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
 
-import HomeHandler from 'handlers/home/HomeHandler';
-
 import NelpCenterHandler from 'handlers/nelpcenter/NelpCenterHandler';
 import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
 import TasksHandler from 'handlers/nelpcenter/TasksHandler';
-import ProfileHandler from 'handlers/nelpcenter/ProfileHandler';
 import TaskDetailHandler from 'handlers/nelpcenter/TaskDetailHandler';
 import ApplicationDetailHandler from 'handlers/nelpcenter/ApplicationDetailHandler';
 
 import SettingsHandler from 'handlers/profile/SettingsHandler';
+
+import LogoutHandler from 'handlers/login/LogoutHandler';
 
 import TestPaymentHandler from 'handlers/nelpcenter/TestPaymentHandler';
 
@@ -46,6 +45,12 @@ function requireAuth(nextState, transition) {
     return false;
   }
   return true;
+}
+
+function getHomeComponent(cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/home/HomeHandler'));
+  });
 }
 
 function getBrowseComponent(cb) {
@@ -84,13 +89,20 @@ function getRegisterComponent(cb) {
   });
 }
 
+function getProfileComponent(cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/profile/ProfileHandler'));
+  });
+}
+
 // Routes.
 export default function getRoutes() {
   return (
     <Route component={AppHandler}>
-      <Route path="/" component={HomeHandler} />
+      <Route path="/" getComponents={getHomeComponent} />
       <Route path="/login" getComponents={getLoginComponent} />
       <Route path="/register" getComponents={getRegisterComponent} />
+      <Route path="/logout" component={LogoutHandler} />
       <Route path="/browse" getComponents={getBrowseComponent} />
       <Route path="/post" getComponents={getPostCategoriesComponent} />
       <Route path="/post/:category" getComponents={getPostFormComponent} onEnter={requireAuth} />
@@ -101,8 +113,8 @@ export default function getRoutes() {
         </Route>
         <Route path="/center/tasks/detail/:id" component={TaskDetailHandler} name={IntlUtils.getMessage('routes.taskDetail')} />
         <Route path="/center/applications/detail/:id" component={ApplicationDetailHandler} name={IntlUtils.getMessage('routes.applicationDetail')} />
-        <Route path="/center/profile" component={ProfileHandler} />
       </Route>
+      <Route path="/profile" getComponents={getProfileComponent} />
       <Route path="/settings" component={SettingsHandler} onEnter={requireAuth} />
       <Route path="/howitworks" getComponents={getHowItWorksComponent} />
       <Route path="/testpayment" component={TestPaymentHandler} />

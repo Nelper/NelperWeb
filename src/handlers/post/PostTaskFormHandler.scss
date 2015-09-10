@@ -2,10 +2,6 @@
 
   $step-size: 46px;
 
-  @include media($large-screen) {
-    padding: 1rem 8rem;
-  }
-
   form {
     width: 100%;
   }
@@ -24,55 +20,52 @@
     display: flex;
     width: 100%;
     margin-bottom: 2rem;
+  }
 
-    .step {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      width: rem($step-size);
-      height: rem($step-size);
-      margin-right: 1rem;
-      margin-top: 0.25rem;
-      border-radius: 50%;
-      border: 2px solid $color-black;
-      font-size: 1.3em;
-      background-color: $color-background;
-      transition: background-color 250ms linear;
+  .input-content {
+    flex: 1;
+    position: relative;
+  }
 
-      @include media($medium-screen) {
-        display: flex;
-      }
+  .validation-icon {
+    @include image(2rem);
+    margin-top: 2.25rem;
+    margin-left: 1rem;
 
-      &.done {
-        background-color: $color-money;
-      }
-
-      &.camera {
-        background-image: url('~images/icons/camera-black.png');
-        background-position: center;
-        background-size: rem(32px);
-        background-repeat: no-repeat;
-      }
+    &.valid {
+      background-image: url('~images/icons/accepted.png');
     }
 
-    .input-content {
-      flex: 1;
-      position: relative;
+    &.invalid {
+      background-image: url('~images/icons/denied.png');
     }
   }
 
-  .category-title {
+  .category-header-panel {
+    height: 9rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .category-overlay {
+    @include position(absolute, -2rem);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(16px);
+  }
+
+  .category-content {
+    @include position(absolute, 0);
     display: flex;
-    align-items: center;
-    font-size: 1.2em;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
   .category-icon {
-    @include image($step-size);
-    margin-right: 1rem;
-    margin-top: 0.25rem;
+    @include image(4rem);
+    align-self: center;
     border-radius: 50%;
-    border: 2px solid $color-black;
   }
 
   .price {
@@ -160,15 +153,13 @@
     }
 
     .picture {
+      @include image-fill;
       position: relative;
       width: 5rem;
       height: 5rem;
       margin: 0.5rem;
       padding: 0.5rem;
       background-color: $color-background-light;
-      border-radius: 3px;
-
-      @include image-fill;
 
       .picture-name {
         @include ellipsis;
@@ -182,5 +173,15 @@
         background-color: transparentize($color-black, 0.5);
       }
     }
+  }
+
+  .post-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .post-btn {
+    padding: 0.5rem 3rem;
   }
 }

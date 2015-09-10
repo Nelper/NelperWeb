@@ -24,7 +24,7 @@ $color-money: #80bf62;
 
 $color-gray-medium: #979797;
 $color-gray-light: #bbb;
-$color-gray-lighter: #dcdcdc;
+$color-gray-lighter: #e1e1e1;
 
 $color-background: #eaeaea;
 $color-background-light: #f7f7f7;
@@ -34,14 +34,14 @@ $color-black: #2c2c2c;
 // Font Colors
 $base-background-color: $color-background;
 $base-font-color: $color-black;
-$action-color: $color-primary;
+$action-color: $color-secondary;
 
 $text-light: $color-background;
 $text-medium: #757575;
 $text-dark: $color-black;
 
 // Border
-$base-border-color: $color-gray-light;
+$base-border-color: $color-gray-lighter;
 $base-border: 1px solid $base-border-color;
 
 // Forms

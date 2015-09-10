@@ -148,7 +148,7 @@ export default class ProfileHandler extends Component {
       return (
         <div className="skill" key={s.objectId}>
           <Editable
-            deletable={true}
+            deletable
             onEditDone={(val) => this._onEditSkillDone(s, val)}
             onDelete={() => this._onDeleteSkill(s)}
             value={s.title}
@@ -161,7 +161,7 @@ export default class ProfileHandler extends Component {
       return (
         <div className="education" key={e.objectId}>
           <Editable
-            deletable={true}
+            deletable
             onEditDone={(val) => this._onEditEducationDone(e, val)}
             onDelete={() => this._onDeleteEducation(e)}
             value={e.title}
@@ -174,7 +174,7 @@ export default class ProfileHandler extends Component {
       return (
         <div className="experience" key={e.objectId}>
           <Editable
-            deletable={true}
+            deletable
             onEditDone={(val) => this._onEditExperienceDone(e, val)}
             onDelete={() => this._onDeleteExperience(e)}
             value={e.title}
@@ -212,7 +212,7 @@ export default class ProfileHandler extends Component {
             </div>
             <div className="section-content">
               <Editable
-                multiline={true}
+                multiline
                 onEditDone={::this._onEditAbout}
                 value={user.about}
                 editPlaceholder="Write something about you..."

@@ -38,7 +38,6 @@
 @import 'handlers/nelpcenter/TasksHandler';
 @import 'handlers/nelpcenter/ApplicationsHandler';
 @import 'handlers/nelpcenter/ApplicationDetailHandler';
-@import 'handlers/nelpcenter/ProfileHandler';
 @import 'handlers/nelpcenter/TaskDetailHandler';
 @import 'handlers/nelpcenter/TaskCardView';
 @import 'handlers/nelpcenter/ApplicationCardView';
@@ -48,6 +47,8 @@
 @import 'handlers/nelpcenter/TaskProgress';
 
 @import 'handlers/about/HowItWorksHandler';
+
+@import 'handlers/profile/ProfileHandler';
 
 @import 'handlers/login/login-common';
 @import 'handlers/login/LoginHandler';

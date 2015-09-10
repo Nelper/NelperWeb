@@ -36,6 +36,7 @@ window.fbAsyncInit = () => {
 }(document, 'script', 'facebook-jssdk'));
 
 const locale = 'fr-CA';
+const [lang] = locale.split('-');
 
 function renderApp(messages) {
   // Render the app!
@@ -43,7 +44,9 @@ function renderApp(messages) {
     <Router history={history} createElement={(Component, props) => {
       return (
         <IntlProvider locale={locale} messages={messages} formats={formats}>
-          <Component {...props} />
+          <div style={{height: '100%'}} className={'lang-' + lang}>
+            <Component {...props} />
+          </div>
         </IntlProvider>
       );
     }}>

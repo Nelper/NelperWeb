@@ -161,18 +161,20 @@ button,
   }
 
   &.back {
-    color: $color-primary;
+    color: $color-background-light;
     background-color: transparent;
-    background-image: url('~images/icons/left-arrow-orange.png');
+    background-image: url('~images/icons/left-arrow-white.png');
     background-size: 0.75rem;
     background-repeat: no-repeat;
     background-position: 0.5rem center;
     padding-left: 2rem;
     border: 0;
     font-weight: normal;
+    transition: opacity 250ms linear;
+    opacity: 1;
 
     &:hover {
-      background-color: $color-background-light;
+      opacity: 0.8;
     }
   }
 

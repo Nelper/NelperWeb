@@ -29,7 +29,7 @@ export default class TaskCardView extends Component {
   _renderStatus() {
     let icon;
     if (this._hasAcceptedApplications()) {
-      icon = require('images/icons/state-accepted.png');
+      icon = require('images/icons/accepted.png');
     } else {
       icon = require('images/icons/applicants.png');
     }

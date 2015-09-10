@@ -86,6 +86,9 @@ export default class NavBar extends Component {
           {this._renderNavItem('View Profile', '/profile', 70)}
           {this._renderNavItem('Settings', '/settings', 80)}
           {this._renderNavItem('Logout', '/logout', 90)}
+          <div className="navbar-dropdown-separator" key={100} />
+          {this._renderNavItem('How it works', '/howitworks', 110)}
+          {this._renderNavItem('FAQ', '/faq', 120)}
         </ul>
       </li>
     );

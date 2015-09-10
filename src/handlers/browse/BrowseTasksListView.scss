@@ -17,7 +17,7 @@
     padding: $list-items-padding 0;
 
     &:not(:last-child) {
-      border-bottom: 1px solid $color-gray-light;
+      border-bottom: $base-border;
     }
 
     .header {
@@ -59,7 +59,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 50%;
-        border: 1px solid $color-gray-light;
+        border: $base-border;
 
         @include media($medium-screen) {
           width: rem($user-image-size);
@@ -120,7 +120,6 @@
         padding-top: rem(5px);
         padding-left: rem(5px);
         text-align: center;
-        border-radius: 3px;
         color: $color-background-light;
         font-size: 1.1em;
       }
@@ -199,7 +198,7 @@
 
     .collapse-icon {
       display: none;
-      @include align-self(center);
+      align-self: center;
       width: rem($collapse-image-size);
       height: rem($collapse-image-size);
 
@@ -212,7 +211,7 @@
       background-size: contain;
       background-position: center;
 
-      @include transition(transform 250ms ease-in-out);
+      transition: transform 250ms ease-in-out;
       transform: rotate(180deg);
     }
 

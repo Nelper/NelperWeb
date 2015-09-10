@@ -150,7 +150,7 @@ export default class BrowseTasksListView extends Component {
                       distance !== null ?
                       <div className="distance">
                         <FormattedMessage id="nelpcenter.main.awayFrom" values={{
-                          distance: distance,
+                          distance: distance || 0,
                         }}/>
                       </div> :
                       null

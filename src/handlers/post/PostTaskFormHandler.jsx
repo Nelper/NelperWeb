@@ -36,8 +36,11 @@ export default class PostTaskFormHandler extends Component {
 
   state = {
     title: '',
+    hasTitleInput: false,
     priceOffered: '',
+    hasPriceOfferedInput: false,
     desc: '',
+    hasDescInput: false,
     location: this.props.locations[0],
     openCreateLocation: false,
     pictures: [],
@@ -86,12 +89,14 @@ export default class PostTaskFormHandler extends Component {
 
   _onTitleChanged(event) {
     this.setState({
+      hasTitleInput: true,
       title: event.target.value,
     });
   }
 
   _onPriceOfferedChanged(event) {
     this.setState({
+      hasPriceOfferedInput: true,
       priceOffered: event.target.value,
     });
   }
@@ -104,6 +109,7 @@ export default class PostTaskFormHandler extends Component {
 
   _onDescChanged(event) {
     this.setState({
+      hasDescInput: true,
       desc: event.target.value,
     });
   }
@@ -198,102 +204,118 @@ export default class PostTaskFormHandler extends Component {
     });
 
     return (
-      <div className="post-task-form-handler container pad-all">
+      <div className="post-task-form-handler container">
         <AddLocationDialogView
           opened={this.state.openCreateLocation}
           onLocationAdded={::this._onAddLocation}
           onCancel={::this._onCancelAddLocation} />
-        <form onSubmit={::this._onSubmit}>
-          <div className="input-row">
+        <div className="header-panel category-header-panel">
+          <div className="category-overlay" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(this.props.params.category)}')`}} />
+          <div className="category-content">
             <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(this.props.params.category)}')`}}/>
-            <div className="input-content category-title">
-              {TaskCategoryUtils.getName(this.props.params.category)}
+            <div className="select-category">
+              <button className="back">Select another category</button>
             </div>
           </div>
-          <div className="input-row">
-            <div className={classNames('step', {'done': this._validateTitle()})}>1</div>
-            <div className="input-content">
-              <label className="title">Enter your Task Title</label>
-              <input
-                type="text"
-                required={true}
-                minLength={4}
-                maxLength={72}
-                value={this.state.title}
-                onChange={this._onTitleChanged.bind(this)} />
-            </div>
-          </div>
-          <div className="input-row">
-            <div className={classNames('step', {'done': this._validatePrice()})}>2</div>
-            <div className="input-content">
-              <label className="title">How much are you offering?</label>
-              <div className="price">
-                <div className="currency">$</div>
+        </div>
+        <form onSubmit={::this._onSubmit}>
+          <div className="panel pad-all">
+            <div className="input-row">
+              <div className="input-content">
+                <label className="title">Enter your Task Title</label>
                 <input
-                  type="number"
-                  min={0}
-                  max={9999}
-                  maxLength={4}
-                  required={true}
-                  value={this.state.priceOffered}
-                  onChange={this._onPriceOfferedChanged.bind(this)} />
+                  type="text"
+                  required
+                  minLength={4}
+                  maxLength={72}
+                  value={this.state.title}
+                  onChange={this._onTitleChanged.bind(this)} />
               </div>
+              <div className={classNames(
+                'validation-icon',
+                {'valid': this.state.hasTitleInput && this._validateTitle()},
+                {'invalid': this.state.hasTitleInput && !this._validateTitle()},
+              )} />
             </div>
-          </div>
-          <div className="input-row">
-            <div className={classNames('step', {'done': this._validateLocation()})}>3</div>
-            <div className="input-content">
-              <label className="title">Select your location</label>
-              <div className="location">
-                {
-                  locations.length ?
-                  <div>
-                    <select value={this.props.locations.indexOf(this.state.location)}
-                            onChange={::this._onLocationChanged}>
-                      {locations}
-                    </select>
-                  </div> :
-                  null
-                }
-                <button className="primary" onClick={::this._onOpenAddLocation}>Add</button>
+            <div className="input-row">
+              <div className="input-content">
+                <label className="title">Briefly describe what you are looking for</label>
+                <textarea
+                  required
+                  minLength={4}
+                  value={this.state.desc}
+                  onChange={this._onDescChanged.bind(this)} />
               </div>
-              <div className="address">{this.state.location && this.state.location.address}</div>
+              <div className={classNames(
+                'validation-icon',
+                {'valid': this.state.hasDescInput && this._validateDescription()},
+                {'invalid': this.state.hasDescInput && !this._validateDescription()},
+              )} />
             </div>
-          </div>
-          <div className="input-row">
-            <div className={classNames('step', {'done': this._validateDescription()})}>4</div>
-            <div className="input-content">
-              <label className="title">Briefly describe what you are looking for</label>
-              <textarea
-                required={true}
-                minLength={4}
-                value={this.state.desc}
-                onChange={this._onDescChanged.bind(this)} />
-            </div>
-          </div>
-          <div className="input-row">
-            <div className="step camera" />
-            <div className="input-content">
-              <label className="title">Attach pictures (optional)</label>
-              <div key="add" className="pictures">
-                <div className="add-picture">
-                  <div className="icon" />
-                  <input type="file" accept="image/*" onChange={::this._onFileChanged} />
+            <div className="input-row">
+              <div className="input-content">
+                <label className="title">How much are you offering?</label>
+                <div className="price">
+                  <div className="currency">$</div>
+                  <input
+                    type="number"
+                    min={0}
+                    max={9999}
+                    maxLength={4}
+                    required
+                    value={this.state.priceOffered}
+                    onChange={this._onPriceOfferedChanged.bind(this)} />
                 </div>
-                {pictures}
+              </div>
+              <div className={classNames(
+                'validation-icon',
+                {'valid': this.state.hasPriceOfferedInput && this._validatePrice()},
+                {'invalid': this.state.hasPriceOfferedInput && !this._validatePrice()},
+              )} />
+            </div>
+            <div className="input-row">
+              <div className="input-content">
+                <label className="title">Select your location</label>
+                <div className="location">
+                  {
+                    locations.length ?
+                    <div>
+                      <select value={this.props.locations.indexOf(this.state.location)}
+                              onChange={::this._onLocationChanged}>
+                        {locations}
+                      </select>
+                    </div> :
+                    null
+                  }
+                  <button className="primary" onClick={::this._onOpenAddLocation}>Add</button>
+                </div>
+                <div className="address">{this.state.location && this.state.location.address}</div>
               </div>
             </div>
           </div>
-          {
-            this.state.loading ?
-            <Progress /> :
-            <div className="btn-group">
+          <div className="panel pad-all">
+            <div className="input-row">
+              <div className="input-content">
+                <label className="title">Attach pictures</label>
+                <div key="add" className="pictures">
+                  <div className="add-picture">
+                    <button className="primary">Browse...</button>
+                    <input type="file" accept="image/*" onChange={::this._onFileChanged} />
+                  </div>
+                  {pictures}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="post-btn-container">
+            {
+              this.state.loading ?
+              <Progress /> :
               <button
                 type="submit"
-                className="primary">Create</button>
-              <button onClick={::this._onCancel}>Back</button>
-            </div>
-          }
+                className="primary post-btn">Post task!</button>
+            }
+          </div>
         </form>
       </div>
     );

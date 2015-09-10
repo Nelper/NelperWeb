@@ -203,7 +203,7 @@
 
     background-color: $color-background-light;
     white-space: nowrap;
-    box-shadow: 0 9px 8px 2px rgba(0, 0, 0, 0.13);
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.13);
     border: 1px solid $color-gray-lighter;
 
     transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
@@ -216,11 +216,19 @@
       opacity: 1;
     }
 
+    .nav-link {
+      line-height: 46px;
+    }
+
     .nav-link a {
       flex: 1;
       padding-right: 1rem;
       padding-left: 3rem;
       text-align: right;
     }
+  }
+
+  .navbar-dropdown-separator {
+    border-bottom: 1px solid $color-gray-lighter;
   }
 }

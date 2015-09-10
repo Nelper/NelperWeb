@@ -70,14 +70,14 @@ export default {
       myApplications: "Mes applications",
 
       applied: "Appliqué {moment}",
-      awayFrom: "{distance} km de votre emplacement",
+      awayFrom: "{distance, number} km de votre emplacement",
 
       posted: "Publiée {moment}",
       expires: "Expire {moment}",
     },
 
     common: {
-      nelperCount: "{num, plural, zero{Aucun Nelper en attente} one{{num} Nelper en attente} other{{num} Nelpers en attente}}", // need fix, zero{} doesnt work, one{} is called instead
+      nelperCount: "{num, plural, =0 {Aucun Nelper en attente} =1 {{num} Nelper en attente} other {{num} Nelpers en attente}}",
       deleteTask: "Supprimer cette tâche",
       editPic: "Modifier mes images",
 

@@ -68,7 +68,7 @@ body {
 .panel {
   background-color: $color-background-light;
   border: $base-border;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 
   @include media($max-width-screen) {
     border-left: 0;
@@ -102,7 +102,7 @@ body {
   background-color: $color-background-light;
   border: $base-border;
   border-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 
   @include media($max-width-screen) {
     border-left: 0;

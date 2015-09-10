@@ -101,13 +101,13 @@ export default class AddLocationDialogView extends Component {
             <h2>Add a location</h2>
             <input
               type="text"
-              required={true}
+              required
               value={this.state.name}
               onChange={::this._onNameChanged}
               placeholder="Name" />
             <input
               type="text"
-              required={true}
+              required
               value={this.state.address}
               onChange={::this._onAddressChanged}
               placeholder="Address"

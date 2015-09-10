@@ -63,10 +63,12 @@ export default class TaskDetailHandler extends Component {
 
   componentDidMount() {
     this._markTaskViewed();
+    this._getAcceptedApplicantInfo();
   }
 
   componentDidUpdate() {
     this._markTaskViewed();
+    this._getAcceptedApplicantInfo();
   }
 
   _onDescChanged(desc) {
@@ -123,6 +125,16 @@ export default class TaskDetailHandler extends Component {
   _getAcceptedApplication() {
     return this.props.task.applications
       .find(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
+  }
+
+  _getAcceptedApplicantInfo() {
+    if (!__CLIENT__ || !this.props.task) {
+      return;
+    }
+    const application = this._getAcceptedApplication();
+    if (application && !application.hasApplicantInfo) {
+      TaskActions.requestApplicantInfo(application);
+    }
   }
 
   _markTaskViewed() {
@@ -241,7 +253,7 @@ export default class TaskDetailHandler extends Component {
             <div className="other-info-col">
               <div className="description">
                 <Editable
-                  multiline={true}
+                  multiline
                   onEditDone={::this._onDescChanged}
                   value={task.desc}
                 />
@@ -291,12 +303,13 @@ export default class TaskDetailHandler extends Component {
               {
                 pictures.length ?
                 <Slider
-                  dots={true}
+                  dots
+                  arrows
                   infinite={false}
                   speed={500}
                   slidesToShow={1}
                   slidesToScroll={1}
-                  arrows={true}>
+                >
                   {pictures}
                 </Slider> :
                 <div className="no-pictures"></div>

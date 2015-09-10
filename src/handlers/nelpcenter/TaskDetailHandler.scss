@@ -112,6 +112,6 @@
   .denied-icon {
     @include image(2.5rem);
     margin-right: 1rem;
-    background-image: url('~images/icons/state-denied.png');
+    background-image: url('~images/icons/denied.png');
   }
 }

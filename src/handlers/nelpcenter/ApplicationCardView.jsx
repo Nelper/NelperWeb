@@ -20,7 +20,7 @@ export default class TaskCardView extends Component {
 
     const distance = Math.round(LocationUtils.kilometersBetween(task.location, UserStore.state.user.location));
     const statusIcon = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
-      require('images/icons/state-accepted.png') :
+      require('images/icons/accepted.png') :
       require('images/icons/state-pending.png');
 
     const statusText = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?

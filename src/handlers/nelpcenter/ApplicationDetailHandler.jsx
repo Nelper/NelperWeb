@@ -97,7 +97,7 @@ export default class ApplicationDetailHandler extends Component {
     const accepted = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED;
 
     const statusIcon = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
-      require('images/icons/state-accepted.png') :
+      require('images/icons/accepted.png') :
       require('images/icons/state-pending.png');
 
     const statusText = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
