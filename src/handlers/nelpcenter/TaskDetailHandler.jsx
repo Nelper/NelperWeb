@@ -54,6 +54,7 @@ export default class TaskDetailHandler extends Component {
   state = {
     confirmDeleteOpened: false,
     editPicturesOpened: false,
+    progressHelpDialogOpened: false,
   };
 
   constructor(props) {

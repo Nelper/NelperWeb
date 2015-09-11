@@ -1,4 +1,11 @@
 {
   "stage": 0,
-  "optional": ["runtime"]
+  "optional": ["runtime"],
+  "env": {
+    "production": {
+      "optional": [
+        "optimisation.react.constantElements"
+      ]
+    }
+  }
 }

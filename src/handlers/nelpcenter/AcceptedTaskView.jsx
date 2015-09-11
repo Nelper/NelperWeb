@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
+import Dialog from 'components/Dialog';
 import IconButton from 'components/IconButton';
 import TaskProgress from './TaskProgress';
 
@@ -19,11 +20,25 @@ export default class TaskCardView extends Component {
     this.setState({showProgressHelpDialog: true});
   }
 
+  _onShowProgressHelpClose() {
+    this.setState({
+      showProgressHelpDialog: false,
+    });
+  }
+
   render() {
     const {application} = this.props;
 
     return (
       <div className="accepted-application-view">
+        <Dialog opened={this.state.showProgressHelpDialog} onClose={::this._onShowProgressHelpClose}>
+          <div className="dialog-content">
+            <FormattedHTMLMessage id="nelpcenter.taskDetail.progressHelp" />
+          </div>
+          <div className="dialog-buttons">
+            <button onClick={::this._onShowProgressHelpClose}>Close</button>
+          </div>
+        </Dialog>
         <div className="panel">
           <IconButton
             className="task-progress-help"

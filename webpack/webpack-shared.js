@@ -25,6 +25,9 @@ const common = {
       inject: 'body',
       favicon: path.resolve(ROOT_PATH, 'src/images/favicon.ico'),
     }),
+    new webpack.ProvidePlugin({
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+    }),
   ],
 };
 

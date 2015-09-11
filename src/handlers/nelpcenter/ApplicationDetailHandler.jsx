@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
+import {FormattedMessage, FormattedHTMLMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 import connectToStores from 'alt/utils/connectToStores';
 import classNames from 'classnames';
 
@@ -10,6 +10,7 @@ import Dialog from 'components/Dialog';
 import TaskPictureSlider from 'components/TaskPictureSlider';
 import TaskProgress from './TaskProgress';
 import ApplicationActions from 'actions/ApplicationActions';
+import ChatActions from 'actions/ChatActions';
 import ApplicationStore from 'stores/ApplicationStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import DateUtils from 'utils/DateUtils';
@@ -58,6 +59,7 @@ export default class ApplicationDetailHandler extends Component {
 
   componentDidMount() {
     this._getTaskPosterInfo();
+    ChatActions.init();
   }
 
   componentDidUpdate() {
@@ -107,9 +109,8 @@ export default class ApplicationDetailHandler extends Component {
     return (
       <div className="application-detail-handler container">
         <Dialog opened={this.state.showProgressHelpDialog} onClose={::this._onShowProgressHelpClose}>
-          <h1>Help</h1>
           <div className="dialog-content">
-            <FormattedMessage id="nelpcenter.applicationDetail.progressHelp" />
+            <FormattedHTMLMessage id="nelpcenter.applicationDetail.progressHelp" />
           </div>
           <div className="dialog-buttons">
             <button onClick={::this._onShowProgressHelpClose}>Close</button>

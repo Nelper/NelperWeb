@@ -10,7 +10,7 @@
   height: 100%;
 
 
-  @include transition(opacity 250ms linear);
+  transition: opacity 250ms linear;
   opacity: 0;
   background-color: transparentize($color-black, 0.4);
 
@@ -19,7 +19,7 @@
     opacity: 1;
 
     .content {
-      transform: translateY(0px);
+      transform: translateY(0);
     }
   }
 
@@ -43,6 +43,10 @@
 
     transition: transform 250ms ease-in-out;
     transform: translateY(100px);
+
+    @include media($medium-screen) {
+      max-width: $max-width - 8em;
+    }
 
     .dialog-content {
       flex: 1;

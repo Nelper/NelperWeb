@@ -66,7 +66,7 @@ class ApiUtils {
    */
   loginWithFacebook() {
     return new Promise((resolve, reject) => {
-      Parse.FacebookUtils.logIn(null, {
+      Parse.FacebookUtils.logIn('email', {
         success: (user) => {
           resolve(user);
         },

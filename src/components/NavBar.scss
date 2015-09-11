@@ -171,60 +171,81 @@
   }
 
   .navbar-profile {
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-    position: relative;
-    cursor: pointer;
+    display: block;
+
+    @include media($medium-screen) {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      position: relative;
+      cursor: pointer;
+    }
   }
 
   .navbar-separator {
-    height: 2.5rem;
-    border-left: 1px solid $color-gray-lighter;
+    border-bottom: $base-border;
+
+    @include media($medium-screen) {
+      height: 2.5rem;
+      border-left: $base-border;
+      border-bottom: 0;
+    }
   }
 
   .navbar-profile-picture {
-    @include image(3rem);
-    margin-left: 2rem;
-    border-radius: 50%;
+    display: none;
+
+    @include media($medium-screen) {
+      @include image(3rem);
+      display: block;
+      margin-left: 2rem;
+      border-radius: 50%;
+    }
   }
 
   .navbar-profile-icon {
-    @include image(1.5rem);
-    background-image: url('~images/icons/expand.png');
-    margin-left: 0.5rem;
+    display: none;
+
+    @include media($medium-screen) {
+      @include image(1.5rem);
+      display: block;
+      background-image: url('~images/icons/expand.png');
+      margin-left: 0.5rem;
+    }
   }
 
   .navbar-dropdown {
-    position: absolute;
-    top: $navbar-height;
-    right: 0;
-    z-index: 99999;
+    @include media($medium-screen) {
+      position: absolute;
+      top: $navbar-height;
+      right: 0;
+      z-index: 99999;
 
-    background-color: $color-background-light;
-    white-space: nowrap;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.13);
-    border: 1px solid $color-gray-lighter;
+      background-color: $color-background-light;
+      white-space: nowrap;
+      box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.13);
+      border: 1px solid $color-gray-lighter;
 
-    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
-    transform: scaleX(0.75) scaleY(0);
-    opacity: 0;
-    transform-origin: top center;
+      transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+      transform: scaleX(0.75) scaleY(0);
+      opacity: 0;
+      transform-origin: top center;
 
-    &.opened {
-      transform: scaleX(1) scaleY(1);
-      opacity: 1;
-    }
+      &.opened {
+        transform: scaleX(1) scaleY(1);
+        opacity: 1;
+      }
 
-    .nav-link {
-      line-height: 46px;
-    }
+      .nav-link {
+        line-height: 46px;
+      }
 
-    .nav-link a {
-      flex: 1;
-      padding-right: 1rem;
-      padding-left: 3rem;
-      text-align: right;
+      .nav-link a {
+        flex: 1;
+        padding-right: 1rem;
+        padding-left: 3rem;
+        text-align: right;
+      }
     }
   }
 
