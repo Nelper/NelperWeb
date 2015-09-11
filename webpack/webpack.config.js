@@ -2,7 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const autoprefixer = require('autoprefixer-core');
+const autoprefixer = require('autoprefixer');
 
 const shared = require('./webpack-shared.js');
 const commonLoaders = require('./common-loaders');
