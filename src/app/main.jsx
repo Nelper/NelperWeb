@@ -18,9 +18,10 @@ Parse.initialize('w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN', 'x6AWt2EdYFuK7HoDgQ
 
 // Get the language.
 const userPrivate = UserStore.state.user.privateData;
-const lang = userPrivate && userPrivate.language;
+// const lang = (userPrivate && userPrivate.language) || ;
 // Force Canada locale.
-const locale = lang + '-CA';
+// const locale = lang + '-CA';
+const locale = 'fr-CA';
 
 let facebookLoaded = false;
 let intlDataLoaded = false;
