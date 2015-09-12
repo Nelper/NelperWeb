@@ -8,7 +8,7 @@
   .image-overlay {
     @include position(absolute, -2rem);
     @include image-fill();
-    filter: blur(16px);
+    filter: $dark-blur;
   }
 
   .is-new {

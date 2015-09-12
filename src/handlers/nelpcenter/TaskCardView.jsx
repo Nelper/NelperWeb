@@ -86,14 +86,14 @@ export default class TaskCardView extends Component {
           </div>
           <div className="calendar-row">
             <div>
-              <FormattedMessage id="nelpcenter.main.posted" values={{
-                moment: <FormattedRelative value={task.createdAt} />,
+              <FormattedMessage id="common.postedRelative" values={{
+                formattedAgo: <FormattedRelative value={task.createdAt} />,
               }}/>
             </div>
             <div className="calendar-icon" />
             <div>
-              <FormattedMessage id="nelpcenter.main.expires" values={{
-                moment: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} />,
+              <FormattedMessage id="common.expiresRelative" values={{
+                formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} />,
               }}/>
             </div>
           </div>

@@ -15,12 +15,12 @@ module.exports = merge(shared.config, {
     'webpack/hot/dev-server',
   ],
   module: {
-    preLoaders: [{
+    /* preLoaders: [{
       test: /\.jsx?$/,
       loader: 'eslint-loader',
       include: path.resolve(ROOT_PATH, 'src'),
       exclude: path.resolve(ROOT_PATH, 'node_modules'),
-    }],
+    }],*/
     loaders: commonLoaders.concat([{
       test: /\.css$/,
       loaders: ['style', 'css'],
@@ -41,5 +41,6 @@ module.exports = merge(shared.config, {
       '__DEVELOPMENT__': true,
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
   ],
 });

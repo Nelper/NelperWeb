@@ -1,3 +1,5 @@
+import {addLocaleData} from 'react-intl';
+
 export default class IntlUtils {
 
   static _messages = null
@@ -29,29 +31,27 @@ export default class IntlUtils {
     return new Promise((resolve) => {
       const polyfillIntl = __CLIENT__ && !window.Intl;
 
-      require('expose?ReactIntl!react-intl');
-
       switch (locale.split('-')[0].toUpperCase()) {
       case 'FR':
         if (polyfillIntl) {
           require.ensure([
             'intl',
             'intl/locale-data/jsonp/fr',
-            'react-intl/dist/locale-data/fr',
+            'react-intl/lib/locale-data/fr',
             'messages/fr',
           ], (require) => {
             require('intl');
             require('intl/locale-data/jsonp/fr');
-            require('react-intl/dist/locale-data/fr');
+            addLocaleData(require('react-intl/lib/locale-data/fr'));
             IntlUtils._messages = flattenMessagesKeys(require('messages/fr'));
             resolve(IntlUtils._messages);
           });
         } else {
           require.ensure([
-            'react-intl/dist/locale-data/fr',
+            'react-intl/lib/locale-data/fr',
             'messages/fr',
           ], (require) => {
-            require('react-intl/dist/locale-data/fr');
+            addLocaleData(require('react-intl/lib/locale-data/fr'));
             IntlUtils._messages = flattenMessagesKeys(require('messages/fr'));
             resolve(IntlUtils._messages);
           });

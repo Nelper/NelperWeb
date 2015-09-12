@@ -6,9 +6,34 @@
   }
 }
 
+@mixin bordered-button-color($color) {
+  border: 1px solid $color;
+  color: $color;
+  fill: $color;
+
+  &:hover {
+    background-color: $color;
+    color: $color-background-light;
+    fill: $color-background-light;
+  }
+}
+
+@mixin bordered-button-inverse-color($color) {
+  border: 1px solid $color-background-light;
+  color: $color-background-light;
+  fill: $color-background-light;
+
+  &:hover {
+    background-color: $color-background-light;
+    color: $color;
+    fill: $color;
+  }
+}
+
 #{$all-button-inputs},
 button,
 .button {
+  @include btn-color($color-gray-light);
   @include appearance(none);
   -webkit-font-smoothing: antialiased;
   border-radius: 0;
@@ -18,7 +43,7 @@ button,
   display: inline-block;
   font-family: $heading-font-family;
   font-size: $base-font-size;
-  font-weight: bold;
+  font-weight: normal;
   letter-spacing: 1px;
   line-height: 1;
   padding: 0.75em 1em;
@@ -28,8 +53,6 @@ button,
   white-space: nowrap;
   outline: none;
   transition: background-color 250ms linear, color 250ms linear;
-
-  @include btn-color($color-gray-light);
 
   &:disabled {
     cursor: not-allowed;
@@ -46,39 +69,6 @@ button,
 
   &.warning {
     @include btn-color($color-primary);
-  }
-
-  &.dark-big {
-    @include btn-color($color-primary);
-
-    background-color: $color-primary;
-    border: 2px solid $color-background;
-    border-radius: 8px;
-    padding: 1rem 4rem;
-    font-size: 1.5em;
-    transition: background-color 250ms linear, color 250ms linear;
-
-    &:hover {
-      background-color: $color-background;
-      color: $color-primary;
-    }
-  }
-
-  &.dark-small {
-    @include btn-color($color-primary);
-
-    background-color: $color-primary;
-    border: 2px solid $color-background;
-    border-radius: 3px;
-    padding: 0.25rem 1.5rem;
-    font-size: 1em;
-    font-weight: normal;
-    transition: background-color 250ms linear, color 250ms linear;
-
-    &:hover {
-      background-color: $color-background;
-      color: $color-primary;
-    }
   }
 
   &.link-button {
@@ -111,45 +101,24 @@ button,
   }
 
   &.border-btn {
+    @include bordered-button-color($color-gray-medium);
     display: flex;
     align-items: center;
     padding: 0.5rem 1rem;
     background-color: transparent;
-    border: 1px solid $color-primary;
-    color: $color-primary;
-    fill: $color-primary;
     transition: all 250ms ease-out;
     font-weight: normal;
 
-    &:hover {
-      background-color: $color-primary;
-      color: $color-background-light;
-      fill: $color-background-light;
+    &.primary {
+      @include bordered-button-color($color-primary);
     }
 
     &.inverse {
-      border-color: $color-background-light;
-      color: $color-background-light;
-      fill: $color-background-light;
-
-      &:hover {
-        background-color: $color-background-light;
-        color: $color-primary;
-        fill: $color-primary;
-      }
+      @include bordered-button-inverse-color($color-primary);
     }
 
     &.disabled {
-      border: 1px solid $color-gray-medium;
-      color: $color-gray-medium;
-      fill: $color-gray-medium;
-
-      &:hover {
-        background-color: $color-gray-medium;
-        color: $color-background-light;
-        fill: $color-background-light;
-        border: 1px solid $color-gray-medium;
-      }
+      @include bordered-button-color($color-gray-medium);
     }
 
     > i,

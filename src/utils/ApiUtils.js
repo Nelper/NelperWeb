@@ -677,6 +677,7 @@ class ApiUtils {
     return {
       url: this._fixParseFileURL(parseFile.url()),
       file: parseFile,
+      name: parseFile.name(),
       objectId: parseFile.name(),
     };
   }

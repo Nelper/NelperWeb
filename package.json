@@ -61,7 +61,7 @@
     "react-css-modules": "^3.0.5",
     "react-dom": "^0.14.0-rc1",
     "react-google-maps": "Nelper/react-google-maps",
-    "react-intl": "Nelper/react-intl#v2-dev",
+    "react-intl": "^2.0.0-pr-1",
     "react-motion": "^0.2.7",
     "react-router": "^1.0.0-rc1",
     "react-slick": "Nelper/react-slick",

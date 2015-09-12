@@ -71,9 +71,6 @@ export default {
 
       applied: "Appliqué {moment}",
       awayFrom: "{distance, number} km de votre emplacement",
-
-      posted: "Publiée {moment}",
-      expires: "Expire {moment}",
     },
 
     common: {
