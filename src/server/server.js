@@ -3,9 +3,8 @@ import express from 'express';
 import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import {Router} from 'react-router';
-import Location from 'react-router/lib/Location';
-import {IntlProvider} from 'react-intl';
+import {RoutingContext, match} from 'react-router';
+import createLocation from 'history/lib/createLocation';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import {Parse} from 'parse';
@@ -36,22 +35,20 @@ app.use(cookieParser());
 
 app.use((req, res, next) => {
   function renderPage(messages) {
-    const location = new Location(req.path, req.query);
-    Router.run(getRoutes(), location, (error, initialState, transition) => {
+    const location = createLocation(req.url);
+    match({routes: getRoutes(), location}, (error, redirectLocation, renderProps) => {
+      if (redirectLocation) {
+        return res.redirect(redirectLocation.pathname + redirectLocation.search);
+      }
       if (error) {
         return next(error);
       }
-      if (transition.isCancelled && transition.redirectInfo) {
-        return res.redirect(transition.redirectInfo.pathname);
-      }
       const html = ReactDOMServer.renderToString(
-        <Router location={location} createElement={(Component, props) => {
+        <RoutingContext createElement={(Component, props) => {
           return (
-            <IntlProvider locale={locale} messages={messages} formats={formats}>
-              <Component {...props} />
-            </IntlProvider>
+            <Component {...props} messages={messages} locale={locale} formats={formats} />
           );
-        }} {...initialState} />
+        }} {...renderProps} />
       );
       alt.flush();
       return res.send(template.replace('{content}', html));

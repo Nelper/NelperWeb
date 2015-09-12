@@ -10,7 +10,7 @@ export default class LoginHandler extends Component {
   }
 
   static contextTypes = {
-    router: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   static showNavBar() {
@@ -65,7 +65,7 @@ export default class LoginHandler extends Component {
   }
 
   _onRegister() {
-    this.context.router.transitionTo('/register', null, { nextPathname: this.props.location.state.nextPathname });
+    this.context.history.pushState({nextPathname: this.props.location.state.nextPathname}, '/register');
   }
 
   _onUserChanged(state) {
@@ -77,9 +77,9 @@ export default class LoginHandler extends Component {
   _onLoginSuccess() {
     const {state} = this.props.location;
     if (state && state.nextPathname) {
-      this.context.router.replaceWith(state.nextPathname);
+      this.context.history.replaceState(null, state.nextPathname);
     } else {
-      this.context.router.replaceWith('/browse');
+      this.context.history.replaceState(null, '/browse');
     }
   }
 

@@ -22,7 +22,7 @@ export default class BrowseTasksHandler extends Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   static getStores() {
@@ -104,7 +104,7 @@ export default class BrowseTasksHandler extends Component {
   _onApply(task, price) {
     // Make sure the user is logged to apply on a task.
     if (!UserStore.isLogged()) {
-      this.context.router.transitionTo('/login', null, { nextPathname: '/nelp' });
+      this.context.history.pushState({nextPathname: '/nelp'}, '/login');
       return;
     }
     BrowseActions.applyForTask(task, price);

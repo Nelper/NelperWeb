@@ -3,16 +3,16 @@ import React, {Component} from 'react';
 export default class SettingsHandler extends Component {
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   _onBack() {
-    this.context.router.goBack();
+    this.context.history.goBack();
   }
 
   render() {
     return (
-      <div id="settings-handler">
+      <div className="settings-handler container">
         Settings
         <button onClick={::this._onBack}>Back</button>
       </div>

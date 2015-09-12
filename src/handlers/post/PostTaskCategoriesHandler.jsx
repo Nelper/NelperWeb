@@ -5,11 +5,11 @@ import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 export default class PostTaskCategoriesHandler extends Component {
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   _onSelectCategory(c) {
-    this.context.router.transitionTo(`/post/${c}`);
+    this.context.history.pushState(null, `/post/${c}`);
   }
 
   render() {

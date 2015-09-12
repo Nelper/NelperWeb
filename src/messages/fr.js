@@ -108,7 +108,7 @@ export default {
           Vous complétez la tâche.
         </li>
         <li>
-          Lorsque vous avez complété la tâche, cliquez sur <J'ai complété la tâche>.
+          Lorsque vous avez complété la tâche, cliquez sur <em>J'ai complété la tâche</em>.
         </li>
         <li>
           Le publieur de tâche confirme que vous avez complété sa tâche et vos fonds sont libérés.

@@ -1,9 +1,8 @@
 import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {IntlProvider} from 'react-intl';
 import {Router} from 'react-router';
-import {history} from 'react-router/lib/BrowserHistory';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import {Parse} from 'parse';
 
 import IntlUtils from 'utils/IntlUtils';
@@ -17,7 +16,6 @@ import 'styles/common.scss';
 Parse.initialize('w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN', 'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si');
 
 const locale = 'fr-CA';
-const [lang] = locale.split('-');
 
 let facebookLoaded = false;
 let intlDataLoaded = false;
@@ -31,13 +29,9 @@ function renderApp() {
 
   // Render the app!
   ReactDOM.render((
-    <Router history={history} createElement={(Component, props) => {
+    <Router history={createBrowserHistory()} createElement={(Component, props) => {
       return (
-        <IntlProvider locale={locale} messages={messages} formats={formats}>
-          <div style={{height: '100%'}} className={'lang-' + lang}>
-            <Component {...props} />
-          </div>
-        </IntlProvider>
+        <Component {...props} messages={messages} locale={locale} formats={formats} />
       );
     }}>
       {getRoutes()}

@@ -40,7 +40,6 @@ module.exports = merge(shared.config, {
       '__SERVER__': false,
       '__DEVELOPMENT__': true,
     }),
-    new webpack.NoErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
 });

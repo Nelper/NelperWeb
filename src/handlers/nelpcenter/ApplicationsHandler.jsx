@@ -16,7 +16,7 @@ export default class ApplicationsHandler extends Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   static getStores() {
@@ -34,7 +34,7 @@ export default class ApplicationsHandler extends Component {
   }
 
   _onShowApplicationDetail(application) {
-    this.context.router.transitionTo(`/center/applications/detail/${application.objectId}`);
+    this.context.history.pushState(null, `/center/applications/detail/${application.objectId}`);
   }
 
   render() {

@@ -108,7 +108,7 @@ export default {
           You complete the task.
         </li>
         <li>
-          Once the task has been completed, click on 'I have completed the task'.
+          Once the task has been completed, click on <em>I have completed the task</em>.
         </li>
         <li>
           The Task Poster confirms that the task has been completed and the funds are released for you.
@@ -139,13 +139,13 @@ export default {
       <p>All the actions are done here. Here are the 4 simple steps :</p>
       <ol>
         <li>
-          Click on ‘Proceed to Payment’. Once you send the payment, funds will be securely held via [NelperPay] until your task has been completed.
+          Click on <em>Proceed to Payment</em>. Once you send the payment, funds will be securely held via [NelperPay] until your task has been completed.
         </li>
         <li>
           Your Nelper completes your task.
         </li>
         <li>
-          Once your task is completed, your Nelper requests payment. Click on 'The Nelper completed my task' for your Nelper’s funds to be released.
+          Once your task is completed, your Nelper requests payment. Click on <em>The Nelper completed my task</em> for your Nelper's funds to be released.
         </li>
         <li>
           Rate and give feedback to your Nelper.

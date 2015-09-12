@@ -10,7 +10,7 @@ export default class RegisterHandler extends Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   static showNavBar() {
@@ -69,16 +69,16 @@ export default class RegisterHandler extends Component {
   }
 
   _onBack() {
-    this.context.router.goBack();
+    this.context.history.goBack();
   }
 
   _onUserChanged(user) {
     if (user) {
       const {state} = this.props.location;
       if (state && state.nextPathname) {
-        this.context.router.replaceWith(state.nextPathname);
+        this.context.history.replaceState(null, state.nextPathname);
       } else {
-        this.context.router.replaceWith('/browse');
+        this.context.history.replaceState(null, '/browse');
       }
     }
   }

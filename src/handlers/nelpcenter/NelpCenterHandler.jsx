@@ -16,7 +16,7 @@ export default class NelpCenterHandler extends Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   static getStores() {
@@ -50,7 +50,7 @@ export default class NelpCenterHandler extends Component {
   }
 
   _redirectToSelectedTab() {
-    this.context.router.replaceWith(`/center/${AppStore.state.nelpCenter.selectedTab}`);
+    this.context.history.replaceState(null, `/center/${AppStore.state.nelpCenter.selectedTab}`);
   }
 
   render() {

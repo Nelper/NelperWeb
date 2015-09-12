@@ -24,7 +24,7 @@ export default class TaskDetailHandler extends Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   static getStores() {
@@ -100,7 +100,7 @@ export default class TaskDetailHandler extends Component {
 
   _onConfirmDelete() {
     TaskActions.deleteTask(this.props.task);
-    this.context.router.goBack();
+    this.context.history.goBack();
   }
 
   _onDelete() {

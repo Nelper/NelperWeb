@@ -16,7 +16,7 @@ export default class TasksHandler extends Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   static getStores() {
@@ -46,7 +46,7 @@ export default class TasksHandler extends Component {
   }
 
   _taskDetail(task) {
-    this.context.router.transitionTo(`/center/tasks/detail/${task.objectId}`);
+    this.context.history.pushState(null, `/center/tasks/detail/${task.objectId}`);
   }
 
   render() {

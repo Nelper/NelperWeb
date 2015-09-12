@@ -10,7 +10,7 @@ export default class NavBar extends Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   state = {
@@ -50,7 +50,7 @@ export default class NavBar extends Component {
   }
 
   _renderNavItem(title, href, key) {
-    const active = this.context.router.isActive(href);
+    const active = this.context.history.isActive(href);
     return (
       <li
         className={classNames('nav-link', {'active': active})}

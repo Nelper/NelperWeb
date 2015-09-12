@@ -5,12 +5,12 @@ import UserActions from 'actions/UserActions';
 export default class LogoutHandler extends Component {
 
   static contextTypes = {
-    router: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
     UserActions.logout();
-    this.context.router.transitionTo('/');
+    this.context.history.pushState(null, '/');
   }
 
   render() {

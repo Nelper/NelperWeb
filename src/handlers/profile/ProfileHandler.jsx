@@ -15,7 +15,7 @@ export default class ProfileHandler extends Component {
   }
 
   static contextTypes = {
-    router: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   static getStores() {
@@ -44,7 +44,7 @@ export default class ProfileHandler extends Component {
   }
 
   _onBack() {
-    this.context.router.goBack();
+    this.context.history.goBack();
   }
 
   _onEditAbout(about) {

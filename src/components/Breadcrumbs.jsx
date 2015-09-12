@@ -4,17 +4,19 @@ import classNames from 'classnames';
 export default class Breadcrumbs extends Component {
 
   static contextTypes = {
-    router: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+  }
+
+  static propTypes = {
+    branch: PropTypes.array.isRequired,
   }
 
   _onRouteClick(branch, index) {
-    this.context.router.go(-index);
+    this.context.history.go(-index);
   }
 
   render() {
-    const {router} = this.context;
-
-    const routes = router.state.branch.filter(b => {
+    const routes = this.props.branch.filter(b => {
       return b.name;
     });
 

@@ -14,8 +14,6 @@ import TasksHandler from 'handlers/nelpcenter/TasksHandler';
 import TaskDetailHandler from 'handlers/nelpcenter/TaskDetailHandler';
 import ApplicationDetailHandler from 'handlers/nelpcenter/ApplicationDetailHandler';
 
-import SettingsHandler from 'handlers/profile/SettingsHandler';
-
 import LogoutHandler from 'handlers/login/LogoutHandler';
 
 import TestPaymentHandler from 'handlers/nelpcenter/TestPaymentHandler';
@@ -47,51 +45,57 @@ function requireAuth(nextState, transition) {
   return true;
 }
 
-function getHomeComponent(cb) {
+function getHomeComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/home/HomeHandler'));
   });
 }
 
-function getBrowseComponent(cb) {
+function getBrowseComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/browse/BrowseTasksHandler'));
   });
 }
 
-function getPostCategoriesComponent(cb) {
+function getPostCategoriesComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/post/PostTaskCategoriesHandler'));
   });
 }
 
-function getPostFormComponent(cb) {
+function getPostFormComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/post/PostTaskFormHandler'));
   });
 }
 
-function getHowItWorksComponent(cb) {
+function getHowItWorksComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/about/HowItWorksHandler'));
   });
 }
 
-function getLoginComponent(cb) {
+function getLoginComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/login/LoginHandler'));
   });
 }
 
-function getRegisterComponent(cb) {
+function getRegisterComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/login/RegisterHandler'));
   });
 }
 
-function getProfileComponent(cb) {
+function getProfileComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/profile/ProfileHandler'));
+  });
+}
+
+function getSettingsComponent(loc, cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/settings/SettingsHandler'));
   });
 }
 
@@ -99,13 +103,13 @@ function getProfileComponent(cb) {
 export default function getRoutes() {
   return (
     <Route component={AppHandler}>
-      <Route path="/" getComponents={getHomeComponent} />
-      <Route path="/login" getComponents={getLoginComponent} />
-      <Route path="/register" getComponents={getRegisterComponent} />
+      <Route path="/" getComponent={getHomeComponent} />
+      <Route path="/login" getComponent={getLoginComponent} />
+      <Route path="/register" getComponent={getRegisterComponent} />
       <Route path="/logout" component={LogoutHandler} />
-      <Route path="/browse" getComponents={getBrowseComponent} />
-      <Route path="/post" getComponents={getPostCategoriesComponent} />
-      <Route path="/post/:category" getComponents={getPostFormComponent} onEnter={requireAuth} />
+      <Route path="/browse" getComponent={getBrowseComponent} />
+      <Route path="/post" getComponent={getPostCategoriesComponent} />
+      <Route path="/post/:category" getComponent={getPostFormComponent} onEnter={requireAuth} />
       <Route onEnter={requireAuth} name={IntlUtils.getMessage('routes.nelpcenter')}>
         <Route path="/center" component={NelpCenterHandler}>
           <Route path="applications" component={ApplicationsHandler} />
@@ -114,9 +118,9 @@ export default function getRoutes() {
         <Route path="/center/tasks/detail/:id" component={TaskDetailHandler} name={IntlUtils.getMessage('routes.taskDetail')} />
         <Route path="/center/applications/detail/:id" component={ApplicationDetailHandler} name={IntlUtils.getMessage('routes.applicationDetail')} />
       </Route>
-      <Route path="/profile" getComponents={getProfileComponent} />
-      <Route path="/settings" component={SettingsHandler} onEnter={requireAuth} />
-      <Route path="/howitworks" getComponents={getHowItWorksComponent} />
+      <Route path="/profile" getComponent={getProfileComponent} onEnter={requireAuth} />
+      <Route path="/settings" getComponent={getSettingsComponent} onEnter={requireAuth} />
+      <Route path="/howitworks" getComponent={getHowItWorksComponent} />
       <Route path="/testpayment" component={TestPaymentHandler} />
       <Route path="*" component={PageNotFoundHandler} />
     </Route>

@@ -1,3 +1,5 @@
-"rules": {
-  "quotes": [2, "double", "avoid-escape"],
+{
+  "rules": {
+    "quotes": [2, "double", "avoid-escape"]
+  }
 }

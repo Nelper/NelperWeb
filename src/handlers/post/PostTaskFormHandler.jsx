@@ -20,7 +20,7 @@ export default class PostTaskFormHandler extends Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
   }
 
   static getStores() {
@@ -50,7 +50,7 @@ export default class PostTaskFormHandler extends Component {
   componentDidMount() {
     // Make sure the category is valid.
     if (TaskCategoryUtils.list().indexOf(this.props.params.category) < 0) {
-      this.context.router.replaceWith('/post');
+      this.context.history.replaceState(null, '/post');
       return;
     }
 
@@ -165,11 +165,11 @@ export default class PostTaskFormHandler extends Component {
 
   _onCancel(event) {
     event.preventDefault();
-    this.context.router.goBack();
+    this.context.history.goBack();
   }
 
   _onTaskCreated() {
-    this.context.router.transitionTo('/center/tasks');
+    this.context.history.pushState(null, '/center/tasks');
   }
 
   _validateTitle() {
