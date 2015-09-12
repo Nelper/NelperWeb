@@ -66,7 +66,7 @@ export default {
 
   nelpcenter: {
     main: {
-      myTasks: "Mes tâches de singe",
+      myTasks: "Mes tâches",
       myApplications: "Mes applications",
 
       applied: "Appliqué {moment}",
