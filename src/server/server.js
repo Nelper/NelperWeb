@@ -26,15 +26,13 @@ Parse.initialize(
   'PjVCIvICgrOZjwSG5AiuKCjdyrzHjfalWbAK5mwR'
 );
 
-const locale = 'fr-CA';
-
 app.use(express.static(path.resolve(__dirname, '../../build/client'), {index: false}));
 
 app.use(morgan('combined'));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
-  function renderPage(messages) {
+  function renderPage(messages, locale) {
     const location = createLocation(req.url);
     match({routes: getRoutes(), location}, (error, redirectLocation, renderProps) => {
       if (redirectLocation) {
@@ -43,6 +41,7 @@ app.use((req, res, next) => {
       if (error) {
         return next(error);
       }
+
       const html = ReactDOMServer.renderToString(
         <RoutingContext createElement={(Component, props) => {
           return (
@@ -55,30 +54,38 @@ app.use((req, res, next) => {
     });
   }
 
+  function loadLocale(locale) {
+    IntlUtils.init(locale).then((messages) => {
+      renderPage(messages, locale);
+    })
+    .catch(err => console.error(err));
+  }
+
+  function getReqLang() {
+    return req.acceptsLanguages.split('-')[0];
+  }
+
   const parseToken = req.cookies.p_session;
   const parseUser = req.cookies.p_user;
 
-  IntlUtils.init(locale).then((messages) => {
-    // If the user is logged get it from parse.
-    // TODO: Serialize the user store to use it directly on the client.
-    if (parseToken && parseUser) {
-      ApiUtils.becomeUser(parseUser, parseToken)
-        .then((user) => {
-          alt.bootstrap(JSON.stringify({
-            UserStore: {
-              user,
-            },
-          }));
-          renderPage(messages);
-        }, (err) => {
-          console.log(err);
-          renderPage(messages);
-        });
-    } else {
-      renderPage(messages);
-    }
-  })
-  .catch(err => console.error(err));
+  // If the user is logged get it from parse.
+  // TODO: Serialize the user store to use it directly on the client.
+  if (parseToken && parseUser) {
+    ApiUtils.becomeUser(parseUser, parseToken)
+      .then((user) => {
+        alt.bootstrap(JSON.stringify({
+          UserStore: {
+            user,
+          },
+        }));
+        loadLocale(user.privateData.language || getReqLang());
+      }, (err) => {
+        console.log(err);
+        loadLocale(getReqLang());
+      });
+  } else {
+    loadLocale(getReqLang());
+  }
 });
 
 app.listen(port);

@@ -59,10 +59,10 @@ export default class NelpCenterHandler extends Component {
         <div className="header-panel">
           <div className="tab-bar">
             <div className="tabs">
-              <Link className="tab" to="/center/tasks">
+              <Link className="tab" activeClassName="active" to="/center/tasks">
                 <FormattedMessage id="nelpcenter.main.myTasks"/>
               </Link>
-              <Link className="tab" to="/center/applications">
+              <Link className="tab" activeClassName="active" to="/center/applications">
                 <FormattedMessage id="nelpcenter.main.myApplications"/>
               </Link>
             </div>

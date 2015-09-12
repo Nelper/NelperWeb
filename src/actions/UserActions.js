@@ -48,8 +48,11 @@ class UserActions {
   changeLanguage(lang) {
     ApiUtils.changeLanguage(lang)
       .then(() => {
+        // When the user changes language reload the page to load the new locale.
         window.location.reload();
       });
+
+    return lang;
   }
 
   setLocation(loc) {
