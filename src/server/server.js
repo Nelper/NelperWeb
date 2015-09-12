@@ -62,7 +62,11 @@ app.use((req, res, next) => {
   }
 
   function getReqLang() {
-    return req.acceptsLanguages.split('-')[0];
+    try {
+      return req.acceptsLanguages[0].split('-')[0];
+    } catch (e) {
+      return 'en';
+    }
   }
 
   const parseToken = req.cookies.p_session;
