@@ -45,6 +45,13 @@ class UserActions {
     window.location.reload();
   }
 
+  changeLanguage(lang) {
+    ApiUtils.changeLanguage(lang)
+      .then(() => {
+        window.location.reload();
+      });
+  }
+
   setLocation(loc) {
     ApiUtils.setUserLocation(loc);
     return loc;

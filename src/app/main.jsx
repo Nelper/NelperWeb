@@ -5,6 +5,7 @@ import {Router} from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import {Parse} from 'parse';
 
+import UserStore from 'stores/UserStore';
 import IntlUtils from 'utils/IntlUtils';
 import getRoutes from './getRoutes';
 import formats from 'utils/IntlFormats';
@@ -15,7 +16,11 @@ import 'styles/common.scss';
 // Initialize Parse
 Parse.initialize('w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN', 'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si');
 
-const locale = 'fr-CA';
+// Get the language.
+const userPrivate = UserStore.state.user.privateData;
+const lang = userPrivate && userPrivate.language;
+// Force Canada locale.
+const locale = lang + '-CA';
 
 let facebookLoaded = false;
 let intlDataLoaded = false;

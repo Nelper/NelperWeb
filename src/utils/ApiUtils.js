@@ -118,6 +118,12 @@ class ApiUtils {
       });
   }
 
+  changeLanguage(lang) {
+    const privateData = Parse.User.current().get('privateData');
+    privateData.set('language', lang);
+    return privateData.save();
+  }
+
   /**
    * Sets the user geo location.
    * @param {GeoPoint} loc The user geo point
