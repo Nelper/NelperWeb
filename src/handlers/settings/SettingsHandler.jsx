@@ -1,11 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import cssModules from 'react-css-modules';
 
 import Progress from 'components/Progress';
 import UserStore from 'stores/UserStore';
 import UserActions from 'actions/UserActions';
 
+import styles from './SettingsHandler.scss';
+
 @connectToStores
+@cssModules(styles)
 export default class SettingsHandler extends Component {
 
   static propTypes = {
@@ -34,7 +38,7 @@ export default class SettingsHandler extends Component {
     return (
       <div className="settings-handler container">
         <div className="panel pad-all">
-          <h2>Settings</h2>
+          <h2 styleName="title">Settings</h2>
           <div>Language: </div>
           <select value={user.privateData.language} onChange={this._onChangeLanguage}>
             <option value="en">English</option>

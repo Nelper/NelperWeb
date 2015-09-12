@@ -1,11 +1,15 @@
-.browse-tasks-filter-view {
+@import 'styles/base-module';
 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+:local {
 
-  @include media($medium-screen) {
-    flex-direction: row;
+  .filter-view {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    @include media($medium-screen) {
+      flex-direction: row;
+    }
   }
 
   .category-filters {
@@ -15,7 +19,7 @@
     margin-left: 1.5rem;
   }
 
-  .category-icon {
+  %category-icon {
     @include image(2.5rem);
     margin: 0.5rem;
     border-radius: 50%;
@@ -24,17 +28,29 @@
     transform: scale(1);
     cursor: pointer;
 
-    &.is-selected {
-      opacity: 1;
-    }
-
     &:hover {
       transform: scale(1.1);
     }
   }
 
+  .category-icon {
+    @extend %category-icon;
+  }
+
+  .category-icon-selected {
+    @extend %category-icon;
+    opacity: 1;
+  }
+
   .category-all {
-    background-image: url('~images/categories/all.png');
+    @extend %category-icon;
+    background-image: url('images/categories/all.png');
+  }
+
+  .category-all-selected {
+    @extend %category-icon;
+    background-image: url('images/categories/all.png');
+    opacity: 1;
   }
 
   .other-filters {
@@ -47,7 +63,7 @@
     z-index: 100;
   }
 
-  .other-filters-dropdown {
+  %dropdown {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,44 +80,57 @@
     transform-origin: top center;
     transform: scaleX(0.8) scaleY(0.15);
     opacity: 0;
-
-    &.opened {
-      transform: scaleX(1) scaleY(1);
-      opacity: 1;
-    }
   }
 
-  .filter-title {
+  .dropdown {
+    @extend %dropdown;
+  }
+
+  .dropdown-opened {
+    @extend %dropdown;
+
+    transform: scaleX(1) scaleY(1);
+    opacity: 1;
+  }
+
+  .title {
     margin-bottom: 0.5rem;
   }
 
-  .filter-subtitle {
+  .subtitle {
     margin-bottom: 1rem;
     font-size: 0.9em;
   }
 
-  .filter-input {
+  .input {
     width: 8rem;
   }
 
-  .filter-distance,
-  .filter-price {
+  .distance,
+  .price {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .filter-distance {
+  .distance {
     margin-bottom: 1rem;
     padding-bottom: 1rem;
     border-bottom: $base-border;
   }
 
-  .expand-icon {
+  %expand-icon {
     transition: transform 300ms ease-in-out;
+    transform: rotateZ(0);
+    transform-origin: center;
+  }
 
-    &.expanded {
-      transform: rotateX(180deg);
-    }
+  .expand-icon {
+    @extend %expand-icon;
+  }
+
+  .expand-icon-opened {
+    @extend %expand-icon;
+    transform: rotateZ(180deg);
   }
 }

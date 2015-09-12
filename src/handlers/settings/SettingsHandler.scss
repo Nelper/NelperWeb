@@ -1,3 +1,7 @@
-.settings-handler {
+@import '~styles/base-module';
 
+:local {
+  .title {
+    color: $color-primary;
+  }
 }

@@ -1,8 +1,12 @@
-.nelp-handler {
+@import '~styles/base-module';
 
-  height: 100%;
+:local {
 
-  .header-section {
+  .page {
+    height: 100%;
+  }
+
+  .header {
     height: 40%;
     border-left: $base-border;
     border-right: $base-border;
@@ -11,12 +15,11 @@
       border-left: 0;
       border-right: 0;
     }
+  }
 
-    .map {
-      width: 100%;
-      height: 100%;
-      //padding: 0.5rem;
-    }
+  .map {
+    width: 100%;
+    height: 100%;
   }
 
   .filters {
@@ -31,20 +34,18 @@
     }
   }
 
-  .sort-view {
+  .sort-container {
     display: flex;
     justify-content: center;
     padding: 0.75rem;
     border-bottom: $base-border;
   }
 
-  .sort-view-toggle-group {
-    button {
-      width: rem(150px);
+  .sort button {
+    width: rem(150px);
 
-      .lang-fr & {
-        width: rem(175px);
-      }
+    .lang-fr & {
+      width: rem(175px);
     }
   }
 }

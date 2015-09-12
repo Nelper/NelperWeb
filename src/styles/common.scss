@@ -15,7 +15,6 @@
 @import 'components/Rating';
 @import 'components/Progress';
 @import 'components/Dialog';
-@import 'components/Card';
 @import 'components/Editable';
 @import 'components/NumericInput';
 @import 'components/Checkbox';
@@ -24,11 +23,6 @@
 @import 'components/TaskPictureSlider';
 
 @import 'handlers/home/HomeHandler';
-
-@import 'handlers/browse/BrowseTasksHandler';
-@import 'handlers/browse/NelpTaskDetail';
-@import 'handlers/browse/BrowseTasksFilterView';
-@import 'handlers/browse/BrowseTasksListView';
 
 @import 'handlers/post/PostTaskCategoriesHandler';
 @import 'handlers/post/PostTaskFormHandler';

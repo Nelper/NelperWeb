@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 import {FormattedMessage} from 'react-intl';
 
@@ -7,6 +8,9 @@ import Checkbox from 'components/Checkbox';
 import Icon from 'components/Icon';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
+import styles from './BrowseTasksFilterView.scss';
+
+@cssModules(styles)
 export default class BrowseTasksFilterView extends Component {
 
   static propTypes = {
@@ -184,7 +188,7 @@ export default class BrowseTasksFilterView extends Component {
       return (
         <div
           key={c}
-          className={classNames('category-icon', {'is-selected': isSelected})}
+          styleName={isSelected ? 'category-icon-selected' : 'category-icon'}
           style={{
             backgroundImage: `url('${TaskCategoryUtils.getImage(c)}')`,
           }}
@@ -194,28 +198,28 @@ export default class BrowseTasksFilterView extends Component {
     });
 
     return (
-      <div className="browse-tasks-filter-view">
-        <div className="category-filters">
+      <div styleName="filter-view">
+        <div styleName="category-filters">
           <div key="all"
-            className={classNames('category-icon', 'category-all', {'is-selected': allCategories})}
+            styleName={allCategories ? 'category-all-selected' : 'category-all'}
             onClick={::this._onSelectAllCategories}
           />
           {categoryFilters}
         </div>
-        <div className="other-filters">
-          <div ref="filterDropdown" className={classNames('other-filters-dropdown', {'opened': otherFiltersOpened})}>
-            <div className="filter-distance">
-              <div className="filter-title">
+        <div styleName="other-filters">
+          <div ref="filterDropdown" styleName={otherFiltersOpened ? 'dropdown-opened' : 'dropdown'}>
+            <div styleName="distance">
+              <div styleName="title">
                 <Checkbox
                   title={<FormattedMessage id="browse.disRange"/>}
                   selected={maxDistanceActive}
                   onCheck={::this._onMaxDistanceCheck}
                 />
               </div>
-              <div className="filter-subtitle">
+              <div styleName="subtitle">
                 <FormattedMessage id="browse.within"/>
-            </div>
-              <div className="filter-input">
+              </div>
+              <div styleName="input">
                 <NumericInput
                   step={1}
                   disabled={!maxDistanceActive}
@@ -224,18 +228,18 @@ export default class BrowseTasksFilterView extends Component {
                 />
               </div>
             </div>
-            <div className="filter-price">
-              <div className="filter-title">
+            <div styleName="price">
+              <div styleName="title">
                 <Checkbox
                   title={<FormattedMessage id="browse.priceRange"/>}
                   selected={minPriceActive}
                   onCheck={::this._onMinPriceCheck}
                 />
               </div>
-              <div className="filter-subtitle">
+              <div styleName="subtitle">
                 <FormattedMessage id="browse.higherThan"/>
               </div>
-              <div className="filter-input">
+              <div styleName="input">
                 <NumericInput
                   disabled={!minPriceActive}
                   value={this.state.minPrice}
@@ -245,18 +249,16 @@ export default class BrowseTasksFilterView extends Component {
             </div>
           </div>
           <div
-            className={classNames(
-              'button',
-              'border-btn',
-              'other-filters-btn',
-              {'disabled': !maxDistanceActive && !minPriceActive},
-            )}
+            className={classNames('button', 'border-btn', {'disabled': !maxDistanceActive && !minPriceActive})}
+            styleName="other-filters-btn"
             onClick={::this._onToggleOtherFilters}
           >
-            <span>
-              <FormattedMessage id="browse.moreFilters"/>
-            </span>
-            <Icon className={classNames('expand-icon', {'expanded': otherFiltersOpened})} svg={require('images/icons/expand.svg')} />
+            <FormattedMessage id="browse.moreFilters"/>
+            <div className="icon" styleName={otherFiltersOpened ? 'expand-icon-opened' : 'expand-icon'}>
+              <Icon
+                svg={require('images/icons/expand.svg')}
+              />
+            </div>
           </div>
         </div>
       </div>

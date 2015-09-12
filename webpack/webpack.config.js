@@ -17,7 +17,7 @@ module.exports = [
         loader: ExtractTextPlugin.extract('style', 'css'),
       }, {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css!postcss!sass?' + shared.sassPaths),
+        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss!sass?' + shared.sassPaths),
       }, {
         test: /\.jsx?$/,
         loader: 'babel',
@@ -28,7 +28,6 @@ module.exports = [
       new ExtractTextPlugin('styles.css'),
       new webpack.DefinePlugin({
         'process.env': {
-          // This has effect on the react lib size
           'NODE_ENV': JSON.stringify('production'),
         },
         '__CLIENT__': true,
@@ -40,6 +39,7 @@ module.exports = [
           warnings: false,
         },
       }),
+      new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.DedupePlugin(),
     ],
     postcss: [autoprefixer({browsers: ['last 2 versions']})],
@@ -52,7 +52,9 @@ module.exports = [
     entry: path.resolve(ROOT_PATH, 'src/server/server.js'),
     target: 'node',
     node: {
-      __dirname: true,
+      __filename: false,
+      __dirname: false,
+      console: false,
     },
     resolve: {
       extensions: ['', '.js', '.jsx'],

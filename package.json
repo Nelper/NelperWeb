@@ -58,6 +58,7 @@
     "parse": "1.5.0",
     "postcss-loader": "^0.6.0",
     "react": "^0.14.0-rc1",
+    "react-css-modules": "^3.0.5",
     "react-dom": "^0.14.0-rc1",
     "react-google-maps": "Nelper/react-google-maps",
     "react-intl": "Nelper/react-intl#v2-dev",

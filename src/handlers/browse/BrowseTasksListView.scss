@@ -1,4 +1,6 @@
-.nelp-task-list-view {
+@import '~styles/base-module';
+
+:local {
 
   $color-price-green: $color-money;
   $user-image-size: 86px;
@@ -8,10 +10,12 @@
   $collapse-image-size: 26px;
   $list-items-padding: 0.5rem;
 
-  width: 100%;
-  padding: 0 1rem;
+  .list {
+    width: 100%;
+    padding: 0 1rem;
+  }
 
-  .task {
+  %task {
     width: 100%;
 
     padding: $list-items-padding 0;
@@ -19,211 +23,207 @@
     &:not(:last-child) {
       border-bottom: $base-border;
     }
+  }
 
-    .header {
-      display: flex;
-      cursor: pointer;
+  .task {
+    @extend %task;
+  }
 
-      .content {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        flex: 1;
-
-        > div {
-          margin: 0.5rem;
-
-          @include media($medium-screen) {
-            margin: 0.5rem 1rem;
-          }
-        }
-      }
-
-      .infos {
-        display: flex;
-        align-items: center;
-        flex: 1;
-      }
-
-      .user-col {
-        flex: 1;
-      }
-
-      .user-picture {
-        width: rem($user-image-size-sm);
-        height: rem($user-image-size-sm);
-        position: relative;
-        flex-shrink: 1;
-
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        border-radius: 50%;
-        border: $base-border;
-
-        @include media($medium-screen) {
-          width: rem($user-image-size);
-          height: rem($user-image-size);
-        }
-
-        .category-icon {
-          position: absolute;
-          bottom: rem(-5px);
-          right: rem(-5px);
-          @include image(rem($category-image-size-sm), rem($category-image-size-sm));
-
-          border-radius: 50%;
-          background-color: $color-background;
-
-          @include media($medium-screen) {
-            @include image(rem($category-image-size), rem($category-image-size));
-          }
-        }
-      }
-
-      .title-col {
-        flex: 1;
-
-        .title {
-          font-weight: bold;
-          font-size: 1em;
-          @include ellipsis;
-
-          @include media($medium-screen) {
-            font-size: 1.2em;
-          }
-        }
-
-        .user-name {
-          font-size: 1em;
-
-          @include media($medium-screen) {
-            margin-left: 2rem;
-          }
-        }
-
-        .date {
-          font-size: 0.8em;
-          @include media($medium-screen) {
-            margin-left: 2rem;
-          }
-        }
-      }
-
-      .price {
-        flex-basis: rem(70px);
-        background-image: url('~images/icons/money.png');
-        background-size: 65px;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: rem(36px);
-        padding-top: rem(5px);
-        padding-left: rem(5px);
-        text-align: center;
-        color: $color-background-light;
-        font-size: 1.1em;
-      }
-
-      .location-col {
-        display: none;
-        margin-right: 2rem;
-
-        @include media($medium-screen) {
-          display: block;
-        }
-
-        .city {
-          text-align: right;
-        }
-
-        .distance {
-          text-align: right;
-          font-size: 0.8em;
-        }
-      }
-    }
+  .task-collapsed {
+    @extend %task;
 
     .detail {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      @include transition(max-height 300ms ease-in-out);
-      max-height: 500px;
-      margin-left: 1rem;
-      margin-right: 1rem;
-
-      @include media($medium-screen) {
-        flex-direction: row;
-        margin-left: rem(132px);
-        margin-right: rem(58px);
-      }
-
-      .desc-col {
-        flex: 1;
-        margin-right: 1rem;
-        margin-bottom: 1rem;
-
-        .user-row {
-          display: flex;
-          align-items: center;
-          margin-bottom: 0.5rem;
-        }
-
-        .desc {
-          font-family: $content-font-family;
-          white-space: pre-line;
-          margin-bottom: 1rem;
-
-          @include media($medium-screen) {
-            margin-left: 2rem;
-          }
-        }
-
-        .controls {
-          @include media($medium-screen) {
-            margin-left: 2rem;
-          }
-        }
-      }
-
-      .task-pictures {
-        width: 100%;
-        margin-bottom: 1rem;
-
-        @include media($medium-screen) {
-          width: rem(250px);
-        }
-      }
+      max-height: 0;
     }
 
     .collapse-icon {
-      display: none;
-      align-self: center;
-      width: rem($collapse-image-size);
-      height: rem($collapse-image-size);
+      transform: rotate(0deg);
+    }
+  }
+
+  .header {
+    display: flex;
+    cursor: pointer;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+
+    > div {
+      margin: 0.5rem;
 
       @include media($medium-screen) {
-        display: block;
-        margin: 0 1rem;
+        margin: 0.5rem 1rem;
       }
+    }
+  }
 
-      background-image: url('~images/icons/expand.png');
-      background-size: contain;
-      background-position: center;
+  .infos {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
 
-      transition: transform 250ms ease-in-out;
-      transform: rotate(180deg);
+  .user-col {
+    flex: 1;
+  }
+
+  .user-picture {
+    width: rem($user-image-size-sm);
+    height: rem($user-image-size-sm);
+    position: relative;
+    flex-shrink: 1;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    border: $base-border;
+
+    @include media($medium-screen) {
+      width: rem($user-image-size);
+      height: rem($user-image-size);
     }
 
-    &.collapsed {
+    .category-icon {
+      @include image(rem($category-image-size-sm));
+      position: absolute;
+      bottom: rem(-5px);
+      right: rem(-5px);
 
-      .detail {
-        max-height: 0;
-      }
+      border-radius: 50%;
+      background-color: $color-background;
 
-      .collapse-icon {
-        transform: rotate(0deg);
+      @include media($medium-screen) {
+        @include image(rem($category-image-size));
       }
+    }
+  }
+
+  .title-col {
+    flex: 1;
+  }
+
+  .title {
+    @include ellipsis();
+    font-weight: bold;
+    font-size: 1em;
+
+    @include media($medium-screen) {
+      font-size: 1.2em;
+    }
+  }
+
+  .user-name {
+    font-size: 1em;
+
+    @include media($medium-screen) {
+      margin-left: 2rem;
+    }
+  }
+
+  .date {
+    font-size: 0.8em;
+
+    @include media($medium-screen) {
+      margin-left: 2rem;
+    }
+  }
+
+  .price {
+    @include price-tag-module();
+  }
+
+  .location-col {
+    display: none;
+    margin-right: 2rem;
+
+    @include media($medium-screen) {
+      display: block;
+    }
+  }
+
+  .city {
+    text-align: right;
+  }
+
+  .distance {
+    text-align: right;
+    font-size: 0.8em;
+  }
+
+  .detail {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: max-height 300ms ease-in-out;
+    max-height: 500px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+    @include media($medium-screen) {
+      flex-direction: row;
+      margin-left: rem(132px);
+      margin-right: rem(58px);
+    }
+  }
+
+  .desc-col {
+    flex: 1;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .user-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .desc {
+    font-family: $content-font-family;
+    white-space: pre-line;
+    margin-bottom: 1rem;
+
+    @include media($medium-screen) {
+      margin-left: 2rem;
+    }
+  }
+
+  .controls {
+    @include media($medium-screen) {
+      margin-left: 2rem;
+    }
+  }
+
+  .task-pictures {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    @include media($medium-screen) {
+      width: rem(250px);
+    }
+  }
+
+  .collapse-icon {
+    display: none;
+    align-self: center;
+    width: rem($collapse-image-size);
+    height: rem($collapse-image-size);
+
+    background-image: url('images/icons/expand.png');
+    background-size: contain;
+    background-position: center;
+
+    transition: transform 250ms ease-in-out;
+    transform: rotate(180deg);
+
+    @include media($medium-screen) {
+      display: block;
+      margin: 0 1rem;
     }
   }
 

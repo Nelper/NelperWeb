@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 import {FormattedMessage} from 'react-intl';
 
@@ -13,7 +14,10 @@ import BrowseTasksFilterView from './BrowseTasksFilterView';
 import NelpTaskListView from './BrowseTasksListView';
 import {LatLng} from 'utils/GoogleMapsUtils';
 
+import styles from './BrowseTasksHandler.scss';
+
 @connectToStores
+@cssModules(styles)
 export default class BrowseTasksHandler extends Component {
 
   static propTypes = {
@@ -166,9 +170,9 @@ export default class BrowseTasksHandler extends Component {
       new LatLng(0, 0);
 
     return (
-      <div className="nelp-handler">
-        <div className="container header-section">
-          <div className="map">
+      <div styleName="page">
+        <div styleName="header" className="container">
+          <div styleName="map">
             <MapView
               markers={markers}
               initialCenter={center}
@@ -176,12 +180,12 @@ export default class BrowseTasksHandler extends Component {
           </div>
         </div>
         <div className="task-section" ref="taskScroll">
-          <div className="filters container">
+          <div styleName="filters" className="container">
             <BrowseTasksFilterView onFiltersChanged={::this._onFiltersChanged} />
           </div>
           <div className="container panel">
-            <div className="sort-view">
-              <div className="toggle-group sort-view-toggle-group">
+            <div styleName="sort-container">
+              <div styleName="sort" className="toggle-group">
                 <button
                   className={classNames('toggle', {'on': sort.sort === 'price'})}
                   onClick={() => this._onSort('price')}

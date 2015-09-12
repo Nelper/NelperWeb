@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import classNames from 'classnames';
+import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedRelative} from 'react-intl';
 
 import Dialog from 'components/Dialog';
@@ -10,6 +10,9 @@ import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import LocationUtils from 'utils/LocationUtils';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
+import styles from './BrowseTasksListView.scss';
+
+@cssModules(styles)
 export default class BrowseTasksListView extends Component {
 
   static propTypes = {
@@ -112,10 +115,7 @@ export default class BrowseTasksListView extends Component {
         null;
 
       return (
-        <div key={t.objectId} className={classNames(
-          'task',
-          {'collapsed': t !== this.state.selectedTask},
-        )}>
+        <div key={t.objectId} styleName={t === this.state.selectedTask ? 'task' : 'task-collapsed'}>
           <Dialog opened={this.state.makeOfferDialogOpened}>
             <h2>Make an offer</h2>
             <div className="dialog-content">
@@ -126,29 +126,29 @@ export default class BrowseTasksListView extends Component {
               <button onClick={::this._onMakeOfferConfirm} className="primary">Apply</button>
             </div>
           </Dialog>
-          <div className="header" onClick={() => this._taskDetail(t)}>
-            <div className="content">
-              <div className="user-picture" style={{backgroundImage: `url('${t.user.pictureURL}')`}}>
-                <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(t.category)}')`}} />
+          <div styleName="header" onClick={() => this._taskDetail(t)}>
+            <div styleName="content">
+              <div styleName="user-picture" style={{backgroundImage: `url('${t.user.pictureURL}')`}}>
+                <div styleName="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(t.category)}')`}} />
               </div>
-              <div className="title-col">
-                <div className="title">
+              <div styleName="title-col">
+                <div styleName="title">
                   {t.title}
                 </div>
-                <div className="infos">
-                  <div className="user-col">
-                    <div className="user-name">{t.user.name}</div>
-                    <div className="date">
+                <div styleName="infos">
+                  <div styleName="user-col">
+                    <div styleName="user-name">{t.user.name}</div>
+                    <div styleName="date">
                       <FormattedRelative value={t.createdAt} />
                     </div>
                   </div>
-                  <div className="location-col">
-                    <div className="city">
+                  <div styleName="location-col">
+                    <div styleName="city">
                       {t.city || 'N/A'}
                     </div>
                     {
                       distance !== null ?
-                      <div className="distance">
+                      <div styleName="distance">
                         <FormattedMessage id="nelpcenter.main.awayFrom" values={{
                           distance: distance || 0,
                         }}/>
@@ -156,20 +156,20 @@ export default class BrowseTasksListView extends Component {
                       null
                     }
                   </div>
-                  <div className="price">
+                  <div styleName="price">
                     {'$' + t.priceOffered}
                   </div>
                 </div>
               </div>
             </div>
-            <div className="collapse-icon" />
+            <div styleName="collapse-icon" />
           </div>
-          <div className="detail">
-            <div className="desc-col">
-              <div className="desc">
+          <div styleName="detail">
+            <div styleName="desc-col">
+              <div styleName="desc">
                 {t.desc}
               </div>
-              <div className="btn-group controls">
+              <div styleName="controls" className="btn-group">
                 {
                   t.application && t.application.state === NELP_TASK_APPLICATION_STATE.PENDING ?
                   <button className="primary" onClick={() => this._onCancelOffer(t)}>
@@ -184,7 +184,7 @@ export default class BrowseTasksListView extends Component {
             </div>
             {
               t.pictures && t.pictures.length > 0 ?
-              <div className="task-pictures">
+              <div styleName="task-pictures">
                 <TaskPictureSlider task={t} />
               </div> :
               null
@@ -195,10 +195,10 @@ export default class BrowseTasksListView extends Component {
     });
 
     return (
-      <div className="nelp-task-list-view" ref="displayedTasks">
+      <div styleName="list" ref="displayedTasks">
         {
           !displayedTasks.length ?
-          <div className="no-task"><FormattedMessage id="browse.noTask"/></div> :
+          <div styleName="no-task"><FormattedMessage id="browse.noTask"/></div> :
           displayedTasks
         }
       </div>

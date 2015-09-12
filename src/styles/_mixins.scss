@@ -20,16 +20,28 @@
   background-size: cover;
 }
 
-@mixin price-tag() {
+@mixin price-tag-base() {
   width: 80px;
   text-align: center;
-  background-image: url('~images/icons/money.png');
+
   background-position: center;
   background-repeat: no-repeat;
   background-size: 76px;
-  padding-top: 8px;
+  padding-top: 7px;
   height: 41px;
   padding-left: 6px;
   font-size: 1.2em;
   color: $color-background-light;
+}
+
+@mixin price-tag() {
+  @include price-tag-base();
+  background-image: url('~images/icons/money.png');
+}
+
+// The image path is different in css modules... Remove this when everything
+// that uses this mixin uses css modules.
+@mixin price-tag-module() {
+  @include price-tag-base();
+  background-image: url('images/icons/money.png');
 }

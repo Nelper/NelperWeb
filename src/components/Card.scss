@@ -1,20 +1,24 @@
-.card-component {
+@import '~styles/base-module';
+
+:local {
 
   $header-bg-color: $color-secondary;
   $content-bg-color: $color-background-light;
   $border-color: $color-black;
 
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
+  .card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 
-  background-color: $content-bg-color;
-  //box-shadow: 0 1px 4px 0 transparentize($color-black, 0.63);
-  border: $base-border;
+    background-color: $content-bg-color;
+    //box-shadow: 0 1px 4px 0 transparentize($color-black, 0.63);
+    border: $base-border;
+  }
 
-  .card-hover {
+  .hover {
     @include position(absolute, 0);
     background-color: $color-background-light;
     transition: opacity 250ms linear;
@@ -25,7 +29,7 @@
     }
   }
 
-  .card-image-header {
+  .header {
     height: rem(100px);
     background-position: center;
     background-repeat: no-repeat;
@@ -35,7 +39,7 @@
     overflow: hidden;
   }
 
-  .card-content {
+  .content {
     flex: 1;
     padding: 0.8rem;
   }

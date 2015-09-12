@@ -56,7 +56,7 @@ button,
     border-radius: 8px;
     padding: 1rem 4rem;
     font-size: 1.5em;
-    @include transition(background-color 250ms linear, color 250ms linear);
+    transition: background-color 250ms linear, color 250ms linear;
 
     &:hover {
       background-color: $color-background;
@@ -100,7 +100,8 @@ button,
       background-color: transparent;
     }
 
-    i {
+    > i,
+    > .icon {
       width: 1.75rem;
       height: 1.75rem;
       margin-top: -1rem;
@@ -151,7 +152,8 @@ button,
       }
     }
 
-    i {
+    > i,
+    > .icon {
       width: 2rem;
       height: 2rem;
       margin-top: -1rem;

@@ -1,52 +1,58 @@
 import React, {Component, PropTypes} from 'react';
+import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 
+import styles from './Card.scss';
+
+@cssModules(styles, {allowMultiple: true})
 export class Card extends Component {
 
   static propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
+    styleName: PropTypes.string,
   }
 
   render() {
-    const {className, ...others} = this.props;
+    const {styleName, ...others} = this.props;
     return (
-      <div {...others} className={classNames('card-component', className)}>
+      <div {...others} styleName={classNames('card', styleName)}>
         {this.props.children}
-        <div className="card-hover"/>
+        <div styleName="hover"/>
       </div>
     );
   }
 }
 
+@cssModules(styles, {allowMultiple: true})
 export class CardImageHeader extends Component {
 
   static propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
+    styleName: PropTypes.string,
   }
 
   render() {
-    const {className, ...others} = this.props;
+    const {styleName, ...others} = this.props;
     return (
-      <div {...others} className={classNames('card-image-header', className)}>
+      <div {...others} styleName={classNames('header', styleName)}>
         {this.props.children}
       </div>
     );
   }
 }
 
+@cssModules(styles, {allowMultiple: true})
 export class CardContent extends Component {
 
   static propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
+    styleName: PropTypes.string,
   }
 
   render() {
-    const {className, ...others} = this.props;
+    const {styleName, ...others} = this.props;
     return (
-      <div {...others} className={classNames('card-content', className)}>
+      <div {...others} styleName={classNames('content', styleName)}>
         {this.props.children}
       </div>
     );
