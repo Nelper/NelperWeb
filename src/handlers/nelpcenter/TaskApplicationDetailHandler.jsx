@@ -3,7 +3,7 @@ import {FormattedDate} from 'react-intl';
 import connectToStores from 'alt/utils/connectToStores';
 import cssModules from 'react-css-modules';
 
-import {Progress, Rating} from 'components';
+import {Progress, Rating} from 'components/index';
 import TaskActions from 'actions/TaskActions';
 import TaskStore from 'stores/TaskStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
