@@ -21,6 +21,7 @@ export default class TaskDetailHandler extends Component {
   static propTypes = {
     task: PropTypes.object,
     isLoading: PropTypes.bool,
+    params: PropTypes.object,
   }
 
   static contextTypes = {
@@ -90,8 +91,8 @@ export default class TaskDetailHandler extends Component {
     TaskActions.restoreApplication(application);
   }
 
-  _onViewProfile() {
-
+  _onViewApplication(application) {
+    this.context.history.pushState(null, `/center/tasks/detail/${this.props.params.id}/${application.objectId}`);
   }
 
   _onCancelDelete() {
@@ -195,7 +196,7 @@ export default class TaskDetailHandler extends Component {
               applications={pendingApplications}
               onAccept={::this._onAccept}
               onDeny={::this._onDeny}
-              onViewProfile={::this._onViewProfile}
+              onViewProfile={::this._onViewApplication}
             />
           </div> :
           null

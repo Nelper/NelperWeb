@@ -195,7 +195,7 @@ export default class BrowseTasksListView extends Component {
     });
 
     return (
-      <div styleName="list" ref="displayedTasks">
+      <div styleName="module" ref="displayedTasks">
         {
           !displayedTasks.length ?
           <div styleName="no-task"><FormattedMessage id="browse.noTask"/></div> :

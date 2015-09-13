@@ -26,6 +26,7 @@ class TaskStore {
       handleAddPicture: TaskActions.ADD_PICTURE,
       handleDeletePicture: TaskActions.DELETE_PICTURE,
       handleReceivedApplicantInfo: TaskActions.RECEIVED_APPLICANT_INFO,
+      handleReceivedApplicantFeedback: TaskActions.RECEIVED_APPLICANT_FEEDBACK,
     });
   }
 
@@ -112,6 +113,11 @@ class TaskStore {
     application.hasApplicantInfo = true;
     application.phone = info.phone;
     application.email = info.email;
+    this.emitChange();
+  }
+
+  handleReceivedApplicantFeedback({application, feedback}) {
+    application.user.feedback = feedback;
     this.emitChange();
   }
 }

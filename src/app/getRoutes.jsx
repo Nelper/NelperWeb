@@ -12,6 +12,7 @@ import NelpCenterHandler from 'handlers/nelpcenter/NelpCenterHandler';
 import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
 import TasksHandler from 'handlers/nelpcenter/TasksHandler';
 import TaskDetailHandler from 'handlers/nelpcenter/TaskDetailHandler';
+import TaskApplicationDetailHandler from 'handlers/nelpcenter/TaskApplicationDetailHandler';
 import ApplicationDetailHandler from 'handlers/nelpcenter/ApplicationDetailHandler';
 
 import LogoutHandler from 'handlers/login/LogoutHandler';
@@ -116,6 +117,13 @@ export default function getRoutes() {
           <Route path="tasks" component={TasksHandler} />
         </Route>
         <Route path="/center/tasks/detail/:id" component={TaskDetailHandler} name={IntlUtils.getMessage('routes.taskDetail')} />
+        <Route path="/center/tasks/detail/:taskId" name={IntlUtils.getMessage('routes.taskDetail')}>
+          <Route
+            path=":applicationId"
+            component={TaskApplicationDetailHandler}
+            name={IntlUtils.getMessage('routes.applicationDetail')}
+          />
+        </Route>
         <Route path="/center/applications/detail/:id" component={ApplicationDetailHandler} name={IntlUtils.getMessage('routes.applicationDetail')} />
       </Route>
       <Route path="/profile" getComponent={getProfileComponent} onEnter={requireAuth} />

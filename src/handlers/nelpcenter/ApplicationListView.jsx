@@ -44,9 +44,8 @@ export default class ApplicationListView extends Component {
       this.props.applications.map(a => {
         return (
           <div key={a.objectId} className="application">
-            <div className="user-profile">
+            <div className="user-profile" onClick={() => this._onViewProfile(a)}>
               <div className="user-picture"
-                onClick={() => this._onViewProfile(a.user)}
                 style={{backgroundImage: `url('${a.user.pictureURL}')`}}
               >
                 <div className="user-picture-overlay">

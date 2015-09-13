@@ -16,7 +16,7 @@
     padding: 1rem;
 
     &:not(:last-child) {
-      border-bottom: 1px solid $color-gray-light;
+      border-bottom: $base-border;
     }
   }
 

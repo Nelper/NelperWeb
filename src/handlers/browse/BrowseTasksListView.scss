@@ -1,6 +1,6 @@
 @import '~styles/base-module';
 
-:local {
+:local .module {
 
   $color-price-green: $color-money;
   $user-image-size: 86px;
@@ -10,10 +10,8 @@
   $collapse-image-size: 26px;
   $list-items-padding: 0.5rem;
 
-  .list {
-    width: 100%;
-    padding: 0 1rem;
-  }
+  width: 100%;
+  padding: 0 1rem;
 
   %task {
     width: 100%;

@@ -170,7 +170,7 @@ export default class BrowseTasksHandler extends Component {
       new LatLng(0, 0);
 
     return (
-      <div styleName="page">
+      <div styleName="module">
         <div styleName="header" className="container">
           <div styleName="map">
             <MapView

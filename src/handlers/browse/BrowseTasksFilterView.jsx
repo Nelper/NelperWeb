@@ -198,7 +198,7 @@ export default class BrowseTasksFilterView extends Component {
     });
 
     return (
-      <div styleName="filter-view">
+      <div styleName="module">
         <div styleName="category-filters">
           <div key="all"
             styleName={allCategories ? 'category-all-selected' : 'category-all'}

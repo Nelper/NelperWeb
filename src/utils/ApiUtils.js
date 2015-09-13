@@ -1,6 +1,6 @@
 import {Parse} from 'parse';
 
-import  {NelpTask, NelpTaskApplication, UserPrivateData} from './ParseModels';
+import  {NelpTask, NelpTaskApplication, UserPrivateData, Feedback} from './ParseModels';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
@@ -262,6 +262,25 @@ class ApiUtils {
     const user = Parse.User.current();
     user.remove('education', ed);
     user.save();
+  }
+
+  refreshFeedback(user) {
+    const parseUser = new Parse.User();
+    parseUser.id = user.objectId;
+    return new Parse.Query(Feedback)
+      .include('poster')
+      .include('task')
+      .equalTo('user', parseUser)
+      .descending('createdAt')
+      .find()
+      .then(parseFeedback => {
+        return parseFeedback.map(parseItem => {
+          const item = parseItem.toPlainObject();
+          item.poster = parseItem.get('poster').toPlainObject();
+          item.task = parseItem.get('task').toPlainObject();
+          return item;
+        });
+      });
   }
 
   /**

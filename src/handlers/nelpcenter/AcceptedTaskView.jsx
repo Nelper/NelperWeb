@@ -85,7 +85,7 @@ export default class TaskCardView extends Component {
             </div>
             <div className="task-poster-chat">
               <div className="task-poster-chat-icon" />
-              <button className="border-btn task-poster-chat-btn">
+              <button className="border-btn primary task-poster-chat-btn">
                 <FormattedMessage id="nelpcenter.acceptedTaskView.chat" />
               </button>
             </div>

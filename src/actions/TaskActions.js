@@ -9,7 +9,8 @@ class TaskActions {
       'receivedMyTasks',
       'startTaskCreate',
       'receivedCreatedTask',
-      'receivedApplicantInfo'
+      'receivedApplicantInfo',
+      'receivedApplicantFeedback',
     );
   }
 
@@ -75,6 +76,13 @@ class TaskActions {
     ApiUtils.requestApplicantInfo(application)
       .then(info => {
         this.actions.receivedApplicantInfo({application, info});
+      });
+  }
+
+  refreshApplicantFeedback(application) {
+    ApiUtils.refreshFeedback(application.user)
+      .then(feedback => {
+        this.actions.receivedApplicantFeedback({application, feedback});
       });
   }
 }

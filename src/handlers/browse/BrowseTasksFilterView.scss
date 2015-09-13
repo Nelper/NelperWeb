@@ -1,15 +1,13 @@
 @import 'styles/base-module';
 
-:local {
+:local .module {
 
-  .filter-view {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
-    @include media($medium-screen) {
-      flex-direction: row;
-    }
+  @include media($medium-screen) {
+    flex-direction: row;
   }
 
   .category-filters {

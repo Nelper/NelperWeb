@@ -7,6 +7,7 @@ import {Parse} from 'parse';
 
 import UserStore from 'stores/UserStore';
 import IntlUtils from 'utils/IntlUtils';
+import LogUtils from 'utils/LogUtils';
 import getRoutes from './getRoutes';
 import formats from 'utils/IntlFormats';
 
@@ -57,6 +58,8 @@ IntlUtils.init(locale).then((m) => {
   messages = m;
   renderApp();
 });
+
+LogUtils.init();
 
 window.fbAsyncInit = () => {
   Parse.FacebookUtils.init({

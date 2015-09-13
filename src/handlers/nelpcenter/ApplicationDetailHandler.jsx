@@ -147,7 +147,7 @@ export default class ApplicationDetailHandler extends Component {
               <div className="summary-item-applied-text">
                 {
                   accepted ?
-                  <FormattedRelative value={application.acceptedAt} /> :
+                  <FormattedRelative value={application.acceptedAt || new Date()} /> :
                   <FormattedRelative value={application.createdAt} />
                 }
               </div>
@@ -194,7 +194,7 @@ export default class ApplicationDetailHandler extends Component {
             </div>
             <div className="task-poster-chat">
               <div className="task-poster-chat-icon" />
-              <button className="border-btn task-poster-chat-btn">
+              <button className="border-btn primary task-poster-chat-btn">
                 <FormattedMessage id="nelpcenter.applicationDetail.chat" />
               </button>
             </div>
