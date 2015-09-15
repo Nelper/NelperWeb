@@ -13,6 +13,7 @@ import Icon from 'components/Icon';
 import TaskActions from 'actions/TaskActions';
 import TaskStore from 'stores/TaskStore';
 import DateUtils from 'utils/DateUtils';
+import IntlUtils from 'utils/IntlUtils';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 @connectToStores
@@ -278,17 +279,12 @@ export default class TaskDetailHandler extends Component {
                     <div>
                       <FormattedMessage id="common.postedRelative" values={{
                         formattedAgo:
-                        <span className="to-lower">
-                          <FormattedRelative value={task.createdAt} />
-                        </span>,
+                          <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,
                       }}/>
                     </div>
                     <div>
                       <FormattedMessage id="common.expiresRelative" values={{
-                        formattedAgo:
-                        <span className="to-lower">
-                          <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} />
-                        </span>,
+                        formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)}>{IntlUtils.lower}</FormattedRelative>,
                       }}/>
                     </div>
                   </div>

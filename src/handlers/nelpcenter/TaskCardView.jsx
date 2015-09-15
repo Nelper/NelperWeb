@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {FormattedMessage, FormattedRelative} from 'react-intl';
 import DateUtils from 'utils/DateUtils';
+import IntlUtils from 'utils/IntlUtils';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
@@ -87,13 +88,13 @@ export default class TaskCardView extends Component {
           <div className="calendar-row">
             <div>
               <FormattedMessage id="common.postedRelative" values={{
-                formattedAgo: <FormattedRelative value={task.createdAt} />,
+                formattedAgo: <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,
               }}/>
             </div>
             <div className="calendar-icon" />
             <div>
               <FormattedMessage id="common.expiresRelative" values={{
-                formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} />,
+                formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)}>{IntlUtils.lower}</FormattedRelative>,
               }}/>
             </div>
           </div>

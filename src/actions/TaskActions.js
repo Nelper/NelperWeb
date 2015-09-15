@@ -25,6 +25,7 @@ class TaskActions {
     task.applications = [];
     task.isNew = false;
     task.state = NELP_TASK_STATE.PENDING;
+    task.createdAt = new Date();
     ApiUtils.addTask(task)
       .then((t) => {
         this.actions.receivedCreatedTask(t);
