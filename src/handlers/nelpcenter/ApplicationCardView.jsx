@@ -5,6 +5,7 @@ import {Card, CardImageHeader, CardContent} from 'components/Card';
 import UserStore from 'stores/UserStore';
 import LocationUtils from 'utils/LocationUtils';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+import IntlUtils from 'utils/IntlUtils';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 export default class TaskCardView extends Component {
@@ -54,14 +55,14 @@ export default class TaskCardView extends Component {
             <div className="status-icon" style={{backgroundImage: `url('${statusIcon}')`}} />
             <div className="text status-text">{statusText}</div>
             <div className="price">
-              {'$' + task.priceOffered}
+              {'$' + application.price}
             </div>
           </div>
           <div className="info-row calendar">
             <div className="calendar-icon" />
             <div className="text calendar-text">
               <FormattedMessage id="nelpcenter.main.applied" values={{
-                moment: <FormattedRelative value={application.createdAt} />,
+                moment: <FormattedRelative value={application.createdAt}>{IntlUtils.lower}</FormattedRelative>,
               }}/>
             </div>
           </div>
