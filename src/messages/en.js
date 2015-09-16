@@ -33,7 +33,7 @@ export default {
 
   home: {
     topSectionTitle: "Your task completion marketplace",
-    topSectionDesc: "With Nelper, connect with people around you and either have your tasks completed or complete other people's tasks.",
+    topSectionDesc: "With Nelper, connect with people around you and get your tasks completed or complete other people's tasks.",
 
     browseTitle: "Browse Tasks",
     browseDesc: "Browse & find tasks to complete.",
@@ -44,10 +44,20 @@ export default {
 
     getCompletedTitle: "Get your tasks completed",
     getCompletedDesc: "There's someone in your neighborhood who can help.<br />Posting a task is <strong>free</strong>.",
-    getStarted: "Get started now",
+    getStarted: "Post a Task",
+
+    categoriesTitle: "Simple categories, multiple options",
+    categoriesDesc: "Anything can be completed on Nelper, from router installation to lawn mowing",
 
     becomeNelperTitle: "Become a Nelper",
-    becomeNelperDesc: "Join the community now by completing tasks",
+    becomeNelperDesc: "Want to help people close to you and make money by completing tasks? Join the community now!",
+    browseTasks: "Browse Tasks",
+
+    nelperpayTitle: "NelperPay",
+    nelperpayDesc: "Peace of mind for Task Posters and Nelpers.",
+    nelperpayFeature1: "No external accound needed.",
+    nelperpayFeature2: "No setup fees.",
+    nelperpayFeature3: "No trouble.",
   },
 
   browse: {
