@@ -40,7 +40,7 @@ export default class MapView extends Component {
 
   render() {
     if (!this.state.googleMapsAPI) {
-      return null;
+      return <div />;
     }
 
     const markers = this.props.markers.map((m) => {

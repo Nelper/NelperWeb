@@ -25,7 +25,7 @@ module.exports = [
       }]),
     },
     plugins: [
-      new ExtractTextPlugin('styles.css'),
+      new ExtractTextPlugin('styles.css', {allChunks: true}),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': JSON.stringify('production'),
@@ -48,7 +48,6 @@ module.exports = [
     name: 'server',
     debug: true,
     devtool: 'source-map',
-    cache: true,
     entry: path.resolve(ROOT_PATH, 'src/server/server.js'),
     target: 'node',
     node: {
@@ -80,10 +79,10 @@ module.exports = [
     module: {
       loaders: commonLoaders.concat([{
         test: /\.css$/,
-        loader: 'null-loader',
+        loader: 'css/locals',
       }, {
         test: /\.scss$/,
-        loader: 'null-loader',
+        loader: 'css/locals?importLoaders=1!postcss!sass?' + shared.sassPaths,
       }, {
         test: /\.jsx?$/,
         loaders: ['babel?stage=0&optional=runtime'],

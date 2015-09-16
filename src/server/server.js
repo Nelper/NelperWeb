@@ -35,13 +35,14 @@ app.use((req, res, next) => {
   function renderPage(messages, locale) {
     const location = createLocation(req.url);
     match({routes: getRoutes(), location}, (error, redirectLocation, renderProps) => {
+      console.log(1);
       if (redirectLocation) {
         return res.redirect(redirectLocation.pathname + redirectLocation.search);
       }
       if (error) {
         return next(error);
       }
-
+      console.log(2);
       const html = ReactDOMServer.renderToString(
         <RoutingContext createElement={(Component, props) => {
           return (
@@ -50,6 +51,7 @@ app.use((req, res, next) => {
         }} {...renderProps} />
       );
       alt.flush();
+      console.log(3);
       return res.send(template.replace('{content}', html));
     });
   }
@@ -58,7 +60,7 @@ app.use((req, res, next) => {
     IntlUtils.init(locale).then((messages) => {
       renderPage(messages, locale);
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error(err.stack));
   }
 
   function getReqLang() {
