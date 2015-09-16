@@ -56,9 +56,11 @@ export default class Dialog extends Component {
   componentWillUnmount() {
     if (this.state.opened) {
       this._close();
-      React.unmountComponentAtNode(this._dialogNode);
       this._dialogNode.className = '';
     }
+
+    ReactDOM.unmountComponentAtNode(this._dialogNode);
+
     clearTimeout(this._openingTimeout);
     clearTimeout(this._closingTimeout);
     this._dialogNode = null;
@@ -117,6 +119,10 @@ export default class Dialog extends Component {
       {'opened': this.state.opened},
       {'closing': this.state.closing},
     );
+
+    if (!this.state.opened) {
+      return;
+    }
 
     ReactDOM.unstable_renderSubtreeIntoContainer(
       this,
