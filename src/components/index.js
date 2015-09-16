@@ -8,6 +8,7 @@ export IconButton from './IconButton';
 export MapView from './MapView';
 export NavBar from './NavBar';
 export NumericInput from './NumericInput';
+export PriceTag from './PriceTag';
 export Progress from './Progress';
 export Rating from './Rating';
 export TaskPictureSlider from './TaskPictureSlider';

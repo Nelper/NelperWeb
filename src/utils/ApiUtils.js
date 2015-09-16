@@ -118,6 +118,11 @@ class ApiUtils {
       });
   }
 
+  /**
+   * Changes the saved user language.
+   * @param  {string} lang The language, one of 'fr' or 'en'
+   * @return {Promise}     Done saving
+   */
   changeLanguage(lang) {
     const privateData = Parse.User.current().get('privateData');
     privateData.set('language', lang);

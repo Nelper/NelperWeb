@@ -6,8 +6,13 @@ export default class Dialog extends Component {
 
   static propTypes = {
     opened: PropTypes.bool,
+    fill: PropTypes.bool,
     onClose: PropTypes.func,
     children: PropTypes.node,
+  }
+
+  static defaultProps = {
+    fill: false,
   }
 
   state = {
@@ -126,7 +131,7 @@ export default class Dialog extends Component {
 
     ReactDOM.unstable_renderSubtreeIntoContainer(
       this,
-      <div className="content">
+      <div className={classNames('content', {'fill': this.props.fill})}>
         {this.props.children}
       </div>,
       this._dialogNode

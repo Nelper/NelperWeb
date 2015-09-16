@@ -72,6 +72,8 @@ export default {
     price: "Price",
     distance: "Distance",
     date: "Creation date",
+
+    myOffer: "My offer",
   },
 
   nelpcenter: {

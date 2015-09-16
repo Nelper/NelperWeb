@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import cssModules from 'react-css-modules';
-import {FormattedMessage, FormattedRelative} from 'react-intl';
+import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 
-import Dialog from 'components/Dialog';
-import NumericInput from 'components/NumericInput';
+import MakeOfferDialogView from './MakeOfferDialogView';
 import TaskPictureSlider from 'components/TaskPictureSlider';
 import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
@@ -18,7 +17,7 @@ export default class BrowseTasksListView extends Component {
   static propTypes = {
     tasks: PropTypes.array.isRequired,
     onTaskSelected: PropTypes.func,
-    onApply: PropTypes.func,
+    onMakeOffer: PropTypes.func,
     onCancelApply: PropTypes.func,
     onLoadMore: PropTypes.func,
     isLoading: PropTypes.bool,
@@ -26,7 +25,7 @@ export default class BrowseTasksListView extends Component {
 
   static defaultProps = {
     onTaskSelected: () => {},
-    onApply: () => {},
+    onMakeOffer: () => {},
     onCancelApply: () => {},
     onLoadMore: () => {},
     isLoading: false,
@@ -35,7 +34,6 @@ export default class BrowseTasksListView extends Component {
   state = {
     selectedTask: null,
     makeOfferDialogOpened: false,
-    makeOfferValue: 0,
     makeOfferTask: null,
   }
 
@@ -58,10 +56,6 @@ export default class BrowseTasksListView extends Component {
     }
   }
 
-  _onMakeOfferValueChange(value) {
-    this.setState({makeOfferValue: value});
-  }
-
   _shouldLoadMore(ele, offset = 0) {
     const rect = ele.getBoundingClientRect();
     return rect.bottom <= window.innerHeight + offset;
@@ -82,7 +76,6 @@ export default class BrowseTasksListView extends Component {
   _onMakeOffer(task) {
     this.setState({
       makeOfferDialogOpened: true,
-      makeOfferValue: task.priceOffered,
       makeOfferTask: task,
     });
   }
@@ -94,8 +87,8 @@ export default class BrowseTasksListView extends Component {
     });
   }
 
-  _onMakeOfferConfirm() {
-    this.props.onApply(this.state.makeOfferTask, this.state.makeOfferValue);
+  _onMakeOfferConfirm(value) {
+    this.props.onMakeOffer(this.state.makeOfferTask, value);
     this.setState({
       makeOfferDialogOpened: false,
       makeOfferTask: null,
@@ -116,16 +109,6 @@ export default class BrowseTasksListView extends Component {
 
       return (
         <div key={t.objectId} styleName={t === this.state.selectedTask ? 'task' : 'task-collapsed'}>
-          <Dialog opened={this.state.makeOfferDialogOpened}>
-            <h2>Make an offer</h2>
-            <div className="dialog-content">
-              <NumericInput value={this.state.makeOfferValue} onChange={::this._onMakeOfferValueChange} />
-            </div>
-            <div className="btn-group dialog-buttons">
-              <button onClick={::this._onMakeOfferCancel}>Cancel</button>
-              <button onClick={::this._onMakeOfferConfirm} className="primary">Apply</button>
-            </div>
-          </Dialog>
           <div styleName="header" onClick={() => this._taskDetail(t)}>
             <div styleName="content">
               <div styleName="user-picture" style={{backgroundImage: `url('${t.user.pictureURL}')`}}>
@@ -157,7 +140,7 @@ export default class BrowseTasksListView extends Component {
                     }
                   </div>
                   <div styleName="price">
-                    {'$' + t.priceOffered}
+                    <FormattedNumber value={t.priceOffered} format="priceTag" />
                   </div>
                 </div>
               </div>
@@ -196,6 +179,12 @@ export default class BrowseTasksListView extends Component {
 
     return (
       <div styleName="module" ref="displayedTasks">
+        <MakeOfferDialogView
+          opened={this.state.makeOfferDialogOpened}
+          task={this.state.makeOfferTask}
+          onMakeOffer={::this._onMakeOfferConfirm}
+          onClose={::this._onMakeOfferCancel}
+        />
         {
           !displayedTasks.length ?
           <div styleName="no-task"><FormattedMessage id="browse.noTask"/></div> :

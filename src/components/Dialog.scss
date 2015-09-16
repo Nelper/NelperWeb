@@ -36,16 +36,24 @@
     flex-direction: column;
     background-color: $color-background-light;
     min-height: em(200px);
+    max-height: 95%;
     padding: 1em;
     max-width: $max-width;
     margin: 1rem;
     border: $base-border;
+
+    overflow-x: hidden;
+    overflow-y: auto;
 
     transition: transform 250ms ease-in-out;
     transform: translateY(100px);
 
     @include media($medium-screen) {
       max-width: $max-width - 8em;
+
+      &.fill {
+        width: 100%;
+      }
     }
 
     .dialog-content {

@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {FormattedMessage, FormattedRelative} from 'react-intl';
+import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 import Slider from 'react-slick';
 import connectToStores from 'alt/utils/connectToStores';
 
@@ -271,7 +271,9 @@ export default class TaskDetailHandler extends Component {
                   </div>
                 </div>
                 <div className="detail-row">
-                  <div className="price">${task.priceOffered}</div>
+                  <div className="price">
+                    <FormattedNumber value={task.priceOffered} format="priceTag" />
+                  </div>
                 </div>
                 <div className="detail-row">
                   <div className="detail-icon calendar" />

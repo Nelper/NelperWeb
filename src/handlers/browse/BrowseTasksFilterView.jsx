@@ -222,6 +222,8 @@ export default class BrowseTasksFilterView extends Component {
               <div styleName="input">
                 <NumericInput
                   step={1}
+                  unit="km"
+                  max={99999}
                   disabled={!maxDistanceActive}
                   value={this.state.maxDistance}
                   onChange={::this._onMaxDistanceChange}
@@ -241,6 +243,8 @@ export default class BrowseTasksFilterView extends Component {
               </div>
               <div styleName="input">
                 <NumericInput
+                  unit="$"
+                  max={999}
                   disabled={!minPriceActive}
                   value={this.state.minPrice}
                   onChange={::this._onMinPriceChange}

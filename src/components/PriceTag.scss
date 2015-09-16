@@ -1,0 +1,5 @@
+@import 'styles/base-module';
+
+:local .price-tag {
+  @include price-tag-module();
+}

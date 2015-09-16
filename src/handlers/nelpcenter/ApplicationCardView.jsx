@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {FormattedMessage, FormattedRelative} from 'react-intl';
+import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';
 import UserStore from 'stores/UserStore';
@@ -55,7 +55,7 @@ export default class TaskCardView extends Component {
             <div className="status-icon" style={{backgroundImage: `url('${statusIcon}')`}} />
             <div className="text status-text">{statusText}</div>
             <div className="price">
-              {'$' + application.price}
+              <FormattedNumber value={application.price} format="priceTag" />
             </div>
           </div>
           <div className="info-row calendar">

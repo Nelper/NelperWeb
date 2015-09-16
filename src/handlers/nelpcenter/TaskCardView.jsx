@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {FormattedMessage, FormattedRelative} from 'react-intl';
+import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';
 
@@ -82,7 +82,7 @@ export default class TaskCardView extends Component {
             {this._renderStatus()}
             {this._renderApplicants()}
             <div className="price">
-              {'$' + task.priceOffered}
+              <FormattedNumber value={task.priceOffered} format="priceTag" />
             </div>
           </div>
           <div className="calendar-row">

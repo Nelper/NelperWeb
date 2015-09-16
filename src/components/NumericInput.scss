@@ -1,4 +1,6 @@
-.numeric-input-component {
+@import 'styles/base-module';
+
+:local .numeric-input {
   display: flex;
   border: solid 1px $color-primary;
 
@@ -14,15 +16,22 @@
   .input-container {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex: 1;
   }
 
-  input {
+  .input {
     @include appearance(textfield);
     height: 100%;
     margin: 0;
+    padding: 0;
     border: 0;
     text-align: center;
+  }
+
+  .unit {
+    margin-left: 0.25rem;
+    line-height: normal;
   }
 
   input::-webkit-outer-spin-button,

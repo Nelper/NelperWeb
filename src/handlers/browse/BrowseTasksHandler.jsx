@@ -105,7 +105,7 @@ export default class BrowseTasksHandler extends Component {
     }
   }
 
-  _onApply(task, price) {
+  _onMakeOffer(task, price) {
     // Make sure the user is logged to apply on a task.
     if (!UserStore.isLogged()) {
       this.context.history.pushState({nextPathname: '/nelp'}, '/login');
@@ -212,7 +212,7 @@ export default class BrowseTasksHandler extends Component {
               <NelpTaskListView
                 tasks={filteredTasks}
                 onTaskSelected={::this._onTaskSelected}
-                onApply={::this._onApply}
+                onMakeOffer={::this._onMakeOffer}
                 onCancelApply={::this._onCancelApply}
                 onLoadMore={::this._onLoadMore}
                 isLoading={this.state.isLoadingMore}
