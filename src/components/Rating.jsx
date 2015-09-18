@@ -1,8 +1,12 @@
 import React, {Component, PropTypes} from 'react';
+import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 
 import Icon from './Icon';
 
+import styles from './Rating.scss';
+
+@cssModules(styles, {allowMultiple: true})
 export default class Rating extends Component {
 
   static propTypes = {
@@ -22,13 +26,13 @@ export default class Rating extends Component {
       items.push(
         <Icon
           svg={require('images/icons/star.svg')}
-          className={classNames('rating-item', {'active': i < this.props.rating})}
+          styleName={classNames('rating-item', {'active': i < this.props.rating})}
           key={i} />
       );
     }
 
     return (
-      <div className={classNames(
+      <div styleName={classNames(
         'rating',
         {'dark': this.props.dark},
         {'small': this.props.small},

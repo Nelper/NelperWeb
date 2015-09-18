@@ -3,11 +3,8 @@ import {FormattedMessage, FormattedHTMLMessage, FormattedRelative, FormattedNumb
 import connectToStores from 'alt/utils/connectToStores';
 import classNames from 'classnames';
 
-import Progress from 'components/Progress';
-import MapView from 'components/MapView';
-import IconButton from 'components/IconButton';
-import Dialog from 'components/Dialog';
-import TaskPictureSlider from 'components/TaskPictureSlider';
+import {Progress, Dialog, IconButton, MapView, TaskPictureSlider} from 'components/index';
+import ChatDialogView from './ChatDialogView';
 import TaskProgress from './TaskProgress';
 import ApplicationActions from 'actions/ApplicationActions';
 import ChatActions from 'actions/ChatActions';
@@ -54,16 +51,24 @@ export default class ApplicationDetailHandler extends Component {
   }
 
   state = {
+    showChatDialog: false,
     showProgressHelpDialog: false,
   }
 
   componentDidMount() {
     this._getTaskPosterInfo();
-    ChatActions.init();
   }
 
   componentDidUpdate() {
     this._getTaskPosterInfo();
+  }
+
+  _onChatDialogOpen() {
+    this.setState({showChatDialog: true});
+  }
+
+  _onChatDialogClose() {
+    this.setState({showChatDialog: false});
   }
 
   _onShowProgressHelp() {
@@ -108,6 +113,11 @@ export default class ApplicationDetailHandler extends Component {
 
     return (
       <div className="application-detail-handler container">
+        <ChatDialogView
+          user={task.user}
+          opened={this.state.showChatDialog}
+          onClose={::this._onChatDialogClose}
+        />
         <Dialog opened={this.state.showProgressHelpDialog} onClose={::this._onShowProgressHelpClose}>
           <div className="dialog-content">
             <FormattedHTMLMessage id="nelpcenter.applicationDetail.progressHelp" />
@@ -194,7 +204,7 @@ export default class ApplicationDetailHandler extends Component {
             </div>
             <div className="task-poster-chat">
               <div className="task-poster-chat-icon" />
-              <button className="border-btn primary task-poster-chat-btn">
+              <button className="border-btn primary task-poster-chat-btn" onClick={::this._onChatDialogOpen}>
                 <FormattedMessage id="nelpcenter.applicationDetail.chat" />
               </button>
             </div>

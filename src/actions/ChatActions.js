@@ -6,17 +6,25 @@ class ChatActions {
   constructor() {
     this.generateActions(
       'ready',
-      'receivedMessages'
+      'receivedMessages',
+      'receivedMessage',
     );
   }
 
   init() {
-    LayerUtils.init().then(() => this.actions.ready);
+    LayerUtils.init().then(() => this.actions.ready());
+    LayerUtils.setOnMessageListener((m) => {
+      this.actions.receivedMessage(m);
+    });
   }
 
-  listMessages(convoUrl) {
-    LayerUtils.getMessages(convoUrl)
-      .then(messages => this.actions.receivedMessages(messages));
+  listMessages(user) {
+    LayerUtils.getMessages(user)
+      .then(messages => this.actions.receivedMessages({user, messages}));
+  }
+
+  sendMessage(user, message) {
+    LayerUtils.sendMessage(user, message);
   }
 }
 

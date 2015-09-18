@@ -3,7 +3,8 @@ import {FormattedDate} from 'react-intl';
 import connectToStores from 'alt/utils/connectToStores';
 import cssModules from 'react-css-modules';
 
-import {Progress, Rating} from 'components/index';
+import {Progress, Rating, PriceTag} from 'components/index';
+import ChatDialogView from './ChatDialogView';
 import TaskActions from 'actions/TaskActions';
 import TaskStore from 'stores/TaskStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
@@ -52,6 +53,18 @@ export default class TaskApplicationDetailHandler extends Component {
       isLoading: false,
       application,
     };
+  }
+
+  state = {
+    showChatDialog: false,
+  }
+
+  _onOpenChat() {
+    this.setState({showChatDialog: true});
+  }
+
+  _onCloseChat() {
+    this.setState({showChatDialog: false});
   }
 
   render() {
@@ -116,17 +129,32 @@ export default class TaskApplicationDetailHandler extends Component {
 
     return (
       <div styleName="module" className="container">
-        <div className="header-panel" styleName="profile-header" >
-          <div
-            styleName="picture"
-            style={{backgroundImage: `url('${user.pictureURL}')`}}
-          />
-          <div styleName="info-container">
-            <div styleName="user-name">
-              {user.name}
+        <ChatDialogView
+          user={user}
+          opened={this.state.showChatDialog}
+          onClose={::this._onCloseChat}
+        />
+        <div className="header-panel" styleName="header" >
+          <div styleName="header-profile">
+            <div
+              styleName="picture"
+              style={{backgroundImage: `url('${user.pictureURL}')`}}
+            />
+            <div styleName="info-container">
+              <div styleName="user-name">
+                {user.name}
+              </div>
+              <Rating rating={user.rating} />
+              <div styleName="tasks-completed">8 tasks completed</div>
             </div>
-            <Rating rating={user.rating} />
-            <div styleName="tasks-completed">8 tasks completed</div>
+          </div>
+          <div styleName="header-asking-for">
+            Asking for
+            <PriceTag inverse price={application.price} />
+          </div>
+          <div styleName="chat">
+            <div styleName="chat-icon" />
+            <button className="border-btn inverse" onClick={::this._onOpenChat}>Open Chat</button>
           </div>
         </div>
         <div styleName="section-row" className="panel pad-all">

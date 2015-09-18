@@ -1,5 +1,13 @@
 @import 'styles/base-module';
 
-:local .price-tag {
-  @include price-tag-module();
+:local {
+  .price-tag {
+    @include price-tag-module();
+  }
+
+  .price-tag-inverse {
+    @include price-tag-module();
+    background-image: url('images/icons/money-white.png');
+    color: $color-accepted;
+  }
 }

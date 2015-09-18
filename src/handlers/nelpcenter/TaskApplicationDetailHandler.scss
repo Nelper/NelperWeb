@@ -4,13 +4,34 @@
 
   $picture-size: 120px;
 
-  .profile-header {
+  .header {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
     background-color: $color-accepted;
     color: $text-light;
+  }
+
+  .header-profile {
+    display: flex;
+  }
+
+  .header-asking-for {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chat {
+    display: flex;
+  }
+
+  .chat-icon {
+    @include image(3rem);
+    margin-right: 1rem;
+    background-image: url('images/icons/chat.png');
   }
 
   .info-container {

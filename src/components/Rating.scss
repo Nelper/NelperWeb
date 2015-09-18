@@ -1,11 +1,16 @@
-.rating {
+@import 'styles/base-module';
+
+:local .rating {
   display: flex;
 
   .rating-item {
-    width: em(28px);
-    height: em(28px);
-    margin: 0.1em;
+    width: em(22px);
+    height: em(22px);
     fill: rgba(255, 255, 255, 0.3);
+
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
 
     &.active {
       fill: rgba(255, 255, 255, 0.9);
