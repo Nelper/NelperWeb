@@ -106,7 +106,7 @@ export default {
       completed: "I have completed the task!",
       progressHelp: `
       <h2>How does the payment & task completion process work as a Nelper?</h2>
-      <p>All the actions are done here. Here are the 4 simple steps :</p>
+      <p>All the actions are done here :</p>
       <ol>
         <li>
           The Task Poster sends the funds via [NelperPay] where they will be securely
@@ -120,7 +120,7 @@ export default {
           Once the task has been completed, click on <em>I have completed the task</em>.
         </li>
         <li>
-          The Task Poster confirms that the task has been completed and the funds are released for you.
+          The Task Poster confirms that the task has been completed and the funds are released to you.
         </li>
       </ol>
       `,
@@ -145,10 +145,10 @@ export default {
       progressRating: "Rating & Feedback",
       progressHelp: `
       <h2>How does the payment & task completion process work as a Task Poster?</h2>
-      <p>All the actions are done here. Here are the 4 simple steps :</p>
+      <p>All the actions are done here :</p>
       <ol>
         <li>
-          Click on <em>Proceed to Payment</em>. Once you send the payment, funds will be securely held via [NelperPay] until your task has been completed.
+          Click on <em>Proceed to Payment</em>. Once the payment is sent, the funds will be securely held via [NelperPay] until your task has been completed.
         </li>
         <li>
           Your Nelper completes your task.
