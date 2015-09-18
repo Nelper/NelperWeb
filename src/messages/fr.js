@@ -32,32 +32,32 @@ export default {
   },
 
   home: {
-    topSectionTitle: "Your task completion marketplace",
-    topSectionDesc: "With Nelper, connect with people around you and get your tasks completed or complete other people's tasks.",
+    topSectionTitle: "Votre marché en ligne d’échange de services",
+    topSectionDesc: "Avec Nelper, entrez en contact avec votre communauté et faites compléter vos tâches ou complétez celles des autres.",
 
-    browseTitle: "Browse Tasks",
-    browseDesc: "Browse & find tasks to complete.",
-    nelpcenterTitle: "Nelp Center",
-    nelpcenterDesc: "Manage your tasks and applications.",
-    postTitle: "Post a Task",
-    postDesc: "Find a Nelper to complete your task.",
+    browseTitle: "Parcourir les tâches",
+    browseDesc: "Appliquez pour compéter des tâches.",
+    nelpcenterTitle: "Centre Nelp",
+    nelpcenterDesc: "Gérez vos tâches et applications.",
+    postTitle: "Publier une tâche",
+    postDesc: "Trouvez un Nelper pour faire compléter votre tâche.",
 
-    getCompletedTitle: "Get your tasks completed",
-    getCompletedDesc: "There's someone in your neighborhood who can help.<br />Posting a task is <strong>free</strong>.",
-    getStarted: "Post a Task",
+    getCompletedTitle: "Faites compléter vos tâches",
+    getCompletedDesc: "Il y a des gens de votre communauté qui peuvent vous aider.<br />Publier une tâche est <strong>gratuit</strong>.",
+    getStarted: "Publier une tâche",
 
-    categoriesTitle: "Simple categories, multiple options",
-    categoriesDesc: "Anything can be completed on Nelper, from router installation to lawn mowing",
+    categoriesTitle: "Catégories simples, plusieurs options",
+    categoriesDesc: "N’importe quoi peut être complété sur Nelper, de la tonte de pelouse à l’installation d’un routeur.",
 
-    becomeNelperTitle: "Become a Nelper",
-    becomeNelperDesc: "Want to help people close to you and make money by completing tasks? Join the community now!",
-    browseTasks: "Browse Tasks",
+    becomeNelperTitle: "Devenez un Nelper",
+    becomeNelperDesc: "Vous souhaitez mettre à profit vos talents et faire de l’argent? Rejoignez la communauté dès maintenant et complétez les tâches publiées.",
+    browseTasks: "Parcourir les tâches",
 
     nelperpayTitle: "NelperPay",
-    nelperpayDesc: "Peace of mind for Task Posters and Nelpers.",
-    nelperpayFeature1: "No external accound needed.",
-    nelperpayFeature2: "No setup fees.",
-    nelperpayFeature3: "No trouble.",
+    nelperpayDesc: "Paix d’esprit pour les Nelpers et les publieurs de tâches",
+    nelperpayFeature1: "Aucun compte bancaire externe requis.",
+    nelperpayFeature2: "Aucun frais d’adhésion.",
+    nelperpayFeature3: "<strong>Aucun soucis.</strong>",
   },
 
   browse: {
