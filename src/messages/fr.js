@@ -155,7 +155,6 @@ export default {
           Le publieur de tâche confirme que vous avez bel et bien complété sa tâche et vous recevez votre paiement.
         </li>
       </ol>
-      <p><em>Toutes les étapes sont complétées sur cette page-ci</em></p>
       `,
 
       chat: "Discuter avec l'afficheur",
@@ -194,7 +193,6 @@ export default {
           Vous donnez une note & une critique à votre Nelper, en lien avec sa performance.
         </li>
       </ol>
-      <p><em>Toutes les étapes sont complétées sur cette page-ci</em></p>
       `,
     },
 
