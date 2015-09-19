@@ -138,12 +138,11 @@ export default {
       progressReleased: "Funds released",
       completed: "I have completed the task!",
       progressHelp: `
-      <h2>How does the payment & task completion process work as a Nelper?</h2>
-      <p>All the actions are done here :</p>
+      <h2>How does the payment & task completion process work?</h2>
       <ol>
         <li>
-          The Task Poster sends the funds via [NelperPay] where they will be securely
-          held until the task gets completed. This way, you can start working on the task
+          The Task Poster sends the payment via [NelperPay] where it will be securely
+          held until you complete the task. This way, you can start working on the task
           knowing the funds are held for you.
         </li>
         <li>
@@ -153,7 +152,7 @@ export default {
           Once the task has been completed, click on <em>I have completed the task</em>.
         </li>
         <li>
-          The Task Poster confirms that the task has been completed and the funds are released to you.
+          The Task Poster confirms that the task has been completed and you receive the payment.
         </li>
       </ol>
       `,
@@ -177,17 +176,16 @@ export default {
       progressApproved: "Approved Task Completion",
       progressRating: "Rating & Feedback",
       progressHelp: `
-      <h2>How does the payment & task completion process work as a Task Poster?</h2>
-      <p>All the actions are done here :</p>
+      <h2>How does the payment & task completion process work?</h2>
       <ol>
         <li>
-          Click on <em>Proceed to Payment</em>. Once the payment is sent, the funds will be securely held via [NelperPay] until your task has been completed.
+          Click on <em>Proceed to Payment</em>. Once the payment is sent, it will be securely held via [NelperPay] until your task gets completed.
         </li>
         <li>
           Your Nelper completes your task.
         </li>
         <li>
-          Once your task is completed, your Nelper requests payment. Click on <em>The Nelper completed my task</em> for your Nelper's funds to be released.
+          Once your task is completed, your Nelper will request the payment. Click on <em>The Nelper completed my task</em> and your Nelper's funds will be released.
         </li>
         <li>
           Rate and give feedback to your Nelper.
