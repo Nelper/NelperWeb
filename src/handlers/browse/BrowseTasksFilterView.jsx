@@ -7,6 +7,7 @@ import NumericInput from 'components/NumericInput';
 import Checkbox from 'components/Checkbox';
 import Icon from 'components/Icon';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+import {isInside} from 'utils/DomUtils';
 
 import styles from './BrowseTasksFilterView.scss';
 
@@ -77,17 +78,6 @@ export default class BrowseTasksFilterView extends Component {
   }
 
   _onDocumentClick(event) {
-    function isInside(node, target) {
-      let cur = target;
-      while (cur) {
-        if (cur === node) {
-          return true;
-        }
-        cur = cur.parentNode;
-      }
-      return false;
-    }
-
     if (!this.state.otherFiltersOpened || event.defaultPrevented) {
       return;
     }

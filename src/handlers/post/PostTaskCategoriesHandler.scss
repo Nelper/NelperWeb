@@ -1,4 +1,8 @@
-.post-task-categories-handler {
+@import 'styles/base-module';
+
+:local .module {
+
+  padding: 0 0.5rem;
 
   @include media($large-screen) {
     padding: 1rem 8rem;
@@ -26,7 +30,8 @@
 
     cursor: pointer;
     transition: all 250ms linear;
-    border-radius: 3px;
+    background-color: $color-background-light;
+    border: $base-border;
 
     @include media($medium-screen) {
       @include span-columns(6);
@@ -66,5 +71,16 @@
   .category-examples {
     text-align: center;
     font-size: 0.9em;
+  }
+
+  .other-row {
+    display: flex;
+    justify-content: center;
+  }
+
+  .other-icon {
+    @include image(5rem);
+    border-radius: 50%;
+    background-image: url('images/categories/other.png');
   }
 }

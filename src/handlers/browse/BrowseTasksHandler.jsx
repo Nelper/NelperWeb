@@ -47,7 +47,10 @@ export default class BrowseTasksHandler extends Component {
   componentDidMount() {
     if (__CLIENT__) {
       if (UserStore.state.user.location) {
-        BrowseActions.refreshTasks(Object.assign({}, this.state.filters, this.state.sort), UserStore.state.user.location);
+        BrowseActions.refreshTasks(
+          Object.assign({}, this.state.filters, this.state.sort),
+          UserStore.state.user.location,
+        );
       } else {
         BrowseActions.refreshTasks(Object.assign({}, this.state.filters, this.state.sort));
 

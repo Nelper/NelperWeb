@@ -1,49 +1,6 @@
-.nelp-center-handler {
+@import 'styles/base-module';
 
-  $picture-size: 100px;
-
-  .profile-header {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 1rem;
-    background-color: $color-primary;
-    color: $text-light;
-  }
-
-  .info-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    align-self: center;
-    flex: 1;
-    margin-left: 0.5rem;
-  }
-
-  .user-name {
-    font-size: 1.5em;
-    margin-bottom: 0.5rem;
-  }
-
-  .my-profile {
-    display: flex;
-  }
-
-  .my-profile-icon {
-    @include image(2.5rem);
-    margin-right: 0.5rem;
-    background-image: url('~images/icons/profile-white.png');
-  }
-
-  .picture {
-    height: rem($picture-size);
-    width: rem($picture-size);
-    border-radius: 50%;
-
-    border: solid 3px $color-background-light;
-    background-size: cover;
-    background-position: center;
-  }
+:local .module {
 
   .tab-bar {
     padding-top: 0.5rem;
@@ -53,17 +10,21 @@
   .tabs {
     display: flex;
     justify-content: center;
+    align-items: flex-end;
   }
 
   .tab {
     width: rem(176px);
-    margin: 0 2rem;
     padding: 0.5rem 0;
 
     font-size: 1.1em;
     text-align: center;
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
+
+    @include media($medium-screen) {
+      margin: 0 2rem;
+    }
 
     &:hover {
       color: $color-primary;

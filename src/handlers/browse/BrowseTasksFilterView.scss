@@ -13,8 +13,13 @@
   .category-filters {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     flex: 1;
-    margin-left: 1.5rem;
+
+    @include media($medium-screen) {
+      justify-content: flex-start;
+      margin-left: 1.5rem;
+    }
   }
 
   %category-icon {
@@ -53,7 +58,12 @@
 
   .other-filters {
     position: relative;
-    margin-right: 4.5rem;
+    margin-bottom: 0.5rem;
+
+    @include media($medium-screen) {
+      margin-right: 4.5rem;
+      margin-bottom: 0;
+    }
   }
 
   .other-filters-btn {

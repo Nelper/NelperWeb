@@ -20,13 +20,10 @@
 @import 'components/Breadcrumbs';
 @import 'components/TaskPictureSlider';
 
-@import 'handlers/post/PostTaskCategoriesHandler';
 @import 'handlers/post/AddLocationDialogView';
 
-@import 'handlers/nelpcenter/NelpCenterHandler';
 @import 'handlers/nelpcenter/TasksHandler';
 @import 'handlers/nelpcenter/ApplicationsHandler';
-@import 'handlers/nelpcenter/ApplicationDetailHandler';
 @import 'handlers/nelpcenter/TaskDetailHandler';
 @import 'handlers/nelpcenter/TaskCardView';
 @import 'handlers/nelpcenter/ApplicationCardView';

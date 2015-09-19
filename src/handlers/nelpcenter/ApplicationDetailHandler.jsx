@@ -1,20 +1,22 @@
 import React, {Component, PropTypes} from 'react';
+import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedHTMLMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 import connectToStores from 'alt/utils/connectToStores';
-import classNames from 'classnames';
 
 import {Progress, Dialog, IconButton, MapView, TaskPictureSlider} from 'components/index';
 import ChatDialogView from './ChatDialogView';
 import TaskProgress from './TaskProgress';
 import ApplicationActions from 'actions/ApplicationActions';
-import ChatActions from 'actions/ChatActions';
 import ApplicationStore from 'stores/ApplicationStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import DateUtils from 'utils/DateUtils';
 import {LatLng} from 'utils/GoogleMapsUtils';
 import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
+import styles from './ApplicationDetailHandler.scss';
+
 @connectToStores
+@cssModules(styles)
 export default class ApplicationDetailHandler extends Component {
 
   static propTypes = {
@@ -112,7 +114,7 @@ export default class ApplicationDetailHandler extends Component {
       <FormattedMessage id="common.pending" />;
 
     return (
-      <div className="application-detail-handler container">
+      <div styleName="module" className="container">
         <ChatDialogView
           user={task.user}
           opened={this.state.showChatDialog}
@@ -126,35 +128,35 @@ export default class ApplicationDetailHandler extends Component {
             <button onClick={::this._onShowProgressHelpClose}>Close</button>
           </div>
         </Dialog>
-        <div className="panel application-summary">
-          <div className="summary-item">
-            <div className="summary-item-title">
+        <div styleName="application-summary" className="panel">
+          <div styleName="summary-item">
+            <div styleName="summary-item-title">
               <FormattedMessage id="nelpcenter.applicationDetail.status" />
             </div>
-            <div className="summary-item-status">
-              <div className="summary-item-status-icon" style={{backgroundImage: `url('${statusIcon}')`}} />
-              <div className="summary-item-status-text">{statusText}</div>
+            <div styleName="summary-item-status">
+              <div styleName="summary-item-status-icon" style={{backgroundImage: `url('${statusIcon}')`}} />
+              <div>{statusText}</div>
             </div>
           </div>
-          <div className="summary-item">
-            <div className="summary-item-title">
+          <div styleName="summary-item">
+            <div styleName="summary-item-title">
               {
                 accepted ?
                 <FormattedMessage id="nelpcenter.applicationDetail.agreed" /> :
                 <FormattedMessage id="nelpcenter.applicationDetail.offer" />
               }
             </div>
-            <div className="summary-item-price">
+            <div styleName="summary-item-price">
               <FormattedNumber value={application.price} format="priceTag" />
             </div>
           </div>
-          <div className="summary-item">
-            <div className="summary-item-title">
+          <div styleName="summary-item">
+            <div styleName="summary-item-title">
               {accepted ? <FormattedMessage id="common.accepted" /> : <FormattedMessage id="common.applied" />}
             </div>
-            <div className="summary-item-applied">
-              <div className="summary-item-applied-icon" />
-              <div className="summary-item-applied-text">
+            <div styleName="summary-item-applied">
+              <div styleName="summary-item-applied-icon" />
+              <div>
                 {
                   accepted ?
                   <FormattedRelative value={application.acceptedAt || new Date()} /> :
@@ -166,9 +168,9 @@ export default class ApplicationDetailHandler extends Component {
         </div>
         {
           accepted ?
-          <div className="panel task-progress">
+          <div styleName="task-progress" className="panel">
             <IconButton
-              className="task-progress-help"
+              styleName="task-progress-help"
               icon={require('images/icons/help.svg')}
               onClick={::this._onShowProgressHelp}
             />
@@ -178,49 +180,49 @@ export default class ApplicationDetailHandler extends Component {
               {title: <FormattedMessage id="nelpcenter.applicationDetail.progressPayment" />},
               {title: <FormattedMessage id="nelpcenter.applicationDetail.progressReleased" />},
             ]} />
-            <div className="task-progress-btn-container">
-              <button className="primary task-progress-completed-btn">
+            <div styleName="task-progress-btn-container">
+              <button styleName="task-progress-completed-btn" className="primary">
                 <FormattedMessage id="nelpcenter.applicationDetail.completed" />
               </button>
             </div>
           </div> :
           null
         }
-        <div className="panel task-poster-section">
-          <div className="task-poster-profile-row">
-            <div className="task-poster-profile">
+        <div styleName="task-poster-section" className="panel">
+          <div styleName="task-poster-profile-row">
+            <div styleName="task-poster-profile">
               <div
-                className="task-poster-picture"
+                styleName="task-poster-picture"
                 style={{backgroundImage: `url('${task.user.pictureURL}')`}}
               >
-                <div className="task-poster-picture-overlay">
-                  <div className="task-poster-picture-icon" />
-                  <div className="task-poster-picture-text">
+                <div styleName="task-poster-picture-overlay">
+                  <div styleName="task-poster-picture-icon" />
+                  <div styleName="task-poster-picture-text">
                     <FormattedMessage id="common.viewProfile" />
                   </div>
                 </div>
               </div>
-              <div className="task-poster-name">{task.user.name}</div>
+              <div styleName="task-poster-name">{task.user.name}</div>
             </div>
-            <div className="task-poster-chat">
-              <div className="task-poster-chat-icon" />
-              <button className="border-btn primary task-poster-chat-btn" onClick={::this._onChatDialogOpen}>
+            <div styleName="task-poster-chat">
+              <div styleName="task-poster-chat-icon" />
+              <button styleName="task-poster-chat-btn" className="border-btn primary" onClick={::this._onChatDialogOpen}>
                 <FormattedMessage id="nelpcenter.applicationDetail.chat" />
               </button>
             </div>
           </div>
           {
             accepted ?
-            <div className="task-poster-contact">
-              <div className="task-poster-contact-email">
-                <div className="task-poster-contact-email-icon" />
-                <div className="task-poster-contact-email-text">
+            <div styleName="task-poster-contact">
+              <div styleName="task-poster-contact-email">
+                <div styleName="task-poster-contact-email-icon" />
+                <div>
                   {task.email}
                 </div>
               </div>
-              <div className="task-poster-contact-phone">
-                <div className="task-poster-contact-phone-icon" />
-                <div className="task-poster-contact-phone-text">
+              <div styleName="task-poster-contact-phone">
+                <div styleName="task-poster-contact-phone-icon" />
+                <div>
                   {task.phone}
                 </div>
               </div>
@@ -228,56 +230,56 @@ export default class ApplicationDetailHandler extends Component {
             null
           }
         </div>
-        <div className="panel task-info-section">
-          <div className="task-info-title-row">
+        <div styleName="task-info-section" className="panel">
+          <div styleName="task-info-title-row">
             <div
-              className="task-info-category-icon"
+              styleName="task-info-category-icon"
               style={{backgroundImage: `url(${TaskCategoryUtils.getImage(task.category)})`}}
             />
-            <div className="task-info-title">{task.title}</div>
+            <div styleName="task-info-title">{task.title}</div>
           </div>
-          <div className="task-info-other-row">
-            <div className={classNames('task-info-main-col', {'has-pictures': hasPictures})}>
-              <div className="task-info-desc">
+          <div styleName="task-info-other-row">
+            <div styleName={hasPictures ? 'main-col-has-pictures' : 'main-col'}>
+              <div styleName="task-info-desc">
                 {task.desc}
               </div>
               {
                 accepted ?
                 <div>
-                  <div className="task-info-exact-location">
-                    <div className="task-info-exact-location-icon" />
-                    <div className="task-info-exact-location-text">
+                  <div styleName="task-info-exact-location">
+                    <div styleName="task-info-exact-location-icon" />
+                    <div>
                       {task.exactLocation && task.exactLocation.address.replace(',', '\n').replace(',', '\n')}
                     </div>
                   </div>
                 </div> :
                 <div>
-                  <div className="task-info-calendar-row">
-                    <div className="task-info-calendar">
-                      <div className="task-info-calendar-icon" />
-                      <div className="task-info-calendar-text">
-                        <div className="task-info-calendar-posted">
+                  <div styleName="task-info-calendar-row">
+                    <div styleName="task-info-calendar">
+                      <div styleName="task-info-calendar-icon" />
+                      <div styleName="task-info-calendar-text">
+                        <div>
                           <FormattedMessage id="common.postedRelative" values={{
                             formattedAgo: <FormattedRelative value={task.createdAt} />,
                           }}/>
                         </div>
-                        <div className="task-info-calendar-expires">
+                        <div>
                           <FormattedMessage id="common.expiresRelative" values={{
                             formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} />,
                           }}/>
                         </div>
                       </div>
                     </div>
-                    <div className="task-info-location">
-                      <div className="task-info-location-icon" />
-                      <div className="task-info-location-text">{task.city}</div>
+                    <div styleName="task-info-location">
+                      <div styleName="task-info-location-icon" />
+                      <div>{task.city}</div>
                     </div>
                   </div>
-                  <div className="task-info-price-row">
-                    <div className="task-info-price-text">
+                  <div styleName="task-info-price-row">
+                    <div styleName="task-info-price-text">
                       <FormattedMessage id="nelpcenter.applicationDetail.offering" />
                     </div>
-                    <div className="task-info-price">
+                    <div styleName="task-info-price">
                       <FormattedNumber value={task.priceOffered} format="priceTag" />
                     </div>
                   </div>
@@ -286,15 +288,13 @@ export default class ApplicationDetailHandler extends Component {
             </div>
               {
                 hasPictures ?
-                <div className="task-info-image-col">
-                  <div className="task-info-pictures">
-                    <TaskPictureSlider task={task} />
-                  </div>
+                <div styleName="task-info-image-col">
+                  <TaskPictureSlider task={task} />
                 </div> :
                 null
               }
           </div>
-          <div className="map-message">
+          <div styleName="map-message">
             {
               accepted ?
               <FormattedMessage id="nelpcenter.applicationDetail.locationShown" /> :
@@ -302,7 +302,7 @@ export default class ApplicationDetailHandler extends Component {
             }
           </div>
         </div>
-        <div className="task-info-map panel">
+        <div styleName="task-info-map" className="panel">
           <MapView
             initialCenter={new LatLng(task.location)}
             markers={[{
@@ -312,7 +312,7 @@ export default class ApplicationDetailHandler extends Component {
         </div>
         {
           !accepted ?
-          <div className="cancel-button-container">
+          <div styleName="cancel-button-container">
             <button className="white-button">
               <FormattedMessage id="common.cancelApply" />
             </button>

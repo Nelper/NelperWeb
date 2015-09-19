@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
+import cssModules from 'react-css-modules';
+import {FormattedMessage} from 'react-intl';
 
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
+import styles from './PostTaskCategoriesHandler.scss';
+
+@cssModules(styles)
 export default class PostTaskCategoriesHandler extends Component {
 
   static contextTypes = {
@@ -17,27 +22,27 @@ export default class PostTaskCategoriesHandler extends Component {
     .filter(c => c !== 'other') // We will add the 'other' category manually.
     .map(c => {
       return (
-        <div key={c} className="category" onClick={() => this._onSelectCategory(c)}>
-          <div className="category-icon" style={{
+        <div key={c} styleName="category" onClick={() => this._onSelectCategory(c)}>
+          <div styleName="category-icon" style={{
             backgroundImage: `url('${TaskCategoryUtils.getImage(c)}')`,
           }} />
-          <div className="category-title">
-            {TaskCategoryUtils.getName(c)}
+          <div styleName="category-title">
+            <FormattedMessage id={`categories.${c}.name`} />
           </div>
-          <div className="category-examples">
-            {TaskCategoryUtils.getExamples(c)} and more!
+          <div styleName="category-examples">
+            <FormattedMessage id={`categories.${c}.examples`} />
           </div>
         </div>
       );
     });
 
     return (
-      <div className="post-task-categories-handler container pad-all">
-        <h2 className="title">Select your Task Category</h2>
-        <div className="category-picker">{categories}</div>
-        <div className="other-row">
-          <div className="category" onClick={() => this._selectCategory('other')}>
-            <div className="other-icon" />
+      <div styleName="module" className="container">
+        <h2 styleName="title"><FormattedMessage id="post.selectCategory" /></h2>
+        <div styleName="category-picker">{categories}</div>
+        <div styleName="other-row">
+          <div styleName="category" onClick={() => this._onSelectCategory('other')}>
+            <div styleName="other-icon" />
           </div>
         </div>
       </div>

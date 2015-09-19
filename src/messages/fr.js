@@ -14,7 +14,40 @@ export default {
 
     warning: "Attention!",
     cancel: "Annuler",
+    add: "Ajouter",
     delete: "Supprimer",
+
+    browse: "Parcourir...",
+  },
+
+  categories: {
+    technology: {
+      name: "Support informatique & électronique",
+      examples: "Réparation d’ordinateur, Support pour e-mail, Installation de routeur & imprimante, Support pour tablettes & téléphones intelligents, Installation de télévision, et plus!",
+    },
+    business: {
+      name: "Affaires & Administration",
+      examples: "Comptabilité, Organisation de fichiers, Rédaction de CV & lettres professionnelles, Stratégies de publicité, Médias sociaux, Saisie de données, et plus!",
+    },
+    multimedia: {
+      name: "Multimédia & Conception graphique",
+      examples: "Développement de site web, Montage vidéo, Services de photographie & d’imprimerie, Conception graphique, Production musicale, Création de logo, et plus!",
+    },
+    gardening: {
+      name: "Jardinage",
+      examples: "Entretien floral & du potager, Aménagement paysager, Tonte de pelouse, Ratissage de feuilles, Contrôle antiparasitaire, Taillage d’arbres & haies, et plus!",
+    },
+    handywork: {
+      name: "Travail manuel",
+      examples: "Assemblage de meubles, Menuiserie, Travail électrique, Peinture, Plomberie, Toiture, Réparation d’électroménagers, Pose de plancher, et plus!",
+    },
+    housecleaning: {
+      name: "Nettoyage",
+      examples: "Ménage de maison, Lessive & service de nettoyage, Enlèvement de déchets, Entretien de piscine & spa, Nettoyage de gouttières, Lavage de voiture, et plus!",
+    },
+    other: {
+      name: "Autre",
+    },
   },
 
   routes: {
@@ -171,5 +204,16 @@ export default {
 
       chat: "Discuter avec votre Nelper",
     },
+  },
+
+  post: {
+    selectCategory: "Sélectionnez une catégorie",
+    changeCategory: "Sélectionner une autre catégorie",
+    taskTitle: "Entrez le titre de votre tâche",
+    taskDescription: "Décrivez brièvement ce que vous avez besoin",
+    taskOffer: "Combien offrez-vous?",
+    taskLocation: "Choississez votre emplacement",
+    taskPictures: "Ajouter des photos",
+    post: "Créer la tâche!",
   },
 };

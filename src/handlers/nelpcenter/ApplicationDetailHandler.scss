@@ -1,4 +1,6 @@
-.application-detail-handler {
+@import 'styles/base-module';
+
+:local .module {
 
   /**
    * First panel: Application Summary.
@@ -6,10 +8,12 @@
 
   .application-summary {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     padding: 1rem;
 
     @include media($medium-screen) {
+      flex-direction: row;
+      justify-content: space-between;
       padding: 1rem 6rem;
     }
   }
@@ -17,7 +21,15 @@
   .summary-item {
     display: flex;
     flex-direction: column;
-    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    @include media($medium-screen) {
+      align-items: center;
+      margin-bottom: 0;
+    }
   }
 
   .summary-item-title {
@@ -34,11 +46,11 @@
   .summary-item-status-icon {
     @include image(2rem);
     margin-right: 1rem;
-    background-image: url('~images/icons/state-pending.png');
+    background-image: url('images/icons/state-pending.png');
   }
 
   .summary-item-price {
-    @include price-tag();
+    @include price-tag-module();
     margin-top: rem(-5px);
     transform: scale(0.9);
   }
@@ -51,7 +63,7 @@
   .summary-item-applied-icon {
     @include image(2rem);
     margin-right: 1rem;
-    background-image: url('~images/icons/calendar.png');
+    background-image: url('images/icons/calendar.png');
   }
 
   /**
@@ -100,14 +112,24 @@
 
   .task-poster-profile-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+
+    @include media($medium-screen) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   .task-poster-profile {
     display: flex;
     align-items: center;
     cursor: pointer;
+    margin-bottom: 1rem;
+
+    @include media($medium-screen) {
+      margin-bottom: 0;
+    }
 
     &:hover {
       .task-poster-picture-overlay {
@@ -141,7 +163,7 @@
 
   .task-poster-picture-icon {
     @include image(2.5rem);
-    background-image: url('~images/icons/profile-white.png');
+    background-image: url('images/icons/profile-white.png');
   }
 
   .task-poster-picture-text {
@@ -161,7 +183,7 @@
   .task-poster-chat-icon {
     @include image(2.5rem);
     margin-right: 1rem;
-    background-image: url('~images/icons/chat-red.png');
+    background-image: url('images/icons/chat-red.png');
   }
 
   .task-poster-chat-btn {
@@ -170,20 +192,32 @@
 
   .task-poster-contact {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-    margin-top: 3rem;
-    padding: 3rem 0;
+    margin-top: 1rem;
+    padding-top: 1rem;
     border-top: $base-border;
+
+    @include media($medium-screen) {
+      flex-direction: row;
+      margin-top: 3rem;
+      padding: 3rem 0;
+    }
   }
 
   .task-poster-contact-email {
     display: flex;
     align-items: center;
+    margin-bottom: 1rem;
+
+    @include media($medium-screen) {
+      margin-bottom: 0;
+    }
   }
 
   .task-poster-contact-email-icon {
     @include image(2rem);
-    background-image: url('~images/icons/email.png');
+    background-image: url('images/icons/email.png');
     margin-right: 1rem;
   }
 
@@ -194,7 +228,7 @@
 
   .task-poster-contact-phone-icon {
     @include image(2rem);
-    background-image: url('~images/icons/phone.png');
+    background-image: url('images/icons/phone.png');
     margin-right: 1rem;
   }
 
@@ -229,16 +263,25 @@
 
   .task-info-other-row {
     @include outer-container();
-    margin-left: 3.5rem;
+
+    @include media($medium-screen) {
+      margin-left: 3.5rem;
+    }
   }
 
-  .task-info-main-col {
+  %main-col {
     @include span-columns(12);
+  }
 
-    &.has-pictures {
-      @include media($medium-screen) {
-        @include span-columns(8);
-      }
+  .main-col {
+    @extend %main-col;
+  }
+
+  .main-col-has-pictures {
+    @extend %main-col;
+
+    @include media($medium-screen) {
+      @include span-columns(8);
     }
   }
 
@@ -270,7 +313,7 @@
 
   .task-info-calendar-icon {
     @include image(2.5rem);
-    background-image: url('~images/icons/calendar.png');
+    background-image: url('images/icons/calendar.png');
     margin-right: 1rem;
   }
 
@@ -285,7 +328,7 @@
 
   .task-info-location-icon {
     @include image(2.5rem);
-    background-image: url('~images/icons/pin.png');
+    background-image: url('images/icons/pin.png');
     margin-right: 1rem;
   }
 
@@ -303,7 +346,7 @@
   }
 
   .task-info-price {
-    @include price-tag();
+    @include price-tag-module();
     transform: scale(0.9);
   }
 
@@ -315,7 +358,7 @@
 
   .task-info-exact-location-icon {
     @include image(2.5rem);
-    background-image: url('~images/icons/pin.png');
+    background-image: url('images/icons/pin.png');
   }
 
   .task-info-exact-location-text {

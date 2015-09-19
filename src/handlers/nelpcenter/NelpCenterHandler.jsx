@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
+import cssModules from 'react-css-modules';
 import connectToStores from 'alt/utils/connectToStores';
 import {FormattedMessage} from 'react-intl';
 
@@ -7,7 +8,10 @@ import AppActions from 'actions/AppActions';
 import UserStore from 'stores/UserStore';
 import AppStore from 'stores/AppStore';
 
+import styles from './NelpCenterHandler.scss';
+
 @connectToStores
+@cssModules(styles)
 export default class NelpCenterHandler extends Component {
 
   static propTypes = {
@@ -55,14 +59,14 @@ export default class NelpCenterHandler extends Component {
 
   render() {
     return (
-      <div className="nelp-center-handler container">
+      <div styleName="module" className="container">
         <div className="header-panel">
-          <div className="tab-bar">
-            <div className="tabs">
-              <Link className="tab" activeClassName="active" to="/center/tasks">
+          <div styleName="tab-bar">
+            <div styleName="tabs">
+              <Link styleName="tab" activeClassName={styles.active} to="/center/tasks">
                 <FormattedMessage id="nelpcenter.main.myTasks"/>
               </Link>
-              <Link className="tab" activeClassName="active" to="/center/applications">
+              <Link styleName="tab" activeClassName={styles.active} to="/center/applications">
                 <FormattedMessage id="nelpcenter.main.myApplications"/>
               </Link>
             </div>

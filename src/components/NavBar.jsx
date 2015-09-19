@@ -3,6 +3,8 @@ import {Link} from 'react-router';
 import classNames from 'classnames';
 import {FormattedMessage} from 'react-intl';
 
+import {isInside} from 'utils/DomUtils';
+
 export default class NavBar extends Component {
 
   static propTypes = {
@@ -19,7 +21,29 @@ export default class NavBar extends Component {
     insideDropDown: false,
   }
 
-  _onToggleMenu() {
+  _documentClickListener = this._onDocumentClick.bind(this)
+
+  componentDidMount() {
+    document.addEventListener('click', this._documentClickListener);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this._documentClickListener);
+  }
+
+  _onDocumentClick(event) {
+    /* if (this.state.collapsed || event.defaultPrevented) {
+      return;
+    }
+    if (isInside(this.refs.filterDropdown, event.target)) {
+      return;
+    }
+    event.stopPropagation();
+    this.setState({otherFiltersOpened: false}); */
+  }
+
+  _onToggleMenu(event) {
+    event.preventDefault();
     this.setState({
       collapsed: !this.state.collapsed,
     });

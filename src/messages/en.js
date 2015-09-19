@@ -14,7 +14,40 @@ export default {
 
     warning: "Warning!",
     cancel: "Cancel",
+    add: "Add",
     delete: "Delete",
+
+    browse: "Browse...",
+  },
+
+  categories: {
+    technology: {
+      name: "Electronic & IT Support",
+      examples: "Computer Repair, Internet/Router Setup, Printer Installation, TV & Sound System Installation, Email Setup, Tablets & Phones Support, and more!",
+    },
+    business: {
+      name: "Business & Admin",
+      examples: "Accounting, Files Organization, Resume Building, Letters Writing & Review, Advertisement Strategies, Social Media Account Management, Data Entry, and more!",
+    },
+    multimedia: {
+      name: "Multimedia & Design",
+      examples: "Website & App Development, Photo & Video Editing, Graphic Design, Printing, Videography & Photography, Music Production, and more!",
+    },
+    gardening: {
+      name: "Gardening",
+      examples: "Garden Maintenance, Landscaping, Lawn Mowing, Raking Leaves, Outdoor Pest Control, Arborism, Fruit Tree Pruning, Tree Planting, Bushes Pruning, and more!",
+    },
+    handywork: {
+      name: "Handyman",
+      examples: "Furniture Assembling, Carpentry, Electrical Work, Painting, Plumbing, Roofing, Window Services, Appliance Repair, Floor Installation, and more!",
+    },
+    housecleaning: {
+      name: "Cleaning",
+      examples: "House Cleaning, Laundry Services, Waste Removal, Guttering, Pool & Spa Cleaning, Steam Cleaning, Indoor Pest Control, Car Wash, and more!",
+    },
+    other: {
+      name: "Other",
+    },
   },
 
   routes: {
@@ -169,5 +202,16 @@ export default {
 
       chat: "Chat with your Nelper",
     },
+  },
+
+  post: {
+    selectCategory: "Select a Category",
+    changeCategory: "Select another category",
+    taskTitle: "Enter your Task Title",
+    taskDescription: "Briefly describe what your are looking for",
+    taskOffer: "How much are you offering?",
+    taskLocation: "Select your location",
+    taskPictures: "Attach pictures",
+    post: "Post task!",
   },
 };

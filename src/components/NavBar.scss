@@ -132,12 +132,13 @@
     display: flex;
     align-items: stretch;
     background: $navigation-background;
-    line-height: $navigation-height;
+    line-height: 2.5em;
 
     text-align: right;
 
     @include media($horizontal-bar-mode) {
       background: transparent;
+      line-height: $navigation-height;
     }
 
     a {

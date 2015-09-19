@@ -34,16 +34,36 @@
 
   .sort-container {
     display: flex;
-    justify-content: center;
     padding: 0.75rem;
     border-bottom: $base-border;
+
+    @include media($medium-screen) {
+      justify-content: center;
+    }
   }
 
-  .sort button {
-    width: rem(150px);
+  .sort {
+    display: flex;
+    flex: 1;
 
-    .lang-fr & {
-      width: rem(175px);
+    @include media($medium-screen) {
+      display: block;
+      flex: initial;
+    }
+
+    button {
+      flex-grow: 1;
+      font-size: 0.8em;
+
+      @include media($medium-screen) {
+        flex-grow: 0;
+        font-size: 1em;
+        width: rem(150px);
+
+        .lang-fr & {
+          width: rem(175px);
+        }
+      }
     }
   }
 }

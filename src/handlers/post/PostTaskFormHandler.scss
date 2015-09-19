@@ -1,24 +1,22 @@
 @import 'styles/base-module';
 
-:local {
+:local .module {
 
   $step-size: 46px;
 
-  .page {
-    form {
-      width: 100%;
-    }
+  form {
+    width: 100%;
+  }
 
-    label {
-      font-size: 1.2em;
-      font-weight: normal;
-    }
+  label {
+    font-size: 1.2em;
+    font-weight: normal;
+  }
 
-    input,
-    textarea,
-    select {
-      margin: 0;
-    }
+  input,
+  textarea,
+  select {
+    margin: 0;
   }
 
   .task-panel,
@@ -125,18 +123,6 @@
         width: rem(250px);
       }
     }
-  }
-
-  .other-row {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-
-  .other-icon {
-    @include image(5rem);
-    border-radius: 50%;
-    background-image: url('images/categories/other.png');
   }
 
   .location {
