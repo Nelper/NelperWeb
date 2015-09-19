@@ -138,13 +138,12 @@ export default {
       progressReleased: "Fonds transférés",
       completed: "J'ai complété la tâche!",
       progressHelp: `
-      <h2>En tant que Nelper, quel est le processus pour compléter la tâche ainsi que pour le paiement?</h2>
-      <p>Toutes les étapes sont complétées sur cette page-ci :</p>
+      <h2>Quel est le processus pour compléter la tâche et pour le paiement?</h2>
       <ol>
         <li>
-          Le publieur de tâche envoie le paiement. Une fois le paiement envoyé, celui-ci est mis en attente via notre plateforme de paiement NelperPay,
-          jusqu'à ce que la tâche soit complétée. De cette manière, vous pouvez commencer à travailler sur la tâche tout en
-          sachant qu'il est en attente pour vous.
+          Le publieur de tâche envoie le paiement. Celui-ci sera sécuritairement gelé via notre plateforme NelperPay,
+          jusqu'à ce que vous complétiez la tâche. Ainsi, vous pouvez commencer à travailler sur la tâche tout en
+          sachant que le paiement est en attente pour vous.
         </li>
         <li>
           Vous complétez la tâche.
@@ -153,9 +152,10 @@ export default {
           Lorsque vous avez complété la tâche, cliquez sur <em>J'ai complété la tâche</em>.
         </li>
         <li>
-          Le publieur de tâche confirme que vous avez complété sa tâche et vos fonds sont libérés.
+          Le publieur de tâche confirme que vous avez bel et bien complété sa tâche et vous recevez votre paiement.
         </li>
       </ol>
+      <p><em>Toutes les étapes sont complétées sur cette page-ci</em></p>
       `,
 
       chat: "Discuter avec l'afficheur",
@@ -172,17 +172,16 @@ export default {
       nelperAccepted: "Nelper accepté",
       deleteConfirm: "Êtes-vous certain de vouloir supprimer '{title}'?",
 
-      progressAccepted: "Nelper Accepted",
-      progressSent: "Payment sent",
+      progressAccepted: "Nelper accepté",
+      progressSent: "Paiement envoyé",
       progressApproved: "Approved Task Completion",
       progressRating: "Rating & Feedback",
       progressHelp: `
-      <h2>En tant que publieur de tâche, quel est le processus pour faire compléter ma tâche ainsi que pour le paiement?</h2>
-      <p>Toutes les étapes sont complétées sur cette page-ci :</p>
+      <h2>Quel est le processus pour faire compléter ma tâche ainsi que pour le paiement?</h2>
       <ol>
         <li>
-          Cliquez sur <em>Procéder au paiement</em>. Lorsque vous envoyez le paiement, celui-ci est sécuritairement
-          mis en attente via notre plateforme de paiement NelperPay, jusqu'à ce que votre tâche soit complétée.
+          Cliquez sur <em>Procéder au paiement</em>. Lorsque vous aurez envoyé le paiement, celui-ci sera sécuritairement
+          gelé via notre plateforme NelperPay, jusqu'à ce que votre tâche soit complétée.
         </li>
         <li>
           Votre Nelper complète votre tâche.
@@ -195,6 +194,7 @@ export default {
           Vous donnez une note & une critique à votre Nelper, en lien avec sa performance.
         </li>
       </ol>
+      <p><em>Toutes les étapes sont complétées sur cette page-ci</em></p>
       `,
     },
 
@@ -210,7 +210,7 @@ export default {
     selectCategory: "Sélectionnez une catégorie",
     changeCategory: "Sélectionner une autre catégorie",
     taskTitle: "Entrez le titre de votre tâche",
-    taskDescription: "Décrivez brièvement ce que vous avez besoin",
+    taskDescription: "Décrivez brièvement votre tâche",
     taskOffer: "Combien offrez-vous?",
     taskLocation: "Choississez votre emplacement",
     taskPictures: "Ajouter des photos",
