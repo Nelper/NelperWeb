@@ -205,8 +205,8 @@ export default {
   post: {
     selectCategory: "Select a Category",
     changeCategory: "Select another category",
-    taskTitle: "Enter your Task Title",
-    taskDescription: "Briefly describe what your are looking for",
+    taskTitle: "Enter your task title",
+    taskDescription: "Describe what your are looking for",
     taskOffer: "How much are you offering?",
     taskLocation: "Select your location",
     taskPictures: "Attach pictures",
