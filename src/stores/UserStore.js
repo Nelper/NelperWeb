@@ -17,6 +17,7 @@ class UserStore {
       handleReceivedUser: UserActions.RECEIVED_USER,
       handleSetLoc: UserActions.SET_LOCATION,
       handleAddLoc: UserActions.ADD_LOCATION,
+      handleDeleteLoc: UserActions.DELETE_LOCATION,
       handleReceivedPicture: UserActions.RECEIVED_PICTURE,
       handleEditAbout: UserActions.EDIT_ABOUT,
       handleAddSkill: UserActions.ADD_SKILL,
@@ -49,6 +50,14 @@ class UserStore {
   handleAddLoc(loc) {
     const user = this.state.user;
     user.privateData.locations.push(loc);
+    this.setState({user});
+    Storage.setItem('user', user);
+  }
+
+  handleDeleteLoc(loc) {
+    const user = this.state.user;
+    const locations = user.privateData.locations;
+    locations.splice(locations.findIndex(l => l.name === loc.name), 1);
     this.setState({user});
     Storage.setItem('user', user);
   }

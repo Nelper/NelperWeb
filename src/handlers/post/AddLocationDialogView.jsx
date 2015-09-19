@@ -16,27 +16,40 @@ export default class AddLocationDialogView extends Component {
     address: '',
     coords: '',
     city: '',
+    googleMaps: null,
   }
+
+  _initializedAutocomplete = false
 
   componentDidMount() {
     GoogleMapsUtils.load().then((maps) => {
-      const addressInput = this.refs.address;
-      const autocomplete = new maps.places.Autocomplete(addressInput);
-      maps.event.addListener(autocomplete, 'place_changed', () => {
-        const place = autocomplete.getPlace();
-        const comp = place.address_components.find(c => {
-          return c.types.some(t => t === 'locality');
-        });
-        this.setState({
-          address: addressInput.value,
-          city: comp.long_name,
-          coords: {
-            latitude: place.geometry.location.lat(),
-            longitude: place.geometry.location.lng(),
-          },
-        });
-      });
+      this.setState({googleMaps: maps});
     });
+  }
+
+  componentDidUpdate() {
+    const maps = this.state.googleMaps;
+    if (!this._initializedAutocomplete) {
+      const addressInput = this.refs.address;
+      if (addressInput) {
+        this._initializedAutocomplete = true;
+        const autocomplete = new maps.places.Autocomplete(addressInput);
+        maps.event.addListener(autocomplete, 'place_changed', () => {
+          const place = autocomplete.getPlace();
+          const comp = place.address_components.find(c => {
+            return c.types.some(t => t === 'locality');
+          });
+          this.setState({
+            address: addressInput.value,
+            city: comp.long_name,
+            coords: {
+              latitude: place.geometry.location.lat(),
+              longitude: place.geometry.location.lng(),
+            },
+          });
+        });
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -111,7 +124,8 @@ export default class AddLocationDialogView extends Component {
               value={this.state.address}
               onChange={::this._onAddressChanged}
               placeholder="Address"
-              ref="address" />
+              ref="address"
+            />
             <div className="btn-group dialog-buttons">
               <button onClick={::this._onCancel}>Cancel</button>
               <button type="submit" className="primary">Ok</button>

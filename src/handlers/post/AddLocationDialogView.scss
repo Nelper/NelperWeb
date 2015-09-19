@@ -1,5 +1,8 @@
 .add-location-dialog-view {
   display: flex;
   flex-direction: column;
-  min-width: rem(350px);
+
+  @include media($medium-screen) {
+    min-width: rem(350px);
+  }
 }

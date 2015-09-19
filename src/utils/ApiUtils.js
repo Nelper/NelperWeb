@@ -151,6 +151,13 @@ class ApiUtils {
     return privateData.save();
   }
 
+  deleteUserLocation(loc) {
+    const privateData = Parse.User.current().get('privateData');
+    const parseLocation = privateData.get('locations').find(l => l.name === loc.name);
+    privateData.remove('locations', parseLocation);
+    return privateData.save();
+  }
+
   /**
    * Set the user profile picture.
    * @param {File} file The picture's file

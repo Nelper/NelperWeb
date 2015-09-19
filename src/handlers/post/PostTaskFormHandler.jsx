@@ -92,7 +92,8 @@ export default class PostTaskFormHandler extends Component {
     });
   }
 
-  _onDeleteLocation() {
+  _onDeleteLocation(event) {
+    event.preventDefault();
     this.setState({
       showDeleteLocationDialog: true,
     });
@@ -102,6 +103,11 @@ export default class PostTaskFormHandler extends Component {
     this.setState({
       showDeleteLocationDialog: false,
     });
+  }
+
+  _onDeleteLocationConfirm() {
+    UserActions.deleteLocation(this.state.location);
+    this.setState({showDeleteLocationDialog: false});
   }
 
   _onTitleChanged(event) {
@@ -261,10 +267,17 @@ export default class PostTaskFormHandler extends Component {
           onLocationAdded={::this._onAddLocation}
           onCancel={::this._onCancelAddLocation} />
         <Dialog opened={this.state.showDeleteLocationDialog} onClose={::this._onDeleteLocationClose}>
-          <h2></h2>
-          <p className="dialog-content"></p>
-          <div className="dialog-buttons">
-            <button className="primary">
+          <h2><FormattedMessage id="post.deleteLocationTitle" /></h2>
+          <p className="dialog-content">
+            <FormattedMessage id="post.deleteLocationMessage" values={{
+              name: this.state.location && this.state.location.name,
+            }} />
+          </p>
+          <div className="btn-group dialog-buttons">
+            <button onClick={::this._onDeleteLocationClose}>
+              <FormattedMessage id="common.cancel" />
+            </button>
+            <button className="primary" onClick={::this._onDeleteLocationConfirm}>
               <FormattedMessage id="common.delete" />
             </button>
           </div>

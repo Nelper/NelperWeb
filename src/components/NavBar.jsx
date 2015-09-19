@@ -32,14 +32,14 @@ export default class NavBar extends Component {
   }
 
   _onDocumentClick(event) {
-    /* if (this.state.collapsed || event.defaultPrevented) {
+    if (this.state.collapsed || event.defaultPrevented) {
       return;
     }
-    if (isInside(this.refs.filterDropdown, event.target)) {
+    if (isInside(this.refs.navbar, event.target)) {
       return;
     }
     event.stopPropagation();
-    this.setState({otherFiltersOpened: false}); */
+    this.setState({collapsed: true});
   }
 
   _onToggleMenu(event) {
@@ -131,10 +131,10 @@ export default class NavBar extends Component {
     ];
 
     return (
-      <header className="navbar" role="banner">
+      <header className="navbar" role="banner" ref="navbar">
         <div className="navbar-wrapper">
           <div className="menu-bar">
-            <Link to="/">
+            <Link to="/" onClick={::this._onActive}>
               <div className="logo">
                 <img src={require('images/logo-round.png')}/>
                 <span className="title">Nelper</span>

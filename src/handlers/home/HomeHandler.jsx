@@ -163,7 +163,7 @@ export default class HomeHandler extends Component {
               <ul styleName="nelperpay-features">
                 <li><FormattedMessage id="home.nelperpayFeature1" /></li>
                 <li><FormattedMessage id="home.nelperpayFeature2" /></li>
-                <li><FormattedMessage id="home.nelperpayFeature3" /></li>
+                <li><FormattedHTMLMessage id="home.nelperpayFeature3" /></li>
               </ul>
             </div>
           </div>

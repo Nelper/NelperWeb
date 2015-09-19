@@ -213,5 +213,8 @@ export default {
     taskLocation: "Select your location",
     taskPictures: "Attach pictures",
     post: "Post task!",
+
+    deleteLocationTitle: "Delete location",
+    deleteLocationMessage: "Are you sure you want to delete the location '{name}'?",
   },
 };

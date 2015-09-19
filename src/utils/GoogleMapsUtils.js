@@ -10,7 +10,7 @@ export default class GoogleMapsUtils {
         return;
       }
       window.initializeGoogleMap = () => {
-        resolve(this.get());
+        setTimeout(() => resolve(this.get()), 0);
       };
 
       const script = document.createElement('script');

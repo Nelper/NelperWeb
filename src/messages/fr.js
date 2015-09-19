@@ -215,5 +215,8 @@ export default {
     taskLocation: "Choississez votre emplacement",
     taskPictures: "Ajouter des photos",
     post: "Créer la tâche!",
+
+    deleteLocationTitle: "Supprimer l'emplacement",
+    deleteLocationMessage: "Êtes-vous sûr de vouloir supprimer l'emplacement '{name}'?",
   },
 };

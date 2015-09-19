@@ -65,6 +65,11 @@ class UserActions {
     return loc;
   }
 
+  deleteLocation(loc) {
+    ApiUtils.deleteUserLocation(loc);
+    return loc;
+  }
+
   setPicture(file) {
     ApiUtils.setUserPicture(file)
       .then((picture) => {
