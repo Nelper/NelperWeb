@@ -58,10 +58,10 @@ export default {
 
   navBar: {
     howWorks: "Comment ça marche?",
-    browse: "Parcourir",
+    browse: "Parcourir les tâches",
     post: "Publier une tâche",
     login: "Connexion",
-    center: "Nelp Center",
+    center: "Centre Nelp",
   },
 
   home: {
@@ -173,8 +173,8 @@ export default {
 
       progressAccepted: "Nelper accepté",
       progressSent: "Paiement envoyé",
-      progressApproved: "Approved Task Completion",
-      progressRating: "Rating & Feedback",
+      progressApproved: "Confirmation",
+      progressRating: "Note & critique",
       progressHelp: `
       <h2>Quel est le processus pour faire compléter ma tâche ainsi que pour le paiement?</h2>
       <ol>
@@ -208,7 +208,7 @@ export default {
     selectCategory: "Sélectionnez une catégorie",
     changeCategory: "Sélectionner une autre catégorie",
     taskTitle: "Entrez le titre de votre tâche",
-    taskDescription: "Décrivez brièvement votre tâche",
+    taskDescription: "Décrivez ce dont vous avez besoin",
     taskOffer: "Combien offrez-vous?",
     taskLocation: "Choississez votre emplacement",
     taskPictures: "Ajouter des photos",
