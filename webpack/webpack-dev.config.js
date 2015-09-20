@@ -12,7 +12,7 @@ module.exports = merge(shared.config, {
   cache: true,
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack/hot/dev-server',
+    'webpack-hot-middleware/client',
   ],
   module: {
     /* preLoaders: [{
@@ -29,7 +29,7 @@ module.exports = merge(shared.config, {
       loaders: ['style', 'css?importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss', 'sass?' + shared.sassPaths],
     }, {
       test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel'],
+      loaders: ['react-hot', 'babel?plugins=./scripts/babelRelayPlugin'],
       include: path.resolve(ROOT_PATH, 'src'),
     }]),
   },

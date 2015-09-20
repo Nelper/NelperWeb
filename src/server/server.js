@@ -7,13 +7,14 @@ import {RoutingContext, match} from 'react-router';
 import createLocation from 'history/lib/createLocation';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-import {Parse} from 'parse';
+import Parse from 'parse/node';
 
 import getRoutes from 'app/getRoutes';
 import alt from 'app/alt';
-import ApiUtils from 'utils/ApiUtils';
+import ApiUtils from 'utils/ServerApiUtils';
 import IntlUtils from 'utils/IntlUtils';
 import formats from 'utils/IntlFormats';
+import graphql from './graphql';
 
 import template from './template';
 
@@ -26,6 +27,8 @@ Parse.initialize(
   'PjVCIvICgrOZjwSG5AiuKCjdyrzHjfalWbAK5mwR'
 );
 
+graphql(app);
+
 app.use(express.static(path.resolve(__dirname, '../../build/client'), {index: false}));
 
 app.use(morgan('combined'));
@@ -35,14 +38,12 @@ app.use((req, res, next) => {
   function renderPage(messages, locale) {
     const location = createLocation(req.url);
     match({routes: getRoutes(), location}, (error, redirectLocation, renderProps) => {
-      console.log(1);
       if (redirectLocation) {
         return res.redirect(redirectLocation.pathname + redirectLocation.search);
       }
       if (error) {
         return next(error);
       }
-      console.log(2);
       const html = ReactDOMServer.renderToString(
         <RoutingContext createElement={(Component, props) => {
           return (
@@ -51,7 +52,6 @@ app.use((req, res, next) => {
         }} {...renderProps} />
       );
       alt.flush();
-      console.log(3);
       return res.send(template.replace('{content}', html));
     });
   }

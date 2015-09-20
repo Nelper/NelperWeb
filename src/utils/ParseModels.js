@@ -1,6 +1,4 @@
-import {Parse} from 'parse';
-
-import './ParsePatches';
+import Parse from 'parse';
 
 /**
  * Parse types

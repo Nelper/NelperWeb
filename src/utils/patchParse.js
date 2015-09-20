@@ -20,8 +20,6 @@
  *
  */
 
-import {Parse} from 'parse';
-
 /**
  * Id is used internally to provide a unique identifier for a specific Parse
  * Object. It automatically converts to a string for purposes like providing a
@@ -48,60 +46,65 @@ class Id {
   }
 }
 
-function mappedFlatten(el) {
-  if (el instanceof Parse.Object) {
-    return {
-      __type: 'Pointer',
-      className: el.className,
-      objectId: el.id,
-    };
-  }
-
-  return flatten(el); // eslint-disable-line no-use-before-define
-}
-
 /**
- * Convert a Parse Object or array of Parse Objects into a plain JS Object.
+ * Applies the parse patches to the provided Parse instance.
+ * @param  {Parse} Parse The Parse instance
  */
-function flatten(object) {
-  if (Array.isArray(object)) {
-    return object.map(mappedFlatten);
-  }
-  if (!(object instanceof Parse.Object)) {
-    return object;
+export default function(Parse) {
+  function mappedFlatten(el) {
+    if (el instanceof Parse.Object) {
+      return {
+        __type: 'Pointer',
+        className: el.className,
+        objectId: el.id,
+      };
+    }
+
+    return flatten(el); // eslint-disable-line no-use-before-define
   }
 
-  const flat = {
-    id: new Id(object.className, object.id),
-    className: object.className,
-    objectId: object.id,
-  };
-  if (object.createdAt) {
-    flat.createdAt = object.createdAt;
-  }
-  if (object.updatedAt) {
-    flat.updatedAt = object.updatedAt;
-  }
-  for (const attr in object.attributes) {
-    if (object.attributes.hasOwnProperty(attr)) {
-      const val = object.attributes[attr];
-      if (val instanceof Parse.Object) {
-        // We replace it with a pointer
-        flat[attr] = mappedFlatten(val);
-      } else if (Array.isArray(val)) {
-        flat[attr] = val.map(mappedFlatten);
-      } else {
-        flat[attr] = val;
+  /**
+   * Convert a Parse Object or array of Parse Objects into a plain JS Object.
+   */
+  function flatten(object) {
+    if (Array.isArray(object)) {
+      return object.map(mappedFlatten);
+    }
+    if (!(object instanceof Parse.Object)) {
+      return object;
+    }
+
+    const flat = {
+      id: new Id(object.className, object.id),
+      className: object.className,
+      objectId: object.id,
+    };
+    if (object.createdAt) {
+      flat.createdAt = object.createdAt;
+    }
+    if (object.updatedAt) {
+      flat.updatedAt = object.updatedAt;
+    }
+    for (const attr in object.attributes) {
+      if (object.attributes.hasOwnProperty(attr)) {
+        const val = object.attributes[attr];
+        if (val instanceof Parse.Object) {
+          // We replace it with a pointer
+          flat[attr] = mappedFlatten(val);
+        } else if (Array.isArray(val)) {
+          flat[attr] = val.map(mappedFlatten);
+        } else {
+          flat[attr] = val;
+        }
       }
     }
+
+    return flat;
   }
 
-  return flat;
-}
-
-
-if (!Parse.Object.prototype.toPlainObject) {
-  Parse.Object.prototype.toPlainObject = function toPlainObject() {
-    return flatten(this);
-  };
+  if (!Parse.Object.prototype.toPlainObject) {
+    Parse.Object.prototype.toPlainObject = function toPlainObject() {
+      return flatten(this);
+    };
+  }
 }

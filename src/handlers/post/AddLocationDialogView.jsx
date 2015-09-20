@@ -19,6 +19,7 @@ export default class AddLocationDialogView extends Component {
     googleMaps: null,
   }
 
+  // If the google maps autocomplete input has been initialized.
   _initializedAutocomplete = false
 
   componentDidMount() {
@@ -29,7 +30,7 @@ export default class AddLocationDialogView extends Component {
 
   componentDidUpdate() {
     const maps = this.state.googleMaps;
-    if (!this._initializedAutocomplete) {
+    if (maps && !this._initializedAutocomplete) {
       const addressInput = this.refs.address;
       if (addressInput) {
         this._initializedAutocomplete = true;

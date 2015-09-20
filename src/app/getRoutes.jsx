@@ -19,6 +19,8 @@ import LogoutHandler from 'handlers/login/LogoutHandler';
 
 import TestPaymentHandler from 'handlers/nelpcenter/TestPaymentHandler';
 
+import GraphiQLHandler from 'handlers/dev/GraphiQLHandler';
+
 /**
  * Allows chaining multiple handler functions for the onEnter prop.
  * The functions are executed in order.
@@ -129,7 +131,8 @@ export default function getRoutes() {
       <Route path="/profile" getComponent={getProfileComponent} onEnter={requireAuth} />
       <Route path="/settings" getComponent={getSettingsComponent} onEnter={requireAuth} />
       <Route path="/howitworks" getComponent={getHowItWorksComponent} />
-      <Route path="/testpayment" component={TestPaymentHandler} />
+      <Route path="/dev/graphiql" component={GraphiQLHandler} />
+      <Route path="/dev/testpayment" component={TestPaymentHandler} />
       <Route path="*" component={PageNotFoundHandler} />
     </Route>
   );

@@ -11,6 +11,7 @@ const ROOT_PATH = path.resolve(__dirname, '..');
 
 module.exports = [
   merge(shared.config, {
+    devtool: 'source-map',
     module: {
       loaders: commonLoaders.concat([{
         test: /\.css$/,

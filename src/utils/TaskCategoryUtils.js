@@ -1,4 +1,4 @@
-import LogUtils from 'utils/LogUtils';
+import LogUtils from './LogUtils';
 
 const colors = {
   yellow: '#f7cc39',

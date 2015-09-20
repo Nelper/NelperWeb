@@ -1,0 +1,47 @@
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  node(id: ID!): Node
+  me: User
+}
+
+type Task implements Node {
+  id: ID!
+  title: String
+  desc: String
+}
+
+type TaskConnection {
+  pageInfo: PageInfo!
+  edges: [TaskEdge]
+  totalCount: Int
+}
+
+type TaskEdge {
+  node: Task
+  cursor: String!
+}
+
+type User implements Node {
+  id: ID!
+  name: String
+  pictureURL: String
+  tasks(before: String, after: String, first: Int, last: Int): TaskConnection
+  privateData: UserPrivate
+}
+
+type UserPrivate implements Node {
+  id: ID!
+  phone: String
+  email: String
+  language: String
+}

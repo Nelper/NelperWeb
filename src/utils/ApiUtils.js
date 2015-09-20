@@ -1,8 +1,16 @@
-import {Parse} from 'parse';
+import Parse from 'parse';
 
 import  {NelpTask, NelpTaskApplication, UserPrivateData, Feedback} from './ParseModels';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+import {
+  meFromParse,
+  userFromParse,
+  fixParseFileURL,
+} from './ParseUtils';
+import patchParse from './patchParse';
+
+patchParse(Parse);
 
 /**
  * Utils for communicating with the backend (Parse).
@@ -22,16 +30,7 @@ class ApiUtils {
         this._initSession();
         return user.get('privateData').fetch();
       })
-      .then(() => this._meFromParse(Parse.User.current()));
-  }
-
-  becomeUser(userId, token) {
-    return new Parse.Query(Parse.User)
-      .include('privateData')
-      .get(userId, {
-        sessionToken: token,
-      })
-      .then((user) => this._meFromParse(user));
+      .then(() => meFromParse(Parse.User.current()));
   }
 
   /**
@@ -55,7 +54,7 @@ class ApiUtils {
         user.save();
         return user;
       })
-      .then(this._meFromParse);
+      .then(meFromParse);
   }
 
   /**
@@ -88,7 +87,7 @@ class ApiUtils {
 
           return user.get('privateData').fetch();
         })
-        .then(() => this._meFromParse(Parse.User.current()));
+        .then(() => meFromParse(Parse.User.current()));
     });
   }
 
@@ -114,8 +113,22 @@ class ApiUtils {
       })
       .then(() => {
         this._initSession();
-        return this._meFromParse(Parse.User.current());
+        return meFromParse(Parse.User.current());
       });
+  }
+
+  getUserSession() {
+    const parseUser = Parse.User.current();
+    if (!parseUser) {
+      return {
+        userId: '',
+        sessionToken: '',
+      };
+    }
+    return {
+      userId: parseUser.id,
+      sessionToken: parseUser.getSessionToken(),
+    };
   }
 
   /**
@@ -351,7 +364,7 @@ class ApiUtils {
               return tasks.map((t) => {
                 const application = applications.find((a) => a.get('task').id === t.id);
                 const task = this._baseTaskFromParse(t);
-                task.user = this._userFromParse(t.get('user'));
+                task.user = userFromParse(t.get('user'));
                 task.application = application && application.toPlainObject();
                 return task;
               });
@@ -360,7 +373,7 @@ class ApiUtils {
 
         return tasks.map((t) => {
           const task = this._baseTaskFromParse(t);
-          task.user = this._userFromParse(t.get('user'));
+          task.user = userFromParse(t.get('user'));
           return task;
         });
       });
@@ -397,7 +410,7 @@ class ApiUtils {
                   isNew: a.get('isNew'),
                   state: a.get('state'),
                   price: a.get('price'),
-                  user: this._userFromParse(a.get('user')),
+                  user: userFromParse(a.get('user')),
                   task: task,
                 };
               });
@@ -419,12 +432,11 @@ class ApiUtils {
       .equalTo('user', Parse.User.current())
       .notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED)
       .descending('createdAt')
-      .limit(20)
       .find()
       .then(applications => {
         return applications.map(a => {
           const task = this._baseTaskFromParse(a.get('task'));
-          task.user = this._userFromParse(a.get('task').get('user'));
+          task.user = userFromParse(a.get('task').get('user'));
           return {
             objectId: a.id,
             createdAt: a.createdAt,
@@ -650,27 +662,6 @@ class ApiUtils {
     }
   }
 
-  _meFromParse(parseUser) {
-    const user = this._userFromParse(parseUser);
-    user.privateData = parseUser.get('privateData').toPlainObject();
-    user.logged = true;
-    return user;
-  }
-
-  _userFromParse(parseUser) {
-    const user = parseUser.toPlainObject();
-
-    if (parseUser.get('customPicture')) {
-      // If the user has uploaded a picture we use it.
-      user.pictureURL = this._fixParseFileURL(parseUser.get('customPicture').url());
-    } else if (!user.pictureURL) {
-      // If the user has no picture at all use the placeholder.
-      user.pictureURL = require('images/user-no-picture.jpg');
-    }
-
-    return user;
-  }
-
   _baseTaskFromParse(parseTask) {
     return {
       objectId: parseTask.id,
@@ -706,15 +697,11 @@ class ApiUtils {
 
   _fileFromParse(parseFile) {
     return {
-      url: this._fixParseFileURL(parseFile.url()),
+      url: fixParseFileURL(parseFile.url()),
       file: parseFile,
       name: parseFile.name(),
       objectId: parseFile.name(),
     };
-  }
-
-  _fixParseFileURL(url) {
-    return url.replace(/http:\/\//, 'https://s3.amazonaws.com/');
   }
 
   /**
