@@ -1,6 +1,6 @@
 import Parse from 'parse/node';
 
-import {UserPrivateData} from '../../utils/ParseModels';
+import {UserPrivateData} from './parseTypes';
 import {fixParseFileURL} from '../../utils/ParseUtils';
 
 export async function getMe({userId, sessionToken}) {

@@ -1,0 +1,45 @@
+@import 'styles/base-module';
+
+:local .module {
+
+  a {
+    color: $color-secondary;
+  }
+
+  .page-title {
+    text-align: center;
+  }
+
+  .summary {
+    margin-bottom: 1rem;
+  }
+
+  .summary-item {
+    margin-bottom: 2rem;
+  }
+
+  .summary-title {
+    font-size: 1.3em;
+  }
+
+  .summary-childs {
+    list-style: disc;
+    margin-left: 2rem;
+  }
+
+  .detail {
+    display: block;
+  }
+
+  .detail-item {
+    margin-top: 1rem;
+  }
+
+  .detail-title {
+    font-size: 1.2em;
+  }
+
+  .detail-desc {
+    font-size: 1em;
+  }
+}

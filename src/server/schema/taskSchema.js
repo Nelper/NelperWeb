@@ -3,11 +3,15 @@ import {
   GraphQLString,
   GraphQLInt,
   GraphQLList,
+  GraphQLNonNull,
+  GraphQLID,
 } from 'graphql';
 
 import {
   globalIdField,
+  fromGlobalId,
   connectionDefinitions,
+  mutationWithClientMutationId,
 } from 'graphql-relay';
 
 import {
@@ -22,7 +26,10 @@ import {
   GeoPointType,
 } from './index';
 
-import {getTask} from '../data/taskData';
+import {
+  getTask,
+  applyForTask,
+} from '../data/taskData';
 
 export const TaskType = new GraphQLObjectType({
   name: 'Task',
@@ -95,6 +102,29 @@ const taskConnectionDefinition = connectionDefinitions({
 });
 
 export const TaskConnectionType = taskConnectionDefinition.connectionType;
+
+export const ApplyForTaskMutation = mutationWithClientMutationId({
+  name: 'ApplyForTask',
+  inputFields: {
+    id: {type: new GraphQLNonNull(GraphQLID)},
+    price: {type: new GraphQLNonNull(GraphQLInt)},
+  },
+  outputFields: {
+    task: {
+      type: TaskType,
+      resolve: async ({localTaskId, application}, _, {rootValue}) => {
+        const task = await getTask(rootValue, localTaskId);
+        task.set('application', application);
+        return task;
+      },
+    },
+  },
+  mutateAndGetPayload: async ({id, price}, {rootValue}) => {
+    const localTaskId = fromGlobalId(id).id;
+    const application = await applyForTask(rootValue, localTaskId, price);
+    return {localTaskId, application};
+  },
+});
 
 addResolver(
   async (type, id, {rootValue}) => {

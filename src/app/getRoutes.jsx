@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router';
+import Relay from 'react-relay';
 
 import IntlUtils from 'utils/IntlUtils';
 
@@ -7,6 +8,8 @@ import UserStore from 'stores/UserStore';
 
 import AppHandler from 'handlers/AppHandler';
 import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
+
+import BrowseTasksHandler from 'handlers/browse/BrowseTasksHandler';
 
 import NelpCenterHandler from 'handlers/nelpcenter/NelpCenterHandler';
 import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
@@ -18,25 +21,11 @@ import ApplicationDetailHandler from 'handlers/nelpcenter/ApplicationDetailHandl
 import LogoutHandler from 'handlers/login/LogoutHandler';
 
 import TestPaymentHandler from 'handlers/nelpcenter/TestPaymentHandler';
-
 import GraphiQLHandler from 'handlers/dev/GraphiQLHandler';
 
-/**
- * Allows chaining multiple handler functions for the onEnter prop.
- * The functions are executed in order.
- * If a function returns false, the next ones wont be executed.
- * @param  {Array<Function>} functions The handler functions to execute
- * @return {Function}                  The onEnter function
- */
-/* function chain(...functions) {
-  return (nextState, transition) => {
-    for (const func of functions) {
-      if (func(nextState, transition) === false) {
-        return;
-      }
-    }
-  };
-}*/
+const BrowseQueries = {
+  browse: () => Relay.QL`query { browse }`,
+};
 
 // Pass this function to onEnter for a route that needs
 // authentication to make sure the user is logged in.
@@ -54,11 +43,11 @@ function getHomeComponent(loc, cb) {
   });
 }
 
-function getBrowseComponent(loc, cb) {
+/* function getBrowseComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/browse/BrowseTasksHandler'));
   });
-}
+} */
 
 function getPostCategoriesComponent(loc, cb) {
   require.ensure([], (require) => {
@@ -102,6 +91,12 @@ function getSettingsComponent(loc, cb) {
   });
 }
 
+function getFAQComponent(loc, cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/about/FAQHandler'));
+  });
+}
+
 // Routes.
 export default function getRoutes() {
   return (
@@ -110,7 +105,7 @@ export default function getRoutes() {
       <Route path="/login" getComponent={getLoginComponent} />
       <Route path="/register" getComponent={getRegisterComponent} />
       <Route path="/logout" component={LogoutHandler} />
-      <Route path="/browse" getComponent={getBrowseComponent} />
+      <Route path="/browse" queries={BrowseQueries} component={BrowseTasksHandler} />
       <Route path="/post" getComponent={getPostCategoriesComponent} />
       <Route path="/post/:category" getComponent={getPostFormComponent} onEnter={requireAuth} />
       <Route onEnter={requireAuth} name={IntlUtils.getMessage('routes.nelpcenter')}>
@@ -131,8 +126,15 @@ export default function getRoutes() {
       <Route path="/profile" getComponent={getProfileComponent} onEnter={requireAuth} />
       <Route path="/settings" getComponent={getSettingsComponent} onEnter={requireAuth} />
       <Route path="/howitworks" getComponent={getHowItWorksComponent} />
-      <Route path="/dev/graphiql" component={GraphiQLHandler} />
-      <Route path="/dev/testpayment" component={TestPaymentHandler} />
+      <Route path="/faq" getComponent={getFAQComponent} />
+      {
+        __DEVELOPMENT__ ?
+        <Route>
+          <Route path="/dev/graphiql" component={GraphiQLHandler} />
+          <Route path="/dev/testpayment" component={TestPaymentHandler} />
+        </Route> :
+        null
+      }
       <Route path="*" component={PageNotFoundHandler} />
     </Route>
   );

@@ -8,11 +8,10 @@ import {nodeField} from './nodeResolver';
 import {
   UserType,
   BrowseType,
-  browseArgs,
+  ApplyForTaskMutation,
 } from './schema/index';
 
 import {getMe} from './data/userData';
-import {findTasks} from './data/taskData';
 
 /**
  * This is the type that will be the root of our query,
@@ -28,8 +27,7 @@ const queryType = new GraphQLObjectType({
     },
     browse: {
       type: BrowseType,
-      args: browseArgs,
-      resolve: (ctx, args) => findTasks(ctx, args),
+      resolve: ctx => ctx,
     },
   }),
 });
@@ -41,7 +39,7 @@ const queryType = new GraphQLObjectType({
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-
+    applyForTask: ApplyForTaskMutation,
   }),
 });
 
@@ -51,5 +49,5 @@ const mutationType = new GraphQLObjectType({
  */
 export const Schema = new GraphQLSchema({
   query: queryType,
-  // mutation: mutationType,
+  mutation: mutationType,
 });

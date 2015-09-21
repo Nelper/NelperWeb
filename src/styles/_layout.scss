@@ -29,7 +29,7 @@ body {
 .anchor {
   display: block;
   position: relative;
-  top: -$navbar-height;
+  top: -$navbar-height - 16px;
   visibility: hidden;
 }
 

@@ -1,11 +1,12 @@
 import Parse from 'parse/node';
 
-import {NelpTaskApplication} from '../../utils/ParseModels';
+import {NelpTaskApplication} from './parseTypes';
 import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
 
 export async function getApplication({sessionToken}, id) {
   const query = new Parse.Query(NelpTaskApplication);
-
+  query.include('user');
+  query.include('task.user');
   return await query.get(id, {sessionToken});
 }
 

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 
@@ -12,10 +13,12 @@ import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 import styles from './BrowseTasksListView.scss';
 
 @cssModules(styles)
-export default class BrowseTasksListView extends Component {
+class BrowseTasksListView extends Component {
 
   static propTypes = {
-    tasks: PropTypes.array.isRequired,
+    relay: PropTypes.object.isRequired,
+    browse: PropTypes.object.isRequired,
+    filters: PropTypes.object.isRequired,
     onTaskSelected: PropTypes.func,
     onMakeOffer: PropTypes.func,
     onCancelApply: PropTypes.func,
@@ -39,6 +42,26 @@ export default class BrowseTasksListView extends Component {
 
   componentDidMount() {
     document.addEventListener('scroll', this._onScroll);
+  }
+
+  componentWillReceiveProps(newProps) {
+    const newFilters = newProps.filters;
+    const filters = this.props.filters;
+    if (newFilters.sort !== filters.sort ||
+        newFilters.minPrice !== filters.minPrice ||
+        newFilters.maxDistance !== filters.maxDistance ||
+        newFilters.categories !== filters.categories) {
+      this.props.relay.setVariables({
+        sort: newProps.filters.sort,
+        location: {
+          latitude: UserStore.getState().user.location.latitude,
+          longitude: UserStore.getState().user.location.longitude,
+        },
+        maxDistance: newProps.filters.maxDistance,
+        minPrice: newProps.filters.minPrice,
+        categories: newProps.filters.categories,
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -100,9 +123,10 @@ export default class BrowseTasksListView extends Component {
   }
 
   render() {
-    const {tasks} = this.props;
+    const {tasks} = this.props.browse;
 
-    const displayedTasks = tasks.map((t) => {
+    const displayedTasks = tasks.edges.map((edge) => {
+      const t = edge.node;
       const distance = UserStore.isLogged() ?
         Math.round(LocationUtils.kilometersBetween(t.location, UserStore.state.user.location)) :
         null;
@@ -194,3 +218,46 @@ export default class BrowseTasksListView extends Component {
     );
   }
 }
+
+export default Relay.createContainer(BrowseTasksListView, {
+  initialVariables: {
+    first: 10,
+    sort: UserStore.getState().user.location ? 'DISTANCE' : 'DATE',
+    location: {
+      latitude: UserStore.getState().user.location.latitude,
+      longitude: UserStore.getState().user.location.longitude,
+    },
+    maxDistance: null,
+    minPrice: null,
+    categories: null,
+  },
+  fragments: {
+    browse: () => Relay.QL`
+      fragment on Browse {
+        tasks(first: $first, sort: $sort, location: $location, maxDistance: $maxDistance, minPrice: $minPrice, categories: $categories) {
+          edges {
+            node {
+              createdAt,
+              title,
+              desc,
+              city,
+              category,
+              priceOffered,
+              location {
+                latitude,
+                longitude,
+              },
+              user {
+                name,
+                pictureURL,
+              },
+      				pictures {
+                url,
+              },
+            }
+          }
+        }
+      }
+    `,
+  },
+});

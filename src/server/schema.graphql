@@ -1,3 +1,69 @@
+type Application implements Node {
+  id: ID!
+  state: ApplicationState
+  task: Task
+  user: User
+}
+
+type ApplicationConnection {
+  pageInfo: PageInfo!
+  edges: [ApplicationEdge]
+  totalCount: Int
+  pendingCount: Int
+}
+
+type ApplicationEdge {
+  node: Application
+  cursor: String!
+}
+
+enum ApplicationState {
+  PENDING
+  CANCELED
+  ACCEPTED
+  DENIED
+}
+
+input ApplyForTaskInput {
+  id: ID!
+  price: Int!
+  clientMutationId: String!
+}
+
+type ApplyForTaskPayload {
+  task: Task
+  clientMutationId: String!
+}
+
+type Browse {
+  tasks(sort: BrowseTaskSort, maxDistance: Int, minPrice: Int, categories: [String], location: GeoPointInput, before: String, after: String, first: Int, last: Int): TaskConnection
+}
+
+enum BrowseTaskSort {
+  DISTANCE
+  PRICE
+  DATE
+}
+
+type File {
+  name: String
+  url: String
+}
+
+type GeoPoint {
+  latitude: Float
+  longitude: Float
+}
+
+input GeoPointInput {
+  latitude: Float = 0.0
+  longitude: Float = 0.0
+}
+
+type Mutation {
+  applyForTask(input: ApplyForTaskInput!): ApplyForTaskPayload
+}
+
 interface Node {
   id: ID!
 }
@@ -12,12 +78,21 @@ type PageInfo {
 type Query {
   node(id: ID!): Node
   me: User
+  browse: Browse
 }
 
 type Task implements Node {
   id: ID!
+  createdAt: String
   title: String
   desc: String
+  category: String
+  city: String
+  location: GeoPoint
+  pictures: [File]
+  priceOffered: Int
+  user: User
+  application: Application
 }
 
 type TaskConnection {
@@ -36,6 +111,7 @@ type User implements Node {
   name: String
   pictureURL: String
   tasks(before: String, after: String, first: Int, last: Int): TaskConnection
+  applications(before: String, after: String, first: Int, last: Int): ApplicationConnection
   privateData: UserPrivate
 }
 

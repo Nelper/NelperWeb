@@ -74,6 +74,7 @@
     "react-motion": "^0.2.7",
     "react-relay": "^0.3.2",
     "react-router": "^1.0.0-rc1",
+    "react-router-relay": "^0.5.0",
     "react-slick": "Nelper/react-slick",
     "sass-loader": "^2.0.1",
     "slick-carousel": "^1.5.8",

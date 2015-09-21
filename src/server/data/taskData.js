@@ -1,12 +1,12 @@
 import Parse from 'parse/node';
 
-import {NelpTask, NelpTaskApplication} from '../../utils/ParseModels';
+import {NelpTask, NelpTaskApplication} from './parseTypes';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
 import TaskCategoryUtils from '../../utils/TaskCategoryUtils';
 
 export async function getTask({sessionToken}, id) {
   const query = new Parse.Query(NelpTask);
-
+  query.include('user');
   return await query.get(id, {sessionToken});
 }
 
@@ -69,4 +69,18 @@ export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDist
   }
 
   return tasks;
+}
+
+export async function applyForTask({userId, sessionToken}, taskId, price) {
+  const parseTask = new NelpTask();
+  parseTask.id = taskId;
+  const parseUser = new Parse.User();
+  parseUser.id = userId;
+  const parseApplication = new NelpTaskApplication();
+  parseApplication.set('state', NELP_TASK_APPLICATION_STATE.PENDING);
+  parseApplication.set('user', parseUser);
+  parseApplication.set('task', parseTask);
+  parseApplication.set('isNew', true);
+  parseApplication.set('price', price);
+  return await parseApplication.save();
 }

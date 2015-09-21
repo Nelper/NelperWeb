@@ -2,6 +2,7 @@ import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router} from 'react-router';
+import ReactRouterRelay from 'react-router-relay';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import {Parse} from 'parse';
 
@@ -44,8 +45,13 @@ function renderApp() {
   // Render the app!
   ReactDOM.render((
     <Router history={createBrowserHistory()} createElement={(Component, props) => {
-      return (
-        <Component {...props} messages={messages} locale={locale} formats={formats} />
+      return ReactRouterRelay.createElement(
+        Component, {
+          ...props,
+          messages,
+          locale,
+          formats,
+        },
       );
     }}>
       {getRoutes()}

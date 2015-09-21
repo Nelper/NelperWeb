@@ -16,22 +16,12 @@ import {
   GeoPointInputType,
 } from './index';
 
-export const BrowseType = new GraphQLObjectType({
-  name: 'Browse',
-  fields: () => ({
-    tasks: {
-      args: connectionArgs,
-      type: TaskConnectionType,
-      resolve: (tasks, args) => {
-        return connectionFromArray(tasks, args);
-      },
-    },
-  }),
-});
+import {findTasks} from '../data/taskData';
 
 export const browseArgs = {
   sort: {
     type: new GraphQLEnumType({
+      name: 'BrowseTaskSort',
       values: {
         DISTANCE: {value: 0},
         PRICE: {value: 1},
@@ -57,3 +47,20 @@ export const browseArgs = {
     description: 'The user current location. Required for distance $sort and $maxDistance',
   },
 };
+
+export const BrowseType = new GraphQLObjectType({
+  name: 'Browse',
+  fields: () => ({
+    tasks: {
+      args: {
+        ...browseArgs,
+        ...connectionArgs,
+      },
+      type: TaskConnectionType,
+      resolve: async (_, args, {rootValue}) => {
+        const tasks = await findTasks(rootValue, args);
+        return connectionFromArray(tasks, args);
+      },
+    },
+  }),
+});

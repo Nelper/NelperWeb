@@ -1,14 +1,12 @@
 import React, {Component, PropTypes} from 'react';
-import connectToStores from 'alt/utils/connectToStores';
+import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 import {FormattedMessage} from 'react-intl';
 
 import BrowseActions from 'actions/BrowseActions';
 import UserActions from 'actions/UserActions';
-import BrowseStore from 'stores/BrowseStore';
 import UserStore from 'stores/UserStore';
-import Progress from 'components/Progress';
 import MapView from 'components/MapView';
 import BrowseTasksFilterView from './BrowseTasksFilterView';
 import NelpTaskListView from './BrowseTasksListView';
@@ -16,36 +14,26 @@ import {LatLng} from 'utils/GoogleMapsUtils';
 
 import styles from './BrowseTasksHandler.scss';
 
-@connectToStores
 @cssModules(styles)
-export default class BrowseTasksHandler extends Component {
+class BrowseTasksHandler extends Component {
 
   static propTypes = {
-    tasks: PropTypes.array.isRequired,
-    isLoading: PropTypes.bool.isRequired,
+    browse: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
     history: React.PropTypes.object.isRequired,
   }
 
-  static getStores() {
-    return [BrowseStore];
-  }
-
-  static getPropsFromStores() {
-    return BrowseStore.getState();
-  }
-
   state = {
     filters: {category: null, minPrice: null, maxDistance: null},
-    sort: UserStore.state.user.location ? {sort: 'distance'} : {sort: 'date'},
+    sort: UserStore.state.user.location ? {sort: 'DISTANCE'} : {sort: 'DATE'},
     taskFilter: null,
     isLoadingMore: false,
   }
 
   componentDidMount() {
-    if (__CLIENT__) {
+    if (false && __CLIENT__) {
       if (UserStore.state.user.location) {
         BrowseActions.refreshTasks(
           Object.assign({}, this.state.filters, this.state.sort),
@@ -70,11 +58,11 @@ export default class BrowseTasksHandler extends Component {
     }
   }
 
-  componentWillReceiveProps(newProps) {
+  /* componentWillReceiveProps(newProps) {
     if (newProps.tasks.length !== this.props.tasks.length) {
       this.setState({isLoadingMore: false});
     }
-  }
+  }*/
 
   _onMarkerClick(event, filterKey) {
     this.setState({
@@ -85,18 +73,10 @@ export default class BrowseTasksHandler extends Component {
 
   _onFiltersChanged(filters) {
     this.setState({filters});
-    BrowseActions.refreshTasks(
-      Object.assign({}, this.state.sort, filters),
-      UserStore.state.user.location,
-    );
   }
 
   _onSort(sort) {
-    this.setState({sort: {sort}}); // TODO: no sort.sort plz. -_-
-    BrowseActions.refreshTasks(
-      Object.assign({}, {sort}, this.state.filters),
-      UserStore.state.user.location,
-    );
+    this.setState({sort: {sort}});
   }
 
   _onTaskSelected(task) {
@@ -121,13 +101,13 @@ export default class BrowseTasksHandler extends Component {
     BrowseActions.cancelApplyForTask(task);
   }
 
-  _onLoadMore() {
+  /* _onLoadMore() {
     BrowseActions.refreshTasks(
       Object.assign({skip: this.props.tasks.length - 1, limit: 20}, this.state.sort, this.state.filters),
       UserStore.state.user.location,
     );
     this.setState({isLoadingMore: true});
-  }
+  }*/
 
   _closeDetail() {
     this.setState({
@@ -136,9 +116,11 @@ export default class BrowseTasksHandler extends Component {
   }
 
   render() {
-    const {taskFilter, sort} = this.state;
+    const {sort} = this.state;
+    const {tasks} = this.props.browse;
 
-    const taskGroups = this.props.tasks
+    const taskGroups = tasks.edges
+      .map(edge => edge.node)
       .filter(t => t.location)
       .reduce((prev, cur) => {
         const mapKey = `${cur.location.latitude}:${cur.location.longitude}`;
@@ -163,10 +145,6 @@ export default class BrowseTasksHandler extends Component {
         };
       });
 
-    const filteredTasks = taskFilter ?
-      taskGroups[this.state.taskFilter] :
-      this.props.tasks;
-
     const pos = UserStore.state.user.location;
     const center = pos ?
       new LatLng(pos) :
@@ -190,40 +168,62 @@ export default class BrowseTasksHandler extends Component {
             <div styleName="sort-container">
               <div styleName="sort" className="toggle-group">
                 <button
-                  className={classNames('toggle', {'on': sort.sort === 'price'})}
-                  onClick={() => this._onSort('price')}
+                  className={classNames('toggle', {'on': sort.sort === 'PRICE'})}
+                  onClick={() => this._onSort('PRICE')}
                 >
                   <FormattedMessage id="browse.price"/>
                 </button>
                 <button
-                  className={classNames('toggle', {'on': sort.sort === 'distance'})}
-                  onClick={() => this._onSort('distance')}
+                  className={classNames('toggle', {'on': sort.sort === 'DISTANCE'})}
+                  onClick={() => this._onSort('DISTANCE')}
                 >
                   <FormattedMessage id="browse.distance"/>
                 </button>
                 <button
-                  className={classNames('toggle', {'on': sort.sort === 'date'})}
-                  onClick={() => this._onSort('date')}
+                  className={classNames('toggle', {'on': sort.sort === 'DATE'})}
+                  onClick={() => this._onSort('DATE')}
                 >
                   <FormattedMessage id="browse.date"/>
                 </button>
               </div>
             </div>
-            {
-              this.props.isLoading ?
-              <div className="progress-center"><Progress /></div> :
-              <NelpTaskListView
-                tasks={filteredTasks}
-                onTaskSelected={::this._onTaskSelected}
-                onMakeOffer={::this._onMakeOffer}
-                onCancelApply={::this._onCancelApply}
-                onLoadMore={::this._onLoadMore}
-                isLoading={this.state.isLoadingMore}
-              />
-            }
+            <NelpTaskListView
+              browse={this.props.browse}
+              filters={{
+                sort: this.state.sort.sort,
+                ...this.state.filters,
+              }}
+              onTaskSelected={::this._onTaskSelected}
+              onMakeOffer={::this._onMakeOffer}
+              onCancelApply={::this._onCancelApply}
+              isLoading={this.state.isLoadingMore}
+            />
           </div>
         </div>
       </div>
     );
   }
 }
+
+export default Relay.createContainer(BrowseTasksHandler, {
+  initialVariables: {
+    first: 10,
+  },
+  fragments: {
+    browse: () => Relay.QL`
+      fragment on Browse {
+        tasks(first: $first) {
+          edges {
+            node {
+              location {
+                latitude,
+                longitude,
+              }
+            }
+          }
+        }
+        ${NelpTaskListView.getFragment('browse')}
+      }
+    `,
+  },
+});
