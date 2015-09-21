@@ -89,7 +89,7 @@ module.exports = [
         loader: 'css/locals?importLoaders=1!postcss!sass?' + shared.sassPaths,
       }, {
         test: /\.jsx?$/,
-        loaders: ['babe'],
+        loaders: ['babel'],
         include: path.resolve(ROOT_PATH, 'src'),
       }]),
     },
