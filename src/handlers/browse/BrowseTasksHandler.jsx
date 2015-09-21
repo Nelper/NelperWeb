@@ -33,28 +33,19 @@ class BrowseTasksHandler extends Component {
   }
 
   componentDidMount() {
-    if (false && __CLIENT__) {
-      if (UserStore.state.user.location) {
-        BrowseActions.refreshTasks(
-          Object.assign({}, this.state.filters, this.state.sort),
-          UserStore.state.user.location,
-        );
-      } else {
-        BrowseActions.refreshTasks(Object.assign({}, this.state.filters, this.state.sort));
+    if (__CLIENT__ && !UserStore.state.user.location) {
+      // TODO(janic): this logic should be elsewhere.
+      navigator.geolocation.getCurrentPosition((pos) => {
+        UserActions.setLocation(pos.coords);
 
-        // TODO(janic): this logic should be elsewhere.
-        navigator.geolocation.getCurrentPosition((pos) => {
-          UserActions.setLocation(pos.coords);
-
-          if (!this.refs.map) {
-            return;
-          }
-          this.refs.map.panTo(new LatLng(
-            pos.coords.latitude,
-            pos.coords.longitude,
-          ));
-        });
-      }
+        if (!this.refs.map) {
+          return;
+        }
+        this.refs.map.panTo(new LatLng(
+          pos.coords.latitude,
+          pos.coords.longitude,
+        ));
+      });
     }
   }
 

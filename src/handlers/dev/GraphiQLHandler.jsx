@@ -21,7 +21,14 @@ export default class GraphiQLHandler extends Component {
 
   componentDidMount() {
     if (__CLIENT__) {
-      this.setState(ApiUtils.getUserSession());
+      const session = ApiUtils.getUserSession();
+      if (session) {
+        const [userId, sessionToken] = session.split('-');
+        this.setState({
+          userId,
+          sessionToken,
+        });
+      }
     }
   }
 

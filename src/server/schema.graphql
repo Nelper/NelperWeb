@@ -45,6 +45,16 @@ enum BrowseTaskSort {
   DATE
 }
 
+input CancelApplyForTaskInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type CancelApplyForTaskPayload {
+  task: Task
+  clientMutationId: String!
+}
+
 type File {
   name: String
   url: String
@@ -62,6 +72,7 @@ input GeoPointInput {
 
 type Mutation {
   applyForTask(input: ApplyForTaskInput!): ApplyForTaskPayload
+  cancelApplyForTask(input: CancelApplyForTaskInput!): CancelApplyForTaskPayload
 }
 
 interface Node {

@@ -4,6 +4,7 @@ export {
   TaskType,
   TaskConnectionType,
   ApplyForTaskMutation,
+  CancelApplyForTaskMutation,
 } from './taskSchema';
 export {ApplicationType, ApplicationConnectionType} from './applicationSchema';
 export {UserType, UserPrivateType} from './userSchema';

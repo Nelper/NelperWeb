@@ -84,3 +84,19 @@ export async function applyForTask({userId, sessionToken}, taskId, price) {
   parseApplication.set('price', price);
   return await parseApplication.save();
 }
+
+export async function cancelApplyForTask({userId, sessionToken}, taskId) {
+  const parseTask = new NelpTask();
+  parseTask.id = taskId;
+  const parseUser = new Parse.User();
+  parseUser.id = userId;
+  const query = new Parse.Query(NelpTaskApplication);
+  query.equalTo('user', parseUser);
+  query.equalTo('task', parseTask);
+  query.notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED);
+  const applications = await query.find();
+  applications.forEach(a => {
+    a.set('state', NELP_TASK_APPLICATION_STATE.CANCELED);
+  });
+  return await Parse.Object.saveAll(applications);
+}

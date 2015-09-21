@@ -5,10 +5,11 @@ import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 
 import MakeOfferDialogView from './MakeOfferDialogView';
 import TaskPictureSlider from 'components/TaskPictureSlider';
+import ApplyForTaskMutation from 'actions/ApplyForTaskMutation';
+import CancelApplyForTaskMutation from 'actions/CancelApplyForTaskMutation';
 import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import LocationUtils from 'utils/LocationUtils';
-import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 import styles from './BrowseTasksListView.scss';
 
@@ -111,7 +112,13 @@ class BrowseTasksListView extends Component {
   }
 
   _onMakeOfferConfirm(value) {
-    this.props.onMakeOffer(this.state.makeOfferTask, value);
+    Relay.Store.update(
+      new ApplyForTaskMutation({
+        task: this.state.makeOfferTask,
+        price: value,
+      })
+    );
+
     this.setState({
       makeOfferDialogOpened: false,
       makeOfferTask: null,
@@ -119,7 +126,11 @@ class BrowseTasksListView extends Component {
   }
 
   _onCancelOffer(task) {
-    this.props.onCancelApply(task);
+    Relay.Store.update(
+      new CancelApplyForTaskMutation({
+        task,
+      })
+    );
   }
 
   render() {
@@ -178,7 +189,7 @@ class BrowseTasksListView extends Component {
               </div>
               <div styleName="controls" className="btn-group">
                 {
-                  t.application && t.application.state === NELP_TASK_APPLICATION_STATE.PENDING ?
+                  t.application && t.application.state === 'PENDING' ?
                   <button className="primary" onClick={() => this._onCancelOffer(t)}>
                     Cancel offer
                   </button> :
@@ -254,6 +265,11 @@ export default Relay.createContainer(BrowseTasksListView, {
       				pictures {
                 url,
               },
+              application {
+                state,
+              },
+              ${ApplyForTaskMutation.getFragment('task')},
+              ${CancelApplyForTaskMutation.getFragment('task')},
             }
           }
         }

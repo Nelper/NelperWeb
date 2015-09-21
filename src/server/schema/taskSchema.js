@@ -29,6 +29,7 @@ import {
 import {
   getTask,
   applyForTask,
+  cancelApplyForTask,
 } from '../data/taskData';
 
 export const TaskType = new GraphQLObjectType({
@@ -123,6 +124,26 @@ export const ApplyForTaskMutation = mutationWithClientMutationId({
     const localTaskId = fromGlobalId(id).id;
     const application = await applyForTask(rootValue, localTaskId, price);
     return {localTaskId, application};
+  },
+});
+
+export const CancelApplyForTaskMutation = mutationWithClientMutationId({
+  name: 'CancelApplyForTask',
+  inputFields: {
+    id: {type: new GraphQLNonNull(GraphQLID)},
+  },
+  outputFields: {
+    task: {
+      type: TaskType,
+      resolve: ({localTaskId}, _, {rootValue}) => {
+        return getTask(rootValue, localTaskId);
+      },
+    },
+  },
+  mutateAndGetPayload: async ({id}, {rootValue}) => {
+    const localTaskId = fromGlobalId(id).id;
+    await cancelApplyForTask(rootValue, localTaskId);
+    return {localTaskId};
   },
 });
 

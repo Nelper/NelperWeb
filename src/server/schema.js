@@ -9,6 +9,7 @@ import {
   UserType,
   BrowseType,
   ApplyForTaskMutation,
+  CancelApplyForTaskMutation,
 } from './schema/index';
 
 import {getMe} from './data/userData';
@@ -40,6 +41,7 @@ const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     applyForTask: ApplyForTaskMutation,
+    cancelApplyForTask: CancelApplyForTaskMutation,
   }),
 });
 
