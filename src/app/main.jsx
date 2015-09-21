@@ -1,6 +1,7 @@
 import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Relay from 'react-relay';
 import {Router} from 'react-router';
 import ReactRouterRelay from 'react-router-relay';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
@@ -9,6 +10,7 @@ import {Parse} from 'parse';
 import UserStore from 'stores/UserStore';
 import IntlUtils from 'utils/IntlUtils';
 import LogUtils from 'utils/LogUtils';
+import ApiUtils from 'utils/ApiUtils';
 import getRoutes from './getRoutes';
 import formats from 'utils/IntlFormats';
 
@@ -17,6 +19,14 @@ import 'styles/common.scss';
 
 // Initialize Parse
 Parse.initialize('w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN', 'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si');
+
+Relay.injectNetworkLayer(
+  new Relay.DefaultNetworkLayer('/graphql', {
+    headers: {
+      Authorization: ApiUtils.getUserSession(),
+    },
+  })
+);
 
 function getBrowserLang() {
   try {

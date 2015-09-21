@@ -97,6 +97,12 @@ function getFAQComponent(loc, cb) {
   });
 }
 
+function getNelperPayComponent(loc, cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/about/NelperPayHandler'));
+  });
+}
+
 // Routes.
 export default function getRoutes() {
   return (
@@ -127,6 +133,7 @@ export default function getRoutes() {
       <Route path="/settings" getComponent={getSettingsComponent} onEnter={requireAuth} />
       <Route path="/howitworks" getComponent={getHowItWorksComponent} />
       <Route path="/faq" getComponent={getFAQComponent} />
+      <Route path="/nelperpay" getComponent={getNelperPayComponent} />
       {
         __DEVELOPMENT__ ?
         <Route>

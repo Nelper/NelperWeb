@@ -1,4 +1,5 @@
 import Parse from 'parse';
+import Relay from 'react-relay';
 
 import  {NelpTask, NelpTaskApplication, UserPrivateData, Feedback} from './ParseModels';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
@@ -120,15 +121,9 @@ class ApiUtils {
   getUserSession() {
     const parseUser = Parse.User.current();
     if (!parseUser) {
-      return {
-        userId: '',
-        sessionToken: '',
-      };
+      return null;
     }
-    return {
-      userId: parseUser.id,
-      sessionToken: parseUser.getSessionToken(),
-    };
+    return parseUser.id + '-' + parseUser.getSessionToken();
   }
 
   /**
@@ -659,6 +654,13 @@ class ApiUtils {
       const parseUserId = Parse.User.current().id;
       document.cookie = `p_session=${parseSessionToken}`;
       document.cookie = `p_user=${parseUserId}`;
+      Relay.injectNetworkLayer(
+        new Relay.DefaultNetworkLayer('/graphql', {
+          headers: {
+            Authorization: this.getUserSession(),
+          },
+        })
+      );
     }
   }
 

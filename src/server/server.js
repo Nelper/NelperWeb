@@ -1,3 +1,5 @@
+global.self = {};
+
 import 'babel-core/polyfill';
 import express from 'express';
 import path from 'path';
@@ -9,7 +11,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import Parse from 'parse/node';
 
-import getRoutes from 'app/getRoutes';
+// import getRoutes from 'app/getRoutes';
 import alt from 'app/alt';
 import ApiUtils from 'utils/ServerApiUtils';
 import IntlUtils from 'utils/IntlUtils';
@@ -35,6 +37,10 @@ app.use(morgan('combined'));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
+  if (__DISABLE_SSR__) {
+    return res.send(template.replace('{content}', ''));
+  }
+
   function renderPage(messages, locale) {
     const location = createLocation(req.url);
     match({routes: getRoutes(), location}, (error, redirectLocation, renderProps) => {

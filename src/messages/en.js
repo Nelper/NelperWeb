@@ -225,4 +225,12 @@ export default {
     generalTitle_00: "What is Nelper?",
     generalDesc_00: "Nelper is a community marketplace to connect with people around you and get your tasks completed or complete other people’s tasks, for money. You can use Nelper on web or on iOS.",
   },
+
+  nelperPay: {
+    headerTitle: "NelperPay",
+    headerText: "A <strong>safe</strong> payment platform for everyone",
+
+    whatIsTitle: "What is NelperPay?",
+    whatIsText: "NelperPay is your payment platform. It's safe and simple to use.",
+  },
 };

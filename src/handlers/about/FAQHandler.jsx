@@ -71,23 +71,25 @@ export default class FAQHandler extends Component {
     }, []);
 
     return (
-      <div styleName="module" className="container pad-all">
-        <h2 styleName="page-title">
-          <FormattedMessage id="faq.pageTitle_01" />
-        </h2>
-        <h2 styleName="page-title">
-          <FormattedMessage id="faq.pageTitle_02" values={{
-            supportCenter: (
-              <Link to="/support">
-                <FormattedMessage id="faq.supportCenter" />
-              </Link>
-            ),
-          }} />
-        </h2>
-        <section styleName="summary">
+      <div styleName="module" className="container">
+        <section styleName="header" className="panel pad-all">
+          <h2 styleName="page-title">
+            <FormattedMessage id="faq.pageTitle_01" />
+          </h2>
+          <h2 styleName="page-title">
+            <FormattedMessage id="faq.pageTitle_02" values={{
+              supportCenter: (
+                <Link to="/support">
+                  <FormattedMessage id="faq.supportCenter" />
+                </Link>
+              ),
+            }} />
+          </h2>
+        </section>
+        <section styleName="summary" className="panel pad-all">
           {summary}
         </section>
-        <section styleName="detail">
+        <section styleName="detail" className="panel pad-all">
           {details}
         </section>
       </div>

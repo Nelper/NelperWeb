@@ -2,8 +2,16 @@
 
 :local .module {
 
+  margin-top: 2rem;
+
   a {
     color: $color-secondary;
+  }
+
+  .header {
+    h2:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .page-title {
@@ -11,6 +19,7 @@
   }
 
   .summary {
+    @include span-columns(3);
     margin-bottom: 1rem;
   }
 
@@ -28,7 +37,8 @@
   }
 
   .detail {
-    display: block;
+    @include span-columns(9);
+    @include omega();
   }
 
   .detail-item {

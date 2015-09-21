@@ -21,7 +21,7 @@ module.exports = [
         loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss!sass?' + shared.sassPaths),
       }, {
         test: /\.jsx?$/,
-        loader: 'babel',
+        loader: 'babel?plugins=./scripts/babelRelayPlugin',
         include: path.resolve(ROOT_PATH, 'src'),
       }]),
     },
@@ -37,6 +37,8 @@ module.exports = [
       }),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
+          hoist_vars: true,
+          screw_ie8: true,
           warnings: false,
         },
       }),
@@ -74,6 +76,7 @@ module.exports = [
       new webpack.DefinePlugin({
         '__CLIENT__': false,
         '__SERVER__': true,
+        '__DISABLE_SSR__': true,
         '__DEVELOPMENT__': process.env.NODE_ENV !== 'production',
       }),
     ],
@@ -86,7 +89,7 @@ module.exports = [
         loader: 'css/locals?importLoaders=1!postcss!sass?' + shared.sassPaths,
       }, {
         test: /\.jsx?$/,
-        loaders: ['babel?stage=0&optional=runtime'],
+        loaders: ['babe'],
         include: path.resolve(ROOT_PATH, 'src'),
       }]),
     },
