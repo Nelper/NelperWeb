@@ -23,7 +23,7 @@ export const GeoPointType = new GraphQLObjectType({
 
 export const GeoPointInputType = new GraphQLInputObjectType({
   name: 'GeoPointInput',
-  description: 'A geo point unput',
+  description: 'A geo point input',
   fields: () => ({
     latitude: {
       type: GraphQLFloat,

@@ -80,7 +80,7 @@ input GeoPointInput {
   longitude: Float = 0.0
 }
 
-type LocationType {
+type Location {
   name: String
   formattedAddress: String
   streetNumber: String
@@ -94,11 +94,28 @@ type LocationType {
 type Mutation {
   applyForTask(input: ApplyForTaskInput!): ApplyForTaskPayload
   cancelApplyForTask(input: CancelApplyForTaskInput!): CancelApplyForTaskPayload
+  updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
   changeLanguage(input: ChangeLanguageInput!): ChangeLanguagePayload
 }
 
 interface Node {
   id: ID!
+}
+
+type Notification {
+  posterApplication: NotificationSetting
+  posterRequestPayment: NotificationSetting
+  nelperApplicationStatus: NotificationSetting
+  nelperReceivedPayment: NotificationSetting
+  newsletter: NotificationSetting
+}
+
+type NotificationSetting {
+  email: Boolean
+}
+
+input NotificationSettingInput {
+  email: Boolean
 }
 
 type PageInfo {
@@ -139,6 +156,17 @@ type TaskEdge {
   cursor: String!
 }
 
+input UpdateNotificationSettingsInput {
+  settingId: String
+  settingValue: NotificationSettingInput
+  clientMutationId: String!
+}
+
+type UpdateNotificationSettingsPayload {
+  privateData: UserPrivate
+  clientMutationId: String!
+}
+
 type User implements Node {
   id: ID!
   name: String
@@ -153,5 +181,6 @@ type UserPrivate implements Node {
   phone: String
   email: String
   language: String
-  locations: [LocationType]
+  locations: [Location]
+  notifications: Notification
 }

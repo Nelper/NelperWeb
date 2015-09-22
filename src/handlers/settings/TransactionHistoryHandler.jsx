@@ -2,10 +2,10 @@ import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 
-import styles from './NelperPaySettingsHandler.scss';
+import styles from './TransactionHistoryHandler.scss';
 
 @cssModules(styles)
-class AccountSettingsHandler extends Component {
+class TransactionHistoryHandler extends Component {
 
   static propTypes = {
     user: PropTypes.object,
@@ -16,8 +16,7 @@ class AccountSettingsHandler extends Component {
       <div className="settings-handler container">
         <div className="panel">
           <div className="panel-title">
-            <h2>Credit cards</h2>
-            <button className="link-button">Add new</button>
+            <h2>History</h2>
           </div>
           <div className="panel-content"></div>
         </div>
@@ -26,7 +25,7 @@ class AccountSettingsHandler extends Component {
   }
 }
 
-export default Relay.createContainer(AccountSettingsHandler, {
+export default Relay.createContainer(TransactionHistoryHandler, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {

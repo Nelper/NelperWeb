@@ -1,6 +1,7 @@
 import {Component, PropTypes} from 'react';
 
 import UserActions from 'actions/UserActions';
+import UserStore from 'stores/UserStore';
 
 export default class LogoutHandler extends Component {
 
@@ -9,8 +10,10 @@ export default class LogoutHandler extends Component {
   }
 
   componentDidMount() {
-    UserActions.logout();
     this.context.history.pushState(null, '/');
+    if (UserStore.isLogged()) {
+      UserActions.logout();
+    }
   }
 
   render() {

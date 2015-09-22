@@ -37,7 +37,7 @@ export default class PostTaskCategoriesHandler extends Component {
     });
 
     return (
-      <div styleName="module" className="container">
+      <div styleName="module" className="container pad-all">
         <h2 styleName="title"><FormattedMessage id="post.selectCategory" /></h2>
         <div styleName="category-picker">{categories}</div>
         <div styleName="other-row">

@@ -2,8 +2,6 @@
 
 :local .module {
 
-  padding: 0 0.5rem;
-
   @include media($large-screen) {
     padding: 1rem 8rem;
   }

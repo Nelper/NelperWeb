@@ -50,7 +50,7 @@ export default class LoginHandler extends Component {
 
   _onSubmit(event) {
     event.preventDefault();
-    this._login();
+    this._onLogin();
   }
 
   _onLogin() {

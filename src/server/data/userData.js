@@ -52,3 +52,15 @@ export async function changeUserLanguage({userId, sessionToken}, language) {
 
   return privateData;
 }
+
+export async function updateNotificationSettings({userId, sessionToken}, settingId, settingValue) {
+  const user = await getUser({sessionToken}, userId, true);
+  const privateData = user.get('privateData');
+  const notifications = privateData.get('notifications');
+  if (!notifications[settingId]) {
+    throw Error('Invalid setting type ' + settingId);
+  }
+  notifications[settingId] = settingValue;
+  privateData.set('notifications', notifications);
+  return privateData.save(null, {sessionToken});
+}

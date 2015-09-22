@@ -1,6 +1,6 @@
 import Relay, {Mutation} from 'react-relay';
 
-export default class changeLanguageMutation extends Mutation {
+export default class ChangeLanguageMutation extends Mutation {
   static fragments = {
     privateData: () => Relay.QL`
       fragment on UserPrivate {

@@ -3,6 +3,8 @@ import {
   GraphQLString,
   GraphQLList,
   GraphQLNonNull,
+  GraphQLBoolean,
+  GraphQLInputObjectType,
 } from 'graphql';
 
 import {
@@ -22,6 +24,7 @@ import {
   getUserPicture,
   getUserPrivate,
   changeUserLanguage,
+  updateNotificationSettings,
 } from '../data/userData';
 
 import {getTasksForUser} from '../data/taskData';
@@ -32,8 +35,8 @@ import {
   ApplicationConnectionType
 } from './index';
 
-export const LocationType = new GraphQLObjectType({
-  name: 'LocationType',
+const LocationType = new GraphQLObjectType({
+  name: 'Location',
   description: 'A user saved location.',
   fields: () => ({
     name: {
@@ -71,6 +74,56 @@ export const LocationType = new GraphQLObjectType({
   }),
 });
 
+const NotificationSettingType = new GraphQLObjectType({
+  name: 'NotificationSetting',
+  description: 'Settings for a notification type.',
+  fields: () => ({
+    email: {
+      type: GraphQLBoolean,
+      description: 'If the notification type should be sent by email.',
+    },
+  }),
+});
+
+const NotificationSettingInputType = new GraphQLInputObjectType({
+  name: 'NotificationSettingInput',
+  description: 'Settings for a notification type.',
+  fields: () => ({
+    email: {
+      type: GraphQLBoolean,
+      description: 'If the notification type should be sent by email.',
+      defaultValue: null,
+    },
+  }),
+});
+
+const NotificationType = new GraphQLObjectType({
+  name: 'Notification',
+  description: 'A user saved location.',
+  fields: () => ({
+    posterApplication: {
+      type: NotificationSettingType,
+      description: 'Notification setting for a task poster when a nelper applies on their task.',
+    },
+    posterRequestPayment: {
+      type: NotificationSettingType,
+      description: 'Notification setting for a task poster when a nelper requests their payment.',
+    },
+    nelperApplicationStatus: {
+      type: NotificationSettingType,
+      description: 'Notification setting for a nelper when the status of an application changes.',
+    },
+    nelperReceivedPayment: {
+      type: NotificationSettingType,
+      description: 'Notification setting for a nelper when a payment is received.',
+    },
+    newsletter: {
+      type: NotificationSettingType,
+      description: 'If the user wants to receive newsletter.',
+    },
+  }),
+});
+
 export const UserPrivateType = new GraphQLObjectType({
   name: 'UserPrivate',
   description: 'A person who uses our app.',
@@ -95,6 +148,11 @@ export const UserPrivateType = new GraphQLObjectType({
       type: new GraphQLList(LocationType),
       description: 'The user current language.',
       resolve: (data) => data.get('locations'),
+    },
+    notifications: {
+      type: NotificationType,
+      description: 'The user notifications settings',
+      resolve: (data) => data.get('notifications'),
     },
   }),
   interfaces: [nodeInterface],
@@ -141,6 +199,26 @@ export const UserType = new GraphQLObjectType({
     },
   }),
   interfaces: [nodeInterface],
+});
+
+export const UpdateNotificationSettingsMutation = mutationWithClientMutationId({
+  name: 'UpdateNotificationSettings',
+  inputFields: {
+    settingId: {type: GraphQLString},
+    settingValue: {type: NotificationSettingInputType},
+  },
+  outputFields: {
+    privateData: {
+      type: UserPrivateType,
+      resolve: ({privateData}) => {
+        return privateData;
+      },
+    },
+  },
+  mutateAndGetPayload: async ({settingId, settingValue}, {rootValue}) => {
+    const privateData = await updateNotificationSettings(rootValue, settingId, settingValue);
+    return {privateData};
+  },
 });
 
 export const ChangeLanguageMutation = mutationWithClientMutationId({

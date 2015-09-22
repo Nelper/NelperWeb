@@ -11,6 +11,7 @@ import {
   ApplyForTaskMutation,
   CancelApplyForTaskMutation,
   ChangeLanguageMutation,
+  UpdateNotificationSettingsMutation,
 } from './schema/index';
 
 import {getMe} from './data/userData';
@@ -43,6 +44,7 @@ const mutationType = new GraphQLObjectType({
   fields: () => ({
     applyForTask: ApplyForTaskMutation,
     cancelApplyForTask: CancelApplyForTaskMutation,
+    updateNotificationSettings: UpdateNotificationSettingsMutation,
     changeLanguage: ChangeLanguageMutation,
   }),
 });

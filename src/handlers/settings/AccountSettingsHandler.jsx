@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 
-import ChangeLanguageMutation from 'actions/settings/ChangeLanguageMutation';
+import {ChangeLanguageMutation} from 'actions/settings/index';
 
 import {
   IconButton,
@@ -135,8 +135,8 @@ class AccountSettingsHandler extends Component {
         </div>
         <div className="panel">
           <div className="panel-title">
-            <h2 styleName="add-location-title">Locations</h2>
-            <button styleName="add-location-btn" className="link-button" onClick={::this._onOpenLocationDialog}>
+            <h2>Locations</h2>
+            <button className="link-button" onClick={::this._onOpenLocationDialog}>
               Add new
             </button>
           </div>

@@ -11,5 +11,6 @@ export {
   UserType,
   UserPrivateType,
   ChangeLanguageMutation,
+  UpdateNotificationSettingsMutation,
 } from './userSchema';
 export {BrowseType, browseArgs} from './browseSchema';

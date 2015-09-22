@@ -2,4 +2,37 @@
 
 :local .module {
 
+  .setting-row {
+    @include outer-container();
+    margin-bottom: 1rem;
+  }
+
+  .title-col {
+    @include span-columns(3);
+    font-weight: bold;
+    color: $color-primary;
+    font-size: 1.1em;
+  }
+
+  .input-col {
+    @include span-columns(9);
+    @include omega();
+  }
+
+  .title {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+
+  .input {
+    margin-bottom: 0.5rem;
+
+    :global(.checkbox-component) {
+      background-size: 1.4rem;
+      padding-left: 2.5rem;
+      color: $color-gray-dark;
+    }
+  }
+
 }

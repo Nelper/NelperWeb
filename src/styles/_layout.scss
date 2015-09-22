@@ -89,9 +89,20 @@ body {
   }
 
   h2 {
+    flex: 1;
     margin-bottom: 0;
     font-size: 1.2rem;
   }
+
+  button {
+    padding: 0.25rem;
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+}
+
+.add-location-title {
+  flex: 1;
 }
 
 .panel-content {

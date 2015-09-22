@@ -29,6 +29,9 @@ class ApiUtils {
     return Parse.User.logIn(email, password)
       .then((user) => {
         this._initSession();
+        if (!user.has('privateData')) {
+          return this._createUserBase(user);
+        }
         return user.get('privateData').fetch();
       })
       .then(() => meFromParse(Parse.User.current()));
@@ -50,12 +53,12 @@ class ApiUtils {
     parseUser.set('name', name);
     return parseUser.signUp()
       .then((user) => {
-        this._initSession();
-        this._createUserBase(user);
-        user.save();
-        return user;
+        return this._createUserBase(user);
       })
-      .then(meFromParse);
+      .then(() => {
+        this._initSession();
+        return meFromParse(Parse.User.current());
+      });
   }
 
   /**
@@ -75,7 +78,6 @@ class ApiUtils {
         },
       });
     }).then((user) => {
-      this._initSession();
       return this._getUserInfoFromFacebook()
         .then((fbUser) => {
           user.set('name', fbUser.name);
@@ -88,7 +90,10 @@ class ApiUtils {
 
           return user.get('privateData').fetch();
         })
-        .then(() => meFromParse(Parse.User.current()));
+        .then(() => {
+          this._initSession();
+          return meFromParse(Parse.User.current());
+        });
     });
   }
 
@@ -693,8 +698,29 @@ class ApiUtils {
     user.set('experience', []);
     const userPrivate = new UserPrivateData();
     userPrivate.set('locations', []);
+    userPrivate.set('notifications', {
+      posterApplication: {
+        email: true,
+      },
+      posterRequestPayment: {
+        email: true,
+      },
+      nelperApplicationStatus: {
+        email: true,
+      },
+      nelperReceivedPayment: {
+        email: true,
+      },
+      newsletter: {
+        email: true,
+      },
+    });
     userPrivate.setACL(new Parse.ACL(user));
-    user.set('privateData', userPrivate);
+    return userPrivate.save()
+      .then(p => {
+        user.set('privateData', p);
+        return user.save();
+      });
   }
 
   _fileFromParse(parseFile) {

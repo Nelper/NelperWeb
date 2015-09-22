@@ -1,6 +1,8 @@
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
+import {Route, Redirect} from 'react-router';
 import Relay from 'react-relay';
+
+import Progress from 'components/Progress';
 
 import IntlUtils from 'utils/IntlUtils';
 
@@ -23,6 +25,7 @@ import {
   AccountSettingsHandler,
   NotificationsSettingsHandler,
   NelperPaySettingsHandler,
+  TransactionHistoryHandler,
 } from 'handlers/settings/index';
 
 import LogoutHandler from 'handlers/login/LogoutHandler';
@@ -46,6 +49,10 @@ function requireAuth(nextState, transition) {
     return false;
   }
   return true;
+}
+
+function renderLoading() {
+  return <div className="progress-center"><Progress /></div>;
 }
 
 function getHomeComponent(loc, cb) {
@@ -116,7 +123,12 @@ export default function getRoutes() {
       <Route path="/login" getComponent={getLoginComponent} />
       <Route path="/register" getComponent={getRegisterComponent} />
       <Route path="/logout" component={LogoutHandler} />
-      <Route path="/browse" queries={BrowseQueries} component={BrowseTasksHandler} />
+      <Route
+        path="/browse"
+        component={BrowseTasksHandler}
+        queries={BrowseQueries}
+        renderLoading={() => <div className="progress-center"><Progress /></div>}
+      />
       <Route path="/post" getComponent={getPostCategoriesComponent} />
       <Route path="/post/:category" getComponent={getPostFormComponent} onEnter={requireAuth} />
       <Route onEnter={requireAuth} name={IntlUtils.getMessage('routes.nelpcenter')}>
@@ -135,10 +147,32 @@ export default function getRoutes() {
         <Route path="/center/applications/detail/:id" component={ApplicationDetailHandler} name={IntlUtils.getMessage('routes.applicationDetail')} />
       </Route>
       <Route path="/profile" getComponent={getProfileComponent} onEnter={requireAuth} />
+      <Redirect from="/settings" to="/settings/account"/>
       <Route path="/settings" component={SettingsHandler} onEnter={requireAuth}>
-        <Route path="account" component={AccountSettingsHandler} queries={SettingsQueries} />
-        <Route path="notifications" component={NotificationsSettingsHandler} queries={SettingsQueries} />
-        <Route path="nelperpay" component={NelperPaySettingsHandler} queries={SettingsQueries} />
+        <Route
+          path="account"
+          component={AccountSettingsHandler}
+          queries={SettingsQueries}
+          renderLoading={() => <div className="progress-center"><Progress /></div>}
+        />
+        <Route
+          path="notifications"
+          component={NotificationsSettingsHandler}
+          queries={SettingsQueries}
+          renderLoading={() => <div className="progress-center"><Progress /></div>}
+        />
+        <Route
+          path="nelperpay"
+          component={NelperPaySettingsHandler}
+          queries={SettingsQueries}
+          renderLoading={() => <div className="progress-center"><Progress /></div>}
+        />
+        <Route
+          path="history"
+          component={TransactionHistoryHandler}
+          queries={SettingsQueries}
+          renderLoading={renderLoading}
+        />
       </Route>
       <Route path="/howitworks" getComponent={getHowItWorksComponent} />
       <Route path="/faq" getComponent={getFAQComponent} />

@@ -32,6 +32,11 @@ export default class SettingsHandler extends Component {
                 NelperPay
               </Link>
             </li>
+            <li styleName="menu-item">
+              <Link to="/settings/history" activeClassName="active">
+                Transaction history
+              </Link>
+            </li>
           </ul>
           <div styleName="setting-page">
             {this.props.children}

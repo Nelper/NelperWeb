@@ -234,13 +234,23 @@ export default Relay.createContainer(BrowseTasksListView, {
   initialVariables: {
     first: 10,
     sort: UserStore.getState().user.location ? 'DISTANCE' : 'DATE',
-    location: {
-      latitude: UserStore.getState().user.location.latitude,
-      longitude: UserStore.getState().user.location.longitude,
-    },
     maxDistance: null,
     minPrice: null,
     categories: null,
+  },
+  prepareVariables: (prepareVariables) => {
+    // The the user current location.
+    const location = UserStore.getState().user.location ?
+      {
+        latitude: UserStore.getState().user.location.latitude,
+        longitude: UserStore.getState().user.location.longitude,
+      } :
+      null;
+
+    return {
+      ...prepareVariables,
+      location,
+    };
   },
   fragments: {
     browse: () => Relay.QL`

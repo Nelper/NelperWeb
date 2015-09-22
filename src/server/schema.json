@@ -1007,9 +1007,21 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "LocationType",
+                  "name": "Location",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "notifications",
+              "description": "The user notifications settings",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Notification",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1028,7 +1040,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "LocationType",
+          "name": "Location",
           "description": "A user saved location.",
           "fields": [
             {
@@ -1122,6 +1134,100 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Notification",
+          "description": "A user saved location.",
+          "fields": [
+            {
+              "name": "posterApplication",
+              "description": "Notification setting for a task poster when a nelper applies on their task.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NotificationSetting",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "posterRequestPayment",
+              "description": "Notification setting for a task poster when a nelper requests their payment.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NotificationSetting",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nelperApplicationStatus",
+              "description": "Notification setting for a nelper when the status of an application changes.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NotificationSetting",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nelperReceivedPayment",
+              "description": "Notification setting for a nelper when a payment is received.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NotificationSetting",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "newsletter",
+              "description": "If the user wants to receive newsletter.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NotificationSetting",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "NotificationSetting",
+          "description": "Settings for a notification type.",
+          "fields": [
+            {
+              "name": "email",
+              "description": "If the notification type should be sent by email.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1283,7 +1389,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "GeoPointInput",
-          "description": "A geo point unput",
+          "description": "A geo point input",
           "fields": null,
           "inputFields": [
             {
@@ -1365,6 +1471,33 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CancelApplyForTaskPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updateNotificationSettings",
+              "description": null,
+              "args": [
+                {
+                  "name": "input",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "UpdateNotificationSettingsInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UpdateNotificationSettingsPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1546,6 +1679,111 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Task",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "UpdateNotificationSettingsInput",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "settingId",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "settingValue",
+              "description": null,
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "NotificationSettingInput",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "NotificationSettingInput",
+          "description": "Settings for a notification type.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "email",
+              "description": "If the notification type should be sent by email.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UpdateNotificationSettingsPayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "privateData",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "UserPrivate",
                 "ofType": null
               },
               "isDeprecated": false,
