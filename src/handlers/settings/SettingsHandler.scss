@@ -1,7 +1,64 @@
 @import '~styles/base-module';
 
-:local {
-  .title {
-    color: $color-primary;
+:local .module {
+
+  .header {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+
+    @include media($medium-screen) {
+      padding: 1rem 2rem + rem(3px);
+      text-align: left;
+    }
+  }
+
+  .content {
+    @include outer-container();
+  }
+
+  .menu {
+    border: $base-border;
+
+    @include media($medium-screen) {
+      @include span-columns(3);
+    }
+  }
+
+  .menu-item {
+    &:not(:last-child) {
+      border-bottom: $base-border;
+    }
+
+    a {
+      display: block;
+      padding: 1rem;
+      border-left: solid 2px transparent;
+
+      @include media($medium-screen) {
+        padding: 1rem 2rem;
+      }
+
+      &:hover {
+        color: $color-primary;
+      }
+
+      &:global(.active) {
+        color: $color-primary;
+        font-weight: bold;
+
+        @include media($medium-screen) {
+          border-left: solid 2px $color-primary;
+        }
+      }
+    }
+  }
+
+  .setting-page {
+    @include media($medium-screen) {
+      @include span-columns(9);
+      @include omega();
+    }
   }
 }

@@ -1,10 +1,9 @@
 import React, {Component, PropTypes} from 'react';
-import {FormattedMessage} from 'react-intl';
 import connectToStores from 'alt/utils/connectToStores';
 import cssModules from 'react-css-modules';
 
-import {Dialog, Progress} from 'components/index';
-import AddLocationDialogView from './AddLocationDialogView';
+import Progress from 'components/Progress';
+import AddLocationDialogView from 'components/AddLocationDialogView';
 import TaskActions from 'actions/TaskActions';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
@@ -46,8 +45,7 @@ export default class PostTaskFormHandler extends Component {
     desc: '',
     hasDescInput: false,
     location: this.props.locations[0],
-    showCreateLocationDialog: false,
-    showDeleteLocationDialog: false,
+    openCreateLocation: false,
     pictures: [],
     loading: false,
   }
@@ -70,19 +68,19 @@ export default class PostTaskFormHandler extends Component {
 
   _onOpenAddLocation(event) {
     event.preventDefault();
-    this.setState({showCreateLocationDialog: true});
+    this.setState({openCreateLocation: true});
   }
 
   _onAddLocation(location) {
     UserActions.addLocation(location);
     this.setState({
-      showCreateLocationDialog: false,
+      openCreateLocation: false,
       location: location,
     });
   }
 
   _onCancelAddLocation() {
-    this.setState({showCreateLocationDialog: false});
+    this.setState({openCreateLocation: false});
   }
 
   _onLocationChanged(event) {
@@ -90,24 +88,6 @@ export default class PostTaskFormHandler extends Component {
     this.setState({
       location,
     });
-  }
-
-  _onDeleteLocation(event) {
-    event.preventDefault();
-    this.setState({
-      showDeleteLocationDialog: true,
-    });
-  }
-
-  _onDeleteLocationClose() {
-    this.setState({
-      showDeleteLocationDialog: false,
-    });
-  }
-
-  _onDeleteLocationConfirm() {
-    UserActions.deleteLocation(this.state.location);
-    this.setState({showDeleteLocationDialog: false});
   }
 
   _onTitleChanged(event) {
@@ -261,43 +241,25 @@ export default class PostTaskFormHandler extends Component {
     });
 
     return (
-      <div styleName="module" className="container">
+      <div styleName="page" className="container">
         <AddLocationDialogView
-          opened={this.state.showCreateLocationDialog}
+          opened={this.state.openCreateLocation}
           onLocationAdded={::this._onAddLocation}
           onCancel={::this._onCancelAddLocation} />
-        <Dialog opened={this.state.showDeleteLocationDialog} onClose={::this._onDeleteLocationClose}>
-          <h2><FormattedMessage id="post.deleteLocationTitle" /></h2>
-          <p className="dialog-content">
-            <FormattedMessage id="post.deleteLocationMessage" values={{
-              name: this.state.location && this.state.location.name,
-            }} />
-          </p>
-          <div className="btn-group dialog-buttons">
-            <button onClick={::this._onDeleteLocationClose}>
-              <FormattedMessage id="common.cancel" />
-            </button>
-            <button className="primary" onClick={::this._onDeleteLocationConfirm}>
-              <FormattedMessage id="common.delete" />
-            </button>
-          </div>
-        </Dialog>
         <div styleName="category-header-panel" className="header-panel">
           <div styleName="category-overlay" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(this.props.params.category)}')`}} />
           <div styleName="category-icon-container">
             <div styleName="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(this.props.params.category)}')`}}/>
           </div>
           <div styleName="back-btn-container">
-            <button className="back" onClick={::this._onCancel}>
-              <FormattedMessage id="post.changeCategory" />
-            </button>
+            <button className="back" onClick={::this._onCancel}>Select another category</button>
           </div>
         </div>
         <form onSubmit={::this._onSubmit}>
           <div styleName="task-panel" className="panel">
             <div styleName="input-row">
               <div styleName="input-content">
-                <label><FormattedMessage id="post.taskTitle" /></label>
+                <label>Enter your Task Title</label>
                 <input
                   type="text"
                   required
@@ -310,7 +272,7 @@ export default class PostTaskFormHandler extends Component {
             </div>
             <div styleName="input-row">
               <div styleName="input-content">
-                <label><FormattedMessage id="post.taskDescription" /></label>
+                <label>Briefly describe what you are looking for</label>
                 <textarea
                   required
                   minLength={4}
@@ -321,7 +283,7 @@ export default class PostTaskFormHandler extends Component {
             </div>
             <div styleName="input-row">
               <div styleName="input-content">
-                <label><FormattedMessage id="post.taskOffer" /></label>
+                <label>How much are you offering?</label>
                 <div styleName="price">
                   <div styleName="currency">$</div>
                   <input
@@ -338,7 +300,7 @@ export default class PostTaskFormHandler extends Component {
             </div>
             <div styleName="input-row">
               <div styleName="input-content">
-                <label><FormattedMessage id="post.taskLocation" /></label>
+                <label>Select your location</label>
                 <div styleName="location">
                   {
                     locations.length ?
@@ -353,31 +315,25 @@ export default class PostTaskFormHandler extends Component {
                   <div className="btn-group">
                     {
                       locations.length ?
-                      <button className="border-btn" onClick={::this._onDeleteLocation}>
-                        <FormattedMessage id="common.delete" />
-                      </button> :
+                      <button className="border-btn" onClick={::this._onOpenAddLocation}>Delete</button> :
                       null
                     }
-                    <button className="primary" onClick={::this._onOpenAddLocation}>
-                      <FormattedMessage id="common.add" />
-                    </button>
+                    <button className="primary" onClick={::this._onOpenAddLocation}>Add</button>
                   </div>
                 </div>
-                <div styleName="address">{this.state.location && this.state.location.address}</div>
+                <div styleName="address">{this.state.location && this.state.location.formattedAddress}</div>
               </div>
             </div>
           </div>
           <div styleName="pictures-panel" className="panel">
             <div styleName="input-row">
               <div styleName="input-content">
-                <label><FormattedMessage id="post.taskPictures" /></label>
+                <label>Attach pictures</label>
                 <div styleName="pictures">
                   {pictures}
                 </div>
                 <div styleName="add-picture">
-                  <button className="primary">
-                    <FormattedMessage id="common.browse" />
-                  </button>
+                  <button className="primary">Browse...</button>
                   <input type="file" accept="image/*" onChange={::this._onFileChanged} />
                 </div>
               </div>
@@ -389,10 +345,7 @@ export default class PostTaskFormHandler extends Component {
               <Progress /> :
               <button
                 type="submit"
-                styleName="post-btn" className="primary"
-              >
-                <FormattedMessage id="post.post" />
-              </button>
+                styleName="post-btn" className="primary">Post task!</button>
             }
           </div>
         </form>

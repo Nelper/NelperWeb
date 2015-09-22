@@ -55,6 +55,16 @@ type CancelApplyForTaskPayload {
   clientMutationId: String!
 }
 
+input ChangeLanguageInput {
+  language: String!
+  clientMutationId: String!
+}
+
+type ChangeLanguagePayload {
+  privateData: UserPrivate
+  clientMutationId: String!
+}
+
 type File {
   name: String
   url: String
@@ -70,9 +80,21 @@ input GeoPointInput {
   longitude: Float = 0.0
 }
 
+type LocationType {
+  name: String
+  formattedAddress: String
+  streetNumber: String
+  route: String
+  city: String
+  province: String
+  country: String
+  postalCode: String
+}
+
 type Mutation {
   applyForTask(input: ApplyForTaskInput!): ApplyForTaskPayload
   cancelApplyForTask(input: CancelApplyForTaskInput!): CancelApplyForTaskPayload
+  changeLanguage(input: ChangeLanguageInput!): ChangeLanguagePayload
 }
 
 interface Node {
@@ -131,4 +153,5 @@ type UserPrivate implements Node {
   phone: String
   email: String
   language: String
+  locations: [LocationType]
 }

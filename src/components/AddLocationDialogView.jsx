@@ -1,8 +1,12 @@
 import React, {Component, PropTypes} from 'react';
+import cssModules from 'react-css-modules';
 
 import Dialog from 'components/Dialog';
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
+import styles from './AddLocationDialogView.scss';
+
+@cssModules(styles)
 export default class AddLocationDialogView extends Component {
 
   static propTypes = {
@@ -15,7 +19,12 @@ export default class AddLocationDialogView extends Component {
     name: '',
     address: '',
     coords: '',
+    streetNumber: '',
+    route: '',
     city: '',
+    province: '',
+    country: '',
+    postalCode: '',
     googleMaps: null,
   }
 
@@ -37,12 +46,28 @@ export default class AddLocationDialogView extends Component {
         const autocomplete = new maps.places.Autocomplete(addressInput);
         maps.event.addListener(autocomplete, 'place_changed', () => {
           const place = autocomplete.getPlace();
-          const comp = place.address_components.find(c => {
-            return c.types.some(t => t === 'locality');
-          });
+
+          function getAddressComponent(id) {
+            return place.address_components.find(c => {
+              return c.types.some(t => t === id);
+            });
+          }
+
+          const streetNumber = getAddressComponent('street_number').long_name;
+          const route = getAddressComponent('route').long_name;
+          const city = getAddressComponent('locality').long_name;
+          const province = getAddressComponent('administrative_area_level_1').short_name;
+          const country = getAddressComponent('country').long_name;
+          const postalCode = getAddressComponent('postal_code').long_name;
+
           this.setState({
             address: addressInput.value,
-            city: comp.long_name,
+            streetNumber,
+            route,
+            city,
+            province,
+            country,
+            postalCode,
             coords: {
               latitude: place.geometry.location.lat(),
               longitude: place.geometry.location.lng(),
@@ -74,9 +99,14 @@ export default class AddLocationDialogView extends Component {
     if (this.props.onLocationAdded) {
       this.props.onLocationAdded.call(null, {
         name: this.state.name,
-        address: this.state.address,
+        formattedAddress: this.state.address,
         coords: this.state.coords,
+        streetNumber: this.state.streetNumber,
+        route: this.state.route,
         city: this.state.city,
+        province: this.state.province,
+        country: this.state.country,
+        postalCode: this.state.postalCode,
       });
     }
 
@@ -84,7 +114,12 @@ export default class AddLocationDialogView extends Component {
       name: '',
       address: '',
       coords: null,
+      streetNumber: '',
+      route: '',
       city: '',
+      province: '',
+      country: '',
+      postalCode: '',
     });
   }
 
@@ -101,7 +136,12 @@ export default class AddLocationDialogView extends Component {
       name: '',
       address: '',
       coords: null,
+      streetNumber: '',
+      route: '',
       city: '',
+      province: '',
+      country: '',
+      postalCode: '',
     });
   }
 
@@ -111,7 +151,7 @@ export default class AddLocationDialogView extends Component {
         opened={this.props.opened}
         onClose={::this._onCancel}>
         <form onSubmit={::this._onSubmit}>
-          <div className="add-location-dialog-view">
+          <div styleName="add-location-dialog-view">
             <h2>Add a location</h2>
             <input
               type="text"

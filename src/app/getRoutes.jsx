@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from 'react-router';
+import {Route, IndexRoute} from 'react-router';
 import Relay from 'react-relay';
 
 import IntlUtils from 'utils/IntlUtils';
@@ -18,6 +18,13 @@ import TaskDetailHandler from 'handlers/nelpcenter/TaskDetailHandler';
 import TaskApplicationDetailHandler from 'handlers/nelpcenter/TaskApplicationDetailHandler';
 import ApplicationDetailHandler from 'handlers/nelpcenter/ApplicationDetailHandler';
 
+import {
+  SettingsHandler,
+  AccountSettingsHandler,
+  NotificationsSettingsHandler,
+  NelperPaySettingsHandler,
+} from 'handlers/settings/index';
+
 import LogoutHandler from 'handlers/login/LogoutHandler';
 
 import TestPaymentHandler from 'handlers/nelpcenter/TestPaymentHandler';
@@ -25,6 +32,10 @@ import GraphiQLHandler from 'handlers/dev/GraphiQLHandler';
 
 const BrowseQueries = {
   browse: () => Relay.QL`query { browse }`,
+};
+
+const SettingsQueries = {
+  user: () => Relay.QL`query { me }`,
 };
 
 // Pass this function to onEnter for a route that needs
@@ -85,12 +96,6 @@ function getProfileComponent(loc, cb) {
   });
 }
 
-function getSettingsComponent(loc, cb) {
-  require.ensure([], (require) => {
-    cb(null, require('handlers/settings/SettingsHandler'));
-  });
-}
-
 function getFAQComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/about/FAQHandler'));
@@ -130,7 +135,11 @@ export default function getRoutes() {
         <Route path="/center/applications/detail/:id" component={ApplicationDetailHandler} name={IntlUtils.getMessage('routes.applicationDetail')} />
       </Route>
       <Route path="/profile" getComponent={getProfileComponent} onEnter={requireAuth} />
-      <Route path="/settings" getComponent={getSettingsComponent} onEnter={requireAuth} />
+      <Route path="/settings" component={SettingsHandler} onEnter={requireAuth}>
+        <Route path="account" component={AccountSettingsHandler} queries={SettingsQueries} />
+        <Route path="notifications" component={NotificationsSettingsHandler} queries={SettingsQueries} />
+        <Route path="nelperpay" component={NelperPaySettingsHandler} queries={SettingsQueries} />
+      </Route>
       <Route path="/howitworks" getComponent={getHowItWorksComponent} />
       <Route path="/faq" getComponent={getFAQComponent} />
       <Route path="/nelperpay" getComponent={getNelperPayComponent} />

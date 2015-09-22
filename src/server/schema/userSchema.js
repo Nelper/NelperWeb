@@ -1,12 +1,15 @@
 import {
   GraphQLObjectType,
   GraphQLString,
+  GraphQLList,
+  GraphQLNonNull,
 } from 'graphql';
 
 import {
   globalIdField,
   connectionArgs,
   connectionFromArray,
+  mutationWithClientMutationId,
 } from 'graphql-relay';
 
 import {
@@ -18,6 +21,7 @@ import {
   getUser,
   getUserPicture,
   getUserPrivate,
+  changeUserLanguage,
 } from '../data/userData';
 
 import {getTasksForUser} from '../data/taskData';
@@ -27,6 +31,45 @@ import {
   TaskConnectionType,
   ApplicationConnectionType
 } from './index';
+
+export const LocationType = new GraphQLObjectType({
+  name: 'LocationType',
+  description: 'A user saved location.',
+  fields: () => ({
+    name: {
+      type: GraphQLString,
+      description: 'The location name.',
+    },
+    formattedAddress: {
+      type: GraphQLString,
+      description: 'The full address formatted.',
+    },
+    streetNumber: {
+      type: GraphQLString,
+      description: 'The door number.',
+    },
+    route: {
+      type: GraphQLString,
+      description: 'The street name.',
+    },
+    city: {
+      type: GraphQLString,
+      description: 'The city.',
+    },
+    province: {
+      type: GraphQLString,
+      description: 'The province.',
+    },
+    country: {
+      type: GraphQLString,
+      description: 'The country.',
+    },
+    postalCode: {
+      type: GraphQLString,
+      description: 'The postal code.',
+    },
+  }),
+});
 
 export const UserPrivateType = new GraphQLObjectType({
   name: 'UserPrivate',
@@ -47,6 +90,11 @@ export const UserPrivateType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'The user current language.',
       resolve: (data) => data.get('language'),
+    },
+    locations: {
+      type: new GraphQLList(LocationType),
+      description: 'The user current language.',
+      resolve: (data) => data.get('locations'),
     },
   }),
   interfaces: [nodeInterface],
@@ -93,6 +141,25 @@ export const UserType = new GraphQLObjectType({
     },
   }),
   interfaces: [nodeInterface],
+});
+
+export const ChangeLanguageMutation = mutationWithClientMutationId({
+  name: 'ChangeLanguage',
+  inputFields: {
+    language: {type: new GraphQLNonNull(GraphQLString)},
+  },
+  outputFields: {
+    privateData: {
+      type: UserPrivateType,
+      resolve: ({privateData}) => {
+        return privateData;
+      },
+    },
+  },
+  mutateAndGetPayload: async ({language}, {rootValue}) => {
+    const privateData = await changeUserLanguage(rootValue, language);
+    return {privateData};
+  },
 });
 
 addResolver(

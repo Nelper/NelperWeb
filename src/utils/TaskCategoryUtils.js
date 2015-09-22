@@ -1,5 +1,3 @@
-import LogUtils from './LogUtils';
-
 const colors = {
   yellow: '#f7cc39',
   purple: '#997dd9',
@@ -41,7 +39,6 @@ export default class TaskCategoryUtils {
 
   static getImage(category) {
     if (!this._categories[category]) {
-      LogUtils.warn('Invalid category id ' + category);
       return null;
     }
     return require(`images/categories/${category}.png`);

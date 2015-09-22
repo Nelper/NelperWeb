@@ -82,9 +82,23 @@ body {
   border-bottom: $base-border;
   padding: 1rem;
   margin-bottom: 0;
+  font-size: 1.2rem;
+
+  @include media($medium-screen) {
+    padding: 1rem 2rem;
+  }
 
   h2 {
     margin-bottom: 0;
+    font-size: 1.2rem;
+  }
+}
+
+.panel-content {
+  padding: 1rem;
+
+  @include media($medium-screen) {
+    padding: 1rem 2rem;
   }
 }
 

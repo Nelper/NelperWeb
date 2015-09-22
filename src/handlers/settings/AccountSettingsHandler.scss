@@ -1,0 +1,76 @@
+@import '~styles/base-module';
+
+:local .module {
+
+  .setting-row {
+    @include outer-container();
+
+    &:last-child .setting-input {
+      input,
+      select {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .setting-title {
+    padding-top: 0.25rem;
+
+    @include media($medium-screen) {
+      @include span-columns(4);
+    }
+  }
+
+  .setting-input {
+    @include media($medium-screen) {
+      @include span-columns(8);
+    }
+
+    input,
+    select {
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+  }
+
+  .locations-header {
+    @include outer-container();
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .location-row {
+    @include outer-container();
+    margin-bottom: 1rem;
+    color: $color-gray-dark;
+  }
+
+  .name-col {
+    @include span-columns(4);
+  }
+
+  .address-col {
+    @include span-columns(7);
+  }
+
+  .edit-col {
+    @include span-columns(1);
+    @include omega();
+  }
+
+  .add-location-title {
+    flex: 1;
+  }
+
+  .add-location-btn {
+    padding: 0.25rem;
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+
+  .delete-message {
+    margin-bottom: 1rem;
+    color: $color-primary;
+    font-weight: bold;
+  }
+}

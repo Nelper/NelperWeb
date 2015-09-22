@@ -1,4 +1,6 @@
-.add-location-dialog-view {
+@import 'styles/base-module';
+
+:local .add-location-dialog-view {
   display: flex;
   flex-direction: column;
 

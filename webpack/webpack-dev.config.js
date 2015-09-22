@@ -9,8 +9,7 @@ const ROOT_PATH = path.resolve(__dirname, '..');
 
 module.exports = merge(shared.config, {
   debug: true,
-  cache: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client',
   ],
