@@ -15,6 +15,7 @@ import 'graphiql/graphiql.css';
 export default class GraphiQLHandler extends Component {
 
   state = {
+    showCredentials: false,
     userId: '',
     sessionToken: '',
   }
@@ -40,6 +41,10 @@ export default class GraphiQLHandler extends Component {
     this.setState({sessionToken: event.target.value});
   }
 
+  _onToggleCredentials() {
+    this.setState({showCredentials: !this.state.showCredentials});
+  }
+
   _graphQLFetcher(graphQLParams) {
     return fetch(window.location.origin + '/graphql', {
       method: 'post',
@@ -53,22 +58,29 @@ export default class GraphiQLHandler extends Component {
 
   render() {
     return (
-      <div styleName="module" className="container pad-all">
-        <h2>Query explorer</h2>
-        <div>
-          <h3>User ID</h3>
-          <input
-            type="text"
-            value={this.state.userId}
-            onChange={::this._onUserIdChange}
-          />
-          <h3>Session Token</h3>
-          <input
-            type="text"
-            value={this.state.sessionToken}
-            onChange={::this._onSessionTokenChange}
-          />
+      <div styleName="module" className="pad-all">
+        <div styleName="header">
+          <h2>Query explorer</h2>
+          <button className="secondary" onClick={::this._onToggleCredentials}>Credentials</button>
         </div>
+        {
+          this.state.showCredentials ?
+          <div>
+            <h3>User ID</h3>
+            <input
+              type="text"
+              value={this.state.userId}
+              onChange={::this._onUserIdChange}
+            />
+            <h3>Session Token</h3>
+            <input
+              type="text"
+              value={this.state.sessionToken}
+              onChange={::this._onSessionTokenChange}
+            />
+          </div> :
+          null
+        }
         {
           __CLIENT__ ?
           <GraphiQL fetcher={::this._graphQLFetcher} /> :

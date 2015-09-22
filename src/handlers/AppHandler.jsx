@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import Relay from 'react-relay';
 import {IntlProvider} from 'react-intl';
 import connectToStores from 'alt/utils/connectToStores';
 import classNames from 'classnames';
