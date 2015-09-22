@@ -23,8 +23,6 @@ class BrowseTasksListView extends Component {
     onTaskSelected: PropTypes.func,
     onMakeOffer: PropTypes.func,
     onCancelApply: PropTypes.func,
-    onLoadMore: PropTypes.func,
-    isLoading: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -41,8 +39,29 @@ class BrowseTasksListView extends Component {
     makeOfferTask: null,
   }
 
+  _isLoading = false
+
+  _onScroll = () => {
+    if (!this.props.browse.tasks.pageInfo.hasNextPage || this._isLoading) {
+      return;
+    }
+    console.log('hi');
+    const lastEle = this.refs.displayedTasks.lastChild;
+    if (this._shouldLoadMore(lastEle, 200)) {
+      this._isLoading = true;
+      this.props.relay.setVariables(
+        {first: this.props.relay.variables.first + 20},
+        (readyState) => {
+          if (readyState.done) {
+            this._isLoading = false;
+          }
+        },
+      );
+    }
+  }
+
   componentDidMount() {
-    document.addEventListener('scroll', this._onScroll);
+    document.body.addEventListener('scroll', this._onScroll);
   }
 
   componentWillReceiveProps(newProps) {
@@ -66,18 +85,7 @@ class BrowseTasksListView extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('scroll', this._onScroll);
-  }
-
-  _onScroll = () => {
-    if (this.props.isLoading) {
-      return;
-    }
-
-    const lastEle = this.refs.displayedTasks.lastChild;
-    if (this._shouldLoadMore(lastEle, 200)) {
-      this.props.onLoadMore();
-    }
+    document.body.removeEventListener('scroll', this._onScroll);
   }
 
   _shouldLoadMore(ele, offset = 0) {
@@ -232,7 +240,7 @@ class BrowseTasksListView extends Component {
 
 export default Relay.createContainer(BrowseTasksListView, {
   initialVariables: {
-    first: 10,
+    first: 5,
     sort: UserStore.getState().user.location ? 'DISTANCE' : 'DATE',
     maxDistance: null,
     minPrice: null,
@@ -256,6 +264,9 @@ export default Relay.createContainer(BrowseTasksListView, {
     browse: () => Relay.QL`
       fragment on Browse {
         tasks(first: $first, sort: $sort, location: $location, maxDistance: $maxDistance, minPrice: $minPrice, categories: $categories) {
+          pageInfo {
+            hasNextPage,
+          },
           edges {
             node {
               createdAt,
