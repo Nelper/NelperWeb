@@ -57,7 +57,7 @@ export default {
   },
 
   navBar: {
-    howWorks: "Comment ça marche?",
+    howWorks: "Comment ça fonctionne?",
     browse: "Parcourir les tâches",
     post: "Publier une tâche",
     login: "Connexion",
@@ -104,7 +104,7 @@ export default {
 
     price: "Prix",
     distance: "Distance",
-    date: "Date de création",
+    date: "Date de publication",
 
     myOffer: "Mon offre",
   },
@@ -135,7 +135,7 @@ export default {
       progressAccepted: "Accepté",
       progressSent: "Paiement envoyé",
       progressPayment: "Paiement demandé",
-      progressReleased: "Fonds transférés",
+      progressReleased: "Paiement",
       completed: "J'ai complété la tâche!",
       progressHelp: `
       <h2>Quel est le processus pour compléter la tâche et pour le paiement?</h2>
@@ -157,10 +157,10 @@ export default {
       </ol>
       `,
 
-      chat: "Discuter avec l'afficheur",
+      chat: "Ouvrir le chat",
 
-      offering: "L'afficheur offre",
-      locationShown: "Location affichée",
+      offering: "Le publieur offre",
+      locationShown: "Emplacement affiché",
       locationWithin: "Emplacement de la tâche dans un rayon de 400m",
     },
 
@@ -174,7 +174,7 @@ export default {
       progressAccepted: "Nelper accepté",
       progressSent: "Paiement envoyé",
       progressApproved: "Confirmation",
-      progressRating: "Note & critique",
+      progressRating: "Évaluation & critique",
       progressHelp: `
       <h2>Quel est le processus pour faire compléter ma tâche ainsi que pour le paiement?</h2>
       <ol>
@@ -190,7 +190,7 @@ export default {
           Pour ce faire, vous n'avez qu'à confirmer que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>.
         </li>
         <li>
-          Vous donnez une note & une critique à votre Nelper, en lien avec sa performance.
+          Évaluez et donnez une critique à votre Nelper, en lien avec sa performance.
         </li>
       </ol>
       `,
@@ -200,7 +200,7 @@ export default {
       proceedPayment: "Passer au paiement",
       aboutNelperPay: "À propos de NelperPay",
 
-      chat: "Discuter avec votre Nelper",
+      chat: "Ouvrir le chat",
     },
   },
 
@@ -226,10 +226,10 @@ export default {
     generalSectionTitle: "General",
     generalTitle_00: "What is Nelper?",
     generalDesc_00: "Nelper is a community marketplace to connect with people around you and get your tasks completed or complete other people’s tasks, for money. You can use Nelper on web or on {iOS}.",
-    generalTitle_01: "How does it work?",
-    generalDesc_01: "You can visit the {howItWorks} page, it contains all the details you need to know about posting tasks, browsing tasks, completing tasks and the Nelp Center.",
-    generalTitle_02: "Why should I use Nelper?",
-    generalDesc_02: "If you are tired of paying way too much for simple tasks and having to wait all day at home for a representative or technician to come by, you should post your tasks on Nelper. You can easily find people close to you who will complete your tasks cheaper and faster than your usual small local companies.",
+    generalTitle_01: "Why should I use Nelper?",
+    generalDesc_01: "Are you are tired of paying way too much for simple tasks like having your gutters emptied or getting your computer fixed? Are you tired of having to wait all day at home for a representative or a technician who can arrive anytime between 8 and 5? Are you tired of always calling the same inefficient small local companies?<br /><br />Start using Nelper now and stop worrying about all of the above. With Nelper, you can easily find qualified workers twice as fast who lives in your neighborhood.",
+    generalTitle_02: "How does it work?",
+    generalDesc_02: "Please visit the {howItWorks} page, it contains all the details you need to know about posting tasks, browsing tasks, completing tasks and the Nelp Center.",
     generalTitle_03: "What is the difference between a Task Poster and a Nelper?",
     generalDesc_03: "A <strong>Task Poster</strong> is someone who posts a task, for other people to complete. A <strong>Nelper</strong> is someone completing tasks or looking for tasks to complete.",
     generalTitle_04: "What kind of tasks are completed on Nelper?",

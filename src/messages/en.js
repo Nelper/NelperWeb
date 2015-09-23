@@ -135,7 +135,7 @@ export default {
       progressAccepted: "Accepted",
       progressSent: "Payment sent",
       progressPayment: "Payment requested",
-      progressReleased: "Funds released",
+      progressReleased: "Payment released",
       completed: "I have completed the task!",
       progressHelp: `
       <h2>How does the payment & task completion process work?</h2>
@@ -143,7 +143,7 @@ export default {
         <li>
           The Task Poster sends the payment via [NelperPay] where it will be securely
           held until you complete the task. This way, you can start working on the task
-          knowing the funds are held for you.
+          knowing the money is held for you.
         </li>
         <li>
           You complete the task.
@@ -157,7 +157,7 @@ export default {
       </ol>
       `,
 
-      chat: "Chat with the Task Poster",
+      chat: "Open Chat",
 
       offering: "Task Poster is offering",
       locationShown: "Location shown",
@@ -185,7 +185,7 @@ export default {
           Your Nelper completes your task.
         </li>
         <li>
-          Once your task is completed, your Nelper will request the payment. Click on <em>The Nelper completed my task</em> and your Nelper's funds will be released.
+          Once your task is completed, your Nelper will request the payment. Click on <em>The Nelper completed my task</em> and your Nelper's payment will be released.
         </li>
         <li>
           Rate and give feedback to your Nelper.
@@ -198,7 +198,7 @@ export default {
       proceedPayment: "Proceed to payment",
       aboutNelperPay: "About NelperPay",
 
-      chat: "Chat with your Nelper",
+      chat: "Open Chat",
     },
   },
 
@@ -224,10 +224,10 @@ export default {
     generalSectionTitle: "General",
     generalTitle_00: "What is Nelper?",
     generalDesc_00: "Nelper is a community marketplace to connect with people around you and get your tasks completed or complete other people’s tasks, for money. You can use Nelper on web or on {iOS}.",
-    generalTitle_01: "How does it work?",
-    generalDesc_01: "You can visit the {howItWorks} page, it contains all the details you need to know about posting tasks, browsing tasks, completing tasks and the Nelp Center.",
-    generalTitle_02: "Why should I use Nelper?",
-    generalDesc_02: "If you are tired of paying way too much for simple tasks and having to wait all day at home for a representative or technician to come by, you should post your tasks on Nelper. You can easily find people close to you who will complete your tasks cheaper and faster than your usual small local companies.",
+    generalTitle_01: "Why should I use Nelper?",
+    generalDesc_01: "Are you are tired of paying way too much for simple tasks like having your gutters emptied or getting your computer fixed? Are you tired of having to wait all day at home for a representative or a technician who can arrive anytime between 8 and 5? Are you tired of always calling the same inefficient small local companies?<br /><br />Start using Nelper now and stop worrying about all of the above. With Nelper, you can easily find qualified workers twice as fast who lives in your neighborhood.",
+    generalTitle_02: "How does it work?",
+    generalDesc_02: "Please visit the {howItWorks} page, it contains all the details you need to know about posting tasks, browsing tasks, completing tasks and the Nelp Center.",
     generalTitle_03: "What is the difference between a Task Poster and a Nelper?",
     generalDesc_03: "A <strong>Task Poster</strong> is someone who posts a task, for other people to complete. A <strong>Nelper</strong> is someone completing tasks or looking for tasks to complete.",
     generalTitle_04: "What kind of tasks are completed on Nelper?",
@@ -317,6 +317,6 @@ export default {
     headerText: "A <strong>safe</strong> payment platform for everyone",
 
     whatIsTitle: "What is NelperPay?",
-    whatIsText: "NelperPay is your payment platform. It's safe and simple to use.",
+    whatIsText: "NelperPay is our payment platform. It's safe and simple to use.",
   },
 };
