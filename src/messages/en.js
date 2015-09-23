@@ -141,7 +141,7 @@ export default {
       <h2>How does the payment & task completion process work?</h2>
       <ol>
         <li>
-          The Task Poster sends the payment via [NelperPay] where it will be securely
+          The Task Poster sends the payment via {nelperPay} where it will be securely
           held until you complete the task. This way, you can start working on the task
           knowing the money is held for you.
         </li>
@@ -179,7 +179,7 @@ export default {
       <h2>How does the payment & task completion process work?</h2>
       <ol>
         <li>
-          Click on <em>Proceed to Payment</em>. Once the payment is sent, it will be securely held via [NelperPay] until your task gets completed.
+          Click on <em>Proceed to Payment</em>. Once the payment is sent, it will be securely held via {nelperPay} until your task gets completed.
         </li>
         <li>
           Your Nelper completes your task.
@@ -232,7 +232,7 @@ export default {
     generalDesc_03: "A <strong>Task Poster</strong> is someone who posts a task, for other people to complete. A <strong>Nelper</strong> is someone completing tasks or looking for tasks to complete.",
     generalTitle_04: "What kind of tasks are completed on Nelper?",
     generalDesc_04: "Anything! From router installation to lawn mowing, you can find or post any kind of tasks on Nelper. Our simple categories and easy to understand interface make it easy to post or browse tasks.",
-    generalTitle_05: "Is Nelper free?",
+    generalTitle_05: "Is it free?",
     generalDesc_05: "Posting tasks, browsing tasks and applying for tasks are <strong>free</strong>, no hidden fees. As a Task Poster, you only pay the agreed price for your task, nothing more.<br /><br />For Nelpers, there is a 7,5% transaction fee deducted from the total amount. It’s a small service for {nelperPay}’s secure payment handling.",
     posterSectionTitle: "Task Poster",
     posterTitle_00: "How do I post a task?",
@@ -299,11 +299,11 @@ export default {
     privacyDesc_02: "Yes. Under the list of Nelpers who applied for your task, you can visit a Nelper’s profile and see it there. Only their city is shown.",
     paymentSectionTitle: "Payment & Support",
     paymentTitle_00: "What is NelperPay?",
-    paymentDesc_00: "It's our payment platform. Every transaction is done via {nelperPay}. No external program or online banking account (such as Paypal) are needed. It is simple, safe and trustworthy.<br /><br />You can learn more about the transaction process, payment options and trust features on the {nelperPay} page.",
+    paymentDesc_00: "It's our payment platform. Every transaction is done via {nelperPay}. No external program or online banking account (such as Paypal) are needed. It's simple, safe and trustworthy.<br /><br />You can learn more about the transaction process, payment options and trust features on the {nelperPay} page.",
     paymentTitle_01: "How do I send a payment?",
-    paymentDesc_01: "In your task page, click on 'Proceed To Payment'. A window will open for you to enter your payment info.<br /><br />You can pay using your Mastercard, VISA or American Express credit/debit card. You can either choose an existing payment method you previously added or add a new one. Add and manage credit/debit cards in your {settings}.<br /><br />Everytime you send a payment, a receipt will be automatically sent to your registered email.",
+    paymentDesc_01: "In your task page, click on 'Proceed To Payment'. A window will open for you to enter your payment info. You can pay using your Mastercard, VISA or American Express credit/debit card. <br /><br />You can either choose an existing payment method you previously added or add a new one. Add and manage credit/debit cards in your {settings}.<br /><br />Everytime you send a payment, a receipt will be automatically sent to your registered email.",
     paymentTitle_02: "How do I receive a payment?",
-    paymentDesc_02: "Once your payment gets released by a Task Poster, the money will be automatically deposited to your registered bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, visit the NelperPay subsection in your {settings}, fill in the required fields and follow the steps.<br /><br /><strong>We recommend that you link your bank account as soon as possible if you plan on completing tasks</strong>, as there can be a small delay for the information to be validated. If you receive a payment and you still haven’t linked a bank account, it will be safely held via NelperPay until you do so. Once it is done, you don’t have to do it anymore and payments will always be automatically deposited in your bank account.",
+    paymentDesc_02: "Once your payment gets released by a Task Poster, the money will be automatically deposited to your registered bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, visit the NelperPay subsection in your {settings}, fill in the required fields and follow the steps.<br /><br /><strong>We recommend that you link your bank account as soon as possible if you plan on completing tasks</strong>, as there can be a small delay for the information to be validated. If you receive a payment and you still haven’t linked a bank account, it will be safely held via {nelperPay} until you do so. Once it is done, you don’t have to do it anymore and payments will always be automatically deposited in your bank account.",
     paymentTitle_03: "What do I do if I have issues with a Nelper during the payment/task completion?",
     paymentDesc_03: "If your Nelper requests the payment but didn’t complete your task, click on 'My Nelper never completed my task' at the bottom of your task page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your issue at the earliest and resolve the dispute. You will receive an email once it is resolved. If your Nelper indeed never completed your task, you will get your money back.<br /><br />We make resolving issues our first priority and will always review disputes and issues thoroughly. We want to offer you the best customer service possible so if you are unsatisfied or still have questions after a resolved issue, please feel free to contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
     paymentTitle_04: "What do I do if I have issues with a Task Poster during the payment/task completion process?",
@@ -317,6 +317,6 @@ export default {
     headerText: "A <strong>safe</strong> payment platform for everyone",
 
     whatIsTitle: "What is NelperPay?",
-    whatIsText: "NelperPay is our payment platform. It's safe and simple to use.",
+    whatIsText: "NelperPay is our payment platform. It's simple, safe and trustworthy.",
   },
 };
