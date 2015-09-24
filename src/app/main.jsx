@@ -16,6 +16,7 @@ import formats from 'utils/IntlFormats';
 
 import 'normalize.css/normalize.css';
 import 'styles/common.scss';
+import 'file?name=[name].[ext]!images/favicon.ico';
 
 // Initialize Parse
 Parse.initialize('w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN', 'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si');

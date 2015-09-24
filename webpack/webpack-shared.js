@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const neat = require('node-neat');
 
 const ROOT_PATH = path.resolve(__dirname, '..');
@@ -14,17 +13,9 @@ const common = {
   },
   output: {
     path: path.resolve(ROOT_PATH, 'build/client'),
-    filename: '[name].js',
-    chunkFilename: '[id].chunk.js',
     publicPath: '/',
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('shared.js'),
-    new HtmlWebpackPlugin({
-      template: path.resolve(ROOT_PATH, 'src/app/index.html'),
-      inject: 'body',
-      favicon: path.resolve(ROOT_PATH, 'src/images/favicon.ico'),
-    }),
     new webpack.ProvidePlugin({
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
     }),
@@ -34,7 +25,7 @@ const common = {
 const sassNeatPaths = neat.with([
   path.resolve(ROOT_PATH, './src'),
   path.resolve(ROOT_PATH, './node_modules'),
-]).map(function(neatPath) {
+]).map((neatPath) => {
   return 'includePaths[]=' + neatPath;
 }).join('&');
 

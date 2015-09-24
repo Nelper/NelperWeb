@@ -8,6 +8,12 @@ import config from './../../webpack/webpack-dev.config';
 import template from './template';
 import graphql from './graphql';
 
+const compiledTemplate = template
+  .replace('{styles}', '/styles.css')
+  .replace('{shared}', '/shared.js')
+  .replace('{main}', '/main.js')
+  .replace('{content}', '');
+
 const app = express();
 const compiler = webpack(config);
 
@@ -27,7 +33,7 @@ app.use(new WebpackDevMiddleware(compiler, {
 app.use(new WebpackHotMiddleware(compiler));
 
 app.get('*', (req, res) => {
-  res.send(template.replace('{content}', ''));
+  res.send(compiledTemplate);
 });
 
 app.listen(8080, 'localhost', (err) => {

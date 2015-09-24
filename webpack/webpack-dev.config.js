@@ -13,6 +13,11 @@ module.exports = merge(shared.config, {
   entry: [
     'webpack-hot-middleware/client',
   ],
+  output: {
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
+    publicPath: '/',
+  },
   module: {
     /* preLoaders: [{
       test: /\.jsx?$/,

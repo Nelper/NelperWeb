@@ -1,5 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
@@ -12,6 +13,11 @@ const ROOT_PATH = path.resolve(__dirname, '..');
 module.exports = [
   merge(shared.config, {
     devtool: 'source-map',
+    output: {
+      filename: '[hash].[name].js',
+      chunkFilename: '[hash].[id].chunk.js',
+      publicPath: process.env.NODE_ENV === 'production' ? 'https://d1qq8wp10enzpa.cloudfront.net/' : '/',
+    },
     module: {
       loaders: commonLoaders.concat([{
         test: /\.css$/,
@@ -26,7 +32,8 @@ module.exports = [
       }]),
     },
     plugins: [
-      new ExtractTextPlugin('styles.css', {allChunks: true}),
+      new AssetsPlugin({path: path.resolve(ROOT_PATH, 'build/server'), filename: 'assets.json'}),
+      new ExtractTextPlugin('[hash].styles.css', {allChunks: true}),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': JSON.stringify('production'),
@@ -35,6 +42,8 @@ module.exports = [
         '__SERVER__': false,
         '__DEVELOPMENT__': false,
       }),
+      new webpack.optimize.CommonsChunkPlugin('shared', '[hash].shared.js'),
+      new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           hoist_vars: true,
@@ -49,7 +58,6 @@ module.exports = [
   }),
   {
     name: 'server',
-    debug: true,
     devtool: 'source-map',
     entry: path.resolve(ROOT_PATH, 'src/server/server.js'),
     target: 'node',

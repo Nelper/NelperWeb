@@ -7,12 +7,12 @@ export default
     <title>Nelper</title>
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400italic,300,700" rel="stylesheet" type="text/css">
-    <link href="/styles.css" rel="stylesheet">
+    <link href="{styles}" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div id="app" class="main-app">{content}</div>
     <div id="fb-root"></div>
-    <script src="/shared.js"></script>
-    <script src="/main.js"></script>
+    <script src="{shared}"></script>
+    <script src="{main}"></script>
   </body>
 </html>`;

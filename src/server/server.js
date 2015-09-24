@@ -1,4 +1,4 @@
-import 'babel-core/polyfill';
+import fs from 'fs';
 import express from 'express';
 import path from 'path';
 import React from 'react';
@@ -21,6 +21,13 @@ import template from './template';
 const app = express();
 const port = process.env.PORT || 8080;
 
+const assets = JSON.parse(fs.readFileSync(path.resolve(__dirname, './assets.json'), 'utf8'));
+
+const compiledTemplate = template
+  .replace('{styles}', assets.main.css)
+  .replace('{shared}', assets.shared.js)
+  .replace('{main}', assets.main.js);
+
 Parse.initialize(
   'w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN',
   'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si',
@@ -30,13 +37,14 @@ Parse.initialize(
 graphql(app);
 
 app.use(express.static(path.resolve(__dirname, '../../build/client'), {index: false}));
+app.use(express.static(path.resolve(__dirname, '../../public'), {index: false}));
 
 app.use(morgan('combined'));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
   if (__DISABLE_SSR__) {
-    return res.send(template.replace('{content}', ''));
+    return res.send(compiledTemplate.replace('{content}', ''));
   }
 
   function renderPage(messages, locale) {
@@ -56,7 +64,7 @@ app.use((req, res, next) => {
         }} {...renderProps} />
       );
       alt.flush();
-      return res.send(template.replace('{content}', html));
+      return res.send(compiledTemplate.replace('{content}', html));
     });
   }
 
