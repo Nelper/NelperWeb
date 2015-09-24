@@ -4,20 +4,48 @@ import {NelpTask, NelpTaskApplication} from './parseTypes';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
 import TaskCategoryUtils from '../../utils/TaskCategoryUtils';
 
-export async function getTask({sessionToken}, id) {
+export async function getTask({sessionToken}, id, loadApplications = false) {
   const query = new Parse.Query(NelpTask);
   query.include('user');
-  return await query.get(id, {sessionToken});
+  const task = await query.get(id, {sessionToken});
+
+  if (loadApplications) {
+    const applicationsQuery = new Parse.Query(NelpTaskApplication)
+      .include('user')
+      .equalTo('task', task)
+      .notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED);
+
+    const applications = await applicationsQuery.find();
+    applications.forEach(a => a.set('task', task));
+    task.set('applications', applications);
+  }
+
+  return task;
 }
 
 export async function getTasksForUser({sessionToken}, userId) {
-  const query = new Parse.Query(NelpTask);
   const parseUser = new Parse.User();
   parseUser.id = userId;
-  query.equalTo('user', parseUser);
-  query.containedIn('state', [NELP_TASK_STATE.PENDING, NELP_TASK_STATE.ACCEPTED]);
-  query.descending('createdAt');
-  return await query.find({sessionToken});
+  const tasksQuery = new Parse.Query(NelpTask)
+    .equalTo('user', parseUser)
+    .containedIn('state', [NELP_TASK_STATE.PENDING, NELP_TASK_STATE.ACCEPTED])
+    .descending('createdAt');
+  const tasks = await tasksQuery.find({sessionToken});
+  const applicationsQuery = new Parse.Query(NelpTaskApplication)
+   .include('user')
+   .containedIn('task', tasks)
+   .notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED);
+
+  const applications = await applicationsQuery.find({sessionToken});
+  return tasks.map((task) => {
+    const taskApplications = applications.filter((a) => {
+      return a.get('task').id === task.id;
+    })
+    .sort((ta1, ta2) => ta1.createdAt < ta2.createdAt ? 1 : -1);
+    taskApplications.forEach(a => a.set('task', task));
+    task.set('applications', taskApplications);
+    return task;
+  });
 }
 
 export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDistance, location, categories}) {
@@ -71,6 +99,21 @@ export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDist
   return tasks;
 }
 
+export function editTask({sessionToken}, taskId, {title, desc, pictures}) {
+  const parseTask = new NelpTask();
+  parseTask.id = taskId;
+  if (title) {
+    parseTask.set('title', title);
+  }
+  if (desc) {
+    parseTask.set('desc', desc);
+  }
+  if (pictures) {
+    parseTask.set('pictures');
+  }
+  return parseTask.save(null, {sessionToken});
+}
+
 export async function applyForTask({userId, sessionToken}, taskId, price) {
   const parseTask = new NelpTask();
   parseTask.id = taskId;
@@ -82,7 +125,7 @@ export async function applyForTask({userId, sessionToken}, taskId, price) {
   parseApplication.set('task', parseTask);
   parseApplication.set('isNew', true);
   parseApplication.set('price', price);
-  return await parseApplication.save();
+  return await parseApplication.save({sessionToken});
 }
 
 export async function cancelApplyForTask({userId, sessionToken}, taskId) {
@@ -94,9 +137,9 @@ export async function cancelApplyForTask({userId, sessionToken}, taskId) {
   query.equalTo('user', parseUser);
   query.equalTo('task', parseTask);
   query.notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED);
-  const applications = await query.find();
+  const applications = await query.find({sessionToken});
   applications.forEach(a => {
     a.set('state', NELP_TASK_APPLICATION_STATE.CANCELED);
   });
-  return await Parse.Object.saveAll(applications);
+  return await Parse.Object.saveAll(applications, {sessionToken});
 }

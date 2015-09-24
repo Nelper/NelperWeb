@@ -1,8 +1,14 @@
 type Application implements Node {
   id: ID!
+  objectId: String
+  createdAt: String
+  updatedAt: String
   state: ApplicationState
+  price: Int
   task: Task
   user: User
+  phone: String
+  email: String
 }
 
 type ApplicationConnection {
@@ -10,6 +16,9 @@ type ApplicationConnection {
   edges: [ApplicationEdge]
   totalCount: Int
   pendingCount: Int
+  hasNew: Boolean
+  hasAccepted: Boolean
+  accepted: Application
 }
 
 type ApplicationEdge {
@@ -65,7 +74,25 @@ type ChangeLanguagePayload {
   clientMutationId: String!
 }
 
+input EditTaskInput {
+  id: ID!
+  title: String
+  desc: String
+  pictures: [FileInput]
+  clientMutationId: String!
+}
+
+type EditTaskPayload {
+  task: Task
+  clientMutationId: String!
+}
+
 type File {
+  name: String
+  url: String
+}
+
+input FileInput {
   name: String
   url: String
 }
@@ -92,6 +119,7 @@ type Location {
 }
 
 type Mutation {
+  editTask(input: EditTaskInput!): EditTaskPayload
   applyForTask(input: ApplyForTaskInput!): ApplyForTaskPayload
   cancelApplyForTask(input: CancelApplyForTaskInput!): CancelApplyForTaskPayload
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
@@ -133,7 +161,9 @@ type Query {
 
 type Task implements Node {
   id: ID!
+  objectId: String
   createdAt: String
+  updatedAt: String
   title: String
   desc: String
   category: String
@@ -143,6 +173,7 @@ type Task implements Node {
   priceOffered: Int
   user: User
   application: Application
+  applications: ApplicationConnection
 }
 
 type TaskConnection {
@@ -169,6 +200,9 @@ type UpdateNotificationSettingsPayload {
 
 type User implements Node {
   id: ID!
+  objectId: String
+  createdAt: String
+  updatedAt: String
   name: String
   pictureURL: String
   tasks(before: String, after: String, first: Int, last: Int): TaskConnection
@@ -178,6 +212,9 @@ type User implements Node {
 
 type UserPrivate implements Node {
   id: ID!
+  objectId: String
+  createdAt: String
+  updatedAt: String
   phone: String
   email: String
   language: String

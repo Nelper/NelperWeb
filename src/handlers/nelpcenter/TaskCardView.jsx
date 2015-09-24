@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
 import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
-import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
-export default class TaskCardView extends Component {
+class TaskCardView extends Component {
 
   static propTypes = {
     task: PropTypes.object,
@@ -23,13 +23,9 @@ export default class TaskCardView extends Component {
     };
   }
 
-  _hasAcceptedApplications() {
-    return this.props.task.applications.some(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
-  }
-
   _renderStatus() {
     let icon;
-    if (this._hasAcceptedApplications()) {
+    if (this.props.task.applications.hasAccepted) {
       icon = require('images/icons/accepted.png');
     } else {
       icon = require('images/icons/applicants.png');
@@ -41,13 +37,12 @@ export default class TaskCardView extends Component {
   }
 
   _renderApplicants() {
-    const pendingApplications = this.props.task.applications.filter(a => a.state === NELP_TASK_APPLICATION_STATE.PENDING);
     return (
       <div className="applicants">
       {
-        !this._hasAcceptedApplications() ?
+        !this.props.task.applications.hasAccepted ?
         <FormattedMessage id="nelpcenter.common.nelperCount" values={{
-          num: pendingApplications.length,
+          num: this.props.task.applications.pendingCount,
         }}/> :
         <FormattedMessage id="common.accepted"/>
       }
@@ -103,3 +98,24 @@ export default class TaskCardView extends Component {
     );
   }
 }
+
+export default Relay.createContainer(TaskCardView, {
+  fragments: {
+    task: () => Relay.QL`
+      fragment on Task {
+        title,
+        createdAt,
+        category,
+        priceOffered,
+        pictures {
+          url,
+        },
+        applications {
+          hasAccepted,
+          hasNew,
+          pendingCount,
+        },
+      }
+    `,
+  },
+});

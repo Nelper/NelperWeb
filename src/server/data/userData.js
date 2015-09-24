@@ -64,3 +64,20 @@ export async function updateNotificationSettings({userId, sessionToken}, setting
   privateData.set('notifications', notifications);
   return privateData.save(null, {sessionToken});
 }
+
+export async function getApplicantPrivate({userId, sessionToken}, application) {
+  // Makes sure the user is the task poster.
+  if (userId !== application.get('task').get('user').id) {
+    throw Error('Unauthorized');
+  }
+  const query = new Parse.Query(Parse.User)
+    .include('privateData');
+
+  // Use the master key to get the private data.
+  const user = await query.get(userId, {useMasterKey: true});
+  const privateData = user.get('privateData');
+  return {
+    email: privateData.get('email'),
+    phone: privateData.get('phone'),
+  };
+}

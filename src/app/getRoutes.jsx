@@ -41,6 +41,22 @@ const SettingsQueries = {
   user: () => Relay.QL`query { me }`,
 };
 
+const TasksQueries = {
+  me: () => Relay.QL`query { me }`,
+};
+
+const TaskDetailQueries = {
+  task: () => Relay.QL`query { node(id: $taskId) }`,
+};
+
+const ApplicationsQueries = {
+  me: () => Relay.QL`query { me }`,
+};
+
+const ApplicationDetailQueries = {
+  application: () => Relay.QL`query { node(id: $applicationId) }`,
+};
+
 // Pass this function to onEnter for a route that needs
 // authentication to make sure the user is logged in.
 function requireAuth(nextState, transition) {
@@ -127,24 +143,48 @@ export default function getRoutes() {
         path="/browse"
         component={BrowseTasksHandler}
         queries={BrowseQueries}
-        renderLoading={() => <div className="progress-center"><Progress /></div>}
+        renderLoading={renderLoading}
       />
       <Route path="/post" getComponent={getPostCategoriesComponent} />
       <Route path="/post/:category" getComponent={getPostFormComponent} onEnter={requireAuth} />
       <Route onEnter={requireAuth} name={IntlUtils.getMessage('routes.nelpcenter')}>
         <Route path="/center" component={NelpCenterHandler}>
-          <Route path="applications" component={ApplicationsHandler} />
-          <Route path="tasks" component={TasksHandler} />
+          <Route
+            path="applications"
+            component={ApplicationsHandler}
+            queries={ApplicationsQueries}
+            renderLoading={renderLoading}
+          />
+          <Route
+            path="tasks"
+            component={TasksHandler}
+            queries={TasksQueries}
+            renderLoading={renderLoading}
+          />
         </Route>
-        <Route path="/center/tasks/detail/:id" component={TaskDetailHandler} name={IntlUtils.getMessage('routes.taskDetail')} />
-        <Route path="/center/tasks/detail/:taskId" name={IntlUtils.getMessage('routes.taskDetail')}>
+        <Route path="/center/tasks/detail/:taskId"
+          component={TaskDetailHandler}
+          name={IntlUtils.getMessage('routes.taskDetail')}
+          queries={TaskDetailQueries}
+          renderLoading={renderLoading}
+        />
+        <Route
+          path="/center/tasks/detail/:taskId"
+          name={IntlUtils.getMessage('routes.taskDetail')}
+        >
           <Route
             path=":applicationId"
             component={TaskApplicationDetailHandler}
             name={IntlUtils.getMessage('routes.applicationDetail')}
           />
         </Route>
-        <Route path="/center/applications/detail/:id" component={ApplicationDetailHandler} name={IntlUtils.getMessage('routes.applicationDetail')} />
+        <Route
+          path="/center/applications/detail/:applicationId"
+          component={ApplicationDetailHandler}
+          name={IntlUtils.getMessage('routes.applicationDetail')}
+          queries={ApplicationDetailQueries}
+          renderLoading={renderLoading}
+        />
       </Route>
       <Route path="/profile" getComponent={getProfileComponent} onEnter={requireAuth} />
       <Redirect from="/settings" to="/settings/account"/>
@@ -153,19 +193,19 @@ export default function getRoutes() {
           path="account"
           component={AccountSettingsHandler}
           queries={SettingsQueries}
-          renderLoading={() => <div className="progress-center"><Progress /></div>}
+          renderLoading={renderLoading}
         />
         <Route
           path="notifications"
           component={NotificationsSettingsHandler}
           queries={SettingsQueries}
-          renderLoading={() => <div className="progress-center"><Progress /></div>}
+          renderLoading={renderLoading}
         />
         <Route
           path="nelperpay"
           component={NelperPaySettingsHandler}
           queries={SettingsQueries}
-          renderLoading={() => <div className="progress-center"><Progress /></div>}
+          renderLoading={renderLoading}
         />
         <Route
           path="history"

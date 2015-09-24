@@ -1,68 +1,31 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedHTMLMessage, FormattedRelative, FormattedNumber} from 'react-intl';
-import connectToStores from 'alt/utils/connectToStores';
 
-import {Progress, Dialog, IconButton, MapView, TaskPictureSlider} from 'components/index';
+import {Dialog, IconButton, MapView, TaskPictureSlider} from 'components/index';
 import ChatDialogView from './ChatDialogView';
 import TaskProgress from './TaskProgress';
-import ApplicationActions from 'actions/ApplicationActions';
-import ApplicationStore from 'stores/ApplicationStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import DateUtils from 'utils/DateUtils';
 import {LatLng} from 'utils/GoogleMapsUtils';
-import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
 import styles from './ApplicationDetailHandler.scss';
 
-@connectToStores
 @cssModules(styles)
-export default class ApplicationDetailHandler extends Component {
+class ApplicationDetailHandler extends Component {
 
   static propTypes = {
     application: PropTypes.object,
-    isLoading: PropTypes.bool,
   }
 
   static contextTypes = {
     history: React.PropTypes.object.isRequired,
   }
 
-  static getStores() {
-    return [ApplicationStore];
-  }
-
-  static getPropsFromStores(props) {
-    const applications = ApplicationStore.getState().applications;
-    const application = applications.find(a => a.objectId === props.params.id);
-    if (!application) {
-      if (__CLIENT__) {
-        ApplicationActions.refreshMyApplications();
-      }
-
-      return {
-        application: null,
-        isLoading: true,
-      };
-    }
-
-    return {
-      application,
-      isLoading: false,
-    };
-  }
-
   state = {
     showChatDialog: false,
     showProgressHelpDialog: false,
-  }
-
-  componentDidMount() {
-    this._getTaskPosterInfo();
-  }
-
-  componentDidUpdate() {
-    this._getTaskPosterInfo();
   }
 
   _onChatDialogOpen() {
@@ -81,35 +44,18 @@ export default class ApplicationDetailHandler extends Component {
     this.setState({showProgressHelpDialog: false});
   }
 
-  _getTaskPosterInfo() {
-    if (!__CLIENT__) {
-      return;
-    }
-    const application = this.props.application;
-    if (application && !application.hasTaskPosterInfo && application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED) {
-      ApplicationActions.requestTaskPosterInfo(application);
-    }
-  }
-
   render() {
-    const {application, isLoading} = this.props;
-    if (isLoading) {
-      return (
-        <div className="progress-center">
-          <Progress />
-        </div>
-      );
-    }
+    const {application} = this.props;
 
     const task = application.task;
     const hasPictures = task.pictures && task.pictures.length > 0;
-    const accepted = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED;
+    const accepted = application.state === 'ACCEPTED';
 
-    const statusIcon = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
+    const statusIcon = application.state === 'ACCEPTED' ?
       require('images/icons/accepted.png') :
       require('images/icons/state-pending.png');
 
-    const statusText = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
+    const statusText = application.state === 'ACCEPTED' ?
       <FormattedMessage id="common.accepted" /> :
       <FormattedMessage id="common.pending" />;
 
@@ -323,3 +269,35 @@ export default class ApplicationDetailHandler extends Component {
     );
   }
 }
+
+export default Relay.createContainer(ApplicationDetailHandler, {
+  fragments: {
+    application: () => Relay.QL`
+      fragment on Application {
+        createdAt,
+        state,
+        price,
+        task {
+          createdAt,
+          title,
+          desc,
+          category,
+          priceOffered,
+          city,
+          location {
+            latitude,
+            longitude,
+          },
+          pictures {
+            url,
+          },
+          user {
+            objectId,
+            name,
+            pictureURL,
+          },
+        },
+      }
+    `,
+  },
+});

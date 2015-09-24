@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 
 import  {NelpTask, NelpTaskApplication, UserPrivateData, Feedback} from './ParseModels';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
-import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+
 import {
   meFromParse,
   userFromParse,
@@ -304,77 +304,6 @@ class ApiUtils {
           item.poster = parseItem.get('poster').toPlainObject();
           item.task = parseItem.get('task').toPlainObject();
           return item;
-        });
-      });
-  }
-
-  /**
-   * List all tasks near a point.
-   * @param {object} filters Filters for the query
-   * @param {Array<string>} filters.categories Categories to include in the query
-   * @param {'date'|'distance'} filters.sort Sort order for the query
-   * @param {GeoPoint} location The user location for the distance sort filter
-   * @return {Promise} The list of tasks
-   */
-  listNelpTasks({categories, minPrice, maxDistance, sort = 'date', skip = 0, limit = 20}, location) {
-    const taskQuery = new Parse.Query(NelpTask);
-    const point = new Parse.GeoPoint(location);
-
-    // Filter by category. Dont add the filter if all categories are selected.
-    if (categories && categories.length !== TaskCategoryUtils.list().length) {
-      taskQuery.containedIn('category', categories);
-    }
-
-    if (minPrice) {
-      taskQuery.greaterThanOrEqualTo('priceOffered', minPrice);
-    }
-
-    if (maxDistance) {
-      taskQuery.withinKilometers('location', point, maxDistance);
-    }
-
-    switch (sort) {
-    case 'distance':
-      taskQuery.near('location', point);
-      break;
-    case 'price':
-      taskQuery.descending('priceOffered');
-      break;
-    case 'date':
-    default:
-      taskQuery.descending('createdAt');
-      break;
-    }
-
-    return taskQuery
-      .include('user')
-      // .notEqualTo('user', Parse.User.current())
-      .equalTo('state', NELP_TASK_STATE.PENDING)
-      .skip(skip)
-      .limit(limit)
-      .find()
-      .then((tasks) => {
-        if (Parse.User.current()) {
-          return new Parse.Query(NelpTaskApplication)
-            .equalTo('user', Parse.User.current())
-            .equalTo('state', NELP_TASK_APPLICATION_STATE.PENDING)
-            .containedIn('task', tasks)
-            .find()
-            .then((applications) => {
-              return tasks.map((t) => {
-                const application = applications.find((a) => a.get('task').id === t.id);
-                const task = this._baseTaskFromParse(t);
-                task.user = userFromParse(t.get('user'));
-                task.application = application && application.toPlainObject();
-                return task;
-              });
-            });
-        }
-
-        return tasks.map((t) => {
-          const task = this._baseTaskFromParse(t);
-          task.user = userFromParse(t.get('user'));
-          return task;
         });
       });
   }
@@ -724,11 +653,19 @@ class ApiUtils {
   }
 
   _fileFromParse(parseFile) {
+    if (typeof parseFile.url === 'function') {
+      return {
+        url: fixParseFileURL(parseFile.url()),
+        file: parseFile,
+        name: parseFile.name(),
+        objectId: parseFile.name(),
+      };
+    }
     return {
-      url: fixParseFileURL(parseFile.url()),
+      url: fixParseFileURL(parseFile.url),
       file: parseFile,
-      name: parseFile.name(),
-      objectId: parseFile.name(),
+      name: parseFile.name,
+      objectId: parseFile.name,
     };
   }
 

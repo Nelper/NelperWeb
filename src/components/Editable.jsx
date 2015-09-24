@@ -93,6 +93,11 @@ export default class Editable extends Component {
 
   state = {
     editing: false,
+    value: this.props.value,
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({value: newProps.value});
   }
 
   _onEdit() {
@@ -109,6 +114,7 @@ export default class Editable extends Component {
   _onDoneEdit(newValue) {
     this.setState({
       editing: false,
+      value: newValue,
     });
     this.props.onEditDone && this.props.onEditDone(newValue);
   }
@@ -127,7 +133,7 @@ export default class Editable extends Component {
         !this.state.editing ?
         <div className="editable">
           <div className="editable-text">
-            {this.props.value}
+            {this.state.value}
           </div>
           <button className="editable-action" onClick={::this._onEdit}>
             <div className="editable-icon-bg" />

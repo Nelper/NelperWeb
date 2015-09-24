@@ -4,7 +4,6 @@ import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 import {FormattedMessage} from 'react-intl';
 
-import BrowseActions from 'actions/BrowseActions';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import MapView from 'components/MapView';
@@ -29,7 +28,6 @@ class BrowseTasksHandler extends Component {
     filters: {category: null, minPrice: null, maxDistance: null},
     sort: UserStore.state.user.location ? {sort: 'DISTANCE'} : {sort: 'DATE'},
     taskFilter: null,
-    isLoadingMore: false,
   }
 
   componentDidMount() {
@@ -48,12 +46,6 @@ class BrowseTasksHandler extends Component {
       });
     }
   }
-
-  /* componentWillReceiveProps(newProps) {
-    if (newProps.tasks.length !== this.props.tasks.length) {
-      this.setState({isLoadingMore: false});
-    }
-  }*/
 
   _onMarkerClick(event, filterKey) {
     this.setState({
@@ -78,27 +70,6 @@ class BrowseTasksHandler extends Component {
       ));
     }
   }
-
-  _onMakeOffer(task, price) {
-    // Make sure the user is logged to apply on a task.
-    if (!UserStore.isLogged()) {
-      this.context.history.pushState({nextPathname: '/nelp'}, '/login');
-      return;
-    }
-    BrowseActions.applyForTask(task, price);
-  }
-
-  _onCancelApply(task) {
-    BrowseActions.cancelApplyForTask(task);
-  }
-
-  /* _onLoadMore() {
-    BrowseActions.refreshTasks(
-      Object.assign({skip: this.props.tasks.length - 1, limit: 20}, this.state.sort, this.state.filters),
-      UserStore.state.user.location,
-    );
-    this.setState({isLoadingMore: true});
-  }*/
 
   _closeDetail() {
     this.setState({
@@ -185,9 +156,6 @@ class BrowseTasksHandler extends Component {
                 ...this.state.filters,
               }}
               onTaskSelected={::this._onTaskSelected}
-              onMakeOffer={::this._onMakeOffer}
-              onCancelApply={::this._onCancelApply}
-              isLoading={this.state.isLoadingMore}
             />
           </div>
         </div>

@@ -44,7 +44,7 @@ export default class ApplicationListView extends Component {
       <div className="no-applications">No applications yet!</div> :
       this.props.applications.map(a => {
         return (
-          <div key={a.objectId} className="application">
+          <div key={a.id} className="application">
             <div className="user-profile" onClick={() => this._onViewProfile(a)}>
               <div className="user-picture"
                 style={{backgroundImage: `url('${a.user.pictureURL}')`}}
@@ -69,7 +69,7 @@ export default class ApplicationListView extends Component {
               {this._renderSamePriceIcon(a)}
             </div>
             {
-              a.state === 0 ?
+              a.state === 'PENDING' ?
               <div className="btn-group actions">
                 <div className="btn-accept" onClick={() => this._onAccept(a)} />
                 <div className="btn-deny" onClick={() => this._onDeny(a)} />

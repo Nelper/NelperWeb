@@ -12,6 +12,7 @@ import {
   CancelApplyForTaskMutation,
   ChangeLanguageMutation,
   UpdateNotificationSettingsMutation,
+  EditTaskMutation,
 } from './schema/index';
 
 import {getMe} from './data/userData';
@@ -42,6 +43,7 @@ const queryType = new GraphQLObjectType({
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
+    editTask: EditTaskMutation,
     applyForTask: ApplyForTaskMutation,
     cancelApplyForTask: CancelApplyForTaskMutation,
     updateNotificationSettings: UpdateNotificationSettingsMutation,

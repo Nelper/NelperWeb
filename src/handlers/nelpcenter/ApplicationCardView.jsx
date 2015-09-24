@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
 import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';
@@ -6,9 +7,8 @@ import UserStore from 'stores/UserStore';
 import LocationUtils from 'utils/LocationUtils';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import IntlUtils from 'utils/IntlUtils';
-import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
-export default class TaskCardView extends Component {
+class ApplicationCardView extends Component {
 
   static propTypes = {
     application: PropTypes.object.isRequired,
@@ -20,11 +20,11 @@ export default class TaskCardView extends Component {
     const task = application.task;
 
     const distance = Math.round(LocationUtils.kilometersBetween(task.location, UserStore.state.user.location));
-    const statusIcon = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
+    const statusIcon = application.state === 'ACCEPTED' ?
       require('images/icons/accepted.png') :
       require('images/icons/state-pending.png');
 
-    const statusText = application.state === NELP_TASK_APPLICATION_STATE.ACCEPTED ?
+    const statusText = application.state === 'ACCEPTED' ?
       <FormattedMessage id="common.accepted"/> :
       <FormattedMessage id="common.pending"/>;
 
@@ -37,13 +37,6 @@ export default class TaskCardView extends Component {
             backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`,
           }} />
           <div className="category">
-            {
-              task.isNew ?
-              <div className="is-new">
-                <div className="is-new-icon" />
-              </div> :
-              null
-            }
             <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
           </div>
         </CardImageHeader>
@@ -82,3 +75,24 @@ export default class TaskCardView extends Component {
     );
   }
 }
+
+export default Relay.createContainer(ApplicationCardView, {
+  fragments: {
+    application: () => Relay.QL`
+      fragment on Application {
+        createdAt,
+        state,
+        price,
+        task {
+          title,
+          category,
+          city,
+          location {
+            latitude,
+            longitude,
+          }
+        },
+      }
+    `,
+  },
+});

@@ -1,56 +1,26 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
 import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 import Slider from 'react-slick';
-import connectToStores from 'alt/utils/connectToStores';
 
 import ApplicationListView from './ApplicationListView';
 import AcceptedApplicationView from './AcceptedTaskView';
 import EditPicturesDialogView from './EditPicturesDialogView';
-import Progress from 'components/Progress';
-import Dialog from 'components/Dialog';
-import Editable from 'components/Editable';
-import Icon from 'components/Icon';
+import {Dialog, Icon, Editable} from 'components/index';
+import {EditTaskDescMutation} from 'actions/nelpcenter/index';
 import TaskActions from 'actions/TaskActions';
-import TaskStore from 'stores/TaskStore';
 import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';
-import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
 
-@connectToStores
-export default class TaskDetailHandler extends Component {
+class TaskDetailHandler extends Component {
 
   static propTypes = {
     task: PropTypes.object,
-    isLoading: PropTypes.bool,
     params: PropTypes.object,
   }
 
   static contextTypes = {
     history: React.PropTypes.object.isRequired,
-  }
-
-  static getStores() {
-    return [TaskStore];
-  }
-
-  static getPropsFromStores(props) {
-    const tasks = TaskStore.getState().myTasks;
-    const task = tasks.find(t => t.objectId === props.params.id);
-    if (!task) {
-      if (__CLIENT__) {
-        TaskActions.refreshMyTasks();
-      }
-
-      return {
-        isLoading: true,
-        task: null,
-      };
-    }
-
-    return {
-      isLoading: false,
-      task: task,
-    };
   }
 
   state = {
@@ -66,18 +36,19 @@ export default class TaskDetailHandler extends Component {
 
   componentDidMount() {
     this._markTaskViewed();
-    this._getAcceptedApplicantInfo();
   }
 
   componentDidUpdate() {
     this._markTaskViewed();
-    this._getAcceptedApplicantInfo();
   }
 
   _onDescChanged(desc) {
-    const task = this.props.task;
-    task.desc = desc;
-    TaskActions.updateTask(task);
+    Relay.Store.update(
+      new EditTaskDescMutation({
+        task: this.props.task,
+        desc: desc,
+      })
+    );
   }
 
   _onAccept(application) {
@@ -125,42 +96,21 @@ export default class TaskDetailHandler extends Component {
     TaskActions.deletePicture(this.props.task, picture);
   }
 
-  _getAcceptedApplication() {
-    return this.props.task.applications
-      .find(a => a.state === NELP_TASK_APPLICATION_STATE.ACCEPTED);
-  }
-
-  _getAcceptedApplicantInfo() {
-    if (!__CLIENT__ || !this.props.task) {
-      return;
-    }
-    const application = this._getAcceptedApplication();
-    if (application && !application.hasApplicantInfo) {
-      TaskActions.requestApplicantInfo(application);
-    }
-  }
-
   _markTaskViewed() {
-    if (!this._setTaskAsViewed && this.props.task) {
+    /* if (!this._setTaskAsViewed && this.props.task) {
       this._setTaskAsViewed = true;
       // Have to do this to avoid fireing this action in the
       // middle of a dispatch.
       setTimeout(() => {
         TaskActions.setTaskViewed(this.props.task);
       }, 0);
-    }
+    }*/
   }
 
   render() {
-    const {task, isLoading} = this.props;
+    const {task} = this.props;
+    const applications = task.applications.edges.map(edge => edge.node);
     const {confirmDeleteOpened, editPicturesOpened} = this.state;
-    if (isLoading) {
-      return (
-        <div className="progress-center">
-          <Progress />
-        </div>
-      );
-    }
 
     const pictures = task.pictures && task.pictures.map((p, i) => {
       return (
@@ -168,14 +118,10 @@ export default class TaskDetailHandler extends Component {
       );
     });
 
-    const pendingApplications = task.applications
-      .filter(a => a.state === NELP_TASK_APPLICATION_STATE.PENDING);
+    const pendingApplications = applications.filter(a => a.state === 'PENDING');
+    const deniedApplications = applications.filter(a => a.state === 'DENIED');
 
-    const deniedApplications = task.applications
-      .filter(a => a.state === NELP_TASK_APPLICATION_STATE.DENIED);
-
-
-    const acceptedApplication = this._getAcceptedApplication();
+    const acceptedApplication = task.applications.accepted;
     let applicationsSection;
     if (acceptedApplication) {
       applicationsSection = (
@@ -333,3 +279,55 @@ export default class TaskDetailHandler extends Component {
     );
   }
 }
+
+export default Relay.createContainer(TaskDetailHandler, {
+  fragments: {
+    task: () => Relay.QL`
+      fragment on Task {
+        objectId,
+        createdAt,
+        title,
+        desc,
+        priceOffered,
+        city,
+        location {
+          latitude,
+          longitude,
+        },
+        pictures {
+          url,
+        },
+        applications {
+          hasAccepted,
+          accepted {
+            objectId,
+            user {
+              name,
+              pictureURL,
+            },
+            phone,
+            email,
+          }
+          edges {
+            node {
+              id,
+              objectId,
+              state,
+              price,
+              state,
+              user {
+                name,
+                pictureURL,
+              },
+              task {
+                objectId,
+                priceOffered,
+              },
+            }
+          }
+        }
+        ${EditTaskDescMutation.getFragment('task')}
+      }
+    `,
+  },
+});

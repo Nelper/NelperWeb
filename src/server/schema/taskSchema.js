@@ -12,6 +12,7 @@ import {
   fromGlobalId,
   connectionDefinitions,
   mutationWithClientMutationId,
+  connectionFromArray,
 } from 'graphql-relay';
 
 import {
@@ -22,26 +23,27 @@ import {
 import {
   UserType,
   ApplicationType,
+  ApplicationConnectionType,
   FileType,
+  FileInputType,
   GeoPointType,
 } from './index';
 
 import {
   getTask,
+  editTask,
   applyForTask,
   cancelApplyForTask,
 } from '../data/taskData';
+
+import commonFields from './commonFields';
 
 export const TaskType = new GraphQLObjectType({
   name: 'Task',
   description: 'A task on Nelper',
   fields: () => ({
     id: globalIdField('Task'),
-    createdAt: {
-      type: GraphQLString,
-      description: 'Task created at date',
-      resolve: (task) => task.get('createdAt').toJSON(),
-    },
+    ...commonFields,
     title: {
       type: GraphQLString,
       description: 'The task title',
@@ -86,6 +88,17 @@ export const TaskType = new GraphQLObjectType({
       type: ApplicationType,
       description: 'The user\'s application on the task. Only available in browse',
       resolve: (task) => task.get('application'),
+    },
+    applications: {
+      type: ApplicationConnectionType,
+      description: 'All the applications on the task. Only available in me',
+      resolve: async (task, args) => {
+        if (!task.get('applications')) {
+          throw Error('No applications. Can only get applications on the me object');
+        }
+        const applications = await task.get('applications');
+        return connectionFromArray(applications, args);
+      },
     },
   }),
   interfaces: [nodeInterface],
@@ -147,10 +160,33 @@ export const CancelApplyForTaskMutation = mutationWithClientMutationId({
   },
 });
 
+export const EditTaskMutation = mutationWithClientMutationId({
+  name: 'EditTask',
+  inputFields: {
+    id: {type: new GraphQLNonNull(GraphQLID)},
+    title: {type: GraphQLString},
+    desc: {type: GraphQLString},
+    pictures: {type: new GraphQLList(FileInputType)},
+  },
+  outputFields: {
+    task: {
+      type: TaskType,
+      resolve: ({localTaskId}, _, {rootValue}) => {
+        return getTask(rootValue, localTaskId);
+      },
+    },
+  },
+  mutateAndGetPayload: async ({id, ...fields}, {rootValue}) => {
+    const localTaskId = fromGlobalId(id).id;
+    await editTask(rootValue, localTaskId, fields);
+    return {localTaskId};
+  },
+});
+
 addResolver(
   async (type, id, {rootValue}) => {
     if (type === 'Task') {
-      return await getTask(rootValue, id);
+      return await getTask(rootValue, id, true);
     }
     return null;
   }, (obj) => {

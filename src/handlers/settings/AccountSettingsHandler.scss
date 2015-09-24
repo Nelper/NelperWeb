@@ -58,16 +58,6 @@
     @include omega();
   }
 
-  .add-location-title {
-    flex: 1;
-  }
-
-  .add-location-btn {
-    padding: 0.25rem;
-    font-size: 0.9em;
-    font-weight: bold;
-  }
-
   .delete-message {
     margin-bottom: 1rem;
     color: $color-primary;

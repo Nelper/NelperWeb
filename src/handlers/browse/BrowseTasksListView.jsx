@@ -16,20 +16,20 @@ import styles from './BrowseTasksListView.scss';
 @cssModules(styles)
 class BrowseTasksListView extends Component {
 
+  static contextTypes = {
+    history: React.PropTypes.object.isRequired,
+  }
+
   static propTypes = {
     relay: PropTypes.object.isRequired,
     browse: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
     onTaskSelected: PropTypes.func,
-    onMakeOffer: PropTypes.func,
-    onCancelApply: PropTypes.func,
   }
 
   static defaultProps = {
     onTaskSelected: () => {},
     onMakeOffer: () => {},
-    onCancelApply: () => {},
-    onLoadMore: () => {},
     isLoading: false,
   }
 
@@ -45,7 +45,6 @@ class BrowseTasksListView extends Component {
     if (!this.props.browse.tasks.pageInfo.hasNextPage || this._isLoading) {
       return;
     }
-    console.log('hi');
     const lastEle = this.refs.displayedTasks.lastChild;
     if (this._shouldLoadMore(lastEle, 200)) {
       this._isLoading = true;
@@ -106,6 +105,12 @@ class BrowseTasksListView extends Component {
   }
 
   _onMakeOffer(task) {
+    // Make sure the user is logged to apply on a task.
+    if (!UserStore.isLogged()) {
+      this.context.history.pushState({nextPathname: '/browse'}, '/login');
+      return;
+    }
+
     this.setState({
       makeOfferDialogOpened: true,
       makeOfferTask: task,

@@ -35,6 +35,8 @@ import {
   ApplicationConnectionType
 } from './index';
 
+import commonFields from './commonFields';
+
 const LocationType = new GraphQLObjectType({
   name: 'Location',
   description: 'A user saved location.',
@@ -129,6 +131,7 @@ export const UserPrivateType = new GraphQLObjectType({
   description: 'A person who uses our app.',
   fields: () => ({
     id: globalIdField('UserPrivate'),
+    ...commonFields,
     phone: {
       type: GraphQLString,
       description: 'The user phone number.',
@@ -163,6 +166,7 @@ export const UserType = new GraphQLObjectType({
   description: 'A person who uses our app.',
   fields: () => ({
     id: globalIdField('User'),
+    ...commonFields,
     name: {
       type: GraphQLString,
       description: 'The user full name.',
