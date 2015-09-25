@@ -299,7 +299,7 @@ export default {
     privacyDesc_02: "Yes. Under the list of Nelpers who applied for your task, you can visit a Nelper’s profile and see it there. Only their city is shown.",
     paymentSectionTitle: "Payment & Support",
     paymentTitle_00: "What is NelperPay?",
-    paymentDesc_00: "It's our payment platform. Every transaction is done via {nelperPay}. No external program or online banking account (such as Paypal) are needed. It's simple, safe and trustworthy.<br /><br />You can learn more about the transaction process, payment options and trust features on the {nelperPay} page.",
+    paymentDesc_00: "It's our payment platform. Every transaction is handled via {nelperPay}. No external program or online banking account (like Paypal) are needed. It's simple, safe and trustworthy.<br /><br />You can learn more about the transaction process, payment options and trust features on the {nelperPay} page.",
     paymentTitle_01: "How do I send a payment?",
     paymentDesc_01: "In your task page, click on 'Proceed To Payment'. A window will open for you to enter your payment info. You can pay using your Mastercard, VISA or American Express credit/debit card. <br /><br />You can either choose an existing payment method you previously added or add a new one. Add and manage credit/debit cards in your {settings}.<br /><br />Everytime you send a payment, a receipt will be automatically sent to your registered email.",
     paymentTitle_02: "How do I receive a payment?",
