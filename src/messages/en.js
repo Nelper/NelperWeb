@@ -233,7 +233,7 @@ export default {
     generalTitle_04: "What kind of tasks are completed on Nelper?",
     generalDesc_04: "Anything! From router installation to lawn mowing, you can find or post any kind of tasks on Nelper. Our simple categories and easy to understand interface make it easy to post or browse tasks.",
     generalTitle_05: "Is it free?",
-    generalDesc_05: "Posting tasks, browsing tasks and applying for tasks are <strong>free</strong>, no hidden fees. As a Task Poster, you only pay the agreed price for your task, nothing more.<br /><br />For Nelpers, there is a 7,5% transaction fee deducted from the total amount. It’s a small service for {nelperPay}’s secure payment handling.",
+    generalDesc_05: "Posting tasks, browsing tasks and applying for tasks are <strong>free</strong>, no hidden fees. As a Task Poster, you only pay the agreed price for your task, nothing more.<br /><br />For Nelpers, there is a 7,5% transaction fee deducted from the total amount. It’s a small service fee for {nelperPay}’s secure payment handling.",
     posterSectionTitle: "Task Poster",
     posterTitle_00: "How do I post a task?",
     posterDesc_00: "Go to {postATask}. Select a task category, give your task a title, give it a description, enter the price you are looking for, choose a location (your address) and add pictures of the task, if needed.<br /><br />Simple as that, the whole process only take a few minutes.",
@@ -249,7 +249,7 @@ export default {
     posterDesc_05: `Once you accept a Nelper and that all details have been taken care of, your task is ready for payment & completion. All the remaining steps are completed on your task page.
     <ol>
       <li>
-        Click on 'Proceed to Payment'. Once the payment is sent, it will be held securely via {nelperPay} until your task gets completed. This way, your Nelper won’t have access to the money yet but will be able to start working on your task knowing they are secured for them.
+        Click on 'Proceed to Payment'. Once the payment is sent, it will be held securely via {nelperPay} until your task gets completed. This way, your Nelper won’t have access to the money yet but will be able to start working on your task knowing it is secured for them.
       </li>
       <li>
         Your Nelper completes your task.
