@@ -249,7 +249,7 @@ export default {
     posterDesc_05: `Once you accept a Nelper and that all details have been taken care of, your task is ready for payment & completion. All the remaining steps are completed on your task page.
     <ol>
       <li>
-        Click on 'Proceed to Payment'. Once the payment is sent, it will be held securely via {nelperPay} until your task gets completed. This way, your Nelper won’t have access to the money yet but will be able to start working on your task knowing they are secured for them.
+        Click on 'Proceed to Payment'. Once the payment is sent, it will be held securely via {nelperPay} until your task gets completed. This way, your Nelper won’t have access to the money yet but will be able to start working on your task knowing it is secured for them.
       </li>
       <li>
         Your Nelper completes your task.
