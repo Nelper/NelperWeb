@@ -91,10 +91,10 @@
   }
 
   .skill {
-    @include flex(0 0 100%);
+    flex: 0 0 100%;
 
     @include media($medium-screen) {
-      @include flex(0 0 50%);
+      flex: 0 0 50%;
     }
   }
 

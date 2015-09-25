@@ -28,13 +28,15 @@ class ApiUtils {
   login({email, password}) {
     return Parse.User.logIn(email, password)
       .then((user) => {
-        this._initSession();
         if (!user.has('privateData')) {
           return this._createUserBase(user);
         }
         return user.get('privateData').fetch();
       })
-      .then(() => meFromParse(Parse.User.current()));
+      .then(() => {
+        this._initSession();
+        return meFromParse(Parse.User.current());
+      });
   }
 
   /**
@@ -601,7 +603,7 @@ class ApiUtils {
   _baseTaskFromParse(parseTask) {
     return {
       objectId: parseTask.id,
-      createdAt: parseTask.createdAt,
+      createdAt: parseTask.get('createdAt'),
       title: parseTask.get('title'),
       category: parseTask.get('category'),
       desc: parseTask.get('desc'),

@@ -88,26 +88,30 @@ export default class RegisterHandler extends Component {
       <div id="register-handler" className="login-common">
         <div className="content">
           <img
-              className="nelpy"
-              src={require('images/logo-nobg-lg.png')} />
+            className="nelpy"
+            src={require('images/logo-nobg-lg.png')}
+          />
           <h2 className="title">Nelper</h2>
           <form onSubmit={::this._onSubmit}>
             <input
               type="email"
               value={this.state.email}
               placeholder="Email"
-              onChange={::this._onEmailChanged} />
+              onChange={::this._onEmailChanged}
+            />
             <input
               type="password"
               value={this.state.password}
               placeholder="Password"
-              onChange={::this._onPasswordChanged} />
+              onChange={::this._onPasswordChanged}
+            />
             <input
               type="text"
               value={this.state.name}
               placeholder="Name"
-              onChange={::this._onNameChanged} />
-            <button className="register" onClick={::this._onRegister}>Register</button>
+              onChange={::this._onNameChanged}
+            />
+            <button className="register" type="submit">Register</button>
           </form>
           <button className="back" onClick={::this._onBack}>Back</button>
         </div>

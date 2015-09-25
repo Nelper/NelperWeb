@@ -7,7 +7,10 @@ import ApplicationListView from './ApplicationListView';
 import AcceptedApplicationView from './AcceptedTaskView';
 import EditPicturesDialogView from './EditPicturesDialogView';
 import {Dialog, Icon, Editable} from 'components/index';
-import {EditTaskDescMutation} from 'actions/nelpcenter/index';
+import {
+  EditTaskDescMutation,
+  EditTaskPicturesMutation,
+} from 'actions/nelpcenter/index';
 import TaskActions from 'actions/TaskActions';
 import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';

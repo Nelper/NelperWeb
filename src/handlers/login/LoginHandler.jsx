@@ -88,29 +88,35 @@ export default class LoginHandler extends Component {
       <div id="login-handler" className="login-common">
         <div className="content">
           <img
-              className="nelpy"
-              src={require('images/logo-nobg-lg.png')} />
+            className="nelpy"
+            src={require('images/logo-nobg-lg.png')}
+          />
           <h2 className="title">Nelper</h2>
           <form onSubmit={::this._onSubmit}>
             <input
-                type="email"
-                value={this.state.email}
-                placeholder="Email"
-                onChange={::this._onEmailChanged} />
+              type="email"
+              value={this.state.email}
+              placeholder="Email"
+              onChange={::this._onEmailChanged}
+            />
             <input
-                type="password"
-                value={this.state.password}
-                placeholder="Password"
-                onChange={::this._onPasswordChanged} />
-              <button className="login" onClick={::this._onLogin}>Login</button>
+              type="password"
+              value={this.state.password}
+              placeholder="Password"
+              onChange={::this._onPasswordChanged}
+            />
+            <button className="login">Login</button>
           </form>
-          <button className="facebook"
-              onClick={::this._onLoginWithFacebook}>
+          <button
+            className="facebook"
+            onClick={::this._onLoginWithFacebook}
+          >
             Sign in with Facebook
           </button>
           <button
-              onClick={::this._onRegister}
-              className="register">
+            onClick={::this._onRegister}
+            className="register"
+          >
             Register with Email
           </button>
           <a className="forgot" href="/">I forgot my password</a>
