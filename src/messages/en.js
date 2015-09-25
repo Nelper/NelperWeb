@@ -111,8 +111,8 @@ export default {
 
   nelpcenter: {
     main: {
-      myTasks: "Mes tâches",
-      myApplications: "Mes applications",
+      myTasks: "My Tasks",
+      myApplications: "My Applications",
 
       applied: "Applied {moment}",
       awayFrom: "{distance, number} km away from you",
