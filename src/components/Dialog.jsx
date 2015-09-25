@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
+const DIALOG_ANIMATION_DURATION = 251;
+
 export default class Dialog extends Component {
 
   static propTypes = {
@@ -29,15 +31,12 @@ export default class Dialog extends Component {
   _documentClickListener = this._onDocumentClick.bind(this)
 
   componentDidMount() {
-    let node = document.getElementById('dialog');
-    if (!node) {
-      node = document.createElement('div');
-      node.id = 'dialog';
-      document.body.appendChild(node);
-    }
+    const node = document.createElement('div');
+    node.className = 'dialog';
+    document.body.appendChild(node);
+
     this._dialogNode = node;
     document.addEventListener('click', this._documentClickListener);
-
 
     if (this.props.opened) {
       this._open();
@@ -61,24 +60,29 @@ export default class Dialog extends Component {
   }
 
   componentWillUnmount() {
+    const unMount = () => {
+      ReactDOM.unmountComponentAtNode(this._dialogNode);
+
+      clearTimeout(this._openingTimeout);
+      clearTimeout(this._closingTimeout);
+      document.body.removeChild(this._dialogNode);
+      document.removeEventListener('click', this._documentClickListener);
+    };
+
     if (this.state.opened) {
       this._close();
-      this._dialogNode.className = '';
+      this._dialogNode.className = 'dialog';
+      setTimeout(unMount, DIALOG_ANIMATION_DURATION);
+    } else {
+      unMount();
     }
-
-    ReactDOM.unmountComponentAtNode(this._dialogNode);
-
-    clearTimeout(this._openingTimeout);
-    clearTimeout(this._closingTimeout);
-    this._dialogNode = null;
-    document.removeEventListener('click', this._documentClickListener);
   }
 
   _onDocumentClick(event) {
     if (!this.state.opened || this.state.opening) {
       return;
     }
-    if (event.target !== document.getElementById('dialog')) {
+    if (event.target !== this._dialogNode) {
       return;
     }
     event.stopPropagation();
@@ -94,7 +98,7 @@ export default class Dialog extends Component {
 
     this._openingTimeout = setTimeout(() => {
       this.setState({opening: false});
-    }, 251);
+    }, DIALOG_ANIMATION_DURATION);
 
     // Make sure the body doesn't scroll when the popup is opened.
     document.body.style.overflow = 'hidden';
@@ -114,7 +118,7 @@ export default class Dialog extends Component {
     document.body.style.overflow = '';
     this._closingTimeout = setTimeout(() => {
       this.setState({closing: false});
-    }, 251);
+    }, DIALOG_ANIMATION_DURATION);
 
     if (this.props.onClose) {
       this.props.onClose.call(null);
@@ -123,6 +127,7 @@ export default class Dialog extends Component {
 
   _renderPortal() {
     this._dialogNode.className = classNames(
+      'dialog',
       {'opened': this.state.opened},
       {'closing': this.state.closing},
     );

@@ -27,6 +27,7 @@ import {
   FileType,
   FileInputType,
   GeoPointType,
+  LocationType,
 } from './index';
 
 import {
@@ -36,7 +37,28 @@ import {
   cancelApplyForTask,
 } from '../data/taskData';
 
+import {getTaskPosterPrivate} from '../data/userData';
+
 import commonFields from './commonFields';
+
+const TaskPosterUserPrivateType = new GraphQLObjectType({
+  name: 'TaskPosterUserPrivate',
+  description: 'Private info about the task poster.',
+  fields: () => ({
+    phone: {
+      type: GraphQLString,
+      description: 'The task poster phone number.',
+    },
+    email: {
+      type: GraphQLString,
+      description: 'The task poster email.',
+    },
+    exactLocation: {
+      type: LocationType,
+      description: 'The exact location of the task',
+    },
+  }),
+});
 
 export const TaskType = new GraphQLObjectType({
   name: 'Task',
@@ -99,6 +121,11 @@ export const TaskType = new GraphQLObjectType({
         const applications = await task.get('applications');
         return connectionFromArray(applications, args);
       },
+    },
+    userPrivate: {
+      type: TaskPosterUserPrivateType,
+      description: 'The private info about the task poster. Only available to the accepted Nelper.',
+      resolve: (task, _, {rootValue}) => getTaskPosterPrivate(rootValue, task),
     },
   }),
   interfaces: [nodeInterface],

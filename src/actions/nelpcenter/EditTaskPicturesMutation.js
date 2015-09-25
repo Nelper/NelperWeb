@@ -1,6 +1,6 @@
 import Relay, {Mutation} from 'react-relay';
 
-export default class EditTaskDescMutation extends Mutation {
+export default class EditTaskPicturesMutation extends Mutation {
   static fragments = {
     task: () => Relay.QL`
       fragment on Task {

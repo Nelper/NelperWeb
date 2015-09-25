@@ -163,13 +163,13 @@ class ApplicationDetailHandler extends Component {
               <div styleName="task-poster-contact-email">
                 <div styleName="task-poster-contact-email-icon" />
                 <div>
-                  {task.email}
+                  {task.userPrivate.email}
                 </div>
               </div>
               <div styleName="task-poster-contact-phone">
                 <div styleName="task-poster-contact-phone-icon" />
                 <div>
-                  {task.phone}
+                  {task.userPrivate.phone}
                 </div>
               </div>
             </div> :
@@ -195,7 +195,9 @@ class ApplicationDetailHandler extends Component {
                   <div styleName="task-info-exact-location">
                     <div styleName="task-info-exact-location-icon" />
                     <div>
-                      {task.exactLocation && task.exactLocation.address.replace(',', '\n').replace(',', '\n')}
+                      <div>{task.userPrivate.exactLocation.streetNumber} {task.userPrivate.exactLocation.route}</div>
+                      <div>{task.userPrivate.exactLocation.city}</div>
+                      <div>{task.userPrivate.exactLocation.postalCode}</div>
                     </div>
                   </div>
                 </div> :
@@ -250,10 +252,10 @@ class ApplicationDetailHandler extends Component {
         </div>
         <div styleName="task-info-map" className="panel">
           <MapView
-            initialCenter={new LatLng(task.location)}
+            initialCenter={new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location)}
             markers={[{
               key: 1,
-              position: new LatLng(task.location),
+              position: new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location),
             }]}/>
         </div>
         {
@@ -295,6 +297,20 @@ export default Relay.createContainer(ApplicationDetailHandler, {
             objectId,
             name,
             pictureURL,
+          },
+          userPrivate {
+            phone,
+            email,
+            exactLocation {
+              streetNumber,
+              route,
+              city,
+              postalCode,
+              coords {
+                latitude,
+                longitude,
+              }
+            },
           },
         },
       }

@@ -92,11 +92,32 @@ class TaskDetailHandler extends Component {
   }
 
   _onEditPicturesAdd(picture) {
-    TaskActions.addPicture(this.props.task, picture);
+    const pictures = [...this.props.task.pictures, picture]
+      .map(p => ({
+        url: p.url,
+        name: p.name,
+      }));
+    Relay.Store.update(
+      new EditTaskPicturesMutation({
+        task: this.props.task,
+        pictures,
+      })
+    );
   }
 
   _onEditPicturesDelete(picture) {
-    TaskActions.deletePicture(this.props.task, picture);
+    const pictures = this.props.task.pictures
+      .filter(p => p !== picture)
+      .map(p => ({
+        url: p.url,
+        name: p.name,
+      }));
+    Relay.Store.update(
+      new EditTaskPicturesMutation({
+        task: this.props.task,
+        pictures,
+      })
+    );
   }
 
   _markTaskViewed() {
@@ -328,8 +349,9 @@ export default Relay.createContainer(TaskDetailHandler, {
               },
             }
           }
-        }
-        ${EditTaskDescMutation.getFragment('task')}
+        },
+        ${EditTaskDescMutation.getFragment('task')},
+        ${EditTaskPicturesMutation.getFragment('task')},
       }
     `,
   },

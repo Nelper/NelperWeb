@@ -18,3 +18,4 @@ export {
   UpdateNotificationSettingsMutation,
 } from './userSchema';
 export {BrowseType, browseArgs} from './browseSchema';
+export {LocationType} from './locationSchema';

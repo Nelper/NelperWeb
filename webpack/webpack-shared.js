@@ -13,7 +13,6 @@ const common = {
   },
   output: {
     path: path.resolve(ROOT_PATH, 'build/client'),
-    publicPath: '/',
   },
   plugins: [
     new webpack.ProvidePlugin({

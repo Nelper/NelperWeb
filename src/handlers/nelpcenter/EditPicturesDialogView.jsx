@@ -25,6 +25,10 @@ export default class EditPicturesDialogView extends Component {
     pictures: this.props.pictures,
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({pictures: newProps.pictures});
+  }
+
   _onFileChanged(event) {
     const files = event.target.files;
     if (files.length > 0) {

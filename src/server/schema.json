@@ -308,6 +308,18 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "userPrivate",
+              "description": "The private info about the task poster. Only available to the accepted Nelper.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "TaskPosterUserPrivate",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -1354,6 +1366,18 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "coords",
+              "description": "The map coordinates.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "GeoPoint",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -1444,6 +1468,53 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TaskPosterUserPrivate",
+          "description": "Private info about the task poster.",
+          "fields": [
+            {
+              "name": "phone",
+              "description": "The task poster phone number.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "email",
+              "description": "The task poster email.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "exactLocation",
+              "description": "The exact location of the task",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Location",
                 "ofType": null
               },
               "isDeprecated": false,

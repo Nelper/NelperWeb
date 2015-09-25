@@ -2,6 +2,7 @@ import Parse from 'parse/node';
 
 import {UserPrivateData} from './parseTypes';
 import {fixParseFileURL} from '../../utils/ParseUtils';
+import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
 
 export async function getMe({userId, sessionToken}) {
   const query = new Parse.Query(Parse.User)
@@ -67,7 +68,8 @@ export async function updateNotificationSettings({userId, sessionToken}, setting
 
 export async function getApplicantPrivate({userId, sessionToken}, application) {
   // Makes sure the user is the task poster.
-  if (userId !== application.get('task').get('user').id) {
+  if (userId !== application.get('task').get('user').id ||
+      application.get('state') !== NELP_TASK_APPLICATION_STATE.ACCEPTED) {
     throw Error('Unauthorized');
   }
   const query = new Parse.Query(Parse.User)
@@ -79,5 +81,34 @@ export async function getApplicantPrivate({userId, sessionToken}, application) {
   return {
     email: privateData.get('email'),
     phone: privateData.get('phone'),
+  };
+}
+
+export async function getTaskPosterPrivate({userId, sessionToken}, task) {
+  // Makes sure the user is the task poster.
+  const acceptedApplication = task.get('application');
+  if (acceptedApplication.get('user').id !== userId ||
+      acceptedApplication.get('state') !== NELP_TASK_APPLICATION_STATE.ACCEPTED) {
+    throw Error('Unauthorized');
+  }
+  const query = new Parse.Query(Parse.User)
+    .include('privateData');
+
+  // Use the master key to get the private data.
+  const user = await query.get(userId, {useMasterKey: true});
+  const privateData = user.get('privateData');
+  const taskLocation = privateData.get('locations')[0];
+  return {
+    email: privateData.get('email'),
+    phone: privateData.get('phone'),
+    exactLocation: {
+      streetNumber: taskLocation.streetNumber,
+      route: taskLocation.route,
+      city: taskLocation.city,
+      province: taskLocation.province,
+      country: taskLocation.country,
+      postalCode: taskLocation.postalCode,
+      coords: taskLocation.coords,
+    },
   };
 }

@@ -116,6 +116,7 @@ type Location {
   province: String
   country: String
   postalCode: String
+  coords: GeoPoint
 }
 
 type Mutation {
@@ -174,6 +175,7 @@ type Task implements Node {
   user: User
   application: Application
   applications: ApplicationConnection
+  userPrivate: TaskPosterUserPrivate
 }
 
 type TaskConnection {
@@ -185,6 +187,12 @@ type TaskConnection {
 type TaskEdge {
   node: Task
   cursor: String!
+}
+
+type TaskPosterUserPrivate {
+  phone: String
+  email: String
+  exactLocation: Location
 }
 
 input UpdateNotificationSettingsInput {

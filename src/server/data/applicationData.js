@@ -7,7 +7,9 @@ export async function getApplication({sessionToken}, id) {
   const query = new Parse.Query(NelpTaskApplication);
   query.include('user');
   query.include('task.user');
-  return await query.get(id, {sessionToken});
+  const application = await query.get(id, {sessionToken});
+  application.get('task').set('application', application);
+  return application;
 }
 
 export async function getApplicationsForUser({sessionToken}, userId) {

@@ -109,7 +109,11 @@ export function editTask({sessionToken}, taskId, {title, desc, pictures}) {
     parseTask.set('desc', desc);
   }
   if (pictures) {
-    parseTask.set('pictures');
+    parseTask.set('pictures', pictures.map(p => ({
+      __type: 'File',
+      name: p.name,
+      url: p.url,
+    })));
   }
   return parseTask.save(null, {sessionToken});
 }
