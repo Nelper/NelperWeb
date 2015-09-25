@@ -38,7 +38,7 @@ Parse.initialize(
 graphql(app);
 
 app.use(compression());
-app.use(express.static(path.resolve(__dirname, '../../build/client', {maxAge: 30 * 24 * 60 * 60 * 1000, index: false})));
+app.use(express.static(path.resolve(__dirname, '../../build/client'), {maxAge: 30 * 24 * 60 * 60 * 1000, index: false}));
 
 app.use(morgan('combined'));
 app.use(cookieParser());
