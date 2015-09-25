@@ -7,6 +7,7 @@ import {RoutingContext, match} from 'react-router';
 import createLocation from 'history/lib/createLocation';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
+import compression from 'compression';
 import Parse from 'parse/node';
 
 // import getRoutes from 'app/getRoutes';
@@ -36,8 +37,8 @@ Parse.initialize(
 
 graphql(app);
 
-app.use(express.static(path.resolve(__dirname, '../../build/client'), {index: false}));
-app.use(express.static(path.resolve(__dirname, '../../public'), {index: false}));
+app.use(express.compression());
+app.use(express.static(path.resolve(__dirname, '../../build/client', {maxAge: 30 * 24 * 60 * 60 * 1000, index: false})));
 
 app.use(morgan('combined'));
 app.use(cookieParser());
