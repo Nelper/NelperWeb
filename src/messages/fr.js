@@ -138,7 +138,7 @@ export default {
       progressReleased: "Paiement libéré",
       completed: "J'ai complété la tâche!",
       progressHelp: `
-      <h2>Quel est le processus pour compléter la tâche et pour le paiement?</h2>
+      <h2>Quel est le processus pour compléter la tâche et recevoir le paiement? </h2>
       <ol>
         <li>
           Le publieur de tâche envoie le paiement. Celui-ci sera sécuritairement gelé via notre plateforme {nelperPay},
@@ -176,7 +176,7 @@ export default {
       progressApproved: "Confirmation",
       progressRating: "Évaluation & critique",
       progressHelp: `
-      <h2>Quel est le processus pour faire compléter ma tâche ainsi que pour le paiement?</h2>
+      <h2>Quel est le processus pour envoyer le paiement et faire compléter ma tâche?</h2>
       <ol>
         <li>
           Cliquez sur <em>Procéder au paiement</em>. Lorsque vous aurez envoyé le paiement, celui-ci sera sécuritairement
@@ -247,7 +247,7 @@ export default {
     posterDesc_03: "Dans votre {nelpCenter}, sous Mes tâches. Toutes vos tâches actives ainsi que ceux qui ont déjà été complétées s’y retrouvent avec leur prix, date de publication et le nombre de Nelpers ayant appliqué.<br /><br />Si vous cliquez sur une tâche, vous avez accès à tous ses détails, avez la possibilité d’y effectuer des changements et pouvez voir la liste complète de Nelpers ayant appliqué.",
     posterTitle_04: "Comment choisir un Nelper?",
     posterDesc_04: "Cliquez sur votre tâche et faites votre choix parmi la liste de Nelpers ayant appliqué. Vous y voyez leurs noms, leurs évaluations, le nombre de tâches qu’ils ont complété ainsi que leurs offres de prix.<br /><br />Si vous cliquez sur la photo de profil d’un Nelper, vous accédez à sa page de profile ainsi qu’à ses critiques de tâches accomplies antérieurement. Vous pouvez également ouvrir une page de chat entre vous et le Nelper, pour discuter des détails de votre tâche ou pour lui poser des questions.",
-    posterTitle_05: "Quel est le processus pour faire compléter ma tâche et pour le paiement?",
+    posterTitle_05: "Quel est le processus pour envoyer le paiement et faire compléter ma tâche?",
     posterDesc_05: `Lorsque vous acceptez un Nelper et que tous les détails ont été réglés, vous êtes prêt à procéder au paiement et à faire compléter votre tâche. Toutes les étapes restantes sont remplies sur votre page de tâche.
     <ol>
       <li>
@@ -274,7 +274,7 @@ export default {
     nelperDesc_02: "Dans votre {nelpCenter}, sous Mes Applications. Toutes vos applications actives y sont, accompagnées de leurs status (En attente, Acceptée ou Refusée). Vous pouvez également y voir vos tâches complétées antérieurement.<br /><br />Si vous cliquez l’une de vos applications, vous pouvez revoir les détails de votre application et ouvrir une fenêtre de chat entre vous et le publieur de tâche.",
     nelperTitle_03: "Comment augmenter mes chances d’être accepté?",
     nelperDesc_03: "Assurez-vous de bien remplir votre {profile}. Écrivez sur vous, vos talents, votre éducation et vos expériences de travail. Un publieur de tâche va probablement regarder votre profil lorsque vous appliquez pour sa tâche donc il est important d’inclure beaucoup de détails.",
-    nelperTitle_04: "Quel est le processus pour compléter une tâche et pour le paiement?",
+    nelperTitle_04: "Quel est le processus pour compléter une tâche et recevoir le paiement? ",
     nelperDesc_04: `Si votre application est acceptée, vous recevez une notification et votre statut d’application change dans votre {nelpCenter}. Lorsque tous les détails ont été réglés entre vous et le publieur de la tâche, vous êtes prêt à compléter la tâche et recevoir le paiement.
     <ol>
       <li>
@@ -294,7 +294,7 @@ export default {
     nelperDesc_05: "Vous recevez une notification et votre statut d’application change dans votre {nelpCenter}.",
     privacySectionTitle: "Confidentialité",
     privacyTitle_00: "Est-ce que l’emplacement d’une tâche sur la carte est celui de l’adresse exacte?",
-    privacyDesc_00: "Non. L’emplacement vu sur la carte est un rayon aléatoire de 400 mètres autour de l’emplacement exact. Un Nelper a seulement accès à l’emplacement exact (adresse) lorsque son application se fait accepter.<br /><br />Vous pouvez créer un nouvel emplacement lorsque vous publiez une tâche ou en sélectionner un déjà existant, préalablement ajouté dans vos {settings}.",
+    privacyDesc_00: "Non. L’emplacement vu sur la carte est un rayon aléatoire de 400 mètres autour de l’emplacement exact. Un Nelper a seulement accès à l’adresse exacte lorsque son application se fait accepter.<br /><br />Vous pouvez créer un nouvel emplacement lorsque vous publiez une tâche ou en sélectionner un déjà existant, préalablement ajouté dans vos {settings}.",
     privacyTitle_01: "Est-ce que mon adresse courriel et mon numéro de téléphone peuvent être vus publiquement?",
     privacyDesc_01: "Non. Ils ne sont montrés que lorsqu’un publieur de tâche accepte l’application d’un Nelper. Les deux ont accès au numéro de téléphone et à l’adresse courriel de l’autre, à des fins de communication.<br /><br />Vous pouvez ajouter ou changer votre numéro de téléphone et votre adresse courriel dans vos {settings}.",
     privacyTitle_02: "Est-ce possible de voir où habite un Nelper avant d’accepter son application?",
