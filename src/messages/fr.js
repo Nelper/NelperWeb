@@ -186,7 +186,7 @@ export default {
           Votre Nelper complète votre tâche.
         </li>
         <li>
-          Lorsque votre tâche est complétée, votre Nelper va demander que son paiement soit libéré.
+          Lorsque votre tâche est complétée, votre Nelper va exiger que son paiement soit libéré.
           Pour ce faire, vous n'avez qu'à confirmer que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>.
         </li>
         <li>
@@ -235,7 +235,7 @@ export default {
     generalTitle_04: "Quel genre de tâche peut être complété sur Nelper?",
     generalDesc_04: "N’importe quel genre! De la tonte de pelouse à l’installation d’un routeur, vous pouvez trouver ou publier de tout sur Nelper.",
     generalTitle_05: "Est-ce gratuit?",
-    generalDesc_05: "Publier une tâche, parcourir les tâches et appliquer pour une tâche sont <strong>gratuits</strong>. En tant que publieur de tâche, vous payez toujours le prix final convenu de votre tâche, jamais plus, pas de frais cachés.<br /><br />Pour les Nelpers, des frais de 7.5% du montant total d’un tâche s’appliquent par transaction, pour la sécurité de paiement de {nelperPay}.",
+    generalDesc_05: "Publier une tâche, parcourir les tâches et appliquer pour une tâche sont <strong>gratuits</strong>. En tant que publieur de tâche, vous payez toujours le prix final convenu de votre tâche, jamais plus, pas de frais cachés.<br /><br />Pour les Nelpers, des frais de 7.5% du montant total d’une tâche s’appliquent par transaction, pour la sécurité de paiement de {nelperPay}.",
     posterSectionTitle: "Publieur de tâche",
     posterTitle_00: "Comment publier une tâche?",
     posterDesc_00: "Allez dans {postATask}. Choisissez votre catégorie, donnez un titre à vote tâche, décrivez ce dont vous avez besoin, entrez votre offre de prix, choisissez l’emplacement de la tâche (votre adresse) et ajouter des photos, au besoin.<br /><br />Aussi simple que ça! Ça ne prend que 2 minutes.",
@@ -257,7 +257,7 @@ export default {
         Votre Nelper complète votre tâche.
       </li>
       <li>
-        Lorsque votre tâche est complétée, votre Nelper va demander que son paiement soit libéré. Pour ce faire, vous n'avez qu'à confirmer que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>.
+        Lorsque votre tâche est complétée, votre Nelper va exiger que son paiement soit libéré. Pour ce faire, vous n'avez qu'à confirmer que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>.
       </li>
       <li>
         Évaluez et donnez une critique à votre Nelper, en lien avec sa performance.
@@ -312,5 +312,70 @@ export default {
     paymentDesc_04: "Si le publieur de la tâche refuse de confirmer que vous avez complété la tâche, affirmant que le travail était mal fait ou que vous ne l’avez complété du tout, cliquez sur Le publieur refuse de libérer le paiement dans le page de votre page d’application. Remplissez les champs, fournissez le plus de détails possible et incluez des preuves photos, si vous en avez.<br /><br />Nous allons examiner en détail votre dispute le plus tôt possible et vous receverez un courriel lorsque nous aurons résolu la dispute. Si nous jugeons que la tâche a été complétée dans des mesures acceptables, vous receverez votre paiement.<br /><br />Notre priorité la plus importante est de résoudre vos problèmes et disputes rapidement et en profondeur. Nous voulons vous offrir le meilleur service à la clientèle qui soit. Donc, à cet effect, si vous n’êtes pas satisfait avec l’une de nos décisions ou avez des questions après la résolution d’une dispute, vous pouvez nous contacter <u>n'importe quand</u> sur le {supportCenter}. Nous sommes là pour vous et allons répondre dans les plus brefs délais.",
     paymentTitle_05: "Où puis-je obtenir du service à la clientèle?",
     paymentDesc_05: "Si vous avez besoin d’aide, avez des questions, désirez rapporter une erreur or voulez nous donner votre avis sur notre service, veuillez visiter le {supportCenter}. Vous pouvez nous rejoindre 24/7 et nous vous répondrons dans les plus brefs délais!",
+  },
+
+  nelperPay: {
+    headerTitle: "NelperPay",
+    headerText: "A <strong>safe</strong> payment platform for everyone",
+
+    whatIsTitle: "What is NelperPay?",
+    whatIsText: "NelperPay is our payment platform. It's simple, safe and trustworthy.",
+  },
+
+  settings: {
+    common: {
+      settings: "Paramètres",
+    },
+    account: {
+      title: "Compte",
+
+      general: "Général",
+      email: "Adresse courriel",
+      phone: "Téléphone",
+      language: "Langue",
+      french: "Français",
+      english: "Anglais",
+
+      locations: "Emplacement",
+      locationAdd: "Ajouter nouvel",
+      locationName: "Nom",
+      locationAddress: "Adresse",
+      noLocations: "<em>Aucun emplacement ajouté</em>",
+
+      password: "Mot de passe",
+      passwordCurrent: "Actuel",
+      passwordNew: "Nouveau",
+      passwordConfirm: "Saisir à nouveau",
+
+      deleteAccount: "Supprimer mon compte",
+      deleteAccountMessage: "La suppression du compte est permanente",
+      deleteAccountButton: "Supprimer mon compte",
+    },
+    notifications: {
+      title: "Notifications",
+
+      email: "Notifications par courriel",
+      emailMe: "M'envoyer un courriel quand",
+      sendMe: "M'envoyer",
+
+      poster: "Publieur de tâche",
+      posterSetting1: "Un Nelper applique pour ma tâche",
+      posterSetting2: "Mon Nelper exige que son paiement soit libéré",
+
+      nelper: "Nelper",
+      nelperSetting1: "Mon statut d'application change",
+      nelperSetting2: "Je reçois un paiement",
+
+      newsletter: "Courriel d'informations",
+      newsletterSetting1: "Notre courriel d'informations contenant les nouveautés sur Nelper",
+    },
+    nelperpay: {
+      title: "Paramètres de paiement",
+      creditCards: "Cartes de crédit/débit",
+      creditCardAdd: "Ajouter nouvelle",
+    },
+    history: {
+      title: "Historique des transactions",
+    },
   },
 };
