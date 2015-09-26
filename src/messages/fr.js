@@ -221,7 +221,7 @@ export default {
   faq: {
     pageTitle_01: "Voici des questions/réponses pour vous aider à comprendre le fonctionnement de Nelper.",
     pageTitle_02: "Si vous ne trouvez pas de réponse à votre question, ou avez besoin d’assistance supplémentaire, contactez-nous sur le {supportCenter}.",
-    supportCenter: "Centre de soutien",
+    supportCenter: "Centre d'aide'",
 
     generalSectionTitle: "Général",
     generalTitle_00: "Qu’est-ce que Nelper?",
@@ -299,7 +299,7 @@ export default {
     privacyDesc_01: "Non. Ils ne sont montrés que lorsqu’un publieur de tâche accepte l’application d’un Nelper. Les deux ont accès au numéro de téléphone et à l’adresse courriel de l’autre, à des fins de communication.<br /><br />Vous pouvez ajouter ou changer votre numéro de téléphone et votre adresse courriel dans vos {settings}.",
     privacyTitle_02: "Est-ce possible de voir où habite un Nelper avant d’accepter son application?",
     privacyDesc_02: "Oui. Lorsque vous visitez le profil d’un Nelper à partir de la liste d’applications, vous pouvez voir la ville dans laquelle il habite.",
-    paymentSectionTitle: "Paiement & Soutien",
+    paymentSectionTitle: "Paiement & Aide",
     paymentTitle_00: "Qu’est-ce que NelperPay?",
     paymentDesc_00: "NelperPay est notre plateforme de paiement. Toutes les transactions passent par NelperPay. Vous n’avez pas besoin de programme externe ou de compte bancaire en ligne (tel que Paypal). C’est simple, rapide, sécuritaire et fiable.<br /><br />Vous pouvez en apprendre plus sur le processus de transaction, les options de paiement ainsi que sur les caratéristiques de fiabilité sur la page {nelperPay}.",
     paymentTitle_01: "Comment envoyer un paiement?",
