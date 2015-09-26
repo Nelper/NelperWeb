@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
+import {FormattedMessage} from 'react-intl';
 
 import {ChangeLanguageMutation} from 'actions/settings/index';
 
@@ -100,10 +101,14 @@ class AccountSettingsHandler extends Component {
           onLocationAdded={::this._onAddLocation}
           onCancel={::this._onCloseLocationDialog} />
         <div className="panel">
-          <h2 className="panel-title">General</h2>
+          <h2 className="panel-title">
+            <FormattedMessage id="settings.account.general" />
+          </h2>
           <div className="panel-content">
             <div styleName="setting-row">
-              <div styleName="setting-title">Email</div>
+              <div styleName="setting-title">
+                <FormattedMessage id="settings.account.email" />
+              </div>
               <div styleName="setting-input">
                 <input
                   type="email"
@@ -113,7 +118,9 @@ class AccountSettingsHandler extends Component {
               </div>
             </div>
             <div styleName="setting-row">
-              <div styleName="setting-title">Phone</div>
+              <div styleName="setting-title">
+                <FormattedMessage id="settings.account.phone" /
+                  ></div>
               <div styleName="setting-input">
                 <input
                   type="tel"
@@ -123,11 +130,17 @@ class AccountSettingsHandler extends Component {
               </div>
             </div>
             <div styleName="setting-row">
-              <div styleName="setting-title">Language</div>
+              <div styleName="setting-title">
+                <FormattedMessage id="settings.account.language" />
+              </div>
               <div styleName="setting-input">
                 <select value={user.privateData.language} onChange={::this._onChangeLanguage}>
-                  <option value="en">English</option>
-                  <option value="fr">Français</option>
+                  <FormattedMessage id="settings.account.english">
+                    {(message) => <option value="en">{message}</option>}
+                  </FormattedMessage>
+                  <FormattedMessage id="settings.account.french">
+                    {(message) => <option value="fr">{message}</option>}
+                  </FormattedMessage>
                 </select>
               </div>
             </div>
@@ -135,24 +148,24 @@ class AccountSettingsHandler extends Component {
         </div>
         <div className="panel">
           <div className="panel-title">
-            <h2>Locations</h2>
+            <h2><FormattedMessage id="settings.account.locations" /></h2>
             <button className="link-button" onClick={::this._onOpenLocationDialog}>
-              Add new
+              <FormattedMessage id="settings.account.locationAdd" />
             </button>
           </div>
           <div className="panel-content">
             <div styleName="locations-header">
               <div styleName="name-col">
-                Name
+                <FormattedMessage id="settings.account.locationName" />
               </div>
               <div styleName="address-col">
-                Address
+                <FormattedMessage id="settings.account.locationAddress" />
               </div>
             </div>
             {
               locations.length ?
               locations :
-              'No location yet'
+              <FormattedMessage id="settings.account.noLocations" />
             }
           </div>
         </div>
@@ -160,7 +173,9 @@ class AccountSettingsHandler extends Component {
           <h2 className="panel-title">Password</h2>
           <div className="panel-content">
             <div styleName="setting-row">
-              <div styleName="setting-title">Current password</div>
+              <div styleName="setting-title">
+                <FormattedMessage id="settings.account.passwordCurrent" />
+              </div>
               <div styleName="setting-input">
                 <input
                   type="password"
@@ -170,7 +185,9 @@ class AccountSettingsHandler extends Component {
               </div>
             </div>
             <div styleName="setting-row">
-              <div styleName="setting-title">New password</div>
+              <div styleName="setting-title">
+                <FormattedMessage id="settings.account.passwordNew" />
+              </div>
               <div styleName="setting-input">
                 <input
                   type="password"
@@ -180,7 +197,9 @@ class AccountSettingsHandler extends Component {
               </div>
             </div>
             <div styleName="setting-row">
-              <div styleName="setting-title">Confirm new password</div>
+              <div styleName="setting-title">
+                <FormattedMessage id="settings.account.passwordConfirm" />
+              </div>
               <div styleName="setting-input">
                 <input
                   type="password"
@@ -192,10 +211,16 @@ class AccountSettingsHandler extends Component {
           </div>
         </div>
         <div className="panel">
-          <h2 className="panel-title">Delete Account</h2>
+          <h2 className="panel-title">
+            <FormattedMessage id="settings.account.deleteAccount" />
+          </h2>
           <div className="panel-content">
-            <div styleName="delete-message">Account deletion is permanent</div>
-            <button className="border-btn">Delete My Account</button>
+            <div styleName="delete-message">
+              <FormattedMessage id="settings.account.deleteAccountMessage" />
+            </div>
+            <button className="border-btn">
+              <FormattedMessage id="settings.account.deleteAccountButton" />
+            </button>
           </div>
         </div>
       </div>

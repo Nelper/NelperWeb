@@ -243,7 +243,7 @@ export default class BrowseTasksFilterView extends Component {
             </div>
           </div>
           <div
-            className={classNames('button', 'border-btn', {'disabled': !maxDistanceActive && !minPriceActive})}
+            className={classNames('button', 'border-btn', {'primary': maxDistanceActive || minPriceActive})}
             styleName="other-filters-btn"
             onClick={::this._onToggleOtherFilters}
           >

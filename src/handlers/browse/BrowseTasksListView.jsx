@@ -10,6 +10,7 @@ import CancelApplyForTaskMutation from 'actions/CancelApplyForTaskMutation';
 import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import LocationUtils from 'utils/LocationUtils';
+import IntlUtils from 'utils/IntlUtils';
 
 import styles from './BrowseTasksListView.scss';
 
@@ -60,7 +61,7 @@ class BrowseTasksListView extends Component {
   }
 
   componentDidMount() {
-    document.body.addEventListener('scroll', this._onScroll);
+    window.addEventListener('scroll', this._onScroll);
   }
 
   componentWillReceiveProps(newProps) {
@@ -84,7 +85,7 @@ class BrowseTasksListView extends Component {
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('scroll', this._onScroll);
   }
 
   _shouldLoadMore(ele, offset = 0) {
@@ -172,7 +173,9 @@ class BrowseTasksListView extends Component {
                   <div styleName="user-col">
                     <div styleName="user-name">{t.user.name}</div>
                     <div styleName="date">
-                      <FormattedRelative value={t.createdAt} />
+                      <FormattedMessage id="common.postedRelative" values={{
+                        formattedAgo: <FormattedRelative value={t.createdAt}>{IntlUtils.lower}</FormattedRelative>,
+                      }}/>
                     </div>
                   </div>
                   <div styleName="location-col">

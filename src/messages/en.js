@@ -319,4 +319,61 @@ export default {
     whatIsTitle: "What is NelperPay?",
     whatIsText: "NelperPay is our payment platform. It's simple, safe and trustworthy.",
   },
+
+  settings: {
+    common: {
+      settings: "Settings",
+    },
+    account: {
+      title: "Account settings",
+
+      general: "General",
+      email: "Email",
+      phone: "Phone",
+      language: "Language",
+      french: "French",
+      english: "English",
+
+      locations: "Locations",
+      locationAdd: "Add new",
+      locationName: "Name",
+      locationAddress: "Address",
+      noLocations: "No locations yet",
+
+      password: "Password",
+      passwordCurrent: "Current password",
+      passwordNew: "New password",
+      passwordConfirm: "Confirm new password",
+
+      deleteAccount: "Delete Account",
+      deleteAccountMessage: "Account deletion is permanent",
+      deleteAccountButton: "Delete My Account",
+    },
+    notifications: {
+      title: "Notifications",
+
+      email: "Email notifications",
+      emailMe: "Email me when",
+      sendMe: "Send me",
+
+      poster: "Task Poster",
+      posterSetting1: "A Nelper applies for my task",
+      posterSetting2: "My Nelper requests their payment",
+
+      nelper: "Nelper",
+      nelperSetting1: "My task application status changed",
+      nelperSetting2: "I receive a payment",
+
+      newsletter: "Newsletter",
+      newsletterSetting1: "Our newsletter introducing new features",
+    },
+    nelperpay: {
+      title: "NelperPay",
+      creditCards: "Credit cards",
+      creditCardAdd: "Add new",
+    },
+    history: {
+      title: "Transaction history",
+    },
+  },
 };

@@ -1,58 +1,23 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
 import {FormattedDate} from 'react-intl';
-import connectToStores from 'alt/utils/connectToStores';
 import cssModules from 'react-css-modules';
 
-import {Progress, Rating, PriceTag} from 'components/index';
+import {Rating, PriceTag} from 'components/index';
 import ChatDialogView from './ChatDialogView';
-import TaskActions from 'actions/TaskActions';
-import TaskStore from 'stores/TaskStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
 import styles from './TaskApplicationDetailHandler.scss';
 
-@connectToStores
 @cssModules(styles)
-export default class TaskApplicationDetailHandler extends Component {
+class TaskApplicationDetailHandler extends Component {
 
   static propTypes = {
     application: PropTypes.object,
-    isLoading: PropTypes.bool,
   }
 
   static contextTypes = {
     history: PropTypes.object.isRequired,
-  }
-
-  static getStores() {
-    return [TaskStore];
-  }
-
-  static getPropsFromStores(props) {
-    const tasks = TaskStore.getState().myTasks;
-    const task = tasks.find(t => t.objectId === props.params.taskId);
-    // If the task isn't in the store load it.
-    if (!task) {
-      if (__CLIENT__) {
-        TaskActions.refreshMyTasks();
-      }
-
-      return {
-        isLoading: true,
-        task: null,
-      };
-    }
-
-    const application = task.applications.find(a => a.objectId === props.params.applicationId);
-
-    if (__CLIENT__ && !application.user.feedback) {
-      TaskActions.refreshApplicantFeedback(application);
-    }
-
-    return {
-      isLoading: false,
-      application,
-    };
   }
 
   state = {
@@ -68,16 +33,7 @@ export default class TaskApplicationDetailHandler extends Component {
   }
 
   render() {
-    const {application, isLoading} = this.props;
-
-    if (isLoading) {
-      return (
-        <div className="progress-center">
-          <Progress />
-        </div>
-      );
-    }
-
+    const {application} = this.props;
     const user = application.user;
 
     const skills = user.skills.map(s => {
@@ -214,3 +170,29 @@ export default class TaskApplicationDetailHandler extends Component {
     );
   }
 }
+
+export default Relay.createContainer(TaskApplicationDetailHandler, {
+  fragments: {
+    application: () => Relay.QL`
+      fragment on Application {
+        price,
+        user {
+          objectId,
+          name,
+          pictureURL,
+          about,
+          rating,
+          skills {
+            title,
+          },
+          experience{
+            title,
+          },
+          education {
+            title,
+          },
+        }
+      }
+    `,
+  },
+});

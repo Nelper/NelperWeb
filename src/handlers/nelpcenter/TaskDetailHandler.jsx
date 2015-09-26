@@ -85,7 +85,7 @@ class TaskDetailHandler extends Component {
   }
 
   _onViewApplication(application) {
-    this.context.history.pushState(null, `/center/tasks/detail/${this.props.params.id}/${application.objectId}`);
+    this.context.history.pushState(null, `/center/tasks/detail/${this.props.params.taskId}/${application.id}`);
   }
 
   _onCancelDelete() {
@@ -258,7 +258,7 @@ class TaskDetailHandler extends Component {
                   <div className="detail-icon applicants-count" />
                   <div className="detail-text">
                     <FormattedMessage id="nelpcenter.common.nelperCount" values={{
-                      num: task.applications.length,
+                      num: pendingApplications.length,
                     }}/>
                   </div>
                 </div>

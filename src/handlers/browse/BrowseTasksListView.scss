@@ -136,7 +136,7 @@
   }
 
   .price {
-    @include price-tag-module();
+    @include price-tag();
   }
 
   .location-col {

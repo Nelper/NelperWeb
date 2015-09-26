@@ -2,11 +2,11 @@
 
 :local {
   .price-tag {
-    @include price-tag-module();
+    @include price-tag();
   }
 
   .price-tag-inverse {
-    @include price-tag-module();
+    @include price-tag();
     background-image: url('images/icons/money-white.png');
     color: $color-accepted;
   }

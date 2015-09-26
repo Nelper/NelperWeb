@@ -239,9 +239,22 @@ type User implements Node {
   updatedAt: String
   name: String
   pictureURL: String
+  rating: Int
+  about: String
+  skills: [UserSkill]
+  experience: [UserExperience]
+  education: [UserEducation]
   tasks(before: String, after: String, first: Int, last: Int): TaskConnection
   applications(before: String, after: String, first: Int, last: Int): ApplicationConnection
   privateData: UserPrivate
+}
+
+type UserEducation {
+  title: String
+}
+
+type UserExperience {
+  title: String
 }
 
 type UserPrivate implements Node {
@@ -254,4 +267,8 @@ type UserPrivate implements Node {
   language: String
   locations: [Location]
   notifications: Notification
+}
+
+type UserSkill {
+  title: String
 }

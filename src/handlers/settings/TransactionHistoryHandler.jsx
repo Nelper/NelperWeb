@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
+import {FormattedMessage} from 'react-intl';
 
 import styles from './TransactionHistoryHandler.scss';
 
@@ -16,7 +17,7 @@ class TransactionHistoryHandler extends Component {
       <div className="settings-handler container">
         <div className="panel">
           <div className="panel-title">
-            <h2>History</h2>
+            <h2><FormattedMessage id="settings.history.title" /></h2>
           </div>
           <div className="panel-content"></div>
         </div>

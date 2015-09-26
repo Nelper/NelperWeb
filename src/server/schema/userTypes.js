@@ -3,6 +3,7 @@ import {
   GraphQLString,
   GraphQLList,
   GraphQLBoolean,
+  GraphQLInt,
   GraphQLInputObjectType,
 } from 'graphql';
 
@@ -119,6 +120,28 @@ export const UserPrivateType = new GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
+const UserSkillType = new GraphQLObjectType({
+  name: 'UserSkill',
+  description: 'A user skill.',
+  fields: () => ({
+    title: {type: GraphQLString},
+  }),
+});
+const UserEducationType = new GraphQLObjectType({
+  name: 'UserEducation',
+  description: 'A user education.',
+  fields: () => ({
+    title: {type: GraphQLString},
+  }),
+});
+const UserExperienceType = new GraphQLObjectType({
+  name: 'UserExperience',
+  description: 'A user experience',
+  fields: () => ({
+    title: {type: GraphQLString},
+  }),
+});
+
 export const UserType = new GraphQLObjectType({
   name: 'User',
   description: 'A person who uses our app.',
@@ -134,6 +157,31 @@ export const UserType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'The user profile picture url.',
       resolve: (user) => getUserPicture(user),
+    },
+    rating: {
+      type: GraphQLInt,
+      description: 'The user rating from 0 to 5.',
+      resolve: (user) => user.get('rating'),
+    },
+    about: {
+      type: GraphQLString,
+      description: 'The user about info.',
+      resolve: (user) => user.get('about'),
+    },
+    skills: {
+      type: new GraphQLList(UserSkillType),
+      description: 'The user skills.',
+      resolve: (user) => user.get('skills'),
+    },
+    experience: {
+      type: new GraphQLList(UserExperienceType),
+      description: 'The user experience.',
+      resolve: (user) => user.get('experience'),
+    },
+    education: {
+      type: new GraphQLList(UserEducationType),
+      description: 'The user education.',
+      resolve: (user) => user.get('education'),
     },
     tasks: {
       type: TaskConnectionType,

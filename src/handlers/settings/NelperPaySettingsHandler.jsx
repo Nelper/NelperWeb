@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
+import {FormattedMessage} from 'react-intl';
 
 import styles from './NelperPaySettingsHandler.scss';
 
@@ -16,8 +17,12 @@ class AccountSettingsHandler extends Component {
       <div className="settings-handler container">
         <div className="panel">
           <div className="panel-title">
-            <h2>Credit cards</h2>
-            <button className="link-button">Add new</button>
+            <h2>
+              <FormattedMessage id="settings.nelperpay.creditCards" />
+            </h2>
+            <button className="link-button">
+              <FormattedMessage id="settings.nelperpay.creditCardAdd" />
+            </button>
           </div>
           <div className="panel-content"></div>
         </div>

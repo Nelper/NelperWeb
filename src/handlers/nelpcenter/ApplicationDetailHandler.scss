@@ -50,7 +50,7 @@
   }
 
   .summary-item-price {
-    @include price-tag-module();
+    @include price-tag();
     margin-top: rem(-5px);
     transform: scale(0.9);
   }
@@ -346,7 +346,7 @@
   }
 
   .task-info-price {
-    @include price-tag-module();
+    @include price-tag();
     transform: scale(0.9);
   }
 

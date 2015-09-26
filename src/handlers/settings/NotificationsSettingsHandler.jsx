@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
+import {FormattedMessage} from 'react-intl';
 
 import {Checkbox} from 'components/index';
 import {UpdateNotificationSettingsMutation} from 'actions/settings/index';
@@ -31,56 +32,66 @@ class NotificationsSettingsHandler extends Component {
     return (
       <div styleName="module">
         <div className="panel">
-          <h2 className="panel-title">Email notifications</h2>
+          <h2 className="panel-title">
+            <FormattedMessage id="settings.notifications.email" />
+          </h2>
           <div className="panel-content">
             <div styleName="setting-row">
-              <div styleName="title-col">Task Poster</div>
+              <div styleName="title-col">
+                <FormattedMessage id="settings.notifications.poster" />
+              </div>
               <div styleName="input-col">
-                <div styleName="title">Email me when</div>
+                <div styleName="title">
+                  <FormattedMessage id="settings.notifications.emailMe" />
+                </div>
                 <div styleName="input">
                   <Checkbox
                     selected={notifications.posterApplication.email}
-                    title="A Nelper applies for my task"
+                    title={<FormattedMessage id="settings.notifications.posterSetting1" />}
                     onCheck={(value) => this._onUpdateNotificationSetting('posterApplication', value)}
                   />
                 </div>
                 <div styleName="input">
                   <Checkbox
                     selected={notifications.posterRequestPayment.email}
-                    title="My Nelper requests their payment"
+                    title={<FormattedMessage id="settings.notifications.posterSetting2" />}
                     onCheck={(value) => this._onUpdateNotificationSetting('posterRequestPayment', value)}
                   />
                 </div>
               </div>
             </div>
             <div styleName="setting-row">
-              <div styleName="title-col">Nelper</div>
+              <div styleName="title-col">
+                <FormattedMessage id="settings.notifications.nelper" />
+              </div>
               <div styleName="input-col">
-                <div styleName="title">Email me when</div>
+                <div styleName="title">
+                  <FormattedMessage id="settings.notifications.emailMe" />
+                </div>
                 <div styleName="input">
                   <Checkbox
                     selected={notifications.nelperApplicationStatus.email}
-                    title="My task application status changed"
+                    title={<FormattedMessage id="settings.notifications.nelperSetting1" />}
                     onCheck={(value) => this._onUpdateNotificationSetting('nelperApplicationStatus', value)}
                   />
                 </div>
                 <div styleName="input">
                   <Checkbox
                     selected={notifications.nelperReceivedPayment.email}
-                    title="I receive a payment"
+                    title={<FormattedMessage id="settings.notifications.nelperSetting2" />}
                     onCheck={(value) => this._onUpdateNotificationSetting('nelperReceivedPayment', value)}
                   />
                 </div>
               </div>
             </div>
             <div styleName="setting-row">
-              <div styleName="title-col">Newsletter</div>
+              <div styleName="title-col"><FormattedMessage id="settings.notifications.newsletter" /></div>
               <div styleName="input-col">
                 <div styleName="title">Send me</div>
                 <div styleName="input">
                   <Checkbox
                     selected={notifications.newsletter.email}
-                    title="Our newsletter introducing new features"
+                    title={<FormattedMessage id="settings.notifications.newsletterSetting1" />}
                     onCheck={(value) => this._onUpdateNotificationSetting('newsletter', value)}
                   />
                 </div>

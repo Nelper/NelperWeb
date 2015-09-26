@@ -11,11 +11,11 @@ import styles from './HomeHandler.scss';
 export default class HomeHandler extends Component {
 
   componentDidMount() {
-    document.body.addEventListener('scroll', this._onScroll);
+    window.addEventListener('scroll', this._onScroll);
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('scroll', this._onScroll);
   }
 
   state = {
