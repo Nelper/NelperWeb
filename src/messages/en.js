@@ -325,7 +325,7 @@ export default {
       settings: "Settings",
     },
     account: {
-      title: "Account settings",
+      title: "Account",
 
       general: "General",
       email: "Email",
@@ -338,16 +338,16 @@ export default {
       locationAdd: "Add new",
       locationName: "Name",
       locationAddress: "Address",
-      noLocations: "No locations yet",
+      noLocations: "<em>No locations yet</em>",
 
       password: "Password",
-      passwordCurrent: "Current password",
-      passwordNew: "New password",
-      passwordConfirm: "Confirm new password",
+      passwordCurrent: "Current",
+      passwordNew: "New",
+      passwordConfirm: "Re-type new",
 
       deleteAccount: "Delete Account",
       deleteAccountMessage: "Account deletion is permanent",
-      deleteAccountButton: "Delete My Account",
+      deleteAccountButton: "Delete my account",
     },
     notifications: {
       title: "Notifications",
@@ -361,15 +361,15 @@ export default {
       posterSetting2: "My Nelper requests their payment",
 
       nelper: "Nelper",
-      nelperSetting1: "My task application status changed",
+      nelperSetting1: "My task application status changes",
       nelperSetting2: "I receive a payment",
 
       newsletter: "Newsletter",
       newsletterSetting1: "Our newsletter introducing new features",
     },
     nelperpay: {
-      title: "NelperPay",
-      creditCards: "Credit cards",
+      title: "Payment settings",
+      creditCards: "Credit/Debit cards",
       creditCardAdd: "Add new",
     },
     history: {
