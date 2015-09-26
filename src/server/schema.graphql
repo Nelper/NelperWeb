@@ -98,6 +98,29 @@ type EditTaskPayload {
   clientMutationId: String!
 }
 
+type Feedback {
+  id: ID!
+  objectId: String
+  createdAt: String
+  updatedAt: String
+  rating: Int
+  content: String
+  user: User
+  poster: User
+  task: Task
+}
+
+type FeedbackConnection {
+  pageInfo: PageInfo!
+  edges: [FeedbackEdge]
+  totalCount: Int
+}
+
+type FeedbackEdge {
+  node: Feedback
+  cursor: String!
+}
+
 type File {
   name: String
   url: String
@@ -244,6 +267,7 @@ type User implements Node {
   skills: [UserSkill]
   experience: [UserExperience]
   education: [UserEducation]
+  feedback(before: String, after: String, first: Int, last: Int): FeedbackConnection
   tasks(before: String, after: String, first: Int, last: Int): TaskConnection
   applications(before: String, after: String, first: Int, last: Int): ApplicationConnection
   privateData: UserPrivate

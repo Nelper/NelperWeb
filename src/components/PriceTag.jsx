@@ -10,6 +10,7 @@ export default class PriceTag extends Component {
     price: PropTypes.number,
     scale: PropTypes.number,
     inverse: PropTypes.bool,
+    gray: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -18,8 +19,16 @@ export default class PriceTag extends Component {
   }
 
   render() {
+    let style;
+    if (this.props.inverse) {
+      style = 'price-tag-inverse';
+    } else if (this.props.gray) {
+      style = 'price-tag-gray';
+    } else {
+      style = 'price-tag';
+    }
     return (
-      <div styleName={this.props.inverse ? 'price-tag-inverse' : 'price-tag'} style={{transform: `scale(${this.props.scale})`}}>
+      <div styleName={style} style={{transform: `scale(${this.props.scale})`}}>
         <FormattedNumber value={this.props.price} format="priceTag" />
       </div>
     );

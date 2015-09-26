@@ -97,20 +97,6 @@
     }
   }
 
-  .list-price {
-    flex-basis: rem(80px);
-    text-align: center;
-    background-image: url('~images/icons/money.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 76px;
-    padding-top: 8px;
-    height: 41px;
-    padding-left: 6px;
-    font-size: 1.2em;
-    color: $color-background-light;
-  }
-
   .list-price-title {
     margin-right: 0.5rem;
     font-size: 1.1em;

@@ -415,17 +415,6 @@ class ApiUtils {
       });
   }
 
-  /**
-   * Update a task.
-   * @param  {Task} task The task to update
-   */
-  updateTask(task) {
-    const parseTask = new NelpTask();
-    parseTask.id = task.objectId;
-    parseTask.set('desc', task.desc);
-    parseTask.save();
-  }
-
   addTaskPicture(task, picture) {
     const parseTask = new NelpTask();
     parseTask.id = task.objectId;
@@ -550,15 +539,6 @@ class ApiUtils {
       });
 
     Parse.Object.saveAll(parseApplications);
-  }
-
-  /**
-   * Requests the task poster contact info.
-   * @param  {TaskApplication} application The application for which the infos are requested
-   * @return {Promise} The contact info
-   */
-  requestTaskPosterInfo(application) {
-    return Parse.Cloud.run('taskPosterInfo', {applicationId: application.objectId});
   }
 
   /**

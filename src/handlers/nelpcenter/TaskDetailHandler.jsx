@@ -6,7 +6,7 @@ import Slider from 'react-slick';
 import ApplicationListView from './ApplicationListView';
 import AcceptedApplicationView from './AcceptedTaskView';
 import EditPicturesDialogView from './EditPicturesDialogView';
-import {Dialog, Icon, Editable} from 'components/index';
+import {Dialog, Icon, Editable, PriceTag} from 'components/index';
 import {
   EditTaskDescMutation,
   EditTaskPicturesMutation,
@@ -263,9 +263,7 @@ class TaskDetailHandler extends Component {
                   </div>
                 </div>
                 <div className="detail-row">
-                  <div className="price">
-                    <FormattedNumber value={task.priceOffered} format="priceTag" />
-                  </div>
+                  <PriceTag price={task.priceOffered} />
                 </div>
                 <div className="detail-row">
                   <div className="detail-icon calendar" />

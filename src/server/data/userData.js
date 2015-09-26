@@ -1,6 +1,6 @@
 import Parse from 'parse/node';
 
-import {UserPrivateData} from './parseTypes';
+import {UserPrivateData, Feedback} from './parseTypes';
 import {fixParseFileURL} from '../../utils/ParseUtils';
 import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
 
@@ -111,4 +111,16 @@ export async function getTaskPosterPrivate({userId, sessionToken}, task) {
       coords: taskLocation.coords,
     },
   };
+}
+
+export async function getUserFeedback({sessionToken}, userId) {
+  const parseUser = new Parse.User();
+  parseUser.id = userId;
+  const query = new Parse.Query(Feedback)
+    .include('poster')
+    .include('task')
+    .equalTo('user', parseUser)
+    .descending('createdAt');
+
+  return await query.find();
 }

@@ -1,10 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
-import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
+import {FormattedMessage, FormattedRelative} from 'react-intl';
 import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';
+import PriceTag from 'components/PriceTag';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
 class TaskCardView extends Component {
@@ -76,9 +77,7 @@ class TaskCardView extends Component {
           <div className="applicants-row">
             {this._renderStatus()}
             {this._renderApplicants()}
-            <div className="price">
-              <FormattedNumber value={task.priceOffered} format="priceTag" />
-            </div>
+            <PriceTag price={task.priceOffered} gray />
           </div>
           <div className="calendar-row">
             <div>

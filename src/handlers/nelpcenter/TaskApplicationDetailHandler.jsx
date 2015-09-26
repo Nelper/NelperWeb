@@ -62,10 +62,11 @@ class TaskApplicationDetailHandler extends Component {
 
     let feedback = null;
     if (user.feedback) {
-      if (user.feedback.length) {
-        feedback = user.feedback.map(f => {
+      if (user.feedback.edges.length) {
+        feedback = user.feedback.edges.map((edge, i) => {
+          const f = edge.node;
           return (
-            <div styleName="feedback-item" key={f.objectId}>
+            <div styleName="feedback-item" key={i}>
               <div styleName="feedback-header">
                 <div styleName="feedback-category" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(f.task.category)}')`}} />
                 <div styleName="feedback-username">{f.poster.name}</div>
@@ -191,6 +192,21 @@ export default Relay.createContainer(TaskApplicationDetailHandler, {
           education {
             title,
           },
+          feedback(first: 20) {
+            edges {
+              node {
+                createdAt,
+                rating,
+                content,
+                poster {
+                  name,
+                },
+                task {
+                  category,
+                },
+              }
+            }
+          }
         }
       }
     `,

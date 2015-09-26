@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {FormattedNumber} from 'react-intl';
 
-import Rating from 'components/Rating';
-import Icon from 'components/Icon';
+import {Rating, Icon, PriceTag} from 'components/index';
 
 export default class ApplicationListView extends Component {
 
@@ -63,9 +62,7 @@ export default class ApplicationListView extends Component {
               </div>
             </div>
             <div className="list-price-offered">
-              <div className="list-price">
-                <FormattedNumber value={a.price} format="priceTag" />
-              </div>
+              <PriceTag price={a.price} />
               {this._renderSamePriceIcon(a)}
             </div>
             {

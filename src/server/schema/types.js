@@ -14,5 +14,9 @@ export {
   UserPrivateType,
   NotificationSettingInputType,
 } from './userTypes';
+export {
+  FeedbackType,
+  FeedbackConnectionType,
+} from './feedbackType';
 export {BrowseType, browseArgs} from './browseTypes';
 export {LocationType} from './locationTypes';

@@ -22,6 +22,7 @@ import {
   getUser,
   getUserPicture,
   getUserPrivate,
+  getUserFeedback,
 } from '../data/userData';
 
 import {getTasksForUser} from '../data/taskData';
@@ -31,6 +32,7 @@ import {
   TaskConnectionType,
   ApplicationConnectionType,
   LocationType,
+  FeedbackConnectionType,
 } from './types';
 
 import commonFields from './commonFields';
@@ -182,6 +184,15 @@ export const UserType = new GraphQLObjectType({
       type: new GraphQLList(UserEducationType),
       description: 'The user education.',
       resolve: (user) => user.get('education'),
+    },
+    feedback: {
+      type: FeedbackConnectionType,
+      args: connectionArgs,
+      description: 'The feedback for the user',
+      resolve: async (data, args, {rootValue}) => {
+        const feedback = await getUserFeedback(rootValue, data.id);
+        return connectionFromArray(feedback, args);
+      },
     },
     tasks: {
       type: TaskConnectionType,

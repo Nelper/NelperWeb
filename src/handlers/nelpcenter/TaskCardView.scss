@@ -72,20 +72,6 @@
     font-size: 1em;
   }
 
-  .price {
-    flex-basis: rem(80px);
-    text-align: center;
-    background-image: url('~images/icons/money.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 76px;
-    padding-top: 6px;
-    height: 41px;
-    padding-left: 6px;
-    font-size: 1.2em;
-    color: $color-background-light;
-  }
-
   .calendar-row {
     display: flex;
     align-items: center;

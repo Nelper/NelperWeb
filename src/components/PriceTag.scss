@@ -1,13 +1,29 @@
 @import 'styles/base-module';
 
 :local {
+  %price-tag {
+    width: 80px;
+    text-align: center;
+    padding: 4px;
+    font-size: 1.2em;
+    color: $color-background-light;
+    background: $color-primary;
+    border-radius: 3px;
+  }
+
   .price-tag {
-    @include price-tag();
+    @extend %price-tag;
   }
 
   .price-tag-inverse {
-    @include price-tag();
-    background-image: url('images/icons/money-white.png');
+    @extend %price-tag;
+    background-color: $color-background-light;
     color: $color-accepted;
+  }
+
+  .price-tag-gray {
+    @extend %price-tag;
+    background-color: $color-gray-lighter;
+    color: $color-black;
   }
 }

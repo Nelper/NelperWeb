@@ -1,8 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
-import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
+import {FormattedMessage, FormattedRelative} from 'react-intl';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';
+import PriceTag from 'components/PriceTag';
 import UserStore from 'stores/UserStore';
 import LocationUtils from 'utils/LocationUtils';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
@@ -47,9 +48,7 @@ class ApplicationCardView extends Component {
           <div className="info-row status">
             <div className="status-icon" style={{backgroundImage: `url('${statusIcon}')`}} />
             <div className="text status-text">{statusText}</div>
-            <div className="price">
-              <FormattedNumber value={application.price} format="priceTag" />
-            </div>
+            <PriceTag price={application.price} gray />
           </div>
           <div className="info-row calendar">
             <div className="calendar-icon" />
