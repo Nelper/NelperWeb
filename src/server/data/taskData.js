@@ -129,7 +129,7 @@ export async function applyForTask({userId, sessionToken}, taskId, price) {
   parseApplication.set('task', parseTask);
   parseApplication.set('isNew', true);
   parseApplication.set('price', price);
-  return await parseApplication.save({sessionToken});
+  return await parseApplication.save(null, {sessionToken});
 }
 
 export async function cancelApplyForTask({userId, sessionToken}, taskId) {
@@ -146,4 +146,11 @@ export async function cancelApplyForTask({userId, sessionToken}, taskId) {
     a.set('state', NELP_TASK_APPLICATION_STATE.CANCELED);
   });
   return await Parse.Object.saveAll(applications, {sessionToken});
+}
+
+export async function deleteTask({sessionToken}, taskId) {
+  const parseTask = new NelpTask();
+  parseTask.id = taskId;
+  parseTask.set('state', NELP_TASK_STATE.DELETED);
+  return parseTask.save(null, {sessionToken});
 }

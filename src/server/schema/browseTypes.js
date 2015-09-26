@@ -14,7 +14,7 @@ import {
 import {
   TaskConnectionType,
   GeoPointInputType,
-} from './index';
+} from './types';
 
 import {findTasks} from '../data/taskData';
 

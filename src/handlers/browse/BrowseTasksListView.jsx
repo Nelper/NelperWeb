@@ -155,8 +155,10 @@ class BrowseTasksListView extends Component {
         Math.round(LocationUtils.kilometersBetween(t.location, UserStore.state.user.location)) :
         null;
 
+      const selected = this.state.selectedTask && t.id === this.state.selectedTask.id;
+
       return (
-        <div key={t.objectId} styleName={t === this.state.selectedTask ? 'task' : 'task-collapsed'}>
+        <div key={t.objectId} styleName={selected ? 'task' : 'task-collapsed'}>
           <div styleName="header" onClick={() => this._taskDetail(t)}>
             <div styleName="content">
               <div styleName="user-picture" style={{backgroundImage: `url('${t.user.pictureURL}')`}}>
@@ -274,6 +276,7 @@ export default Relay.createContainer(BrowseTasksListView, {
           },
           edges {
             node {
+              id,
               createdAt,
               title,
               desc,

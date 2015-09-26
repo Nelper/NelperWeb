@@ -2,7 +2,6 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
-  GraphQLNonNull,
   GraphQLBoolean,
   GraphQLInputObjectType,
 } from 'graphql';
@@ -11,7 +10,6 @@ import {
   globalIdField,
   connectionArgs,
   connectionFromArray,
-  mutationWithClientMutationId,
 } from 'graphql-relay';
 
 import {
@@ -23,8 +21,6 @@ import {
   getUser,
   getUserPicture,
   getUserPrivate,
-  changeUserLanguage,
-  updateNotificationSettings,
 } from '../data/userData';
 
 import {getTasksForUser} from '../data/taskData';
@@ -34,7 +30,7 @@ import {
   TaskConnectionType,
   ApplicationConnectionType,
   LocationType,
-} from './index';
+} from './types';
 
 import commonFields from './commonFields';
 
@@ -49,7 +45,7 @@ const NotificationSettingType = new GraphQLObjectType({
   }),
 });
 
-const NotificationSettingInputType = new GraphQLInputObjectType({
+export const NotificationSettingInputType = new GraphQLInputObjectType({
   name: 'NotificationSettingInput',
   description: 'Settings for a notification type.',
   fields: () => ({
@@ -165,45 +161,6 @@ export const UserType = new GraphQLObjectType({
     },
   }),
   interfaces: [nodeInterface],
-});
-
-export const UpdateNotificationSettingsMutation = mutationWithClientMutationId({
-  name: 'UpdateNotificationSettings',
-  inputFields: {
-    settingId: {type: GraphQLString},
-    settingValue: {type: NotificationSettingInputType},
-  },
-  outputFields: {
-    privateData: {
-      type: UserPrivateType,
-      resolve: ({privateData}) => {
-        return privateData;
-      },
-    },
-  },
-  mutateAndGetPayload: async ({settingId, settingValue}, {rootValue}) => {
-    const privateData = await updateNotificationSettings(rootValue, settingId, settingValue);
-    return {privateData};
-  },
-});
-
-export const ChangeLanguageMutation = mutationWithClientMutationId({
-  name: 'ChangeLanguage',
-  inputFields: {
-    language: {type: new GraphQLNonNull(GraphQLString)},
-  },
-  outputFields: {
-    privateData: {
-      type: UserPrivateType,
-      resolve: ({privateData}) => {
-        return privateData;
-      },
-    },
-  },
-  mutateAndGetPayload: async ({language}, {rootValue}) => {
-    const privateData = await changeUserLanguage(rootValue, language);
-    return {privateData};
-  },
 });
 
 addResolver(

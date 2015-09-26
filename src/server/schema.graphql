@@ -74,6 +74,17 @@ type ChangeLanguagePayload {
   clientMutationId: String!
 }
 
+input DeleteTaskInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteTaskPayload {
+  deletedTaskId: ID
+  me: User
+  clientMutationId: String!
+}
+
 input EditTaskInput {
   id: ID!
   title: String
@@ -125,6 +136,8 @@ type Mutation {
   cancelApplyForTask(input: CancelApplyForTaskInput!): CancelApplyForTaskPayload
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
   changeLanguage(input: ChangeLanguageInput!): ChangeLanguagePayload
+  setApplicationState(input: SetApplicationStateInput!): SetApplicationStatePayload
+  deleteTask(input: DeleteTaskInput!): DeleteTaskPayload
 }
 
 interface Node {
@@ -158,6 +171,19 @@ type Query {
   node(id: ID!): Node
   me: User
   browse: Browse
+}
+
+input SetApplicationStateInput {
+  taskId: ID!
+  applicationId: ID!
+  state: ApplicationState
+  clientMutationId: String!
+}
+
+type SetApplicationStatePayload {
+  task: Task
+  application: Application
+  clientMutationId: String!
 }
 
 type Task implements Node {

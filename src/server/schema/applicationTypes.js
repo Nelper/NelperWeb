@@ -16,12 +16,25 @@ import {
   addResolver,
 } from '../nodeResolver';
 
-import {getApplication} from '../data/applicationData';
+import {
+  getApplication,
+} from '../data/applicationData';
 import {getApplicantPrivate} from '../data/userData';
 
-import {UserType, TaskType} from './index';
+import {UserType, TaskType} from './types';
 import commonFields from './commonFields';
 import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
+
+export const ApplicationStateType = new GraphQLEnumType({
+  name: 'ApplicationState',
+  description: 'The possible states for an application',
+  values: {
+    PENDING: {value: 0},
+    CANCELED: {value: 1},
+    ACCEPTED: {value: 2},
+    DENIED: {value: 3},
+  },
+});
 
 export const ApplicationType = new GraphQLObjectType({
   name: 'Application',
@@ -30,16 +43,7 @@ export const ApplicationType = new GraphQLObjectType({
     id: globalIdField('Application'),
     ...commonFields,
     state: {
-      type: new GraphQLEnumType({
-        name: 'ApplicationState',
-        description: 'The possible states for an application',
-        values: {
-          PENDING: {value: 0},
-          CANCELED: {value: 1},
-          ACCEPTED: {value: 2},
-          DENIED: {value: 3},
-        },
-      }),
+      type: ApplicationStateType,
       description: 'The application state',
       resolve: (application) => application.get('state'),
     },

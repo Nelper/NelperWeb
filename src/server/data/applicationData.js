@@ -22,3 +22,17 @@ export async function getApplicationsForUser({sessionToken}, userId) {
   query.descending('createdAt');
   return await query.find({sessionToken});
 }
+
+export async function setApplicationState({sessionToken, userId}, applicationId, state) {
+  const query = new Parse.Query(NelpTaskApplication);
+  query.include('task.user');
+  const application = await query.get(applicationId, {sessionToken});
+  if (application.get('task').get('user').id !== userId) {
+    throw Error('Unauthorized');
+  }
+  application.set('state', state);
+  if (state === NELP_TASK_APPLICATION_STATE.ACCEPTED) {
+    application.set('acceptedAt', new Date());
+  }
+  return await application.save(null, {sessionToken});
+}

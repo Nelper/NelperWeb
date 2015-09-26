@@ -3,7 +3,7 @@ import {
   GraphQLString,
 } from 'graphql';
 
-import {GeoPointType} from './index';
+import {GeoPointType} from './types';
 
 export const LocationType = new GraphQLObjectType({
   name: 'Location',

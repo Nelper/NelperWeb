@@ -8,12 +8,17 @@ import {nodeField} from './nodeResolver';
 import {
   UserType,
   BrowseType,
+} from './schema/types';
+
+import {
   ApplyForTaskMutation,
   CancelApplyForTaskMutation,
   ChangeLanguageMutation,
   UpdateNotificationSettingsMutation,
   EditTaskMutation,
-} from './schema/index';
+  SetApplicationStateMutation,
+  DeleteTaskMutation,
+} from './schema/mutations';
 
 import {getMe} from './data/userData';
 
@@ -48,6 +53,8 @@ const mutationType = new GraphQLObjectType({
     cancelApplyForTask: CancelApplyForTaskMutation,
     updateNotificationSettings: UpdateNotificationSettingsMutation,
     changeLanguage: ChangeLanguageMutation,
+    setApplicationState: SetApplicationStateMutation,
+    deleteTask: DeleteTaskMutation,
   }),
 });
 

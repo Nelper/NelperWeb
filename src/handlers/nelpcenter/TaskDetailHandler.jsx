@@ -10,8 +10,11 @@ import {Dialog, Icon, Editable} from 'components/index';
 import {
   EditTaskDescMutation,
   EditTaskPicturesMutation,
+  AcceptApplicantMutation,
+  DenyApplicantMutation,
+  RestoreApplicantMutation,
+  DeleteTaskMutation,
 } from 'actions/nelpcenter/index';
-import TaskActions from 'actions/TaskActions';
 import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';
 
@@ -55,15 +58,30 @@ class TaskDetailHandler extends Component {
   }
 
   _onAccept(application) {
-    TaskActions.acceptApplication(application);
+    Relay.Store.update(
+      new AcceptApplicantMutation({
+        task: this.props.task,
+        application,
+      })
+    );
   }
 
   _onDeny(application) {
-    TaskActions.denyApplication(application);
+    Relay.Store.update(
+      new DenyApplicantMutation({
+        task: this.props.task,
+        application,
+      })
+    );
   }
 
   _onRestore(application) {
-    TaskActions.restoreApplication(application);
+    Relay.Store.update(
+      new RestoreApplicantMutation({
+        task: this.props.task,
+        application,
+      })
+    );
   }
 
   _onViewApplication(application) {
@@ -75,7 +93,11 @@ class TaskDetailHandler extends Component {
   }
 
   _onConfirmDelete() {
-    TaskActions.deleteTask(this.props.task);
+    Relay.Store.update(
+      new DeleteTaskMutation({
+        task: this.props.task,
+      })
+    );
     this.context.history.goBack();
   }
 
@@ -184,7 +206,7 @@ class TaskDetailHandler extends Component {
             <ApplicationListView
               applications={deniedApplications}
               onRestore={::this._onRestore}
-              onViewProfile={::this._onViewProfile}
+              onViewProfile={::this._onViewApplication}
             />
           </div> :
           null
@@ -347,11 +369,18 @@ export default Relay.createContainer(TaskDetailHandler, {
                 objectId,
                 priceOffered,
               },
+              ${AcceptApplicantMutation.getFragment('application')},
+              ${DenyApplicantMutation.getFragment('application')},
+              ${RestoreApplicantMutation.getFragment('application')},
             }
           }
         },
         ${EditTaskDescMutation.getFragment('task')},
         ${EditTaskPicturesMutation.getFragment('task')},
+        ${AcceptApplicantMutation.getFragment('task')},
+        ${DenyApplicantMutation.getFragment('task')},
+        ${RestoreApplicantMutation.getFragment('task')},
+        ${DeleteTaskMutation.getFragment('task')},
       }
     `,
   },

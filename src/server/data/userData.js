@@ -70,7 +70,7 @@ export async function getApplicantPrivate({userId, sessionToken}, application) {
   // Makes sure the user is the task poster.
   if (userId !== application.get('task').get('user').id ||
       application.get('state') !== NELP_TASK_APPLICATION_STATE.ACCEPTED) {
-    throw Error('Unauthorized');
+    return null;
   }
   const query = new Parse.Query(Parse.User)
     .include('privateData');
@@ -89,7 +89,7 @@ export async function getTaskPosterPrivate({userId, sessionToken}, task) {
   const acceptedApplication = task.get('application');
   if (acceptedApplication.get('user').id !== userId ||
       acceptedApplication.get('state') !== NELP_TASK_APPLICATION_STATE.ACCEPTED) {
-    throw Error('Unauthorized');
+    return null;
   }
   const query = new Parse.Query(Parse.User)
     .include('privateData');
