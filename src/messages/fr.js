@@ -30,7 +30,7 @@ export default {
       examples: "Comptabilité, Organisation de fichiers, Rédaction de CV & lettres professionnelles, Stratégies de publicité, Médias sociaux, Saisie de données, et plus!",
     },
     multimedia: {
-      name: "Multimédia & Conception graphique",
+      name: "Multimédia & Design",
       examples: "Développement de site web, Montage vidéo, Services de photographie & d’imprimerie, Conception graphique, Production musicale, Création de logo, et plus!",
     },
     gardening: {
