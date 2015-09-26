@@ -235,7 +235,7 @@ export default {
     generalTitle_04: "Quel genre de tâche peut être complété sur Nelper?",
     generalDesc_04: "N’importe quel genre! De la tonte de pelouse à l’installation d’un routeur, vous pouvez trouver ou publier de tout sur Nelper.",
     generalTitle_05: "Est-ce gratuit?",
-    generalDesc_05: "Publier une tâche, parcourir les tâches et appliquer pour une tâche sont <strong>gratuits</strong>. En tant que publieur de tâche, vous payez toujours le prix final convenu de votre tâche, jamais plus, pas de frais cachés.<br /><br />Pour les Nelpers, des frais de 7.5% du montant total d’un tâche s’appliquent par transaction. Ces frais sont pour la sécurité de paiement de {nelperPay}.",
+    generalDesc_05: "Publier une tâche, parcourir les tâches et appliquer pour une tâche sont <strong>gratuits</strong>. En tant que publieur de tâche, vous payez toujours le prix final convenu de votre tâche, jamais plus, pas de frais cachés.<br /><br />Pour les Nelpers, des frais de 7.5% du montant total d’un tâche s’appliquent par transaction, pour la sécurité de paiement de {nelperPay}.",
     posterSectionTitle: "Publieur de tâche",
     posterTitle_00: "Comment publier une tâche?",
     posterDesc_00: "Allez dans {postATask}. Choisissez votre catégorie, donnez un titre à vote tâche, décrivez ce dont vous avez besoin, entrez votre offre de prix, choisissez l’emplacement de la tâche (votre adresse) et ajouter des photos, au besoin.<br /><br />Aussi simple que ça! Ça ne prend que 2 minutes.",
