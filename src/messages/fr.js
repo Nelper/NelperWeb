@@ -80,7 +80,7 @@ export default {
     getStarted: "Publier une tâche",
 
     categoriesTitle: "Catégories simples, plusieurs options",
-    categoriesDesc: "N’importe quoi peut être complété sur Nelper, de la tonte de pelouse à l’installation d’un routeur.",
+    categoriesDesc: "Toutes vos tâches peuvent être complétées sur Nelper, de la tonte de pelouse à l’installation d’un routeur.",
 
     becomeNelperTitle: "Devenez un Nelper",
     becomeNelperDesc: "Vous souhaitez mettre à profit vos talents et faire de l’argent? Rejoignez la communauté dès maintenant et complétez les tâches publiées.",
