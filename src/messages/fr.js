@@ -138,7 +138,7 @@ export default {
       progressReleased: "Paiement libéré",
       completed: "J'ai complété la tâche!",
       progressHelp: `
-      <h2>Quel est le processus pour compléter la tâche et recevoir le paiement? </h2>
+      <h2>Quel est la procédure pour compléter la tâche et recevoir le paiement? </h2>
       <ol>
         <li>
           Le publieur de tâche envoie le paiement. Celui-ci sera sécuritairement gelé via notre plateforme {nelperPay},
@@ -176,7 +176,7 @@ export default {
       progressApproved: "Confirmation",
       progressRating: "Évaluation & critique",
       progressHelp: `
-      <h2>Quel est le processus pour envoyer le paiement et faire compléter ma tâche?</h2>
+      <h2>Quel est la procédure pour envoyer le paiement et faire compléter ma tâche?</h2>
       <ol>
         <li>
           Cliquez sur <em>Procéder au paiement</em>. Lorsque vous aurez envoyé le paiement, celui-ci sera sécuritairement
@@ -247,7 +247,7 @@ export default {
     posterDesc_03: "Dans votre {nelpCenter}, sous Mes tâches. Toutes vos tâches actives ainsi que ceux qui ont déjà été complétées s’y retrouvent avec leur prix, date de publication et le nombre de Nelpers ayant appliqué.<br /><br />Si vous cliquez sur une tâche, vous avez accès à tous ses détails, avez la possibilité d’y effectuer des changements et pouvez voir la liste complète de Nelpers ayant appliqué.",
     posterTitle_04: "Comment choisir un Nelper?",
     posterDesc_04: "Cliquez sur votre tâche et faites votre choix parmi la liste de Nelpers ayant appliqué. Vous y voyez leurs noms, leurs évaluations, le nombre de tâches qu’ils ont complété ainsi que leurs offres de prix.<br /><br />Si vous cliquez sur la photo de profil d’un Nelper, vous accédez à sa page de profile ainsi qu’à ses critiques de tâches accomplies antérieurement. Vous pouvez également ouvrir une page de chat entre vous et le Nelper, pour discuter des détails de votre tâche ou pour lui poser des questions.",
-    posterTitle_05: "Quel est le processus pour envoyer le paiement et faire compléter ma tâche?",
+    posterTitle_05: "Quel est la procédure pour envoyer le paiement et faire compléter ma tâche?",
     posterDesc_05: `Lorsque vous acceptez un Nelper et que tous les détails ont été réglés, vous êtes prêt à procéder au paiement et à faire compléter votre tâche. Toutes les étapes restantes sont remplies sur votre page de tâche.
     <ol>
       <li>
@@ -274,7 +274,7 @@ export default {
     nelperDesc_02: "Dans votre {nelpCenter}, sous Mes Applications. Toutes vos applications actives y sont, accompagnées de leurs status (En attente, Acceptée ou Refusée). Vous pouvez également y voir vos tâches complétées antérieurement.<br /><br />Si vous cliquez l’une de vos applications, vous pouvez revoir les détails de votre application et ouvrir une fenêtre de chat entre vous et le publieur de tâche.",
     nelperTitle_03: "Comment augmenter mes chances d’être accepté?",
     nelperDesc_03: "Assurez-vous de bien remplir votre {profile}. Écrivez sur vous, vos talents, votre éducation et vos expériences de travail. Un publieur de tâche va probablement regarder votre profil lorsque vous appliquez pour sa tâche donc il est important d’inclure beaucoup de détails.",
-    nelperTitle_04: "Quel est le processus pour compléter une tâche et recevoir le paiement? ",
+    nelperTitle_04: "Quel est la procédure pour compléter une tâche et recevoir le paiement? ",
     nelperDesc_04: `Si votre application est acceptée, vous recevez une notification et votre statut d’application change dans votre {nelpCenter}. Lorsque tous les détails ont été réglés entre vous et le publieur de la tâche, vous êtes prêt à compléter la tâche et recevoir le paiement.
     <ol>
       <li>
@@ -301,7 +301,7 @@ export default {
     privacyDesc_02: "Oui. Lorsque vous visitez le profil d’un Nelper à partir de la liste d’applications, vous pouvez voir la ville dans laquelle il habite.",
     paymentSectionTitle: "Paiement & Aide",
     paymentTitle_00: "Qu’est-ce que NelperPay?",
-    paymentDesc_00: "NelperPay est notre plateforme de paiement. Toutes les transactions passent par NelperPay. Vous n’avez pas besoin de programme externe ou de compte bancaire en ligne (tel que Paypal). C’est simple, rapide, sécuritaire et fiable.<br /><br />Vous pouvez en apprendre plus sur le processus de transaction, les options de paiement ainsi que sur les caratéristiques de fiabilité sur la page {nelperPay}.",
+    paymentDesc_00: "NelperPay est notre plateforme de paiement. Toutes les transactions passent par NelperPay. Vous n’avez pas besoin de programme externe ou de compte bancaire en ligne (tel que Paypal). C’est simple, rapide, sécuritaire et fiable.<br /><br />Vous pouvez en apprendre plus sur la procédure des transactions, les options de paiement ainsi que sur les caratéristiques de fiabilité sur la page {nelperPay}.",
     paymentTitle_01: "Comment envoyer un paiement?",
     paymentDesc_01: "Sur votre page de tâche, cliquez sur <em>Procéder au paiement</em>. Une fenêtre va s’ouvrir et vous devrez entrez vos informations de paiement. Vous avez le choix de payer par crédit ou débit avec Mastercard, VISA, ou American Express.<br /><br />Vous pouvez choisir une méthode de paiement préalablement ajoutée ou en ajouter une à cet instant. L’ajout et modification de vos méthodes de paiement peuvent être faits dans vos {settings}.<br /><br />À chaque fois que vous envoyez un paiement, un reçu sera automatiquement envoyé à votre adresse courriel.",
     paymentTitle_02: "Comment recevoir un paiement?",
