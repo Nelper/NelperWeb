@@ -39,18 +39,15 @@ const queryType = new GraphQLObjectType({
     me: {
       type: UserType,
       resolve: async (ctx) => {
-        try {
-          const user = await getMe(ctx);
-          user.logged = true;
+        let user = await getMe(ctx);
+        if (!user) {
+          user = new Parse.Object();
+          user.logged = false;
           return user;
-        } catch (err) {
-          if (err instanceof UnauthorizedError) {
-            const user = new Parse.Object();
-            user.logged = false;
-            return user;
-          }
-          throw err;
         }
+
+        user.logged = true;
+        return user;
       },
     },
     browse: {

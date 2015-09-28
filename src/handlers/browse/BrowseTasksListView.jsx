@@ -251,7 +251,7 @@ class BrowseTasksListView extends Component {
 export default Relay.createContainer(BrowseTasksListView, {
   initialVariables: {
     first: 5,
-    sort: UserStore.getState().user.location ? 'DISTANCE' : 'DATE',
+    sort: null,
     maxDistance: null,
     minPrice: null,
     categories: null,

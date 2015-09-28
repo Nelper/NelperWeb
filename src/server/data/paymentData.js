@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 
-import {InvalidOperationError} from '../errors';
+import {InvalidOperationError, UnauthorizedError} from '../errors';
 import {getMe, getUserPrivateWithMasterKey} from './userData';
 import {getApplication} from './applicationData';
 import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
@@ -12,6 +12,9 @@ const stripe = new Stripe('sk_test_JBQSP7eMqdNUqe7rQFYLEFXi');
 export async function createChargeForApplication(rootValue, applicationId, token) {
   // The user creating the charge (the task poster).
   const user = await getMe(rootValue);
+  if (!user) {
+    throw new UnauthorizedError();
+  }
   // The application that is being paid.
   const application = await getApplication(rootValue, applicationId);
 
@@ -46,6 +49,10 @@ export async function createChargeForApplication(rootValue, applicationId, token
 
 export async function createStripeAccount({sessionToken, userId, userAgent, ip}) {
   const user = await getMe({sessionToken, userId});
+  if (!user) {
+    throw new UnauthorizedError();
+  }
+
   const privateData = user.get('privateData');
 
   const response = await stripe.accounts.create({

@@ -35,6 +35,7 @@ const AppQueries = {
 };
 
 const BrowseQueries = {
+  me: () => Relay.QL`query Browse { me }`,
   browse: () => Relay.QL`query { browse }`,
 };
 

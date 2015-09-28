@@ -1,13 +1,12 @@
 import Parse from 'parse/node';
 
-import {UnauthorizedError} from '../errors';
 import {UserPrivateData, Feedback} from './parseTypes';
 import {fixParseFileURL} from '../../utils/ParseUtils';
 import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
 
 export async function getMe({userId, sessionToken}) {
   if (!userId || !sessionToken) {
-    throw new UnauthorizedError();
+    return null;
   }
 
   const query = new Parse.Query(Parse.User)
@@ -17,7 +16,7 @@ export async function getMe({userId, sessionToken}) {
   // Makes sure that the provided userId matches the session token by
   // trying to get a private field.
   if (!user.get('privateData')) {
-    throw new UnauthorizedError();
+    return null;
   }
   user.me = true;
   return user;

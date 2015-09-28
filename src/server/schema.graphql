@@ -312,6 +312,7 @@ type UserPrivate implements Node {
   phone: String
   email: String
   language: String
+  location: GeoPoint
   locations: [Location]
   notifications: Notification
 }

@@ -147,8 +147,9 @@ class ApiUtils {
     const user = Parse.User.current();
     if (!user) return;
     const pt = new Parse.GeoPoint(loc.latitude, loc.longitude);
-    user.set('location', pt);
-    user.save();
+    const privateData = user.get('privateData');
+    privateData.set('location', pt);
+    privateData.save();
   }
 
   /**

@@ -32,6 +32,7 @@ import {
   TaskConnectionType,
   ApplicationConnectionType,
   LocationType,
+  GeoPointType,
   FeedbackConnectionType,
 } from './types';
 
@@ -107,6 +108,11 @@ export const UserPrivateType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'The user current language.',
       resolve: (data) => data.get('language'),
+    },
+    location: {
+      type: GeoPointType,
+      description: 'The user location used on the map',
+      resolve: (data) => data.get('location'),
     },
     locations: {
       type: new GraphQLList(LocationType),

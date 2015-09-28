@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import {FormattedMessage} from 'react-intl';
 
 import UserActions from 'actions/UserActions';
-import UserStore from 'stores/UserStore';
 import MapView from 'components/MapView';
 import BrowseTasksFilterView from './BrowseTasksFilterView';
 import NelpTaskListView from './BrowseTasksListView';
@@ -18,6 +17,7 @@ class BrowseTasksHandler extends Component {
 
   static propTypes = {
     browse: PropTypes.object.isRequired,
+    me: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
@@ -26,13 +26,13 @@ class BrowseTasksHandler extends Component {
 
   state = {
     filters: {category: null, minPrice: null, maxDistance: null},
-    sort: UserStore.state.user.location ? {sort: 'DISTANCE'} : {sort: 'DATE'},
+    sort: this._getInitialLocation() ? {sort: 'DISTANCE'} : {sort: 'DATE'},
     taskFilter: null,
-    location: UserStore.state.user.location,
+    location: this._getInitialLocation() || {latitude: 45.5016889, longitude: -73.567256},
   }
 
   componentDidMount() {
-    if (__CLIENT__ && !UserStore.state.user.location) {
+    if (__CLIENT__ && !this._getInitialLocation()) {
       // TODO(janic): this logic should be elsewhere.
       navigator.geolocation.getCurrentPosition((pos) => {
         UserActions.setLocation(pos.coords);
@@ -77,6 +77,13 @@ class BrowseTasksHandler extends Component {
     });
   }
 
+  _getInitialLocation() {
+    if (this.props.me.logged && this.props.me.privateData.location) {
+      return this.props.me.privateData.location;
+    }
+    return null;
+  }
+
   render() {
     const {sort} = this.state;
     const {tasks} = this.props.browse;
@@ -107,7 +114,7 @@ class BrowseTasksHandler extends Component {
         };
       });
 
-    const pos = UserStore.state.user.location;
+    const pos = this.state.location;
     const center = pos ?
       new LatLng(pos) :
       new LatLng(0, 0);
@@ -170,6 +177,17 @@ export default Relay.createContainer(BrowseTasksHandler, {
     first: 10,
   },
   fragments: {
+    me: () => Relay.QL`
+      fragment on User {
+        logged,
+        privateData {
+          location {
+            latitude,
+            longitude,
+          }
+        }
+      }
+    `,
     browse: () => Relay.QL`
       fragment on Browse {
         tasks(first: $first) {

@@ -4,6 +4,8 @@ import {NelpTask, NelpTaskApplication} from './parseTypes';
 import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
 import TaskCategoryUtils from '../../utils/TaskCategoryUtils';
 
+import {getMe} from './userData';
+
 export async function getTask({sessionToken}, id, loadApplications = false) {
   const query = new Parse.Query(NelpTask);
   query.include('user');
@@ -49,8 +51,26 @@ export async function getTasksForUser({sessionToken}, userId) {
 }
 
 export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDistance, location, categories}) {
+  let sortValue = sort;
+  let userLoc = location;
+  if (sortValue === undefined) {
+    if (!userId) {
+      sortValue = 2;
+    } else if (!userLoc) {
+      const user = await getMe({userId, sessionToken});
+      userLoc = user.get('privateData').get('location');
+      if (userLoc) {
+        sortValue = 0;
+      } else {
+        sortValue = 2;
+      }
+    } else {
+      sortValue = 0;
+    }
+  }
+
+  const point = new Parse.GeoPoint(userLoc);
   const taskQuery = new Parse.Query(NelpTask);
-  const point = new Parse.GeoPoint(location);
 
   if (categories && categories.length !== TaskCategoryUtils.list().length) {
     taskQuery.containedIn('category', categories);
@@ -64,7 +84,7 @@ export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDist
     taskQuery.withinKilometers('location', point, maxDistance);
   }
 
-  switch (sort) {
+  switch (sortValue) {
   case 0:
     taskQuery.near('location', point);
     break;

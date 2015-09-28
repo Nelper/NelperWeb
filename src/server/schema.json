@@ -1650,6 +1650,18 @@
               "deprecationReason": null
             },
             {
+              "name": "location",
+              "description": "The user location used on the map",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "GeoPoint",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "locations",
               "description": "The user current language.",
               "args": [],
