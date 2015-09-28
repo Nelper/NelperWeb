@@ -15,6 +15,8 @@ export default function(app) {
       rootValue: {
         userId,
         sessionToken,
+        userAgent: request.get('User-Agent'),
+        ip: request.ip,
       },
     };
   }));

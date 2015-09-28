@@ -1,5 +1,6 @@
 import Parse from 'parse/node';
 
+import {InvalidOperationError} from '../errors';
 import {NelpTaskApplication} from './parseTypes';
 import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
 
@@ -28,7 +29,7 @@ export async function setApplicationState({sessionToken, userId}, applicationId,
   query.include('task.user');
   const application = await query.get(applicationId, {sessionToken});
   if (application.get('task').get('user').id !== userId) {
-    throw Error('Unauthorized');
+    throw new InvalidOperationError();
   }
   application.set('state', state);
   if (state === NELP_TASK_APPLICATION_STATE.ACCEPTED) {

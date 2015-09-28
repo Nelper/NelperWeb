@@ -30,8 +30,9 @@ import {
 
 import LogoutHandler from 'handlers/login/LogoutHandler';
 
-import TestPaymentHandler from 'handlers/nelpcenter/TestPaymentHandler';
-import GraphiQLHandler from 'handlers/dev/GraphiQLHandler';
+const AppQueries = {
+  me: () => Relay.QL`query { me }`,
+};
 
 const BrowseQueries = {
   browse: () => Relay.QL`query { browse }`,
@@ -138,7 +139,10 @@ function getNelperPayComponent(loc, cb) {
 // Routes.
 export default function getRoutes() {
   return (
-    <Route component={AppHandler}>
+    <Route
+      component={AppHandler}
+      queries={AppQueries}
+    >
       <Route path="/" getComponent={getHomeComponent} />
       <Route path="/login" getComponent={getLoginComponent} />
       <Route path="/register" getComponent={getRegisterComponent} />
@@ -223,14 +227,6 @@ export default function getRoutes() {
       <Route path="/howitworks" getComponent={getHowItWorksComponent} />
       <Route path="/faq" getComponent={getFAQComponent} />
       <Route path="/nelperpay" getComponent={getNelperPayComponent} />
-      {
-        __DEVELOPMENT__ ?
-        <Route>
-          <Route path="/dev/graphiql" component={GraphiQLHandler} />
-          <Route path="/dev/testpayment" component={TestPaymentHandler} />
-        </Route> :
-        null
-      }
       <Route path="*" component={PageNotFoundHandler} />
     </Route>
   );

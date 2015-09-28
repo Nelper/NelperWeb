@@ -15,7 +15,6 @@ class UserStore {
   constructor() {
     this.bindListeners({
       handleReceivedUser: UserActions.RECEIVED_USER,
-      handleSetLoc: UserActions.SET_LOCATION,
       handleAddLoc: UserActions.ADD_LOCATION,
       handleDeleteLoc: UserActions.DELETE_LOCATION,
       handleReceivedPicture: UserActions.RECEIVED_PICTURE,
@@ -37,13 +36,6 @@ class UserStore {
     this.setState({
       user: user,
     });
-    Storage.setItem('user', user);
-  }
-
-  handleSetLoc(loc) {
-    const user = this.state.user;
-    user.location = {latitude: loc.latitude, longitude: loc.longitude};
-    this.setState({user});
     Storage.setItem('user', user);
   }
 

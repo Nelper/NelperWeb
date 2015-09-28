@@ -81,7 +81,7 @@
     "sass-loader": "^2.0.1",
     "slick-carousel": "^1.5.8",
     "source-map-support": "^0.3.2",
-    "stripe": "^3.7.1",
+    "stripe": "^3.9.0",
     "style-loader": "^0.12.3",
     "svg-inline-loader": "^0.2.2",
     "url-loader": "^0.5.6",

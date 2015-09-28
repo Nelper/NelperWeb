@@ -6,7 +6,9 @@ const ROOT_PATH = path.resolve(__dirname, '..');
 
 const common = {
   name: 'client',
-  entry: [path.resolve(ROOT_PATH, 'src/app/main')],
+  entry: {
+    main: path.resolve(ROOT_PATH, 'src/app/main'),
+  },
   resolve: {
     extensions: ['', '.js', '.jsx'],
     root: path.resolve(ROOT_PATH, 'src'),

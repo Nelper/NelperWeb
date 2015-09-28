@@ -1,5 +1,3 @@
-import {Parse} from 'parse';
-
 export default class PaymentUtils {
   static load() {
     return new Promise((resolve) => {
@@ -21,13 +19,5 @@ export default class PaymentUtils {
 
   static get() {
     return window.Stripe;
-  }
-
-  static createCharge(task, token) {
-    return Parse.Cloud.run('createCharge', {taskId: task.objectId, token: token})
-      .then((res) => {
-        console.log(res);
-      })
-      .fail((err) => console.log(err));
   }
 }

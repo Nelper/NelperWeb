@@ -5,6 +5,9 @@
 
 @import './mixins';
 
+// Prevents each module from setting the box-sizing rule on every element.
+$border-box-sizing: false;
+
 @import 'bourbon';
 @import 'base/variables';
 @import 'base/grid-settings';

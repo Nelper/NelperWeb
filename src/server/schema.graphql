@@ -74,6 +74,26 @@ type ChangeLanguagePayload {
   clientMutationId: String!
 }
 
+input CreateChargeForApplicationInput {
+  applicationId: ID!
+  token: String!
+  clientMutationId: String!
+}
+
+type CreateChargeForApplicationPayload {
+  success: Boolean
+  clientMutationId: String!
+}
+
+input CreateStripeAccountInput {
+  clientMutationId: String!
+}
+
+type CreateStripeAccountPayload {
+  success: Boolean
+  clientMutationId: String!
+}
+
 input DeleteTaskInput {
   id: ID!
   clientMutationId: String!
@@ -161,6 +181,8 @@ type Mutation {
   changeLanguage(input: ChangeLanguageInput!): ChangeLanguagePayload
   setApplicationState(input: SetApplicationStateInput!): SetApplicationStatePayload
   deleteTask(input: DeleteTaskInput!): DeleteTaskPayload
+  createChargeForApplication(input: CreateChargeForApplicationInput!): CreateChargeForApplicationPayload
+  createStripeAccount(input: CreateStripeAccountInput!): CreateStripeAccountPayload
 }
 
 interface Node {
@@ -260,6 +282,7 @@ type User implements Node {
   objectId: String
   createdAt: String
   updatedAt: String
+  logged: Boolean
   name: String
   pictureURL: String
   rating: Int

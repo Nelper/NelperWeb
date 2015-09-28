@@ -363,7 +363,14 @@ export default class PostTaskFormHandler extends Component {
                     </button>
                   </div>
                 </div>
-                <div styleName="address">{this.state.location && this.state.location.address}</div>
+                {
+                  this.state.location ?
+                  <div styleName="address">
+                    <div>{this.state.location.streetNumber} {this.state.location.route}</div>
+                    <div>{this.state.location.city}, {this.state.location.postalCode}</div>
+                  </div> :
+                  null
+                }
               </div>
             </div>
           </div>

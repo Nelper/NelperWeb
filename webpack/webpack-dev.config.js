@@ -10,9 +10,16 @@ const ROOT_PATH = path.resolve(__dirname, '..');
 module.exports = merge(shared.config, {
   debug: true,
   devtool: 'eval',
-  entry: [
-    'webpack-hot-middleware/client',
-  ],
+  entry: {
+    main: [
+      path.resolve(ROOT_PATH, 'src/app/main'),
+      'webpack-hot-middleware/client',
+    ],
+    dev: [
+      path.resolve(ROOT_PATH, 'src/app/dev'),
+      'webpack-hot-middleware/client',
+    ],
+  },
   output: {
     filename: '[name].js',
     chunkFilename: '[id].chunk.js',

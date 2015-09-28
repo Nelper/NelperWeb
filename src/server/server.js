@@ -1,3 +1,17 @@
+/**
+ * Production server. Serves assets prebuilt in the build directory by webpack,
+ * graphql, prerendered react pages and special api routes.
+ *
+ * Support for server side rendering is done but disabled at the moment due to
+ * fetch polyfill in relay not working in node. Once this is fixed, it should be
+ * reenabled.
+ *
+ * Static assets can be served from this server but should be used with a CDN.
+ * Assets are long term cached and invalidated using a hash in the name.
+ *
+ * Runs on the PORT env variable or 8080.
+ * This should eventually be split into multiple services behind a load balancer.
+ */
 import fs from 'fs';
 import express from 'express';
 import path from 'path';
@@ -16,6 +30,7 @@ import ApiUtils from 'utils/ServerApiUtils';
 import IntlUtils from 'utils/IntlUtils';
 import formats from 'utils/IntlFormats';
 import graphql from './graphql';
+import {processStripeEvent} from './data/paymentData';
 
 import template from './template';
 
@@ -42,6 +57,21 @@ app.use(express.static(path.resolve(__dirname, '../../build/client'), {maxAge: 3
 
 app.use(morgan('combined'));
 app.use(cookieParser());
+
+// Stripe webhook.
+app.post('/api/stripe', async (req, res) => {
+  const event = JSON.parse(req.body);
+
+  try {
+    await processStripeEvent(event);
+  } catch (err) {
+    console.error(err.stack);
+    // If there is an error stripe will resend the event if we send a > 300 code.
+    return res.sendStatus(500);
+  }
+
+  res.sendStatus(200);
+});
 
 app.use((req, res, next) => {
   if (__DISABLE_SSR__) {

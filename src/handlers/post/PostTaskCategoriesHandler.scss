@@ -48,7 +48,6 @@
     position: relative;
     overflow: hidden;
     border-radius: 50%;
-    border: 2px solid transparent;
 
     @include media($medium-screen) {
       @include image(5rem);

@@ -6,11 +6,14 @@ import Parse from 'parse/node';
 
 import config from './../../webpack/webpack-dev.config';
 import template from './template';
+import devTemplate from './devTemplate';
 import graphql from './graphql';
 
 const compiledTemplate = template
-  .replace('{styles}', '/styles.css')
-  .replace('{shared}', '/shared.js')
+  // Remove the stylesheet since styles will be inline in dev.
+  .replace('<link href="{styles}" rel="stylesheet" type="text/css">', '')
+  // Remove the shared script in dev because we dont use the chunk optimise plugin.
+  .replace('<script src="{shared}"></script>', '')
   .replace('{main}', '/main.js')
   .replace('{content}', '');
 
@@ -31,6 +34,10 @@ app.use(new WebpackDevMiddleware(compiler, {
 }));
 
 app.use(new WebpackHotMiddleware(compiler));
+
+app.get('/dev', (req, res) => {
+  res.send(devTemplate);
+});
 
 app.get('*', (req, res) => {
   res.send(compiledTemplate);

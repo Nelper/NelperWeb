@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import cssModules from 'react-css-modules';
+import GraphiQL from 'graphiql';
 
 import ApiUtils from 'utils/ApiUtils';
-
-let GraphiQL;
-if (__CLIENT__) {
-  GraphiQL = require('graphiql');
-}
 
 import styles from './GraphiQLHandler.scss';
 import 'graphiql/graphiql.css';
@@ -21,15 +17,13 @@ export default class GraphiQLHandler extends Component {
   }
 
   componentDidMount() {
-    if (__CLIENT__) {
-      const session = ApiUtils.getUserSession();
-      if (session) {
-        const [userId, sessionToken] = session.split('-');
-        this.setState({
-          userId,
-          sessionToken,
-        });
-      }
+    const session = ApiUtils.getUserSession();
+    if (session) {
+      const [userId, sessionToken] = session.split('-');
+      this.setState({
+        userId,
+        sessionToken,
+      });
     }
   }
 
@@ -81,11 +75,7 @@ export default class GraphiQLHandler extends Component {
           </div> :
           null
         }
-        {
-          __CLIENT__ ?
-          <GraphiQL fetcher={::this._graphQLFetcher} /> :
-          null
-        }
+        <GraphiQL fetcher={::this._graphQLFetcher} /> :
       </div>
     );
   }

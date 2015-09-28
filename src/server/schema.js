@@ -1,9 +1,13 @@
+import Parse from 'parse/node';
+
 import {
   GraphQLObjectType,
   GraphQLSchema,
 } from 'graphql';
 
 import {nodeField} from './nodeResolver';
+
+import {UnauthorizedError} from './errors';
 
 import {
   UserType,
@@ -18,6 +22,8 @@ import {
   EditTaskMutation,
   SetApplicationStateMutation,
   DeleteTaskMutation,
+  CreateChargeForApplicationMutation,
+  CreateStripeAccountMutation,
 } from './schema/mutations';
 
 import {getMe} from './data/userData';
@@ -32,7 +38,20 @@ const queryType = new GraphQLObjectType({
     node: nodeField,
     me: {
       type: UserType,
-      resolve: (ctx) => getMe(ctx),
+      resolve: async (ctx) => {
+        try {
+          const user = await getMe(ctx);
+          user.logged = true;
+          return user;
+        } catch (err) {
+          if (err instanceof UnauthorizedError) {
+            const user = new Parse.Object();
+            user.logged = false;
+            return user;
+          }
+          throw err;
+        }
+      },
     },
     browse: {
       type: BrowseType,
@@ -55,6 +74,8 @@ const mutationType = new GraphQLObjectType({
     changeLanguage: ChangeLanguageMutation,
     setApplicationState: SetApplicationStateMutation,
     deleteTask: DeleteTaskMutation,
+    createChargeForApplication: CreateChargeForApplicationMutation,
+    createStripeAccount: CreateStripeAccountMutation,
   }),
 });
 

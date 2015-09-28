@@ -3,13 +3,12 @@
   @if $width != null and $height != null {
     width: $width;
     height: $height;
-    background-size: $width $height;
   } @elseif $width != null {
     width: $width;
     height: $width;
-    background-size: $width;
   }
 
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }

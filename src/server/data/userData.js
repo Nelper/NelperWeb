@@ -1,10 +1,15 @@
 import Parse from 'parse/node';
 
+import {UnauthorizedError} from '../errors';
 import {UserPrivateData, Feedback} from './parseTypes';
 import {fixParseFileURL} from '../../utils/ParseUtils';
 import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
 
 export async function getMe({userId, sessionToken}) {
+  if (!userId || !sessionToken) {
+    throw new UnauthorizedError();
+  }
+
   const query = new Parse.Query(Parse.User)
     .include('privateData');
 
@@ -12,7 +17,7 @@ export async function getMe({userId, sessionToken}) {
   // Makes sure that the provided userId matches the session token by
   // trying to get a private field.
   if (!user.get('privateData')) {
-    throw Error('Unauthorized');
+    throw new UnauthorizedError();
   }
   user.me = true;
   return user;
@@ -82,6 +87,21 @@ export async function getApplicantPrivate({userId, sessionToken}, application) {
     email: privateData.get('email'),
     phone: privateData.get('phone'),
   };
+}
+
+/**
+ * Returns a user private data using the master. Make sure the User
+ * has the right to access it because it will bypass ACL.
+ * @param  {string} userId The user id to get its private data
+ * @return {UserPrivateData} The user private data
+ */
+export async function getUserPrivateWithMasterKey(userId) {
+  const query = new Parse.Query(Parse.User)
+    .include('privateData');
+
+  // Use the master key to get the private data.
+  const user = await query.get(userId, {useMasterKey: true});
+  return user.get('privateData');
 }
 
 export async function getTaskPosterPrivate({userId, sessionToken}, task) {

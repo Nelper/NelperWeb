@@ -167,12 +167,12 @@ export default class AddLocationDialogView extends Component {
               placeholder="Address"
               ref="address"
             />
-            <div className="btn-group dialog-buttons">
-              <button onClick={::this._onCancel}>Cancel</button>
-              <button type="submit" className="primary">Ok</button>
-            </div>
           </div>
         </form>
+        <div className="btn-group dialog-buttons">
+          <button onClick={::this._onCancel}>Cancel</button>
+          <button className="primary" onClick={::this._onSubmit}>Ok</button>
+        </div>
       </Dialog>
     );
   }

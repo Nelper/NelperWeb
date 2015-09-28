@@ -150,6 +150,10 @@ export const UserType = new GraphQLObjectType({
   fields: () => ({
     id: globalIdField('User'),
     ...commonFields,
+    logged: {
+      type: GraphQLBoolean,
+      description: 'If the user is logged id',
+    },
     name: {
       type: GraphQLString,
       description: 'The user full name.',

@@ -31,7 +31,6 @@ class BrowseTasksListView extends Component {
   static defaultProps = {
     onTaskSelected: () => {},
     onMakeOffer: () => {},
-    isLoading: false,
   }
 
   state = {
@@ -67,16 +66,17 @@ class BrowseTasksListView extends Component {
   componentWillReceiveProps(newProps) {
     const newFilters = newProps.filters;
     const filters = this.props.filters;
+    const location = newFilters.location ? {
+      latitude: newFilters.location.latitude,
+      longitude: newFilters.location.longitude,
+    } : null;
     if (newFilters.sort !== filters.sort ||
         newFilters.minPrice !== filters.minPrice ||
         newFilters.maxDistance !== filters.maxDistance ||
         newFilters.categories !== filters.categories) {
       this.props.relay.setVariables({
         sort: newProps.filters.sort,
-        location: {
-          latitude: UserStore.getState().user.location.latitude,
-          longitude: UserStore.getState().user.location.longitude,
-        },
+        location: location,
         maxDistance: newProps.filters.maxDistance,
         minPrice: newProps.filters.minPrice,
         categories: newProps.filters.categories,
@@ -255,20 +255,7 @@ export default Relay.createContainer(BrowseTasksListView, {
     maxDistance: null,
     minPrice: null,
     categories: null,
-  },
-  prepareVariables: (prepareVariables) => {
-    // The the user current location.
-    const location = UserStore.getState().user.location ?
-      {
-        latitude: UserStore.getState().user.location.latitude,
-        longitude: UserStore.getState().user.location.longitude,
-      } :
-      null;
-
-    return {
-      ...prepareVariables,
-      location,
-    };
+    location: null,
   },
   fragments: {
     browse: () => Relay.QL`

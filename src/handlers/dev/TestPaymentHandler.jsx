@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
 import PaymentUtils from 'utils/PaymentUtils';
+import CreateChargeForApplicationMutation from 'actions/payment/CreateChargeForApplicationMutation';
+import CreateStripeAccountMutation from 'actions/payment/CreateStripeAccountMutation';
 
 export default class TestPaymentHandler extends Component {
 
@@ -37,7 +39,7 @@ export default class TestPaymentHandler extends Component {
       exp_month: expMonth,
       exp_year: expYear,
     }, (status, response) => {
-      PaymentUtils.createCharge({objectId: '7qOQsQze5A'}, response.id);
+
     });
   }
 

@@ -1,4 +1,7 @@
 export function fixParseFileURL(url) {
+  if (!url) {
+    return null;
+  }
   return url.replace(/http:\/\//, 'https://s3.amazonaws.com/');
 }
 

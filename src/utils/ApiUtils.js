@@ -28,9 +28,6 @@ class ApiUtils {
   login({email, password}) {
     return Parse.User.logIn(email, password)
       .then((user) => {
-        if (!user.has('privateData')) {
-          return this._createUserBase(user);
-        }
         return user.get('privateData').fetch();
       })
       .then(() => {
@@ -50,12 +47,11 @@ class ApiUtils {
   register({email, password, name}) {
     const parseUser = new Parse.User();
     parseUser.set('username', email);
-    parseUser.set('email', email);
     parseUser.set('password', password);
     parseUser.set('name', name);
     return parseUser.signUp()
       .then((user) => {
-        return this._createUserBase(user);
+        return this._createUserBase(user, {email});
       })
       .then(() => {
         this._initSession();
@@ -83,13 +79,12 @@ class ApiUtils {
       return this._getUserInfoFromFacebook()
         .then((fbUser) => {
           user.set('name', fbUser.name);
+          user.set('firstName', fbUser.first_name);
+          user.set('lastName', fbUser.last_name);
           user.set('pictureURL', fbUser.picture.data.url);
           if (!user.has('privateData')) {
-            this._createUserBase(user);
-            user.save();
-            return user;
+            return this._createUserBase(user, {email: fbUser.email});
           }
-
           return user.get('privateData').fetch();
         })
         .then(() => {
@@ -602,12 +597,13 @@ class ApiUtils {
     });
   }
 
-  _createUserBase(user) {
+  _createUserBase(user, {email}) {
     user.set('about', '');
     user.set('skills', []);
     user.set('education', []);
     user.set('experience', []);
     const userPrivate = new UserPrivateData();
+    userPrivate.set('email', email);
     userPrivate.set('locations', []);
     userPrivate.set('notifications', {
       posterApplication: {
@@ -659,7 +655,7 @@ class ApiUtils {
    */
   _getUserInfoFromFacebook() {
     return new Promise((resolve, reject) => {
-      FB.api('me?fields=name,picture.type(large)', (response) => {
+      FB.api('me?fields=name,first_name,last_name,email,picture.type(large)', (response) => {
         if (response.error) {
           reject(response.error);
           return;

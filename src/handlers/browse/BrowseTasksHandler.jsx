@@ -28,6 +28,7 @@ class BrowseTasksHandler extends Component {
     filters: {category: null, minPrice: null, maxDistance: null},
     sort: UserStore.state.user.location ? {sort: 'DISTANCE'} : {sort: 'DATE'},
     taskFilter: null,
+    location: UserStore.state.user.location,
   }
 
   componentDidMount() {
@@ -35,14 +36,13 @@ class BrowseTasksHandler extends Component {
       // TODO(janic): this logic should be elsewhere.
       navigator.geolocation.getCurrentPosition((pos) => {
         UserActions.setLocation(pos.coords);
-
-        if (!this.refs.map) {
-          return;
+        this.setState({location: pos.coords});
+        if (this.refs.map) {
+          this.refs.map.panTo(new LatLng(
+            pos.coords.latitude,
+            pos.coords.longitude,
+          ));
         }
-        this.refs.map.panTo(new LatLng(
-          pos.coords.latitude,
-          pos.coords.longitude,
-        ));
       });
     }
   }
@@ -152,6 +152,7 @@ class BrowseTasksHandler extends Component {
             <NelpTaskListView
               browse={this.props.browse}
               filters={{
+                location: this.state.location,
                 sort: this.state.sort.sort,
                 ...this.state.filters,
               }}

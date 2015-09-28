@@ -87,7 +87,7 @@ class NotificationsSettingsHandler extends Component {
             <div styleName="setting-row">
               <div styleName="title-col"><FormattedMessage id="settings.notifications.newsletter" /></div>
               <div styleName="input-col">
-                <div styleName="title">Send me</div>
+                <div styleName="title"><FormattedMessage id="settings.notifications.sendMe" /></div>
                 <div styleName="input">
                   <Checkbox
                     selected={notifications.newsletter.email}
