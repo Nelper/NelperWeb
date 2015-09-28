@@ -21,11 +21,14 @@ import 'file?name=[name].[ext]!images/favicon.ico';
 // Initialize Parse
 Parse.initialize('w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN', 'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si');
 
+const headers = {};
+const session = ApiUtils.getUserSession();
+if (session) {
+  headers.Authorization = session;
+}
 Relay.injectNetworkLayer(
   new Relay.DefaultNetworkLayer('/graphql', {
-    headers: {
-      Authorization: ApiUtils.getUserSession(),
-    },
+    headers,
   })
 );
 

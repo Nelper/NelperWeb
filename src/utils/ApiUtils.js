@@ -566,11 +566,14 @@ class ApiUtils {
       const parseUserId = Parse.User.current().id;
       document.cookie = `p_session=${parseSessionToken}`;
       document.cookie = `p_user=${parseUserId}`;
+      const headers = {};
+      const session = this.getUserSession();
+      if (session) {
+        headers.Authorization = session;
+      }
       Relay.injectNetworkLayer(
         new Relay.DefaultNetworkLayer('/graphql', {
-          headers: {
-            Authorization: this.getUserSession(),
-          },
+          headers,
         })
       );
     }
