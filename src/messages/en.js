@@ -225,7 +225,7 @@ export default {
     generalTitle_00: "What is Nelper?",
     generalDesc_00: "Nelper is a community marketplace to connect with people around you and get your tasks completed or complete other people’s tasks, for money. You can use Nelper on web or on {iOS}.",
     generalTitle_01: "Why should I use Nelper?",
-    generalDesc_01: "Are you are tired of paying way too much for simple tasks like having your gutters emptied or getting your computer fixed? Are you tired of having to wait all day at home for a representative or a technician who can arrive anytime between 8 and 5? Are you tired of always calling the same inefficient small local companies?<br /><br />Start using Nelper now and stop worrying about all of the above. With Nelper, you can easily find qualified workers twice as fast who lives in your neighborhood.",
+    generalDesc_01: "Are you are tired of paying way too much for simple tasks like having your gutters emptied or getting your computer fixed? Are you tired of having to wait all day at home for a representative or a technician who can arrive anytime between 8 and 5? Are you tired of always calling the same inefficient small local companies?<br /><br />Start using Nelper and fix those issues. With Nelper, you can easily find qualified workers in your neighborhood, twice as fast.",
     generalTitle_02: "How does it work?",
     generalDesc_02: "Please visit the {howItWorks} page, it contains all the details you need to know about posting tasks, browsing tasks, completing tasks and the Nelp Center.",
     generalTitle_03: "What is the difference between a Task Poster and a Nelper?",
