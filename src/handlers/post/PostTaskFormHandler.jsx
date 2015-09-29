@@ -3,7 +3,7 @@ import {FormattedMessage} from 'react-intl';
 import connectToStores from 'alt/utils/connectToStores';
 import cssModules from 'react-css-modules';
 
-import {Dialog, Progress} from 'components/index';
+import {Dialog, Progress, ValidatorInput} from 'components/index';
 import AddLocationDialogView from 'components/AddLocationDialogView';
 import TaskActions from 'actions/TaskActions';
 import UserActions from 'actions/UserActions';
@@ -40,12 +40,16 @@ export default class PostTaskFormHandler extends Component {
 
   state = {
     title: '',
+    titleError: null,
     hasTitleInput: false,
     priceOffered: '',
+    priceOfferedError: null,
     hasPriceOfferedInput: false,
     desc: '',
+    descError: null,
     hasDescInput: false,
     location: this.props.locations[0],
+    locationError: null,
     showCreateLocationDialog: false,
     showDeleteLocationDialog: false,
     pictures: [],
@@ -65,6 +69,9 @@ export default class PostTaskFormHandler extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.createdTask) {
       this._onTaskCreated();
+    }
+    if (!nextProps.locations.some(l => l === this.state.location)) {
+      this.setState({location: nextProps.locations[0]});
     }
   }
 
@@ -183,8 +190,26 @@ export default class PostTaskFormHandler extends Component {
   _onSubmit(e) {
     e.preventDefault();
 
-    if (!this._validateTitle() || !this._validatePrice() ||
-      !this._validateLocation() || !this._validateDescription()) {
+    // TODO: TRANSLATION
+    let valid = true;
+    if (!this._validateTitle()) {
+      this.setState({titleError: 'Please enter a title for your task.'});
+      valid = false;
+    }
+    if (!this._validatePrice()) {
+      this.setState({priceOfferedError: 'Please enter a price for your task.'});
+      valid = false;
+    }
+    if (!this._validateLocation()) {
+      this.setState({locationError: 'Please select a location for your task.'});
+      valid = false;
+    }
+    if (!this._validateDescription()) {
+      this.setState({descError: 'Please enter a description for your task.'});
+      valid = false;
+    }
+
+    if (!valid) {
       this.setState({
         hasTitleInput: true,
         hasDescInput: true,
@@ -298,11 +323,9 @@ export default class PostTaskFormHandler extends Component {
             <div styleName="input-row">
               <div styleName="input-content">
                 <label><FormattedMessage id="post.taskTitle" /></label>
-                <input
+                <ValidatorInput
                   type="text"
-                  required
-                  minLength={4}
-                  maxLength={72}
+                  error={this.state.titleError}
                   value={this.state.title}
                   onChange={this._onTitleChanged.bind(this)} />
               </div>
@@ -311,9 +334,9 @@ export default class PostTaskFormHandler extends Component {
             <div styleName="input-row">
               <div styleName="input-content">
                 <label><FormattedMessage id="post.taskDescription" /></label>
-                <textarea
-                  required
-                  minLength={4}
+                <ValidatorInput
+                  type="textarea"
+                  error={this.state.descError}
                   value={this.state.desc}
                   onChange={this._onDescChanged.bind(this)} />
               </div>
@@ -324,12 +347,9 @@ export default class PostTaskFormHandler extends Component {
                 <label><FormattedMessage id="post.taskOffer" /></label>
                 <div styleName="price">
                   <div styleName="currency">$</div>
-                  <input
+                  <ValidatorInput
                     type="number"
-                    min={0}
-                    max={9999}
-                    maxLength={4}
-                    required
+                    error={this.state.priceOfferedError}
                     value={this.state.priceOffered}
                     onChange={this._onPriceOfferedChanged.bind(this)} />
                 </div>
@@ -348,6 +368,11 @@ export default class PostTaskFormHandler extends Component {
                     >
                       {locations}
                     </select> :
+                    null
+                  }
+                  {
+                    this.state.locationError ?
+                    <div styleName="location-error">{this.state.locationError}</div> :
                     null
                   }
                   <div className="btn-group">

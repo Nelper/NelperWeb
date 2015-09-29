@@ -12,12 +12,12 @@ module.exports = merge(shared.config, {
   devtool: 'eval',
   entry: {
     main: [
-      path.resolve(ROOT_PATH, 'src/app/main'),
       'webpack-hot-middleware/client',
+      path.resolve(ROOT_PATH, 'src/app/main'),
     ],
     dev: [
-      path.resolve(ROOT_PATH, 'src/app/dev'),
       'webpack-hot-middleware/client',
+      path.resolve(ROOT_PATH, 'src/app/dev'),
     ],
   },
   output: {

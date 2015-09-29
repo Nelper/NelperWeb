@@ -17,6 +17,7 @@ export default class Dialog extends Component {
 
   static defaultProps = {
     fill: false,
+    fillAll: false,
   }
 
   state = {

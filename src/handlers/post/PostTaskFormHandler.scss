@@ -149,6 +149,13 @@
     }
   }
 
+  .location-error {
+    color: $color-error;
+    font-size: 0.9em;
+    align-self: flex-start;
+    margin-bottom: 1rem;
+  }
+
   .address {
     margin-top: 1rem;
     margin-left: 1rem;
