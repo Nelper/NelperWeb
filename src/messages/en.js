@@ -173,8 +173,8 @@ export default {
 
       progressAccepted: "Nelper Accepted",
       progressSent: "Payment sent",
-      progressApproved: "Approved Task Completion",
-      progressRating: "Rating & Feedback",
+      progressApproved: "Payment release requested",
+      progressRating: "Confirmation & Feedback",
       progressHelp: `
       <h2>How does the payment & task completion process work?</h2>
       <ol>
@@ -185,10 +185,11 @@ export default {
           Your Nelper completes your task.
         </li>
         <li>
-          Once your task is completed, your Nelper will request the payment. Click on <em>The Nelper completed my task</em> and your Nelper's payment will be released.
+          When your task is completed, your Nelper requests that the payment gets released.
         </li>
         <li>
-          Rate and give feedback to your Nelper.
+          To release your Nelper's payment and thereby complete the transaction, click on <em>The Nelper completed my task</em>.
+          Then, rate and give feedback to your Nelper.
         </li>
       </ol>
       `,
@@ -255,10 +256,10 @@ export default {
         Your Nelper completes your task.
       </li>
       <li>
-        Once your task is completed, your Nelper will request the payment. Click on 'The Nelper completed my task' and your Nelper's money will be released.
+        When your task is completed, your Nelper requests that the payment gets released.
       </li>
       <li>
-        Rate and give feedback to your Nelper.
+        To release your Nelper's payment and thereby complete the transaction, click on <em>The Nelper completed my task</em>. Then, rate and give feedback to your Nelper.
       </li>
     </ol>`,
     posterTitle_06: "What happens if there aren’t any Nelpers applying for my task?",
