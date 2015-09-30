@@ -173,8 +173,8 @@ export default {
 
       progressAccepted: "Nelper accepté",
       progressSent: "Paiement envoyé",
-      progressApproved: "Confirmation",
-      progressRating: "Évaluation & critique",
+      progressApproved: "Libération du paiement demandée",
+      progressRating: "Confirmation & évaluation",
       progressHelp: `
       <h2>Quel est la procédure pour envoyer le paiement et faire compléter ma tâche?</h2>
       <ol>
@@ -186,11 +186,11 @@ export default {
           Votre Nelper complète votre tâche.
         </li>
         <li>
-          Lorsque votre tâche est complétée, votre Nelper va exiger que son paiement soit libéré.
-          Pour ce faire, vous n'avez qu'à confirmer que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>.
+          Lorsque votre tâche est complétée, votre Nelper demande que son paiement se fasse libérer.
         </li>
         <li>
-          Évaluez et donnez une critique à votre Nelper, en lien avec sa performance.
+          Pour libérer le paiement de votre Nelper et ainsi terminer la transaction, confirmez que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>.
+          Ensuite, évaluez la performance de votre Nelper.
         </li>
       </ol>
       `,
@@ -257,10 +257,10 @@ export default {
         Votre Nelper complète votre tâche.
       </li>
       <li>
-        Lorsque votre tâche est complétée, votre Nelper va exiger que son paiement soit libéré. Pour ce faire, vous n'avez qu'à confirmer que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>.
+        Lorsque votre tâche est complétée, votre Nelper va demander que son paiement se fasse libérer.
       </li>
       <li>
-        Évaluez et donnez une critique à votre Nelper, en lien avec sa performance.
+        Pour libérer le paiement de votre Nelper et terminer la transaction, confirmez que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>. Ensuite, évaluez la performance de votre Nelper.
       </li>
     </ol>`,
     posterTitle_06: "Qu’arrive-t-il si aucun Nelper n’applique pour ma tâche?",
