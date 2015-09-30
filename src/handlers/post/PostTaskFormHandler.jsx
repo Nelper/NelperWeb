@@ -96,6 +96,7 @@ export default class PostTaskFormHandler extends Component {
     const location = this.props.locations[event.target.selectedIndex];
     this.setState({
       location,
+      locationError: null,
     });
   }
 
@@ -121,6 +122,7 @@ export default class PostTaskFormHandler extends Component {
     this.setState({
       hasTitleInput: true,
       title: event.target.value,
+      titleError: null,
     });
   }
 
@@ -128,12 +130,7 @@ export default class PostTaskFormHandler extends Component {
     this.setState({
       hasPriceOfferedInput: true,
       priceOffered: event.target.value,
-    });
-  }
-
-  _onPostalCodeChanged(event) {
-    this.setState({
-      postalCode: event.target.value,
+      priceOfferedError: null,
     });
   }
 
@@ -141,6 +138,7 @@ export default class PostTaskFormHandler extends Component {
     this.setState({
       hasDescInput: true,
       desc: event.target.value,
+      descError: null,
     });
   }
 

@@ -1,6 +1,6 @@
 import alt from 'app/alt';
 import TaskActions from 'actions/TaskActions';
-import {NELP_TASK_APPLICATION_STATE} from 'utils/constants';
+import {TASK_APPLICATION_STATE} from 'utils/constants';
 
 class TaskStore {
 
@@ -78,17 +78,17 @@ class TaskStore {
   }
 
   handleAcceptApplication(application) {
-    application.state = NELP_TASK_APPLICATION_STATE.ACCEPTED;
+    application.state = TASK_APPLICATION_STATE.ACCEPTED;
     this.emitChange();
   }
 
   handleDenyApplication(application) {
-    application.state = NELP_TASK_APPLICATION_STATE.DENIED;
+    application.state = TASK_APPLICATION_STATE.DENIED;
     this.emitChange();
   }
 
   handleRestoreApplication(application) {
-    application.state = NELP_TASK_APPLICATION_STATE.PENDING;
+    application.state = TASK_APPLICATION_STATE.PENDING;
     this.emitChange();
   }
 

@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
-import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
+import {FormattedMessage, FormattedRelative} from 'react-intl';
 import Slider from 'react-slick';
 
 import ApplicationListView from './ApplicationListView';
@@ -373,6 +373,7 @@ export default Relay.createContainer(TaskDetailHandler, {
             }
           }
         },
+        ${AcceptedApplicationView.getFragment('task')}
         ${EditTaskDescMutation.getFragment('task')},
         ${EditTaskPicturesMutation.getFragment('task')},
         ${AcceptApplicantMutation.getFragment('task')},

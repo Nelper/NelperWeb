@@ -3,6 +3,7 @@ import {
   GraphQLString,
   GraphQLInt,
   GraphQLList,
+  GraphQLEnumType,
 } from 'graphql';
 
 import {
@@ -54,12 +55,42 @@ const TaskPosterUserPrivateType = new GraphQLObjectType({
   }),
 });
 
+export const TaskStateType = new GraphQLEnumType({
+  name: 'TaskState',
+  description: 'The possible states for a task.',
+  values: {
+    PENDING: {value: 0},
+    ACCEPTED: {value: 1},
+    DELETED: {value: 2},
+    COMPLETED: {value: 3},
+  },
+});
+
+export const TaskCompletionStateType = new GraphQLEnumType({
+  name: 'TaskCompletionState',
+  description: 'The progress of a task once accepted.',
+  values: {
+    ACCEPTED: {value: 0},
+    PAYMENT_SENT: {value: 1},
+    COMPLETED: {value: 2},
+    RATED: {value: 3},
+  },
+});
+
 export const TaskType = new GraphQLObjectType({
   name: 'Task',
   description: 'A task on Nelper',
   fields: () => ({
     id: globalIdField('Task'),
     ...commonFields,
+    state: {
+      type: TaskStateType,
+      resolve: (task) => task.get('state'),
+    },
+    completionState: {
+      type: TaskCompletionStateType,
+      resolve: (task) => task.get('completionState'),
+    },
     title: {
       type: GraphQLString,
       description: 'The task title',

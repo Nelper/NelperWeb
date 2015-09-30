@@ -2,7 +2,7 @@ import Parse from 'parse/node';
 
 import {UserPrivateData, Feedback} from './parseTypes';
 import {fixParseFileURL} from '../../utils/ParseUtils';
-import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
+import {TASK_APPLICATION_STATE} from '../../utils/constants';
 
 export async function getMe({userId, sessionToken}) {
   if (!userId || !sessionToken) {
@@ -73,7 +73,7 @@ export async function updateNotificationSettings({userId, sessionToken}, setting
 export async function getApplicantPrivate({userId, sessionToken}, application) {
   // Makes sure the user is the task poster.
   if (userId !== application.get('task').get('user').id ||
-      application.get('state') !== NELP_TASK_APPLICATION_STATE.ACCEPTED) {
+      application.get('state') !== TASK_APPLICATION_STATE.ACCEPTED) {
     return null;
   }
   const query = new Parse.Query(Parse.User)
@@ -107,7 +107,7 @@ export async function getTaskPosterPrivate({userId, sessionToken}, task) {
   // Makes sure the user is the task poster.
   const acceptedApplication = task.get('application');
   if (acceptedApplication.get('user').id !== userId ||
-      acceptedApplication.get('state') !== NELP_TASK_APPLICATION_STATE.ACCEPTED) {
+      acceptedApplication.get('state') !== TASK_APPLICATION_STATE.ACCEPTED) {
     return null;
   }
   const query = new Parse.Query(Parse.User)

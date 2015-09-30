@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import {FormattedNumber} from 'react-intl';
 
 import {Rating, Icon, PriceTag} from 'components/index';
 

@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import {InvalidOperationError, UnauthorizedError} from '../errors';
 import {getMe, getUserPrivateWithMasterKey} from './userData';
 import {getApplication} from './applicationData';
-import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
+import {TASK_APPLICATION_STATE} from '../../utils/constants';
 
 const stripe = new Stripe('sk_test_JBQSP7eMqdNUqe7rQFYLEFXi');
 
@@ -21,7 +21,7 @@ export async function createChargeForApplication(rootValue, applicationId, token
   // Validate the application state and that the application is for a task the user
   // owns.
   if (application.get('task').get('user').id !== user.id ||
-      application.get('state') !== NELP_TASK_APPLICATION_STATE.ACCEPTED) {
+      application.get('state') !== TASK_APPLICATION_STATE.ACCEPTED) {
     throw new InvalidOperationError();
   }
 

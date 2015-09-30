@@ -2,7 +2,7 @@ import Parse from 'parse/node';
 
 import {InvalidOperationError} from '../errors';
 import {NelpTaskApplication} from './parseTypes';
-import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
+import {TASK_APPLICATION_STATE} from '../../utils/constants';
 
 export async function getApplication({sessionToken}, id) {
   const query = new Parse.Query(NelpTaskApplication);
@@ -19,7 +19,7 @@ export async function getApplicationsForUser({sessionToken}, userId) {
   parseUser.id = userId;
   query.include('task.user');
   query.equalTo('user', parseUser);
-  query.notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED);
+  query.notEqualTo('state', TASK_APPLICATION_STATE.CANCELED);
   query.descending('createdAt');
   return await query.find({sessionToken});
 }
@@ -32,7 +32,7 @@ export async function setApplicationState({sessionToken, userId}, applicationId,
     throw new InvalidOperationError();
   }
   application.set('state', state);
-  if (state === NELP_TASK_APPLICATION_STATE.ACCEPTED) {
+  if (state === TASK_APPLICATION_STATE.ACCEPTED) {
     application.set('acceptedAt', new Date());
   }
   return await application.save(null, {sessionToken});

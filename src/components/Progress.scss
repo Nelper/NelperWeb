@@ -49,6 +49,10 @@
     animation: bubble 1.2s -0.6s infinite ease-out;
   }
 
+  &.inverse .bubble {
+    background-color: $color-background-light;
+  }
+
   @keyframes bubble {
     0%, 100% {
       transform: scale(0);

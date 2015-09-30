@@ -2,7 +2,7 @@ import Parse from 'parse';
 import Relay from 'react-relay';
 
 import  {NelpTask, NelpTaskApplication, UserPrivateData, Feedback} from './ParseModels';
-import {NELP_TASK_STATE, NELP_TASK_APPLICATION_STATE} from 'utils/constants';
+import {TASK_STATE, TASK_APPLICATION_STATE} from 'utils/constants';
 
 import {
   meFromParse,
@@ -313,7 +313,7 @@ class ApiUtils {
   listMyNelpTasks() {
     return new Parse.Query(NelpTask)
       .equalTo('user', Parse.User.current())
-      .containedIn('state', [NELP_TASK_STATE.PENDING, NELP_TASK_STATE.ACCEPTED])
+      .containedIn('state', [TASK_STATE.PENDING, TASK_STATE.ACCEPTED])
       .descending('createdAt')
       .limit(20)
       .find()
@@ -321,7 +321,7 @@ class ApiUtils {
         return new Parse.Query(NelpTaskApplication)
           .include('user')
           .containedIn('task', tasks)
-          .notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED)
+          .notEqualTo('state', TASK_APPLICATION_STATE.CANCELED)
           .find()
           .then((applications) => {
             return tasks.map((parseTask) => {
@@ -357,7 +357,7 @@ class ApiUtils {
     return new Parse.Query(NelpTaskApplication)
       .include('task.user')
       .equalTo('user', Parse.User.current())
-      .notEqualTo('state', NELP_TASK_APPLICATION_STATE.CANCELED)
+      .notEqualTo('state', TASK_APPLICATION_STATE.CANCELED)
       .descending('createdAt')
       .find()
       .then(applications => {
@@ -450,7 +450,7 @@ class ApiUtils {
   deleteTask(task) {
     const parseTask = new NelpTask();
     parseTask.id = task.objectId;
-    parseTask.set('state', NELP_TASK_STATE.DELETED);
+    parseTask.set('state', TASK_STATE.DELETED);
     parseTask.save();
   }
 
@@ -462,7 +462,7 @@ class ApiUtils {
     const parseTask = new NelpTask();
     parseTask.id = task.objectId;
     const parseApplication = new NelpTaskApplication();
-    parseApplication.set('state', NELP_TASK_APPLICATION_STATE.PENDING);
+    parseApplication.set('state', TASK_APPLICATION_STATE.PENDING);
     parseApplication.set('user', Parse.User.current());
     parseApplication.set('task', parseTask);
     parseApplication.set('isNew', true);
@@ -478,7 +478,7 @@ class ApiUtils {
   cancelApplyForTask(task) {
     const taskApplication = new NelpTaskApplication();
     taskApplication.id = task.application.objectId;
-    taskApplication.set('state', NELP_TASK_APPLICATION_STATE.CANCELED);
+    taskApplication.set('state', TASK_APPLICATION_STATE.CANCELED);
     taskApplication.save();
   }
 
@@ -489,11 +489,11 @@ class ApiUtils {
   acceptApplication(application) {
     const parseApplication = new NelpTaskApplication();
     parseApplication.id = application.objectId;
-    parseApplication.set('state', NELP_TASK_APPLICATION_STATE.ACCEPTED);
+    parseApplication.set('state', TASK_APPLICATION_STATE.ACCEPTED);
     parseApplication.set('acceptedAt', new Date());
     const parseTask = new NelpTask();
     parseTask.id = application.task.objectId;
-    parseTask.set('state', NELP_TASK_STATE.ACCEPTED);
+    parseTask.set('state', TASK_STATE.ACCEPTED);
 
     Parse.Object.saveAll([parseApplication, parseTask]);
   }
@@ -505,7 +505,7 @@ class ApiUtils {
   denyApplication(application) {
     const taskApplication = new NelpTaskApplication();
     taskApplication.id = application.objectId;
-    taskApplication.set('state', NELP_TASK_APPLICATION_STATE.DENIED);
+    taskApplication.set('state', TASK_APPLICATION_STATE.DENIED);
     taskApplication.save();
   }
 
@@ -516,7 +516,7 @@ class ApiUtils {
   restoreApplication(application) {
     const taskApplication = new NelpTaskApplication();
     taskApplication.id = application.objectId;
-    taskApplication.set('state', NELP_TASK_APPLICATION_STATE.PENDING);
+    taskApplication.set('state', TASK_APPLICATION_STATE.PENDING);
     taskApplication.save();
   }
 

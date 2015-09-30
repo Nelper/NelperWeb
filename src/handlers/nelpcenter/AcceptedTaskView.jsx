@@ -1,19 +1,25 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
 import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
 import Dialog from 'components/Dialog';
 import IconButton from 'components/IconButton';
 import TaskProgress from './TaskProgress';
+import TaskPaymentDialogView from './TaskPaymentDialogView';
 
-export default class TaskCardView extends Component {
+class AcceptedTaskView extends Component {
+
+  static contextTypes = {
+    history: PropTypes.object.isRequired,
+  }
 
   static propTypes = {
     task: PropTypes.object.isRequired,
-    application: PropTypes.object.isRequired,
   }
 
   state = {
     showProgressHelpDialog: false,
+    showPaymentDialog: false,
   }
 
   _onShowProgressHelp() {
@@ -26,11 +32,26 @@ export default class TaskCardView extends Component {
     });
   }
 
+  _onPosterProfileClick() {
+    const {task} = this.props;
+    this.context.history.pushState(null, `/center/tasks/detail/${task.id}/${task.applications.accepted.id}`);
+  }
+
+  _onProceedToPayment() {
+    this.setState({showPaymentDialog: true});
+  }
+
+  _onPaymentDialogClose() {
+    this.setState({showPaymentDialog: false});
+  }
+
   render() {
-    const {application} = this.props;
+    const {task} = this.props;
+    const application = task.applications.accepted;
 
     return (
       <div className="accepted-application-view">
+        <TaskPaymentDialogView task={task} opened={this.state.showPaymentDialog} onClose={::this._onPaymentDialogClose}/>
         <Dialog opened={this.state.showProgressHelpDialog} onClose={::this._onShowProgressHelpClose}>
           <div className="dialog-content">
             <FormattedHTMLMessage id="nelpcenter.taskDetail.progressHelp" />
@@ -45,7 +66,7 @@ export default class TaskCardView extends Component {
             icon={require('images/icons/help.svg')}
             onClick={::this._onShowProgressHelp}
           />
-          <TaskProgress step={1} steps={[
+          <TaskProgress step={0} steps={[
             {title: <FormattedMessage id="nelpcenter.taskDetail.progressAccepted" />},
             {title: <FormattedMessage id="nelpcenter.taskDetail.progressSent" />},
             {title: <FormattedMessage id="nelpcenter.taskDetail.progressApproved" />},
@@ -55,7 +76,7 @@ export default class TaskCardView extends Component {
             <div className="nelper-pay-icon" />
           </div>
           <div className="proceed-payment-container">
-            <button className="primary">
+            <button className="primary" onClick={::this._onProceedToPayment}>
               <FormattedMessage id="nelpcenter.acceptedTaskView.proceedPayment" />
             </button>
             <div className="about-nelper-pay">
@@ -69,7 +90,7 @@ export default class TaskCardView extends Component {
         </div>
         <div className="panel task-poster-section">
           <div className="task-poster-profile-row">
-            <div className="task-poster-profile">
+            <div className="task-poster-profile" onClick={::this._onPosterProfileClick}>
               <div
                 className="task-poster-picture"
                 style={{backgroundImage: `url('${application.user.pictureURL}')`}}
@@ -109,3 +130,26 @@ export default class TaskCardView extends Component {
     );
   }
 }
+
+export default Relay.createContainer(AcceptedTaskView, {
+  fragments: {
+    task: () => Relay.QL`
+      fragment on Task {
+        id,
+        completionState,
+        applications {
+          accepted {
+            id,
+            email,
+            phone,
+            price,
+            user {
+              name,
+              pictureURL,
+            },
+          },
+        },
+      }
+    `,
+  },
+});

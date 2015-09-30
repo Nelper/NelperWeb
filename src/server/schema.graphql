@@ -236,6 +236,8 @@ type Task implements Node {
   objectId: String
   createdAt: String
   updatedAt: String
+  state: TaskState
+  completionState: TaskCompletionState
   title: String
   desc: String
   category: String
@@ -247,6 +249,13 @@ type Task implements Node {
   application: Application
   applications: ApplicationConnection
   userPrivate: TaskPosterUserPrivate
+}
+
+enum TaskCompletionState {
+  ACCEPTED
+  PAYMENT_SENT
+  COMPLETED
+  RATED
 }
 
 type TaskConnection {
@@ -264,6 +273,13 @@ type TaskPosterUserPrivate {
   phone: String
   email: String
   exactLocation: Location
+}
+
+enum TaskState {
+  PENDING
+  ACCEPTED
+  DELETED
+  COMPLETED
 }
 
 input UpdateNotificationSettingsInput {

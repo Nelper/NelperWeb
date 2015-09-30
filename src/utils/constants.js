@@ -3,7 +3,7 @@
  * @readonly
  * @enum {number}
  */
-export const NELP_TASK_STATE = {
+export const TASK_STATE = {
   /** The task has been created and is waiting for the poster to accept an applicant */
   PENDING: 0,
   /** The task has an accepted applicant and is waiting to be completed. */
@@ -19,7 +19,7 @@ export const NELP_TASK_STATE = {
   * @readonly
   * @enum {number}
   */
-export const NELP_TASK_APPLICATION_STATE = {
+export const TASK_APPLICATION_STATE = {
   /**
    * The application has been created and is waiting for a
    * response from the task poster

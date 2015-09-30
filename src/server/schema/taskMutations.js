@@ -15,10 +15,12 @@ import {
   TaskType,
   UserType,
   FileInputType,
+  LocationInputType,
 } from './types';
 
 import {
   getTask,
+  addTask,
   editTask,
   applyForTask,
   cancelApplyForTask,
@@ -28,6 +30,29 @@ import {
 import {
   getMe,
 } from '../data/userData';
+
+export const AddTaskMutation = mutationWithClientMutationId({
+  name: 'AddTask',
+  inputFields: {
+    title: {type: new GraphQLNonNull(GraphQLString)},
+    category: {type: new GraphQLNonNull(GraphQLString)},
+    desc: {type: new GraphQLNonNull(GraphQLString)},
+    priceOffered: {type: new GraphQLNonNull(GraphQLInt)},
+    location: {type: new GraphQLNonNull(LocationInputType)},
+    pictures: {type: new GraphQLList(FileInputType)},
+  },
+  outputFields: {
+    me: {
+      type: UserType,
+      resolve: (input, args, {rootValue}) => {
+        return getMe(rootValue);
+      },
+    },
+  },
+  mutateAndGetPayload: async ({title, category, desc, priceOffered, location, pictures}, {rootValue}) => {
+    await addTask(rootValue, title, category, desc, priceOffered, location, pictures);
+  },
+});
 
 export const ApplyForTaskMutation = mutationWithClientMutationId({
   name: 'ApplyForTask',

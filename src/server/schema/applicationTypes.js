@@ -23,7 +23,7 @@ import {getApplicantPrivate} from '../data/userData';
 
 import {UserType, TaskType} from './types';
 import commonFields from './commonFields';
-import {NELP_TASK_APPLICATION_STATE} from '../../utils/constants';
+import {TASK_APPLICATION_STATE} from '../../utils/constants';
 
 export const ApplicationStateType = new GraphQLEnumType({
   name: 'ApplicationState',
@@ -88,7 +88,7 @@ const applicationConnectionDefinition = connectionDefinitions({
     pendingCount: {
       type: GraphQLInt,
       description: 'The number of pending applications.',
-      resolve: (conn) => conn.edges.filter(edge => edge.node.get('state') === NELP_TASK_APPLICATION_STATE.PENDING).length,
+      resolve: (conn) => conn.edges.filter(edge => edge.node.get('state') === TASK_APPLICATION_STATE.PENDING).length,
     },
     hasNew: {
       type: GraphQLBoolean,
@@ -98,13 +98,13 @@ const applicationConnectionDefinition = connectionDefinitions({
     hasAccepted: {
       type: GraphQLBoolean,
       description: 'If the is an accepted application for this task.',
-      resolve: (conn) => conn.edges.some(edge => edge.node.get('state') === NELP_TASK_APPLICATION_STATE.ACCEPTED),
+      resolve: (conn) => conn.edges.some(edge => edge.node.get('state') === TASK_APPLICATION_STATE.ACCEPTED),
     },
     accepted: {
       type: ApplicationType,
       description: 'The accepted application for this task.',
       resolve: async (conn, _, {rootValue}) => {
-        const acceptedEdge = conn.edges.find(edge => edge.node.get('state') === NELP_TASK_APPLICATION_STATE.ACCEPTED);
+        const acceptedEdge = conn.edges.find(edge => edge.node.get('state') === TASK_APPLICATION_STATE.ACCEPTED);
         if (acceptedEdge) {
           const application = acceptedEdge.node;
           const {phone, email} = await getApplicantPrivate(rootValue, application);

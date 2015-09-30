@@ -12,7 +12,7 @@
 
   transition: opacity 250ms linear;
   opacity: 0;
-  background-color: transparentize($color-black, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
 
   &.opened {
     left: 0;
@@ -37,13 +37,9 @@
     background-color: $color-background-light;
     min-height: em(200px);
     max-height: 95%;
-    padding: 1em;
     max-width: $max-width;
     margin: 1rem;
     border: $base-border;
-
-    overflow-x: hidden;
-    overflow-y: auto;
 
     transition: transform 250ms ease-in-out;
     transform: translateY(100px);

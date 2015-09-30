@@ -1,6 +1,6 @@
 import alt from 'app/alt';
 import ApiUtils from 'utils/ApiUtils';
-import {NELP_TASK_STATE} from 'utils/constants';
+import {TASK_STATE} from 'utils/constants';
 
 class TaskActions {
 
@@ -24,7 +24,7 @@ class TaskActions {
   addTask(task) {
     task.applications = [];
     task.isNew = false;
-    task.state = NELP_TASK_STATE.PENDING;
+    task.state = TASK_STATE.PENDING;
     task.createdAt = new Date();
     ApiUtils.addTask(task)
       .then((t) => {

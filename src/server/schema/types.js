@@ -19,4 +19,4 @@ export {
   FeedbackConnectionType,
 } from './feedbackType';
 export {BrowseType, browseArgs} from './browseTypes';
-export {LocationType} from './locationTypes';
+export {LocationType, LocationInputType} from './locationTypes';
