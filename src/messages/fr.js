@@ -65,30 +65,30 @@ export default {
   },
 
   home: {
-    topSectionTitle: "Votre marché en ligne d’échange de services",
-    topSectionDesc: "Avec Nelper, entrez en contact avec votre communauté et faites compléter vos tâches ou complétez celles des autres.",
+    topSectionTitle: "Marché en ligne d'accomplissement de tâches",
+    topSectionDesc: "Avec Nelper, entrez en contact avec les gens de votre communauté et faites compléter vos tâches ou complétez celles d'autres personnes.",
 
     browseTitle: "Parcourir les tâches",
-    browseDesc: "Appliquez pour compéter des tâches.",
+    browseDesc: "Appliquez pour compléter des tâches.",
     nelpcenterTitle: "Centre Nelp",
     nelpcenterDesc: "Gérez vos tâches et applications.",
     postTitle: "Publier une tâche",
-    postDesc: "Trouvez un Nelper pour faire compléter votre tâche.",
+    postDesc: "Trouvez un Nelper et faites compléter votre tâche.",
 
     getCompletedTitle: "Faites compléter vos tâches",
-    getCompletedDesc: "Il y a des gens de votre communauté qui peuvent vous aider.<br />Publier une tâche est <strong>gratuit</strong>.",
+    getCompletedDesc: "Des gens de votre communauté peuvent vous aider.<br />Publier une tâche est <strong>gratuit</strong>.",
     getStarted: "Publier une tâche",
 
-    categoriesTitle: "Catégories simples, plusieurs options",
-    categoriesDesc: "Toutes vos tâches peuvent être complétées sur Nelper, de la tonte de pelouse à l’installation d’un routeur.",
+    categoriesTitle: "Catégories simples, options multiples",
+    categoriesDesc: "De la tonte de pelouse à l’installation d’un routeur, toutes vos tâches peuvent être complétées sur Nelper.",
 
     becomeNelperTitle: "Devenez un Nelper",
-    becomeNelperDesc: "Vous souhaitez mettre à profit vos talents et faire de l’argent? Rejoignez la communauté dès maintenant et complétez les tâches publiées.",
+    becomeNelperDesc: "Vous souhaitez mettre à profit vos talents et faire de l’argent? Rejoignez la communauté dès maintenant et complétez des tâches.",
     browseTasks: "Parcourir les tâches",
 
     nelperpayTitle: "NelperPay",
     nelperpayDesc: "Paix d’esprit pour les Nelpers et les publieurs de tâches",
-    nelperpayFeature1: "Aucun compte bancaire externe requis.",
+    nelperpayFeature1: "Aucun compte bancaire en ligne requis.",
     nelperpayFeature2: "Aucun frais d’adhésion.",
     nelperpayFeature3: "<strong>Aucun soucis.</strong>",
   },
@@ -210,8 +210,8 @@ export default {
     taskTitle: "Entrez le titre de votre tâche",
     taskDescription: "Décrivez ce dont vous avez besoin",
     taskOffer: "Combien offrez-vous?",
-    taskLocation: "Choississez votre emplacement",
-    taskPictures: "Ajouter des photos",
+    taskLocation: "Ajoutez l'emplacement de la tâche",
+    taskPictures: "Ajoutez des photos",
     post: "Créer la tâche!",
 
     deleteLocationTitle: "Supprimer l'emplacement",
@@ -231,11 +231,11 @@ export default {
     generalTitle_02: "Comment ça fonctionne?",
     generalDesc_02: "Veuillez visiter la page {howItWorks}. Elle contient tout ce que vous devez savoir sur le déroulement global de Nelper ainsi que toutes les explications servant à publier une tâche, parcourir les tâches, compléter une tâche et utiliser votre Centre Nelp",
     generalTitle_03: "Quelle est la différence entre un publieur de tâche et un Nelper?",
-    generalDesc_03: "Un <strong>publieur de tâche</strong> est un personne qui publie une tâche, dans le but de se la faire compléter. Un <strong>Nelper</strong> est une personne qui complète des tâches ou qui cherche des tâches à compléter.",
+    generalDesc_03: "Un <strong>publieur de tâche</strong> est un personne qui publie une tâche, dans le but de se la faire compléter. Un <strong>Nelper</strong> est une personne qui complète des tâches.",
     generalTitle_04: "Quel genre de tâche peut être complété sur Nelper?",
     generalDesc_04: "N’importe quel genre! De la tonte de pelouse à l’installation d’un routeur, vous pouvez trouver ou publier de tout sur Nelper.",
     generalTitle_05: "Est-ce gratuit?",
-    generalDesc_05: "Publier une tâche, parcourir les tâches et appliquer pour une tâche sont <strong>gratuits</strong>. En tant que publieur de tâche, vous payez toujours le prix final convenu de votre tâche, jamais plus, pas de frais cachés.<br /><br />Pour les Nelpers, des frais de 7.5% du montant total d’une tâche s’appliquent par transaction, pour la sécurité de paiement de {nelperPay}.",
+    generalDesc_05: "Publier une tâche, parcourir les tâches et appliquer pour une tâche sont <strong>gratuits</strong>, pas de frais cachés. En tant que publieur de tâche, vous payez toujours le prix convenu de votre tâche, jamais plus.<br /><br />Pour les Nelpers, des frais de 7.5% du montant total d’une tâche s’appliquent par transaction, pour la sécurité de paiement de {nelperPay}.",
     posterSectionTitle: "Publieur de tâche",
     posterTitle_00: "Comment publier une tâche?",
     posterDesc_00: "Allez dans {postATask}. Choisissez votre catégorie, donnez un titre à vote tâche, décrivez ce dont vous avez besoin, entrez votre offre de prix, choisissez l’emplacement de la tâche (votre adresse) et ajouter des photos, au besoin.<br /><br />Aussi simple que ça! Ça ne prend que 2 minutes.",
@@ -275,7 +275,7 @@ export default {
     nelperTitle_03: "Comment augmenter mes chances d’être accepté?",
     nelperDesc_03: "Assurez-vous de bien remplir votre {profile}. Écrivez sur vous, vos talents, votre éducation et vos expériences de travail. Un publieur de tâche va probablement regarder votre profil lorsque vous appliquez pour sa tâche donc il est important d’inclure beaucoup de détails.",
     nelperTitle_04: "Quel est la procédure pour compléter une tâche et recevoir le paiement? ",
-    nelperDesc_04: `Si votre application est acceptée, vous recevez une notification et votre statut d’application change dans votre {nelpCenter}. Lorsque tous les détails ont été réglés entre vous et le publieur de la tâche, vous êtes prêt à compléter la tâche et recevoir le paiement.
+    nelperDesc_04: `Si votre application est acceptée, vous recevez une notification et votre statut d’application change. Lorsque tous les détails ont été réglés entre vous et le publieur de la tâche, vous êtes prêt à compléter la tâche et recevoir le paiement.
     <ol>
       <li>
         Le publieur de tâche envoie le paiement. Celui-ci sera sécuritairement gelé via notre plateforme {nelperPay}, jusqu'à ce que vous complétiez la tâche. Ainsi, vous pouvez commencer à travailler sur la tâche tout en sachant que le paiement est en attente pour vous.
@@ -291,7 +291,7 @@ export default {
       </li>
     </ol>`,
     nelperTitle_05: "Qu’arrive-t-il si mon application est refusée ou si la tâche se fait supprimer?",
-    nelperDesc_05: "Vous recevez une notification et votre statut d’application change dans votre {nelpCenter}.",
+    nelperDesc_05: "Si votre application se fait refuser, vous recevez une notification et votre statut d’application change. Si la tâche pour laquelle vous avez appliqué se fait supprimer, votre application sera également supprimée dans le processus.",
     privacySectionTitle: "Confidentialité",
     privacyTitle_00: "Est-ce que l’emplacement d’une tâche sur la carte est celui de l’adresse exacte?",
     privacyDesc_00: "Non. L’emplacement vu sur la carte est un rayon aléatoire de 400 mètres autour de l’emplacement exact. Un Nelper a seulement accès à l’adresse exacte lorsque son application se fait accepter.<br /><br />Vous pouvez créer un nouvel emplacement lorsque vous publiez une tâche ou en sélectionner un déjà existant, préalablement ajouté dans vos {settings}.",
@@ -360,7 +360,7 @@ export default {
 
       poster: "Publieur de tâche",
       posterSetting1: "Un Nelper applique pour ma tâche",
-      posterSetting2: "Mon Nelper exige que son paiement soit libéré",
+      posterSetting2: "Mon Nelper demande que son paiement soit libéré",
 
       nelper: "Nelper",
       nelperSetting1: "Mon statut d'application change",
