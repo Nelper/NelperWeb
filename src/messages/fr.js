@@ -173,8 +173,8 @@ export default {
 
       progressAccepted: "Nelper accepté",
       progressSent: "Paiement envoyé",
-      progressApproved: "Libération du paiement demandée",
-      progressRating: "Confirmation & évaluation",
+      progressApproved: "Confirmation tâche complétée",
+      progressRating: "Évaluation",
       progressHelp: `
       <h2>Quel est la procédure pour envoyer le paiement et faire compléter ma tâche?</h2>
       <ol>
@@ -240,9 +240,9 @@ export default {
     generalDesc_05: "Publier une tâche, parcourir les tâches et appliquer pour une tâche sont <strong>gratuits</strong>, pas de frais cachés. En tant que publieur de tâche, vous payez toujours le prix convenu de votre tâche, jamais plus.<br /><br />Pour les Nelpers, des frais de 7.5% du montant total d’une tâche s’appliquent par transaction, pour la sécurité de paiement de {nelperPay}.",
     posterSectionTitle: "Publieur de tâche",
     posterTitle_00: "Comment publier une tâche?",
-    posterDesc_00: "Allez dans {postATask}. Choisissez votre catégorie, donnez un titre à vote tâche, décrivez ce dont vous avez besoin, entrez votre offre de prix, choisissez l’emplacement de la tâche (votre adresse) et ajouter des photos, au besoin.<br /><br />Aussi simple que ça! Ça ne prend que 2 minutes.",
+    posterDesc_00: "Allez dans {postATask}. Choisissez votre catégorie, donnez un titre à vote tâche, décrivez ce dont vous avez besoin, entrez votre offre de prix, ajoutez l'emplacement de la tâche et ajoutez des photos, au besoin.",
     posterTitle_01: "Comment savoir quel prix offrir pour ma tâche?",
-    posterDesc_01: "Lorsque vous publiez une tâche, le prix que vous offrez ne peut servir que de point de départ. Lorsqu’ils appliquent pour une tâche, les Nelpers ont l’option de faire une leur propre offre de prix qui leur semble juste, dans le but de trouver une entente commune.<br /><br />Il n’y a pas de règles quant au montant que vous devriez débourser pour une tâche mais gardez en tête qu’une tâche plus complexe ou plus longue à compléter devrait être plus chère. Nous vous recommandons aussi de parcourir les tâches de la même catégorie dans {browseTasks} avant de publier la vôtre. Ainsi, vous aurez une meilleure idée de prix pour votre tâche.",
+    posterDesc_01: "Lorsque vous publiez une tâche, le prix que vous offrez ne peut servir que de point de départ. Lorsqu’ils appliquent pour une tâche, les Nelpers ont l'option de faire leur propre offre de prix afin de négocier et parvenir à un prix équitable pour les deux parties.<br /><br />Il n’y a pas de règles quant au montant que vous devriez débourser pour une tâche mais gardez en tête que le prix d'une tâche plus complexe ou plus longue à compléter devrait être plus élevé. Nous vous recommandons aussi de parcourir les tâches de la même catégorie dans {browseTasks} avant de publier la vôtre. Ainsi, vous aurez une meilleure idée de prix pour votre tâche.",
     posterTitle_02: "Où ma tâche peut-elle être vue par les autres utilisateurs?",
     posterDesc_02: "Dans {browseTasks}. Toutes les tâches publiées se retrouvent sur cette page.",
     posterTitle_03: "Où puis-je voir et modifier les détails de ma tâche une fois publiée?",
@@ -250,7 +250,7 @@ export default {
     posterTitle_04: "Comment choisir un Nelper?",
     posterDesc_04: "Cliquez sur votre tâche et faites votre choix parmi la liste de Nelpers ayant appliqué. Vous y voyez leurs noms, leurs évaluations, le nombre de tâches qu’ils ont complété ainsi que leurs offres de prix.<br /><br />Si vous cliquez sur la photo de profil d’un Nelper, vous accédez à sa page de profile ainsi qu’à ses critiques de tâches accomplies antérieurement. Vous pouvez également ouvrir une page de chat entre vous et le Nelper, pour discuter des détails de votre tâche ou pour lui poser des questions.",
     posterTitle_05: "Quel est la procédure pour envoyer le paiement et faire compléter ma tâche?",
-    posterDesc_05: `Lorsque vous acceptez un Nelper et que vous vous êtes entendus sur les détails, vous êtes prêt à procéder au paiement et à faire compléter votre tâche. Toutes les étapes restantes sont remplies sur votre page de tâche.
+    posterDesc_05: `Lorsque vous acceptez un Nelper et que vous vous êtes entendus sur les détails, vous êtes prêt à procéder au paiement et à faire compléter votre tâche. Toutes les étapes restantes se font directement sur votre page de tâche.
     <ol>
       <li>
         Cliquez sur <em>Procéder au paiement</em>. Lorsque vous aurez envoyé le paiement, celui-ci sera sécuritairement gelé via notre plateforme {nelperPay}, jusqu'à ce que votre tâche soit complétée. Ainsi, votre Nelper n’aura pas immédiatement accès à son argent mais pourra commencer à travailler sur votre tâche tout en sachant que le paiement est en attente pour lui.
