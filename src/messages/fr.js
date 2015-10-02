@@ -173,8 +173,8 @@ export default {
 
       progressAccepted: "Nelper accepté",
       progressSent: "Paiement envoyé",
-      progressApproved: "Libération du paiement demandée",
-      progressRating: "Confirmation & évaluation",
+      progressApproved: "Confirmation tâche complétée",
+      progressRating: "Évaluation",
       progressHelp: `
       <h2>Quel est la procédure pour envoyer le paiement et faire compléter ma tâche?</h2>
       <ol>
