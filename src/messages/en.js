@@ -171,7 +171,7 @@ export default {
       nelperAccepted: "Accepted Nelper",
       deleteConfirm: "Are your sure you want to delete the task {title}?",
 
-      progressAccepted: "Nelper Accepted",
+      progressAccepted: "Nelper accepted",
       progressSent: "Payment sent",
       progressApproved: "Payment release requested",
       progressRating: "Confirmation & Feedback",
