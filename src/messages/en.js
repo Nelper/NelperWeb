@@ -198,6 +198,8 @@ export default {
     acceptedTaskView: {
       proceedPayment: "Proceed to payment",
       aboutNelperPay: "About NelperPay",
+      taskCompleted: "{name} has completed my task",
+      paidOn: "paid on {date}",
 
       chat: "Open Chat",
     },

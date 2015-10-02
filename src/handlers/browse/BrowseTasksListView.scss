@@ -19,7 +19,6 @@
 
   %task {
     width: 100%;
-
     padding: $list-items-padding 0;
 
     &:not(:last-child) {
@@ -33,10 +32,6 @@
 
   .task-collapsed {
     @extend %task;
-
-    .detail {
-      max-height: 0;
-    }
 
     .collapse-icon {
       transform: rotate(0deg);
@@ -160,9 +155,6 @@
   .detail {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    transition: max-height 300ms ease-in-out;
-    max-height: 500px;
     margin-left: 1rem;
     margin-right: 1rem;
 

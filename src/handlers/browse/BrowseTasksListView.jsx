@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
+import {VelocityTransitionGroup} from 'velocity-react';
 
 import MakeOfferDialogView from './MakeOfferDialogView';
 import TaskPictureSlider from 'components/TaskPictureSlider';
@@ -200,32 +201,38 @@ class BrowseTasksListView extends Component {
             </div>
             <div styleName="collapse-icon" />
           </div>
-          <div styleName="detail">
-            <div styleName="desc-col">
-              <div styleName="desc">
-                {t.desc}
+          <VelocityTransitionGroup component="div" enter="slideDown" leave="slideUp">
+          {
+            selected ?
+            <div styleName="detail">
+              <div styleName="desc-col">
+                <div styleName="desc">
+                  {t.desc}
+                </div>
+                <div styleName="controls" className="btn-group">
+                  {
+                    t.application && t.application.state === 'PENDING' ?
+                    <button className="primary" onClick={() => this._onCancelOffer(t)}>
+                      Cancel offer
+                    </button> :
+                    <button className="primary" onClick={() => this._onMakeOffer(t)}>
+                      Make an offer
+                    </button>
+                  }
+                  <button className="secondary">View Profile</button>
+                </div>
               </div>
-              <div styleName="controls" className="btn-group">
-                {
-                  t.application && t.application.state === 'PENDING' ?
-                  <button className="primary" onClick={() => this._onCancelOffer(t)}>
-                    Cancel offer
-                  </button> :
-                  <button className="primary" onClick={() => this._onMakeOffer(t)}>
-                    Make an offer
-                  </button>
-                }
-                <button className="secondary">View Profile</button>
-              </div>
-            </div>
-            {
-              t.pictures && t.pictures.length > 0 ?
-              <div styleName="task-pictures">
-                <TaskPictureSlider task={t} />
-              </div> :
-              null
-            }
-          </div>
+              {
+                t.pictures && t.pictures.length > 0 ?
+                <div styleName="task-pictures">
+                  <TaskPictureSlider task={t} />
+                </div> :
+                null
+              }
+            </div> :
+            null
+          }
+          </VelocityTransitionGroup>
         </div>
       );
     });

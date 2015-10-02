@@ -177,6 +177,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
   }
 
   .completed-title {
@@ -184,60 +186,57 @@
   }
 }
 
-// Create the backgrounds for the checkboxes
-.checkbox {
-  background-color: #fff;
-  display: inline-block;
+// TODO: Find out why the animation doesnt work inside the module.
+.payment-dialog-checkbox {
+  display: block;
   height: 50px;
-  margin: 0 0.25em;
+  position: relative;
   width: 50px;
+  background-color: $color-accepted;
+  border-radius: 50%;
 
-  // This label functions as actual clickable area, because the default checkbox is rubbish
-  label {
-    display: block;
-    height: 50px;
-    position: relative;
-    width: 50px;
-
-    // This is the pseudo-element for the check mark
-    &:after {
-      /*
+  .checkbox-check {
+    /*
       This element has a border on the right, and top. By rotating it looks like a check symbol, but the wrong way. That's why I'm flipping it with scaleX(-1)
-      */
-      transform: scaleX(-1) rotate(180deg + -45deg);
+    */
+    transform: scaleX(-1) rotate(180deg + -45deg);
 
-      /*
+    /*
       I want to position the symbol using the left top, because when increasing the width and height of an object, it expands from the top left corner as well. That is what makes it looks like it's being drawn.
-      */
-      transform-origin: left top;
+    */
+    transform-origin: left top;
 
-      // The borders
-      border-right: 4px solid #cee;
-      border-top: 4px solid #cee;
+    border-right: 4px solid $color-background-light;
+    border-top: 4px solid $color-background-light;
 
-      // Positioning and stuff
-      content: '';
-      display: block;
-      height: 20px;
-      left: 14px;
-      position: absolute;
-      top: 26px;
-      width: 10px;
-    }
+    content: '';
+    display: block;
+    height: 20px;
+    left: 14px;
+    position: absolute;
+    top: 26px;
+    width: 10px;
   }
 
-  // Hide the input!
-  input { display: none; }
-
-  // When the input is checked (by clicking the label), I wan't the animation to run and the colour to change.
-  label:after {
-    animation: check 0.8s infinite;
-    border-color: #6aa;
+  &.active .checkbox-check {
+    animation: payment-dialog-check 1s;
+    border-color: $color-background-light;
   }
 }
 
-@keyframes check {
-  0% { height: 0; width: 0; opacity: 0;}
-  25% { height: 0; width: 10px; opacity: 0.5;}
-  50% { height: 20px; width: 10px; opacity: 1;}
+@keyframes payment-dialog-check {
+  0%, 25% {
+    height: 0;
+    width: 0;
+  }
+
+  50% {
+    height: 0;
+    width: 10px;
+  }
+
+  100% {
+    height: 20px;
+    width: 10px;
+  }
 }

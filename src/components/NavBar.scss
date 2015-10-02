@@ -54,12 +54,12 @@
       padding-right: 2rem;
 
       color: $color-black;
-      font-weight: bold;
-      font-size: 1.5em;
+      font-size: 1.7em;
+      letter-spacing: 0.5px;
 
       img {
         max-height: $navigation-height;
-        padding: 6px;
+        padding: 8px;
         max-width: none;
       }
 
@@ -197,7 +197,7 @@
     display: none;
 
     @include media($medium-screen) {
-      @include image(3rem);
+      @include image(2.8rem);
       display: block;
       margin-left: 2rem;
       border-radius: 50%;
@@ -211,7 +211,7 @@
       @include image(1.5rem);
       display: block;
       background-image: url('~images/icons/expand.png');
-      margin-left: 0.5rem;
+      margin-left: 0.2rem;
     }
   }
 

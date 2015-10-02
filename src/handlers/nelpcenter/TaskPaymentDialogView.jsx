@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import cssModules from 'react-css-modules';
 import {FormattedNumber} from 'react-intl';
 import {Link} from 'react-router';
+import {VelocityComponent} from 'velocity-react';
+import classNames from 'classnames';
 
 import {Dialog, Progress} from 'components/index';
 import PaymentUtils from 'utils/PaymentUtils';
@@ -14,7 +16,8 @@ export default class TaskPaymentDialogView extends Component {
   static propTypes = {
     task: PropTypes.object.isRequired,
     opened: PropTypes.bool,
-    onClose: PropTypes.func,
+    onClose: PropTypes.func.isRequired,
+    onSuccess: PropTypes.func.isRequired,
   }
 
   state = {
@@ -74,7 +77,7 @@ export default class TaskPaymentDialogView extends Component {
   }
 
   _onClose() {
-    this.props.onClose && this.props.onClose();
+    this.props.onClose();
   }
 
   _onPayClick() {
@@ -82,7 +85,12 @@ export default class TaskPaymentDialogView extends Component {
       return;
     }
     this.setState({loading: true});
-    setTimeout(() => this.setState({completed: true}), 3000);
+    setTimeout(() => {
+      this.setState({completed: true});
+      setTimeout(() => {
+        this.props.onSuccess();
+      }, 2000);
+    }, 3000);
   }
 
   render() {
@@ -103,75 +111,81 @@ export default class TaskPaymentDialogView extends Component {
             <h1 styleName="title">Payment</h1>
             <h3 styleName="subtitle">to {application.user.name}</h3>
           </div>
-          {
-            !this.state.completed ?
-            <div styleName="content">
-              <form onSubmit={::this._onSubmit}>
-                <div styleName="cardholder-name">
-                  <div styleName="cardholder-name-icon" />
-                  <input
-                    styleName="icon-input"
-                    type="text"
-                    placeholder="Cardholder name"
-                    value={this.state.name}
-                    onChange={::this._onNameChanged}
-                  />
-                </div>
-                <div styleName="card-info">
-                  <div styleName="card-number">
-                    <div styleName="card-number-icon" />
+          <VelocityComponent animation={this.state.completed ? 'slideUp' : 'slideDown'} duration={300}>
+            <VelocityComponent animation={{opacity: this.state.completed ? 0 : 1}} duration={300}>
+              <div styleName="content">
+                <form onSubmit={::this._onSubmit}>
+                  <div styleName="cardholder-name">
+                    <div styleName="cardholder-name-icon" />
                     <input
                       styleName="icon-input"
                       type="text"
-                      placeholder="Card number"
-                      size="20"
-                      value={this.state.number}
-                      onChange={::this._onNumberChanged}
+                      placeholder="Cardholder name"
+                      value={this.state.name}
+                      onChange={::this._onNameChanged}
                     />
                   </div>
-                  <div styleName="exp-row">
-                    <div styleName="exp">
-                      <div styleName="exp-icon" />
+                  <div styleName="card-info">
+                    <div styleName="card-number">
+                      <div styleName="card-number-icon" />
                       <input
                         styleName="icon-input"
                         type="text"
-                        placeholder="MM / YY"
-                        size="5"
-                        value={this.state.expiration}
-                        onChange={::this._onExpirationChanged}
+                        placeholder="Card number"
+                        size="20"
+                        value={this.state.number}
+                        onChange={::this._onNumberChanged}
                       />
                     </div>
-                    <div styleName="cvc">
-                      <div styleName="cvc-icon" />
-                      <input
-                        styleName="icon-input"
-                        type="text"
-                        placeholder="CVC"
-                        size="3"
-                        value={this.state.cvc}
-                        onChange={::this._onCVCChanged}
-                      />
-                    <div styleName="cvc-help-icon" />
+                    <div styleName="exp-row">
+                      <div styleName="exp">
+                        <div styleName="exp-icon" />
+                        <input
+                          styleName="icon-input"
+                          type="text"
+                          placeholder="MM / YY"
+                          size="5"
+                          value={this.state.expiration}
+                          onChange={::this._onExpirationChanged}
+                        />
+                      </div>
+                      <div styleName="cvc">
+                        <div styleName="cvc-icon" />
+                        <input
+                          styleName="icon-input"
+                          type="text"
+                          placeholder="CVC"
+                          size="3"
+                          value={this.state.cvc}
+                          onChange={::this._onCVCChanged}
+                        />
+                      <div styleName="cvc-help-icon" />
+                      </div>
                     </div>
                   </div>
+                </form>
+                <div styleName="button-container">
+                  <button styleName="pay-button" className="primary" type="submit" onClick={::this._onPayClick}>
+                    <div styleName={this.state.loading ? 'loading-visible' : 'loading'}><Progress inverse small /></div>
+                    <div style={{visibility: this.state.loading ? 'hidden' : 'visible'}}>Pay <FormattedNumber value={application.price} style="currency" currency="CAD" /></div>
+                  </button>
+                  <Link styleName="terms-of-use" to="/termsofuse">Terms of use</Link>
                 </div>
-              </form>
-              <div styleName="button-container">
-                <button styleName="pay-button" className="primary" type="submit" onClick={::this._onPayClick}>
-                  <div styleName={this.state.loading ? 'loading-visible' : 'loading'}><Progress inverse small /></div>
-                  <div style={{visibility: this.state.loading ? 'hidden' : 'visible'}}>Pay <FormattedNumber value={application.price} style="currency" currency="CAD" /></div>
-                </button>
-                <Link styleName="terms-of-use" to="/termsofuse">Terms of use</Link>
               </div>
-            </div> :
-            <div styleName="completed-content">
-              <h2 styleName="completed-title">Payment successfully completed!</h2>
-                <div className="checkbox">
-                  <input type="checkbox" id="cb" name="cb" />
-                  <label />
+            </VelocityComponent>
+          </VelocityComponent>
+          <VelocityComponent animation={this.state.completed ? 'slideDown' : 'slideUp'} duration={300}>
+            <VelocityComponent animation={{opacity: this.state.completed ? 1 : 0}} duration={300}>
+              <div>
+                <div styleName="completed-content">
+                  <h2 styleName="completed-title">Payment successfully completed!</h2>
+                  <div className={classNames('payment-dialog-checkbox', {'active': this.state.completed})}>
+                    <div className="checkbox-check" />
+                  </div>
                 </div>
-            </div>
-          }
+              </div>
+            </VelocityComponent>
+          </VelocityComponent>
         </div>
       </Dialog>
     );

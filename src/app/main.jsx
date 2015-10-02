@@ -7,12 +7,12 @@ import ReactRouterRelay from 'react-router-relay';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import {Parse} from 'parse';
 
-import UserStore from 'stores/UserStore';
 import IntlUtils from 'utils/IntlUtils';
 import LogUtils from 'utils/LogUtils';
 import ApiUtils from 'utils/ApiUtils';
 import getRoutes from './getRoutes';
 import formats from 'utils/IntlFormats';
+import Storage from 'utils/Storage';
 
 import 'normalize.css/normalize.css';
 import 'styles/common.scss';
@@ -41,8 +41,7 @@ function getBrowserLang() {
 }
 
 // Get the language.
-const userPrivate = UserStore.state.user.privateData;
-const lang = (userPrivate && userPrivate.language) || getBrowserLang();
+const lang = Storage.getItem('lang') || getBrowserLang();
 // Force Canada locale.
 const locale = lang + '-CA';
 

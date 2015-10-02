@@ -4,6 +4,7 @@ import cssModules from 'react-css-modules';
 import {FormattedMessage} from 'react-intl';
 
 import {ChangeLanguageMutation} from 'actions/settings/index';
+import Storage from 'utils/Storage';
 
 import {
   IconButton,
@@ -73,6 +74,7 @@ class AccountSettingsHandler extends Component {
       privateData: this.props.user.privateData,
       language: event.target.value,
     }));
+    Storage.setItem('lang', event.target.value);
   }
 
   render() {

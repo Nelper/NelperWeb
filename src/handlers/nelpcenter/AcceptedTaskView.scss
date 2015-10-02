@@ -5,7 +5,7 @@
   .nelper-pay-separator {
     display: flex;
     justify-content: center;
-    margin: 2rem 4rem;
+    margin: 2rem 2rem 0;
     border-top: $base-border;
   }
 
@@ -25,6 +25,24 @@
     display: flex;
     align-items: center;
     color: $color-gray-medium;
+  }
+
+  .payment-sent-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .paid-amount {
+    font-size: 1.75em;
+    color: $color-gray-dark;
+  }
+
+  .paid-on {
+    color: $color-gray-medium;
+    margin-bottom: 2rem;
   }
 
   /**

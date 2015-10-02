@@ -199,6 +199,8 @@ export default {
     acceptedTaskView: {
       proceedPayment: "Procéder au paiement",
       aboutNelperPay: "À propos de NelperPay",
+      taskCompleted: "{name} has completed my task",
+      paidOn: "paid on {date}",
 
       chat: "Ouvrir le chat",
     },
