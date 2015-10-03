@@ -12,6 +12,7 @@ module.exports = merge(shared.config, {
   devtool: 'eval',
   entry: {
     main: [
+      'event-source-polyfill', // Required for webpack-hot-middleware to work in safari and ie...
       'webpack-hot-middleware/client',
       path.resolve(ROOT_PATH, 'src/app/main'),
     ],

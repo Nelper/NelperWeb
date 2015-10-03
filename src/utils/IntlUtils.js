@@ -47,12 +47,12 @@ export default class IntlUtils {
         if (polyfillIntl) {
           require.ensure([
             'intl',
-            'intl/locale-data/jsonp/fr',
+            'intl/locale-data/jsonp/fr-CA',
             'react-intl/lib/locale-data/fr',
             'messages/fr',
           ], (require) => {
             require('intl');
-            require('intl/locale-data/jsonp/fr');
+            require('intl/locale-data/jsonp/fr-CA');
             addLocaleData(require('react-intl/lib/locale-data/fr'));
             IntlUtils._messages = flattenMessagesKeys(require('messages/fr'));
             resolve(IntlUtils._messages);
@@ -72,11 +72,11 @@ export default class IntlUtils {
         if (polyfillIntl) {
           require.ensure([
             'intl',
-            'intl/locale-data/jsonp/en',
+            'intl/locale-data/jsonp/en-CA',
             'messages/en',
           ], (require) => {
             require('intl');
-            require('intl/locale-data/jsonp/en');
+            require('intl/locale-data/jsonp/en-CA');
             IntlUtils._messages = flattenMessagesKeys(require('messages/en'));
             resolve(IntlUtils._messages);
           });
