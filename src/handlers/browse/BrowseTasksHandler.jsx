@@ -7,7 +7,7 @@ import {FormattedMessage} from 'react-intl';
 import UserActions from 'actions/UserActions';
 import MapView from 'components/MapView';
 import BrowseTasksFilterView from './BrowseTasksFilterView';
-import NelpTaskListView from './BrowseTasksListView';
+import BrowseTasksListView from './BrowseTasksListView';
 import {LatLng} from 'utils/GoogleMapsUtils';
 
 import styles from './BrowseTasksHandler.scss';
@@ -156,7 +156,8 @@ class BrowseTasksHandler extends Component {
                 </button>
               </div>
             </div>
-            <NelpTaskListView
+            <BrowseTasksListView
+              me={this.props.me}
               browse={this.props.browse}
               filters={{
                 location: this.state.location,
@@ -186,6 +187,7 @@ export default Relay.createContainer(BrowseTasksHandler, {
             longitude,
           }
         }
+        ${BrowseTasksListView.getFragment('me')}
       }
     `,
     browse: () => Relay.QL`
@@ -200,7 +202,7 @@ export default Relay.createContainer(BrowseTasksHandler, {
             }
           }
         }
-        ${NelpTaskListView.getFragment('browse')}
+        ${BrowseTasksListView.getFragment('browse')}
       }
     `,
   },

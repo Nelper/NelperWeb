@@ -8,7 +8,6 @@ import MakeOfferDialogView from './MakeOfferDialogView';
 import TaskPictureSlider from 'components/TaskPictureSlider';
 import ApplyForTaskMutation from 'actions/ApplyForTaskMutation';
 import CancelApplyForTaskMutation from 'actions/CancelApplyForTaskMutation';
-import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import LocationUtils from 'utils/LocationUtils';
 import IntlUtils from 'utils/IntlUtils';
@@ -25,6 +24,7 @@ class BrowseTasksListView extends Component {
   static propTypes = {
     relay: PropTypes.object.isRequired,
     browse: PropTypes.object.isRequired,
+    me: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
     onTaskSelected: PropTypes.func,
   }
@@ -108,7 +108,7 @@ class BrowseTasksListView extends Component {
 
   _onMakeOffer(task) {
     // Make sure the user is logged to apply on a task.
-    if (!UserStore.isLogged()) {
+    if (!this.props.me.logged) {
       this.context.history.pushState({nextPathname: '/browse'}, '/login');
       return;
     }
@@ -153,8 +153,8 @@ class BrowseTasksListView extends Component {
 
     const displayedTasks = tasks.edges.map((edge) => {
       const t = edge.node;
-      const distance = UserStore.isLogged() ?
-        Math.round(LocationUtils.kilometersBetween(t.location, UserStore.state.user.location)) :
+      const distance = this.props.me.logged ?
+        Math.round(LocationUtils.kilometersBetween(t.location, this.props.me.privateData.location)) :
         null;
 
       const selected = this.state.selectedTask && t.id === this.state.selectedTask.id;
@@ -265,6 +265,17 @@ export default Relay.createContainer(BrowseTasksListView, {
     location: null,
   },
   fragments: {
+    me: () => Relay.QL`
+      fragment on User {
+        logged,
+        privateData {
+          location {
+            latitude,
+            longitude,
+          }
+        }
+      }
+    `,
     browse: () => Relay.QL`
       fragment on Browse {
         tasks(first: $first, sort: $sort, location: $location, maxDistance: $maxDistance, minPrice: $minPrice, categories: $categories) {

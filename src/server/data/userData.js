@@ -1,6 +1,6 @@
 import Parse from 'parse/node';
 
-import {UserPrivateData, Feedback} from './parseTypes';
+import {UserPrivateData, Feedback, TaskPrivate} from './parseTypes';
 import {fixParseFileURL} from '../../utils/ParseUtils';
 import {TASK_APPLICATION_STATE} from '../../utils/constants';
 
@@ -117,25 +117,19 @@ export async function getTaskPosterPrivate({userId, sessionToken}, task) {
       acceptedApplication.get('state') !== TASK_APPLICATION_STATE.ACCEPTED) {
     return null;
   }
-  const query = new Parse.Query(Parse.User)
+  const userQuery = new Parse.Query(Parse.User)
     .include('privateData');
 
   // Use the master key to get the private data.
-  const user = await query.get(userId, {useMasterKey: true});
+  const user = await userQuery.get(userId, {useMasterKey: true});
   const privateData = user.get('privateData');
-  const taskLocation = privateData.get('locations')[0];
+
+  const taskPrivateQuery = new Parse.Query(TaskPrivate);
+  const taskPrivate = await taskPrivateQuery.get(task.get('privateData').id, {useMasterKey: true});
   return {
     email: privateData.get('email'),
     phone: privateData.get('phone'),
-    exactLocation: {
-      streetNumber: taskLocation.streetNumber,
-      route: taskLocation.route,
-      city: taskLocation.city,
-      province: taskLocation.province,
-      country: taskLocation.country,
-      postalCode: taskLocation.postalCode,
-      coords: taskLocation.coords,
-    },
+    exactLocation: taskPrivate.get('location'),
   };
 }
 

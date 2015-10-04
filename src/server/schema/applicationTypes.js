@@ -127,7 +127,7 @@ addResolver(
     }
     return null;
   }, (obj) => {
-    if (obj.className && obj.className === 'NelpTaskApplication') {
+    if (obj.className && obj.className === 'TaskApplication') {
       return ApplicationType;
     }
     return null;

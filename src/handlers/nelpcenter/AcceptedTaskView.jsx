@@ -179,12 +179,16 @@ class AcceptedTaskView extends Component {
                 {application.email}
               </div>
             </div>
-            <div className="task-poster-contact-phone">
-              <div className="task-poster-contact-phone-icon" />
-              <div className="task-poster-contact-phone-text">
-                {application.phone}
-              </div>
-            </div>
+            {
+              application.phone ?
+              <div className="task-poster-contact-phone">
+                <div className="task-poster-contact-phone-icon" />
+                <div className="task-poster-contact-phone-text">
+                  {application.phone}
+                </div>
+              </div> :
+              null
+            }
           </div>
         </div>
       </div>

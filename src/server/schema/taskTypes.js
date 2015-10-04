@@ -177,7 +177,7 @@ addResolver(
     }
     return null;
   }, (obj) => {
-    if (obj.className && obj.className === 'NelpTask') {
+    if (obj.className && obj.className === 'Task') {
       return TaskType;
     }
     return null;

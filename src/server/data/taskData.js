@@ -1,18 +1,18 @@
 import Parse from 'parse/node';
 
-import {NelpTask, TaskPrivate, NelpTaskApplication} from './parseTypes';
+import {Task, TaskPrivate, TaskApplication} from './parseTypes';
 import {TASK_STATE, TASK_APPLICATION_STATE} from '../../utils/constants';
 import TaskCategoryUtils from '../../utils/TaskCategoryUtils';
 
 import {getMe} from './userData';
 
 export async function getTask({sessionToken}, id, loadApplications = false) {
-  const query = new Parse.Query(NelpTask);
+  const query = new Parse.Query(Task);
   query.include('user');
   const task = await query.get(id, {sessionToken});
 
   if (loadApplications) {
-    const applicationsQuery = new Parse.Query(NelpTaskApplication)
+    const applicationsQuery = new Parse.Query(TaskApplication)
       .include('user')
       .equalTo('task', task)
       .notEqualTo('state', TASK_APPLICATION_STATE.CANCELED);
@@ -28,12 +28,12 @@ export async function getTask({sessionToken}, id, loadApplications = false) {
 export async function getTasksForUser({sessionToken}, userId) {
   const parseUser = new Parse.User();
   parseUser.id = userId;
-  const tasksQuery = new Parse.Query(NelpTask)
+  const tasksQuery = new Parse.Query(Task)
     .equalTo('user', parseUser)
     .containedIn('state', [TASK_STATE.PENDING, TASK_STATE.ACCEPTED])
     .descending('createdAt');
   const tasks = await tasksQuery.find({sessionToken});
-  const applicationsQuery = new Parse.Query(NelpTaskApplication)
+  const applicationsQuery = new Parse.Query(TaskApplication)
    .include('user')
    .containedIn('task', tasks)
    .notEqualTo('state', TASK_APPLICATION_STATE.CANCELED);
@@ -70,7 +70,7 @@ export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDist
   }
 
   const point = new Parse.GeoPoint(userLoc);
-  const taskQuery = new Parse.Query(NelpTask);
+  const taskQuery = new Parse.Query(Task);
 
   if (categories && categories.length !== TaskCategoryUtils.list().length) {
     taskQuery.containedIn('category', categories);
@@ -104,7 +104,7 @@ export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDist
   if (userId) {
     const parseUser = new Parse.User();
     parseUser.id = userId;
-    const applicationQuery = new Parse.Query(NelpTaskApplication);
+    const applicationQuery = new Parse.Query(TaskApplication);
     applicationQuery.equalTo('user', parseUser);
     applicationQuery.equalTo('state', TASK_APPLICATION_STATE.PENDING);
     applicationQuery.containedIn('task', tasks);
@@ -126,15 +126,15 @@ export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDist
  */
 function roundCoords(coords) {
   return {
-    latitude: Math.round(coords.latitude * 1000) / 1000,
-    longitude: Math.round(coords.longitude * 1000) / 1000,
+    latitude: coords.latitude + (Math.random() - 0.5) / 143,
+    longitude: coords.longitude + (Math.random() - 0.5) / 143,
   };
 }
 
 export async function postTask({sessionToken, userId}, title, category, desc, priceOffered, location, pictures) {
   const parseUser = new Parse.User();
   parseUser.id = userId;
-  const parseTask = new NelpTask();
+  const parseTask = new Task();
   parseTask.set('title', title);
   parseTask.set('category', category);
   parseTask.set('desc', desc);
@@ -168,7 +168,7 @@ export async function postTask({sessionToken, userId}, title, category, desc, pr
 }
 
 export async function editTask({sessionToken}, taskId, {title, desc, pictures}) {
-  const parseTask = new NelpTask();
+  const parseTask = new Task();
   parseTask.id = taskId;
   if (title) {
     parseTask.set('title', title);
@@ -187,11 +187,11 @@ export async function editTask({sessionToken}, taskId, {title, desc, pictures}) 
 }
 
 export async function applyForTask({userId, sessionToken}, taskId, price) {
-  const parseTask = new NelpTask();
+  const parseTask = new Task();
   parseTask.id = taskId;
   const parseUser = new Parse.User();
   parseUser.id = userId;
-  const parseApplication = new NelpTaskApplication();
+  const parseApplication = new TaskApplication();
   parseApplication.set('state', TASK_APPLICATION_STATE.PENDING);
   parseApplication.set('user', parseUser);
   parseApplication.set('task', parseTask);
@@ -201,11 +201,11 @@ export async function applyForTask({userId, sessionToken}, taskId, price) {
 }
 
 export async function cancelApplyForTask({userId, sessionToken}, taskId) {
-  const parseTask = new NelpTask();
+  const parseTask = new Task();
   parseTask.id = taskId;
   const parseUser = new Parse.User();
   parseUser.id = userId;
-  const query = new Parse.Query(NelpTaskApplication);
+  const query = new Parse.Query(TaskApplication);
   query.equalTo('user', parseUser);
   query.equalTo('task', parseTask);
   query.notEqualTo('state', TASK_APPLICATION_STATE.CANCELED);
@@ -217,7 +217,7 @@ export async function cancelApplyForTask({userId, sessionToken}, taskId) {
 }
 
 export async function deleteTask({sessionToken}, taskId) {
-  const parseTask = new NelpTask();
+  const parseTask = new Task();
   parseTask.id = taskId;
   parseTask.set('state', TASK_STATE.DELETED);
   return parseTask.save(null, {sessionToken});

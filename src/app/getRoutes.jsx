@@ -74,7 +74,7 @@ const PostQueries = {
 // authentication to make sure the user is logged in.
 function requireAuth(nextState, transition) {
   if (!UserStore.isLogged()) {
-    transition.to('/login', null, { nextPathname: nextState.location.pathname });
+    transition({ nextPathname: nextState.location.pathname }, '/login');
     return false;
   }
   return true;
@@ -167,6 +167,7 @@ export default function getRoutes() {
         component={PostTaskFormHandler}
         onEnter={requireAuth}
         queries={PostQueries}
+        renderLoading={renderLoading}
       />
       <Route onEnter={requireAuth} name={IntlUtils.getMessage('routes.nelpcenter')}>
         <Route path="/center" component={NelpCenterHandler}>

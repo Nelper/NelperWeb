@@ -28,7 +28,6 @@ class UserStore {
       handleAddEducation: UserActions.ADD_EDUCATION,
       handleEditEducation: UserActions.EDIT_EDUCATION,
       handleDeleteEducation: UserActions.DELETE_EDUCATION,
-      handleChangeLanguage: UserActions.CHANGE_LANGUAGE,
     });
   }
 
@@ -127,13 +126,6 @@ class UserStore {
   handleDeleteEducation(ed) {
     const user = this.state.user;
     user.education.splice(user.education.indexOf(ed), 1);
-    this.setState({user});
-    Storage.setItem('user', user);
-  }
-
-  handleChangeLanguage(lang) {
-    const user = this.state.user;
-    user.privateData.language = lang;
     this.setState({user});
     Storage.setItem('user', user);
   }

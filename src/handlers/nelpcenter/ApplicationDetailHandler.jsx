@@ -166,12 +166,16 @@ class ApplicationDetailHandler extends Component {
                   {task.userPrivate.email}
                 </div>
               </div>
-              <div styleName="task-poster-contact-phone">
-                <div styleName="task-poster-contact-phone-icon" />
-                <div>
-                  {task.userPrivate.phone}
-                </div>
-              </div>
+              {
+                task.userPrivate.phone ?
+                <div styleName="task-poster-contact-phone">
+                  <div styleName="task-poster-contact-phone-icon" />
+                  <div>
+                    {task.userPrivate.phone}
+                  </div>
+                </div> :
+                null
+              }
             </div> :
             null
           }
@@ -255,7 +259,13 @@ class ApplicationDetailHandler extends Component {
             initialCenter={new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location)}
             markers={[{
               key: 1,
-              position: new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location),
+              position: new LatLng(accepted ? {
+                latitude: task.userPrivate.exactLocation.coords.latitude + (Math.random() - 0.5) / 143,
+                longitude: task.userPrivate.exactLocation.coords.longitude + (Math.random() - 0.5) / 143,
+              } : task.location),
+            }, {
+              key: 2,
+              position: new LatLng(task.location),
             }]}/>
         </div>
         {

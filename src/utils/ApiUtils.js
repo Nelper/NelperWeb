@@ -1,7 +1,7 @@
 import Parse from 'parse';
 import Relay from 'react-relay';
 
-import {NelpTaskApplication, UserPrivateData} from './ParseModels';
+import {TaskApplication, UserPrivateData} from './ParseModels';
 
 import {
   meFromParse,
@@ -265,7 +265,7 @@ class ApiUtils {
     const parseApplications = task.applications
       .filter(a => a.isNew)
       .map(a => {
-        const parseApplication = new NelpTaskApplication();
+        const parseApplication = new TaskApplication();
         parseApplication.id = a.objectId;
         parseApplication.set('isNew', false);
         return parseApplication;

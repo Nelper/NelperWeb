@@ -1,11 +1,11 @@
 import Parse from 'parse/node';
 
 import {InvalidOperationError} from '../errors';
-import {NelpTaskApplication} from './parseTypes';
+import {TaskApplication} from './parseTypes';
 import {TASK_APPLICATION_STATE} from '../../utils/constants';
 
 export async function getApplication({sessionToken}, id) {
-  const query = new Parse.Query(NelpTaskApplication);
+  const query = new Parse.Query(TaskApplication);
   query.include('user');
   query.include('task.user');
   const application = await query.get(id, {sessionToken});
@@ -14,7 +14,7 @@ export async function getApplication({sessionToken}, id) {
 }
 
 export async function getApplicationsForUser({sessionToken}, userId) {
-  const query = new Parse.Query(NelpTaskApplication);
+  const query = new Parse.Query(TaskApplication);
   const parseUser = new Parse.User();
   parseUser.id = userId;
   query.include('task.user');
@@ -25,7 +25,7 @@ export async function getApplicationsForUser({sessionToken}, userId) {
 }
 
 export async function setApplicationState({sessionToken, userId}, applicationId, state) {
-  const query = new Parse.Query(NelpTaskApplication);
+  const query = new Parse.Query(TaskApplication);
   query.include('task.user');
   const application = await query.get(applicationId, {sessionToken});
   if (application.get('task').get('user').id !== userId) {
