@@ -7,8 +7,6 @@ import {
 
 import {nodeField} from './nodeResolver';
 
-import {UnauthorizedError} from './errors';
-
 import {
   UserType,
   BrowseType,
@@ -24,6 +22,8 @@ import {
   DeleteTaskMutation,
   CreateChargeForApplicationMutation,
   CreateStripeAccountMutation,
+  PostTaskMutation,
+  EditLocationsMutation,
 } from './schema/mutations';
 
 import {getMe} from './data/userData';
@@ -64,13 +64,17 @@ const queryType = new GraphQLObjectType({
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
+    postTask: PostTaskMutation,
     editTask: EditTaskMutation,
+    deleteTask: DeleteTaskMutation,
     applyForTask: ApplyForTaskMutation,
     cancelApplyForTask: CancelApplyForTaskMutation,
+    setApplicationState: SetApplicationStateMutation,
+
+    editLocations: EditLocationsMutation,
     updateNotificationSettings: UpdateNotificationSettingsMutation,
     changeLanguage: ChangeLanguageMutation,
-    setApplicationState: SetApplicationStateMutation,
-    deleteTask: DeleteTaskMutation,
+
     createChargeForApplication: CreateChargeForApplicationMutation,
     createStripeAccount: CreateStripeAccountMutation,
   }),

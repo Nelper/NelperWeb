@@ -3,6 +3,7 @@ export {GeoPointType, GeoPointInputType} from './geoPointTypes';
 export {
   TaskType,
   TaskConnectionType,
+  TaskEdgeType,
 } from './taskTypes';
 export {
   ApplicationType,

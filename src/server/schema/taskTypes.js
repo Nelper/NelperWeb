@@ -141,7 +141,7 @@ export const TaskType = new GraphQLObjectType({
       description: 'All the applications on the task. Only available in me',
       resolve: async (task, args) => {
         if (!task.get('applications')) {
-          throw Error('No applications. Can only get applications on the me object');
+          return null;
         }
         const applications = await task.get('applications');
         return connectionFromArray(applications, args);
@@ -168,6 +168,7 @@ const taskConnectionDefinition = connectionDefinitions({
 });
 
 export const TaskConnectionType = taskConnectionDefinition.connectionType;
+export const TaskEdgeType = taskConnectionDefinition.edgeType;
 
 addResolver(
   async (type, id, {rootValue}) => {

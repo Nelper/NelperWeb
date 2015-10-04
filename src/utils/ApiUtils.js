@@ -1,12 +1,10 @@
 import Parse from 'parse';
 import Relay from 'react-relay';
 
-import  {NelpTask, NelpTaskApplication, UserPrivateData, Feedback} from './ParseModels';
-import {TASK_STATE, TASK_APPLICATION_STATE} from 'utils/constants';
+import {NelpTaskApplication, UserPrivateData} from './ParseModels';
 
 import {
   meFromParse,
-  userFromParse,
   fixParseFileURL,
 } from './ParseUtils';
 import patchParse from './patchParse';
@@ -129,17 +127,6 @@ class ApiUtils {
   }
 
   /**
-   * Changes the saved user language.
-   * @param  {string} lang The language, one of 'fr' or 'en'
-   * @return {Promise}     Done saving
-   */
-  changeLanguage(lang) {
-    const privateData = Parse.User.current().get('privateData');
-    privateData.set('language', lang);
-    return privateData.save();
-  }
-
-  /**
    * Sets the user geo location.
    * @param {GeoPoint} loc The user geo point
    */
@@ -150,23 +137,6 @@ class ApiUtils {
     const privateData = user.get('privateData');
     privateData.set('location', pt);
     privateData.save();
-  }
-
-  /**
-   * Add a location for the user.
-   * @param {Location} loc The location to add
-   */
-  addUserLocation(loc) {
-    const privateData = Parse.User.current().get('privateData');
-    privateData.add('locations', loc);
-    return privateData.save();
-  }
-
-  deleteUserLocation(loc) {
-    const privateData = Parse.User.current().get('privateData');
-    const parseLocation = privateData.get('locations').find(l => l.name === loc.name);
-    privateData.remove('locations', parseLocation);
-    return privateData.save();
   }
 
   /**
@@ -287,239 +257,6 @@ class ApiUtils {
     user.save();
   }
 
-  refreshFeedback(user) {
-    const parseUser = new Parse.User();
-    parseUser.id = user.objectId;
-    return new Parse.Query(Feedback)
-      .include('poster')
-      .include('task')
-      .equalTo('user', parseUser)
-      .descending('createdAt')
-      .find()
-      .then(parseFeedback => {
-        return parseFeedback.map(parseItem => {
-          const item = parseItem.toPlainObject();
-          item.poster = parseItem.get('poster').toPlainObject();
-          item.task = parseItem.get('task').toPlainObject();
-          return item;
-        });
-      });
-  }
-
-  /**
-   * List all of the user's tasks.
-   * @return {Promise} The tasks
-   */
-  listMyNelpTasks() {
-    return new Parse.Query(NelpTask)
-      .equalTo('user', Parse.User.current())
-      .containedIn('state', [TASK_STATE.PENDING, TASK_STATE.ACCEPTED])
-      .descending('createdAt')
-      .limit(20)
-      .find()
-      .then((tasks) => {
-        return new Parse.Query(NelpTaskApplication)
-          .include('user')
-          .containedIn('task', tasks)
-          .notEqualTo('state', TASK_APPLICATION_STATE.CANCELED)
-          .find()
-          .then((applications) => {
-            return tasks.map((parseTask) => {
-              const taskApplications = applications.filter((a) => {
-                return a.get('task').id === parseTask.id;
-              })
-              .sort((ta1, ta2) => ta1.createdAt < ta2.createdAt ? 1 : -1);
-              const task = this._baseTaskFromParse(parseTask);
-              task.applications = taskApplications.map(a => {
-                return {
-                  objectId: a.id,
-                  createdAt: a.createdAt,
-                  isNew: a.get('isNew'),
-                  state: a.get('state'),
-                  price: a.get('price'),
-                  user: userFromParse(a.get('user')),
-                  task: task,
-                };
-              });
-              // TODO: make this a getter on the task object
-              task.isNew = task.applications.some(t => t.isNew);
-              return task;
-            });
-          });
-      });
-  }
-
-  /**
-   * List all of the user's applications.
-   * @return {Promise} The applications
-   */
-  listMyApplications() {
-    return new Parse.Query(NelpTaskApplication)
-      .include('task.user')
-      .equalTo('user', Parse.User.current())
-      .notEqualTo('state', TASK_APPLICATION_STATE.CANCELED)
-      .descending('createdAt')
-      .find()
-      .then(applications => {
-        return applications.map(a => {
-          const task = this._baseTaskFromParse(a.get('task'));
-          task.user = userFromParse(a.get('task').get('user'));
-          return {
-            objectId: a.id,
-            createdAt: a.createdAt,
-            state: a.get('state'),
-            task: task,
-            price: a.get('price'),
-            acceptedAt: a.get('acceptedAt'),
-          };
-        });
-      });
-  }
-
-  /**
-   * Create a new task.
-   * @param {Task} task The task to create
-   */
-  addTask(task) {
-    const parseTask = new NelpTask();
-    parseTask.set('title', task.title);
-    parseTask.set('category', task.category);
-    parseTask.set('desc', task.desc);
-    parseTask.set('priceOffered', task.priceOffered);
-    parseTask.set('state', task.state);
-    parseTask.set('location', new Parse.GeoPoint(task.location));
-    parseTask.set('city', task.city);
-    parseTask.set('user', Parse.User.current());
-    parseTask.set('pictures', task.pictures.map(p => {
-      return {
-        __type: 'File',
-        name: p.name,
-        url: p.url,
-      };
-    }));
-
-    const acl = new Parse.ACL(Parse.User.current());
-    acl.setPublicReadAccess(true);
-    parseTask.setACL(acl);
-
-    return parseTask.save()
-      .then(t => {
-        const newTask = this._baseTaskFromParse(t);
-        newTask.applications = [];
-        newTask.isNew = false;
-        return newTask;
-      });
-  }
-
-  addTaskPicture(task, picture) {
-    const parseTask = new NelpTask();
-    parseTask.id = task.objectId;
-    const parsePictures = task.pictures
-      .concat([picture])
-      .map(p => {
-        return {
-          __type: 'File',
-          name: p.name,
-          url: p.url,
-        };
-      });
-    parseTask.set('pictures', parsePictures);
-    parseTask.save();
-  }
-
-  deleteTaskPicture(task, picture) {
-    const parseTask = new NelpTask();
-    parseTask.id = task.objectId;
-    const parsePictures = task.pictures
-      .filter(p => p !== picture)
-      .map(p => {
-        return {
-          __type: 'File',
-          name: p.name,
-          url: p.url,
-        };
-      });
-    parseTask.set('pictures', parsePictures);
-    parseTask.save();
-  }
-
-  /**
-   * Delete a task.
-   * @param  {Task} task The task to delete
-   */
-  deleteTask(task) {
-    const parseTask = new NelpTask();
-    parseTask.id = task.objectId;
-    parseTask.set('state', TASK_STATE.DELETED);
-    parseTask.save();
-  }
-
-  /**
-   * Create an application for the user on a task.
-   * @param  {Task} task The task to apply on
-   */
-  applyForTask(task, price) {
-    const parseTask = new NelpTask();
-    parseTask.id = task.objectId;
-    const parseApplication = new NelpTaskApplication();
-    parseApplication.set('state', TASK_APPLICATION_STATE.PENDING);
-    parseApplication.set('user', Parse.User.current());
-    parseApplication.set('task', parseTask);
-    parseApplication.set('isNew', true);
-    parseApplication.set('price', price);
-    task.application = parseApplication.toPlainObject(); // TODO(janic): remove this side effect hack.
-    parseApplication.save();
-  }
-
-  /**
-   * Cancel an application on a task.
-   * @param  {Task} task The task to cancel the application on
-   */
-  cancelApplyForTask(task) {
-    const taskApplication = new NelpTaskApplication();
-    taskApplication.id = task.application.objectId;
-    taskApplication.set('state', TASK_APPLICATION_STATE.CANCELED);
-    taskApplication.save();
-  }
-
-  /**
-   * Accept an application on a task.
-   * @param  {Application} application The application to accept
-   */
-  acceptApplication(application) {
-    const parseApplication = new NelpTaskApplication();
-    parseApplication.id = application.objectId;
-    parseApplication.set('state', TASK_APPLICATION_STATE.ACCEPTED);
-    parseApplication.set('acceptedAt', new Date());
-    const parseTask = new NelpTask();
-    parseTask.id = application.task.objectId;
-    parseTask.set('state', TASK_STATE.ACCEPTED);
-
-    Parse.Object.saveAll([parseApplication, parseTask]);
-  }
-
-  /**
-   * Deny an application on a task.
-   * @param  {Application} application The application to deny
-   */
-  denyApplication(application) {
-    const taskApplication = new NelpTaskApplication();
-    taskApplication.id = application.objectId;
-    taskApplication.set('state', TASK_APPLICATION_STATE.DENIED);
-    taskApplication.save();
-  }
-
-  /**
-   * Restore an application to pending on a task.
-   * @param  {Application} application The application to deny
-   */
-  restoreApplication(application) {
-    const taskApplication = new NelpTaskApplication();
-    taskApplication.id = application.objectId;
-    taskApplication.set('state', TASK_APPLICATION_STATE.PENDING);
-    taskApplication.save();
-  }
-
   /**
    * Mark a task as viewed.
    * @param {Task} task The task to mask as viewed
@@ -535,15 +272,6 @@ class ApiUtils {
       });
 
     Parse.Object.saveAll(parseApplications);
-  }
-
-  /**
-   * Requests the applicant contact info.
-   * @param  {TaskApplication} application The application for which the infos are requested
-   * @return {Promise} The contact info
-   */
-  requestApplicantInfo(application) {
-    return Parse.Cloud.run('applicantInfo', {applicationId: application.objectId});
   }
 
   /**
@@ -577,28 +305,6 @@ class ApiUtils {
         })
       );
     }
-  }
-
-  _baseTaskFromParse(parseTask) {
-    return {
-      objectId: parseTask.id,
-      createdAt: parseTask.get('createdAt'),
-      title: parseTask.get('title'),
-      category: parseTask.get('category'),
-      desc: parseTask.get('desc'),
-      priceOffered: parseTask.get('priceOffered'),
-      location: parseTask.get('location'),
-      city: parseTask.get('city'),
-      state: parseTask.get('state'),
-      pictures: this._taskPictures(parseTask),
-    };
-  }
-
-  _taskPictures(parseTask) {
-    const pictures = parseTask.get('pictures');
-    return pictures && pictures.map(p => {
-      return this._fileFromParse(p);
-    });
   }
 
   _createUserBase(user, {email}) {

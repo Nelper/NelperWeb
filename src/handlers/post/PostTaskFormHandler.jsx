@@ -1,41 +1,28 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
+
 import {FormattedMessage} from 'react-intl';
-import connectToStores from 'alt/utils/connectToStores';
 import cssModules from 'react-css-modules';
 
 import {Dialog, Progress, ValidatorInput} from 'components/index';
 import AddLocationDialogView from 'components/AddLocationDialogView';
-import TaskActions from 'actions/TaskActions';
-import UserActions from 'actions/UserActions';
-import UserStore from 'stores/UserStore';
-import TaskStore from 'stores/TaskStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import ApiUtils from 'utils/ApiUtils';
+import PostTaskMutation from 'actions/post/PostTaskMutation';
+import EditLocationsMutation from 'actions/settings/EditLocationsMutation';
 
 import styles from './PostTaskFormHandler.scss';
 
-@connectToStores
 @cssModules(styles)
-export default class PostTaskFormHandler extends Component {
+class PostTaskFormHandler extends Component {
 
   static propTypes = {
-    locations: PropTypes.array,
     params: PropTypes.object,
+    me: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
     history: React.PropTypes.object.isRequired,
-  }
-
-  static getStores() {
-    return [UserStore, TaskStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      locations: UserStore.getState().user.privateData.locations,
-      createdTask: TaskStore.getState().createdTask,
-    };
   }
 
   state = {
@@ -48,7 +35,7 @@ export default class PostTaskFormHandler extends Component {
     desc: '',
     descError: null,
     hasDescInput: false,
-    location: this.props.locations[0],
+    location: this.props.me.privateData.locations[0],
     locationError: null,
     showCreateLocationDialog: false,
     showDeleteLocationDialog: false,
@@ -62,16 +49,11 @@ export default class PostTaskFormHandler extends Component {
       this.context.history.replaceState(null, '/post');
       return;
     }
-
-    TaskActions.startTaskCreate();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.createdTask) {
-      this._onTaskCreated();
-    }
-    if (!nextProps.locations.some(l => l === this.state.location)) {
-      this.setState({location: nextProps.locations[0]});
+    if (!nextProps.me.privateData.locations.some(l => l === this.state.location)) {
+      this.setState({location: nextProps.me.privateData.locations[0]});
     }
   }
 
@@ -81,7 +63,13 @@ export default class PostTaskFormHandler extends Component {
   }
 
   _onAddLocation(location) {
-    UserActions.addLocation(location);
+    const locations = [location, ...this.props.me.privateData.locations];
+    Relay.Store.update(
+      new EditLocationsMutation({
+        privateData: this.props.me.privateData,
+        locations,
+      })
+    );
     this.setState({
       showCreateLocationDialog: false,
       location: location,
@@ -93,7 +81,7 @@ export default class PostTaskFormHandler extends Component {
   }
 
   _onLocationChanged(event) {
-    const location = this.props.locations[event.target.selectedIndex];
+    const location = this.props.me.privateData.locations[event.target.selectedIndex];
     this.setState({
       location,
       locationError: null,
@@ -114,7 +102,14 @@ export default class PostTaskFormHandler extends Component {
   }
 
   _onDeleteLocationConfirm() {
-    UserActions.deleteLocation(this.state.location);
+    const locations = this.props.me.privateData.locations
+      .filter(l => l !== this.state.location);
+    Relay.Store.update(
+      new EditLocationsMutation({
+        privateData: this.props.me.privateData,
+        locations,
+      })
+    );
     this.setState({showDeleteLocationDialog: false});
   }
 
@@ -216,28 +211,26 @@ export default class PostTaskFormHandler extends Component {
       return;
     }
 
-    TaskActions.addTask({
-      title: this.state.title,
-      category: this.props.params.category,
-      desc: this.state.desc,
-      priceOffered: parseInt(this.state.priceOffered, 10),
-      location: this.state.location.coords,
-      city: this.state.location.city,
-      pictures: this.state.pictures,
-    });
+    Relay.Store.update(
+      new PostTaskMutation({
+        me: this.props.me,
+        task: {
+          title: this.state.title,
+          category: this.props.params.category,
+          desc: this.state.desc,
+          priceOffered: parseInt(this.state.priceOffered, 10),
+          location: this.state.location,
+          pictures: this.state.pictures,
+        },
+      })
+    );
 
-    this.setState({
-      loading: true,
-    });
+    this.context.history.pushState(null, '/center/tasks');
   }
 
   _onCancel(event) {
     event.preventDefault();
     this.context.history.goBack();
-  }
-
-  _onTaskCreated() {
-    this.context.history.pushState(null, '/center/tasks');
   }
 
   _getValidationStyleName(hasInput, isValid) {
@@ -263,7 +256,7 @@ export default class PostTaskFormHandler extends Component {
   }
 
   render() {
-    const locations = this.props.locations.map((l, i) => {
+    const locations = this.props.me.privateData.locations.map((l, i) => {
       return (
         <option value={i} key={i}>{l.name}</option>
       );
@@ -289,7 +282,11 @@ export default class PostTaskFormHandler extends Component {
           opened={this.state.showCreateLocationDialog}
           onLocationAdded={::this._onAddLocation}
           onCancel={::this._onCancelAddLocation} />
-        <Dialog opened={this.state.showDeleteLocationDialog} onClose={::this._onDeleteLocationClose}>
+        <Dialog
+          opened={this.state.showDeleteLocationDialog}
+          onClose={::this._onDeleteLocationClose}
+          className="pad-all"
+        >
           <h2><FormattedMessage id="post.deleteLocationTitle" /></h2>
           <p className="dialog-content">
             <FormattedMessage id="post.deleteLocationMessage" values={{
@@ -361,7 +358,7 @@ export default class PostTaskFormHandler extends Component {
                   {
                     locations.length ?
                     <select
-                      value={this.props.locations.indexOf(this.state.location)}
+                      value={this.props.me.privateData.locations.indexOf(this.state.location)}
                       onChange={::this._onLocationChanged}
                     >
                       {locations}
@@ -430,3 +427,29 @@ export default class PostTaskFormHandler extends Component {
     );
   }
 }
+
+export default Relay.createContainer(PostTaskFormHandler, {
+  fragments: {
+    me: () => Relay.QL`
+      fragment on User {
+        privateData {
+          locations {
+            name,
+            streetNumber,
+            route,
+            city,
+            postalCode,
+            province,
+            country,
+            coords {
+              latitude,
+              longitude,
+            }
+          },
+          ${EditLocationsMutation.getFragment('privateData')}
+        },
+        ${PostTaskMutation.getFragment('me')},
+      }
+    `,
+  },
+});

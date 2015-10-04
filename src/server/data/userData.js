@@ -58,6 +58,13 @@ export async function changeUserLanguage({userId, sessionToken}, language) {
   return privateData;
 }
 
+export async function editUserLocations({userId, sessionToken}, locations) {
+  const user = await getUser({sessionToken}, userId, true);
+  const privateData = user.get('privateData');
+  privateData.set('locations', locations);
+  return await privateData.save(null, {sessionToken});
+}
+
 export async function updateNotificationSettings({userId, sessionToken}, settingId, settingValue) {
   const user = await getUser({sessionToken}, userId, true);
   const privateData = user.get('privateData');

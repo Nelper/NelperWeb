@@ -193,7 +193,9 @@ export default class AddLocationDialogView extends Component {
       <Dialog
         fill
         opened={this.props.opened}
-        onClose={::this._onCancel}>
+        onClose={::this._onCancel}
+        className="pad-all"
+      >
         <form onSubmit={::this._onSubmit}>
           <div styleName="add-location-dialog-view">
             <h2>Add a location</h2>

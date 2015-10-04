@@ -12,7 +12,8 @@ export default class Dialog extends Component {
     fillAll: PropTypes.bool,
     onClose: PropTypes.func,
     children: PropTypes.node,
-    dialogClassName: PropTypes.string,
+    className: PropTypes.string,
+    styleName: PropTypes.string,
   }
 
   static defaultProps = {
@@ -141,7 +142,8 @@ export default class Dialog extends Component {
       this,
       <div className={classNames(
           'content',
-          this.props.dialogClassName,
+          this.props.className,
+          this.props.styleName,
           {'fill': this.props.fill},
           {'fill-all': this.props.fillAll},
         )}>

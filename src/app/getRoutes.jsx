@@ -20,6 +20,9 @@ import TaskDetailHandler from 'handlers/nelpcenter/TaskDetailHandler';
 import TaskApplicationDetailHandler from 'handlers/nelpcenter/TaskApplicationDetailHandler';
 import ApplicationDetailHandler from 'handlers/nelpcenter/ApplicationDetailHandler';
 
+import PostTaskCategoriesHandler from 'handlers/post/PostTaskCategoriesHandler';
+import PostTaskFormHandler from 'handlers/post/PostTaskFormHandler';
+
 import {
   SettingsHandler,
   AccountSettingsHandler,
@@ -63,6 +66,10 @@ const ApplicationDetailQueries = {
   application: () => Relay.QL`query { node(id: $applicationId) }`,
 };
 
+const PostQueries = {
+  me: () => Relay.QL`query { me }`,
+};
+
 // Pass this function to onEnter for a route that needs
 // authentication to make sure the user is logged in.
 function requireAuth(nextState, transition) {
@@ -87,19 +94,19 @@ function getHomeComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/browse/BrowseTasksHandler'));
   });
-} */
+}
 
 function getPostCategoriesComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/post/PostTaskCategoriesHandler'));
   });
-}
+} */
 
-function getPostFormComponent(loc, cb) {
+/* function getPostFormComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/post/PostTaskFormHandler'));
   });
-}
+}*/
 
 function getHowItWorksComponent(loc, cb) {
   require.ensure([], (require) => {
@@ -154,8 +161,13 @@ export default function getRoutes() {
         queries={BrowseQueries}
         renderLoading={renderLoading}
       />
-      <Route path="/post" getComponent={getPostCategoriesComponent} />
-      <Route path="/post/:category" getComponent={getPostFormComponent} onEnter={requireAuth} />
+      <Route path="/post" component={PostTaskCategoriesHandler} />
+      <Route
+        path="/post/:category"
+        component={PostTaskFormHandler}
+        onEnter={requireAuth}
+        queries={PostQueries}
+      />
       <Route onEnter={requireAuth} name={IntlUtils.getMessage('routes.nelpcenter')}>
         <Route path="/center" component={NelpCenterHandler}>
           <Route

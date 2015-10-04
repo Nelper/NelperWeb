@@ -2,9 +2,10 @@ import {
   GraphQLObjectType,
   GraphQLInputObjectType,
   GraphQLString,
+  GraphQLNonNull,
 } from 'graphql';
 
-import {GeoPointType} from './types';
+import {GeoPointType, GeoPointInputType} from './types';
 
 export const LocationType = new GraphQLObjectType({
   name: 'Location',
@@ -62,31 +63,31 @@ export const LocationInputType = new GraphQLInputObjectType({
       description: 'The full address formatted.',
     },
     streetNumber: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: 'The door number.',
     },
     route: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: 'The street name.',
     },
     city: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: 'The city.',
     },
     province: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: 'The province.',
     },
     country: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: 'The country.',
     },
     postalCode: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: 'The postal code.',
     },
     coords: {
-      type: GeoPointType,
+      type: new GraphQLNonNull(GeoPointInputType),
       description: 'The map coordinates.',
     },
   }),

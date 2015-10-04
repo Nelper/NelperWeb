@@ -1,6 +1,6 @@
 import Parse from 'parse/node';
 
-import {NelpTask, NelpTaskApplication} from './parseTypes';
+import {NelpTask, TaskPrivate, NelpTaskApplication} from './parseTypes';
 import {TASK_STATE, TASK_APPLICATION_STATE} from '../../utils/constants';
 import TaskCategoryUtils from '../../utils/TaskCategoryUtils';
 
@@ -119,7 +119,19 @@ export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDist
   return tasks;
 }
 
-export async function addTask({sessionToken, userId}, title, category, desc, priceOffered, location, pictures) {
+/**
+ * Round a geopoint coords at 3 decimal points to display an approximate location.
+ * @param  {GeoPoint} coords The geopoint to round
+ * @return {GeoPoint}        The rounded geopoint
+ */
+function roundCoords(coords) {
+  return {
+    latitude: Math.round(coords.latitude * 1000) / 1000,
+    longitude: Math.round(coords.longitude * 1000) / 1000,
+  };
+}
+
+export async function postTask({sessionToken, userId}, title, category, desc, priceOffered, location, pictures) {
   const parseUser = new Parse.User();
   parseUser.id = userId;
   const parseTask = new NelpTask();
@@ -128,7 +140,8 @@ export async function addTask({sessionToken, userId}, title, category, desc, pri
   parseTask.set('desc', desc);
   parseTask.set('priceOffered', priceOffered);
   parseTask.set('state', TASK_STATE.PENDING);
-  parseTask.set('location', new Parse.GeoPoint(location.coords));
+  parseTask.set('completionState', 0);
+  parseTask.set('location', new Parse.GeoPoint(roundCoords(location.coords)));
   parseTask.set('city', location.city);
   parseTask.set('user', parseUser);
   parseTask.set('pictures', pictures.map(p => {
@@ -139,9 +152,17 @@ export async function addTask({sessionToken, userId}, title, category, desc, pri
     };
   }));
 
-  const acl = new Parse.ACL(Parse.User.current());
+  const acl = new Parse.ACL(parseUser);
   acl.setPublicReadAccess(true);
   parseTask.setACL(acl);
+
+  const taskPrivate = new TaskPrivate();
+  taskPrivate.set('location', location);
+  const privateACL = new Parse.ACL(parseUser);
+  taskPrivate.setACL(privateACL);
+  await taskPrivate.save();
+
+  parseTask.set('privateData', taskPrivate);
 
   return await parseTask.save();
 }

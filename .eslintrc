@@ -8,7 +8,7 @@
     "FB": true
   },
   "rules": {
-    "no-undef": [2],
+    "id-length": [0],
     "react/sort-comp": [0, {
       "order": [
         "displayName",

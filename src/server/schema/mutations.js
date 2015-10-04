@@ -3,6 +3,7 @@ export {
   ApplyForTaskMutation,
   CancelApplyForTaskMutation,
   DeleteTaskMutation,
+  PostTaskMutation,
 } from './taskMutations';
 
 export {
@@ -12,6 +13,7 @@ export {
 export {
   ChangeLanguageMutation,
   UpdateNotificationSettingsMutation,
+  EditLocationsMutation,
 } from './userMutations';
 
 export {

@@ -1,6 +1,7 @@
 import {
   GraphQLString,
   GraphQLNonNull,
+  GraphQLList,
 } from 'graphql';
 
 import {
@@ -10,11 +11,13 @@ import {
 import {
   changeUserLanguage,
   updateNotificationSettings,
+  editUserLocations,
 } from '../data/userData';
 
 import {
   UserPrivateType,
   NotificationSettingInputType,
+  LocationInputType,
 } from './types';
 
 export const UpdateNotificationSettingsMutation = mutationWithClientMutationId({
@@ -52,6 +55,25 @@ export const ChangeLanguageMutation = mutationWithClientMutationId({
   },
   mutateAndGetPayload: async ({language}, {rootValue}) => {
     const privateData = await changeUserLanguage(rootValue, language);
+    return {privateData};
+  },
+});
+
+export const EditLocationsMutation = mutationWithClientMutationId({
+  name: 'EditLocations',
+  inputFields: {
+    locations: {type: new GraphQLList(LocationInputType)},
+  },
+  outputFields: {
+    privateData: {
+      type: UserPrivateType,
+      resolve: ({privateData}) => {
+        return privateData;
+      },
+    },
+  },
+  mutateAndGetPayload: async ({locations}, {rootValue}) => {
+    const privateData = await editUserLocations(rootValue, locations);
     return {privateData};
   },
 });

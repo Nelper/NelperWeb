@@ -105,6 +105,16 @@ type DeleteTaskPayload {
   clientMutationId: String!
 }
 
+input EditLocationsInput {
+  locations: [LocationInput]
+  clientMutationId: String!
+}
+
+type EditLocationsPayload {
+  privateData: UserPrivate
+  clientMutationId: String!
+}
+
 input EditTaskInput {
   id: ID!
   title: String
@@ -173,14 +183,28 @@ type Location {
   coords: GeoPoint
 }
 
+input LocationInput {
+  name: String
+  formattedAddress: String
+  streetNumber: String!
+  route: String!
+  city: String!
+  province: String!
+  country: String!
+  postalCode: String!
+  coords: GeoPointInput!
+}
+
 type Mutation {
+  postTask(input: PostTaskInput!): PostTaskPayload
   editTask(input: EditTaskInput!): EditTaskPayload
+  deleteTask(input: DeleteTaskInput!): DeleteTaskPayload
   applyForTask(input: ApplyForTaskInput!): ApplyForTaskPayload
   cancelApplyForTask(input: CancelApplyForTaskInput!): CancelApplyForTaskPayload
+  setApplicationState(input: SetApplicationStateInput!): SetApplicationStatePayload
+  editLocations(input: EditLocationsInput!): EditLocationsPayload
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
   changeLanguage(input: ChangeLanguageInput!): ChangeLanguagePayload
-  setApplicationState(input: SetApplicationStateInput!): SetApplicationStatePayload
-  deleteTask(input: DeleteTaskInput!): DeleteTaskPayload
   createChargeForApplication(input: CreateChargeForApplicationInput!): CreateChargeForApplicationPayload
   createStripeAccount(input: CreateStripeAccountInput!): CreateStripeAccountPayload
 }
@@ -210,6 +234,22 @@ type PageInfo {
   hasPreviousPage: Boolean!
   startCursor: String
   endCursor: String
+}
+
+input PostTaskInput {
+  title: String!
+  category: String!
+  desc: String!
+  priceOffered: Int!
+  location: LocationInput!
+  pictures: [FileInput]
+  clientMutationId: String!
+}
+
+type PostTaskPayload {
+  me: User
+  newTaskEdge: TaskEdge
+  clientMutationId: String!
 }
 
 type Query {

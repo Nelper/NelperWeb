@@ -9,18 +9,21 @@ import {
 import {
   fromGlobalId,
   mutationWithClientMutationId,
+  cursorForObjectInConnection,
 } from 'graphql-relay';
 
 import {
   TaskType,
+  TaskEdgeType,
   UserType,
   FileInputType,
   LocationInputType,
 } from './types';
 
 import {
+  getTasksForUser,
   getTask,
-  addTask,
+  postTask,
   editTask,
   applyForTask,
   cancelApplyForTask,
@@ -31,8 +34,8 @@ import {
   getMe,
 } from '../data/userData';
 
-export const AddTaskMutation = mutationWithClientMutationId({
-  name: 'AddTask',
+export const PostTaskMutation = mutationWithClientMutationId({
+  name: 'PostTask',
   inputFields: {
     title: {type: new GraphQLNonNull(GraphQLString)},
     category: {type: new GraphQLNonNull(GraphQLString)},
@@ -48,9 +51,22 @@ export const AddTaskMutation = mutationWithClientMutationId({
         return getMe(rootValue);
       },
     },
+    newTaskEdge: {
+      type: TaskEdgeType,
+      resolve: async ({localTaskId}, _, {rootValue}) => {
+        const tasks = await getTasksForUser(rootValue, rootValue.userId);
+        const task = tasks.find(t => t.id === localTaskId);
+
+        return {
+          cursor: cursorForObjectInConnection(tasks, task),
+          node: task,
+        };
+      },
+    },
   },
   mutateAndGetPayload: async ({title, category, desc, priceOffered, location, pictures}, {rootValue}) => {
-    await addTask(rootValue, title, category, desc, priceOffered, location, pictures);
+    const task = await postTask(rootValue, title, category, desc, priceOffered, location, pictures);
+    return {localTaskId: task.id};
   },
 });
 
