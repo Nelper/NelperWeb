@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import webpack from 'webpack';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
@@ -27,6 +28,8 @@ Parse.initialize(
 );
 
 graphql(app);
+
+app.use(express.static(path.resolve(__dirname, '../static'), {index: false}));
 
 app.use(new WebpackDevMiddleware(compiler, {
   noInfo: true,
