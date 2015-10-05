@@ -12,20 +12,27 @@ export default class ApplicationListView extends Component {
     onViewProfile: PropTypes.func,
   }
 
+  static defaultProps = {
+    onAccept: () => {},
+    onDeny: () => {},
+    onRestore: () => {},
+    onViewProfile: () => {},
+  }
+
   _onAccept(application) {
-    this.props.onAccept && this.props.onAccept(application);
+    this.props.onAccept(application);
   }
 
   _onDeny(application) {
-    this.props.onDeny && this.props.onDeny(application);
+    this.props.onDeny(application);
   }
 
   _onRestore(application) {
-    this.props.onRestore && this.props.onRestore(application);
+    this.props.onRestore(application);
   }
 
   _onViewProfile(application) {
-    this.props.onViewProfile && this.props.onViewProfile(application);
+    this.props.onViewProfile(application);
   }
 
   _renderSamePriceIcon(application) {

@@ -217,15 +217,19 @@ class TaskDetailHandler extends Component {
 
     return (
       <div className="find-nelp-detail-handler container">
-        <Dialog opened={confirmDeleteOpened}>
+        <Dialog
+          className="pad-all"
+          opened={confirmDeleteOpened}
+          onClose={::this._onCancelDelete}
+        >
           <h1>
             <FormattedMessage id="common.warning"/>
           </h1>
-          <p className="dialog-text">
+          <div className="dialog-content">
             <FormattedMessage id="nelpcenter.taskDetail.deleteConfirm" values={{
               title: task.title,
             }}/>
-          </p>
+          </div>
           <div className="btn-group dialog-buttons">
             <button onClick={::this._onCancelDelete}>
               <FormattedMessage id="common.cancel"/>

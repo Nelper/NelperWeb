@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
+import {FormattedMessage} from 'react-intl';
 import {Link} from 'react-router';
 
 import TaskCardView from './TaskCardView';
@@ -50,8 +51,8 @@ class TasksHandler extends Component {
           {
             !displayedTasks.length ?
             <div className="no-task">
-              <div className="no-task-text">You don't have any active task. Post a task now and find the help you need!</div>
-              <Link to="/post"><button className="primary">Post a Task</button></Link>
+              <div className="no-task-text"><FormattedMessage id="nelpcenter.myTasks.noTask" /></div>
+              <Link to="/post"><button className="primary"><FormattedMessage id="nelpcenter.myTasks.post" /></button></Link>
             </div> :
             <div className="tasks">{displayedTasks}</div>
           }

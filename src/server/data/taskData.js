@@ -120,7 +120,7 @@ export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDist
 }
 
 /**
- * Round a geopoint coords at 3 decimal points to display an approximate location.
+ * Add random noise to a location.
  * @param  {GeoPoint} coords The geopoint to round
  * @return {GeoPoint}        The rounded geopoint
  */

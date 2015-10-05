@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
+import {FormattedMessage} from 'react-intl';
 import {Link} from 'react-router';
 
 import ApplicationCardView from './ApplicationCardView';
@@ -31,8 +32,8 @@ class ApplicationsHandler extends Component {
         {
           !displayedApplications.length ?
           <div className="no-application">
-            <div className="no-application-text">You have no application. Browse tasks now to complete a task!</div>
-            <Link to="/browse"><button className="primary">Browse Tasks</button></Link>
+            <div className="no-application-text"><FormattedMessage id="nelpcenter.myApplications.noApplication" /></div>
+            <Link to="/browse"><button className="primary"><FormattedMessage id="nelpcenter.myApplications.browse" /></button></Link>
           </div> :
           <div className="applications">{displayedApplications}</div>
         }

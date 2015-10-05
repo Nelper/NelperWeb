@@ -126,6 +126,16 @@ export default {
       completion: "Task Completion",
     },
 
+    myTasks: {
+      noTask: "You don't have any active task. Post a task now and find the help you need!",
+      post: "Post a Task",
+    },
+
+    myApplications: {
+      noApplication: "You have no application. Browse tasks now to complete a task!",
+      browse: "Browse Tasks",
+    },
+
     applicationDetail: {
 
       status: "Application status",
