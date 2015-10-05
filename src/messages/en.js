@@ -121,7 +121,7 @@ export default {
     common: {
       nelperCount: "{num, plural, =0 {No pending Nelper} =1 {{num} pending Nelper} other {{num} pending Nelpers}}",
       deleteTask: "Delete this task",
-      editPic: "Edit my pictures",
+      editPic: "Edit pictures",
 
       completion: "Task Completion",
     },
