@@ -7,3 +7,9 @@
 .src-redbox---redbox---1q8IF {
   z-index: 999999;
 }
+
+.icon-component {
+  > svg {
+    display: block;
+  }
+}

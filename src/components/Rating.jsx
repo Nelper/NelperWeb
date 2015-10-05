@@ -10,14 +10,16 @@ import styles from './Rating.scss';
 export default class Rating extends Component {
 
   static propTypes = {
-    rating: PropTypes.number,
+    rating: PropTypes.number.isRequired,
     dark: PropTypes.bool,
     small: PropTypes.bool,
+    number: PropTypes.number,
   }
 
   static defaultProps = {
     dark: false,
     small: false,
+    number: -1,
   }
 
   render() {
@@ -38,6 +40,11 @@ export default class Rating extends Component {
         {'small': this.props.small},
       )}>
         {items}
+        {
+          this.props.number >= 0 ?
+          <div styleName="number">({this.props.number})</div> :
+          null
+        }
       </div>
     );
   }

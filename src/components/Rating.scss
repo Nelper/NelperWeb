@@ -4,8 +4,8 @@
   display: flex;
 
   .rating-item {
-    width: em(22px);
-    height: em(22px);
+    width: rem(22px);
+    height: rem(22px);
     fill: rgba(255, 255, 255, 0.3);
 
     &:not(:last-child) {
@@ -17,11 +17,25 @@
     }
   }
 
+  .number {
+    font-size: 1.2em;
+    line-height: rem(22px);
+  }
+
   &.small {
     .rating-item {
-      width: em(16px);
-      height: em(16px);
-      margin: 0.05em;
+      width: rem(16px);
+      height: rem(16px);
+
+      &:not(:last-child) {
+        margin-right: 0.05em;
+      }
+    }
+
+    .number {
+      margin-left: 0.25rem;
+      font-size: 0.9em;
+      line-height: rem(17px);
     }
   }
 

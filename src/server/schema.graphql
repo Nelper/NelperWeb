@@ -341,7 +341,8 @@ type User implements Node {
   logged: Boolean
   name: String
   pictureURL: String
-  rating: Int
+  rating: Float
+  tasksCompleted: Int
   about: String
   skills: [UserSkill]
   experience: [UserExperience]

@@ -61,10 +61,7 @@ export default class ApplicationListView extends Component {
               </div>
               <div className="user-info">
                 <div className="user-info-name">{a.user.name}</div>
-                <Rating rating={3} dark small />
-                <div className="user-info-tasks-completed">
-                  8 tasks completed
-                </div>
+                <Rating rating={a.user.rating} number={a.user.tasksCompleted} dark small />
               </div>
             </div>
             <div className="list-price-offered">

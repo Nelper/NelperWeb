@@ -4,6 +4,7 @@ import {
   GraphQLList,
   GraphQLBoolean,
   GraphQLInt,
+  GraphQLFloat,
   GraphQLInputObjectType,
 } from 'graphql';
 
@@ -90,7 +91,7 @@ const NotificationType = new GraphQLObjectType({
 
 export const UserPrivateType = new GraphQLObjectType({
   name: 'UserPrivate',
-  description: 'A person who uses our app.',
+  description: 'The user private data.',
   fields: () => ({
     id: globalIdField('UserPrivate'),
     ...commonFields,
@@ -171,9 +172,14 @@ export const UserType = new GraphQLObjectType({
       resolve: (user) => getUserPicture(user),
     },
     rating: {
-      type: GraphQLInt,
+      type: GraphQLFloat,
       description: 'The user rating from 0 to 5.',
       resolve: (user) => user.get('rating'),
+    },
+    tasksCompleted: {
+      type: GraphQLInt,
+      description: 'The amount of tasks completed by the user.',
+      resolve: (user) => user.get('tasksCompleted'),
     },
     about: {
       type: GraphQLString,

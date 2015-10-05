@@ -626,6 +626,18 @@
               "args": [],
               "type": {
                 "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "tasksCompleted",
+              "description": "The amount of tasks completed by the user.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
                 "name": "Int",
                 "ofType": null
               },
@@ -1653,7 +1665,7 @@
         {
           "kind": "OBJECT",
           "name": "UserPrivate",
-          "description": "A person who uses our app.",
+          "description": "The user private data.",
           "fields": [
             {
               "name": "id",

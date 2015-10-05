@@ -1,16 +1,21 @@
 import React, {Component, PropTypes} from 'react';
+import classNames from 'classnames';
 
 export default class Icon extends Component {
 
   static propTypes = {
     svg: PropTypes.string.isRequired,
     size: PropTypes.number,
+    className: PropTypes.string,
   }
 
   render() {
+    const {className, ...others} = this.props;
     return (
-      <i {...this.props}
+      <i
+        {...others}
         svg={null}
+        className={classNames('icon-component', className)}
         style={{
           display: 'block',
           width: this.props.size,
