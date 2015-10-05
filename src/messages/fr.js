@@ -170,7 +170,7 @@ export default {
       chat: "Ouvrir le chat",
 
       offering: "Le publieur offre",
-      locationShown: "Emplacement affiché",
+      locationShown: "Emplacement exact de la tâche affiché",
       locationWithin: "Emplacement de la tâche dans un rayon de 400m",
     },
 
@@ -220,7 +220,7 @@ export default {
   post: {
     selectCategory: "Sélectionnez une catégorie",
     changeCategory: "Sélectionner une autre catégorie",
-    taskTitle: "Entrez le titre de votre tâche",
+    taskTitle: "Entrez un titre",
     taskDescription: "Décrivez ce dont vous avez besoin",
     taskOffer: "Combien offrez-vous?",
     taskLocation: "Ajoutez l'emplacement de la tâche",

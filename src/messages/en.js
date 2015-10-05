@@ -23,7 +23,7 @@ export default {
   categories: {
     technology: {
       name: "Electronic & IT Support",
-      examples: "Computer Repair, Internet/Router Setup, Printer Installation, TV & Sound System Installation, Email Setup, Tablets & Phones Support, and more!",
+      examples: "Computer Repair, Internet/Router Setup, Printer Installation, TV & Sound System Installation, Email Setup, Tablet & Phone Support, and more!",
     },
     business: {
       name: "Business & Admin",
@@ -139,8 +139,8 @@ export default {
     applicationDetail: {
 
       status: "Application status",
-      agreed: "Agreed Price",
-      offer: "Your Offer",
+      agreed: "Agreed price",
+      offer: "Your offer",
 
       progressAccepted: "Accepted",
       progressSent: "Payment sent",
@@ -170,7 +170,7 @@ export default {
       chat: "Open Chat",
 
       offering: "Task Poster is offering",
-      locationShown: "Location shown",
+      locationShown: "Exact task location shown",
       locationWithin: "Task location within 400m",
     },
 
@@ -218,10 +218,10 @@ export default {
   },
 
   post: {
-    selectCategory: "Select a Category",
+    selectCategory: "Select a category",
     changeCategory: "Select another category",
-    taskTitle: "Enter your task title",
-    taskDescription: "Describe what your are looking for",
+    taskTitle: "Enter a title",
+    taskDescription: "Describe what you are looking for",
     taskOffer: "How much are you offering?",
     taskLocation: "Select your location",
     taskPictures: "Attach pictures",
