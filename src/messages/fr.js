@@ -5,7 +5,7 @@ export default {
     pending: "En attente",
     applied: "Appliqué",
 
-    viewProfile: "Voir le profile",
+    viewProfile: "Voir le profil",
 
     cancelApply: "Annuler l'application",
 
@@ -30,7 +30,7 @@ export default {
       examples: "Comptabilité, Organisation de fichiers, Rédaction de CV & lettres professionnelles, Stratégies de publicité, Médias sociaux, Saisie de données, et plus!",
     },
     multimedia: {
-      name: "Multimédia & Design",
+      name: "Multimédia",
       examples: "Développement de site web, Montage vidéo, Services de photographie & d’imprimerie, Conception graphique, Production musicale, Création de logo, et plus!",
     },
     gardening: {
@@ -51,7 +51,7 @@ export default {
   },
 
   routes: {
-    nelpcenter: "Nelp Center",
+    nelpcenter: "Centre Nelp",
     taskDetail: "Détails de la tâche",
     applicationDetail: "Détails de l'application",
   },
@@ -127,13 +127,13 @@ export default {
     },
 
     myTasks: {
-      noTask: "You don't have any active task. Post a task now and find the help you need!",
-      post: "Post a Task",
+      noTask: "Vous n'avez pas de tâche active.",
+      post: "Publier une tâche",
     },
 
     myApplications: {
-      noApplication: "You have no application. Browse tasks now to complete a task!",
-      browse: "Browse Tasks",
+      noApplication: "Vous n'avez pas d'application active.",
+      browse: "Parcourir les tâches",
     },
 
     applicationDetail: {
@@ -148,7 +148,7 @@ export default {
       progressReleased: "Paiement libéré",
       completed: "J'ai complété la tâche!",
       progressHelp: `
-      <h2>Quel est la procédure pour compléter la tâche et recevoir le paiement? </h2>
+      <h2>Quelle est la procédure pour compléter la tâche et recevoir le paiement? </h2>
       <ol>
         <li>
           Le publieur de la tâche envoie le paiement. Celui-ci sera sécuritairement gelé via notre plateforme {nelperPay},
@@ -183,24 +183,25 @@ export default {
 
       progressAccepted: "Nelper accepté",
       progressSent: "Paiement envoyé",
-      progressApproved: "Confirmation tâche complétée",
+      progressApproved: "Confirmation",
       progressRating: "Évaluation",
       progressHelp: `
-      <h2>Quel est la procédure pour envoyer le paiement et faire compléter ma tâche?</h2>
+      <h2>Quelle est la procédure pour envoyer le paiement et faire compléter ma tâche?</h2>
       <ol>
         <li>
-          Cliquez sur <em>Procéder au paiement</em>. Lorsque vous aurez envoyé le paiement, celui-ci sera sécuritairement
-          gelé via notre plateforme {nelperPay}, jusqu'à ce que votre tâche soit complétée.
+          Cliquez sur <em>Procéder au paiement</em>. Entrez vos informations de carte de crédit/débit et effectuez le paiement. Un reçu sera envoyé automatiquement à votre adresse courriel.
+        </li>
+        <li>
+          Lorsque vous aurez envoyé le paiement, celui-ci sera sécuritairement gelé via notre plateforme {nelperPay}, jusqu'à ce que votre tâche soit complétée.
         </li>
         <li>
           Votre Nelper complète votre tâche.
         </li>
         <li>
-          Lorsque votre tâche est complétée, votre Nelper demande que son paiement se fasse libérer.
+          Lorsque votre tâche est complétée, vous devez libérer le paiement de votre Nelper. Pour ce faire, confirmez que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>. Ceci conclue la transaction.
         </li>
         <li>
-          Pour libérer le paiement de votre Nelper et ainsi terminer la transaction, confirmez que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>.
-          Ensuite, évaluez la performance de votre Nelper.
+          Finalement, évaluez et critiquez la performance de votre Nelper.
         </li>
       </ol>
       `,
@@ -258,21 +259,24 @@ export default {
     posterTitle_03: "Où puis-je voir et modifier les détails de ma tâche une fois publiée?",
     posterDesc_03: "Dans votre {nelpCenter}, sous Mes tâches. Toutes vos tâches actives ainsi que ceux qui ont déjà été complétées s’y retrouvent avec leur prix, date de publication et le nombre de Nelpers ayant appliqué.<br /><br />Si vous cliquez sur une tâche, vous avez accès à tous ses détails, avez la possibilité d’y effectuer des changements et pouvez voir la liste complète de Nelpers ayant appliqué.",
     posterTitle_04: "Comment choisir un Nelper?",
-    posterDesc_04: "Cliquez sur votre tâche et faites votre choix parmi la liste de Nelpers ayant appliqué. Vous y voyez leurs noms, leurs évaluations, le nombre de tâches qu’ils ont complété ainsi que leurs offres de prix.<br /><br />Si vous cliquez sur la photo de profil d’un Nelper, vous accédez à sa page de profile ainsi qu’à ses critiques de tâches accomplies antérieurement. Vous pouvez également ouvrir une page de chat entre vous et le Nelper, pour discuter des détails de votre tâche ou pour lui poser des questions.",
+    posterDesc_04: "Cliquez sur votre tâche et faites votre choix parmi la liste de Nelpers ayant appliqué. Vous y voyez leurs noms, leurs évaluations, le nombre de tâches qu’ils ont complété ainsi que leurs offres de prix.<br /><br />Si vous cliquez sur la photo de profil d’un Nelper, vous accédez à sa page de profil ainsi qu’à ses critiques de tâches accomplies antérieurement. Vous pouvez également ouvrir une page de chat entre vous et le Nelper, pour discuter des détails de votre tâche ou pour lui poser des questions.",
     posterTitle_05: "Quel est la procédure pour envoyer le paiement et faire compléter ma tâche?",
-    posterDesc_05: `Lorsque vous acceptez un Nelper et que vous vous êtes entendus sur les détails, vous êtes prêt à procéder au paiement et à faire compléter votre tâche. Toutes les étapes restantes se font directement sur votre page de tâche.
+    posterDesc_05: `Lorsque vous acceptez un Nelper et vous êtes entendus sur les détails, vous êtes prêt à procéder au paiement et à faire compléter votre tâche. Toutes les étapes restantes se font directement sur votre page de tâche.
     <ol>
       <li>
-        Cliquez sur <em>Procéder au paiement</em>. Lorsque vous aurez envoyé le paiement, celui-ci sera sécuritairement gelé via notre plateforme {nelperPay}, jusqu'à ce que votre tâche soit complétée. Ainsi, votre Nelper n’aura pas immédiatement accès à son argent mais pourra commencer à travailler sur votre tâche tout en sachant que le paiement est en attente pour lui.
+        Cliquez sur <em>Procéder au paiement</em>. Entrez vos informations de carte de crédit/débit et effectuez le paiement. Un reçu sera envoyé automatiquement à votre adresse courriel.
+      </li>
+      <li>
+        Lorsque vous aurez envoyé le paiement, celui-ci sera sécuritairement gelé via notre plateforme {nelperPay}, jusqu'à ce que votre tâche soit complétée.
       </li>
       <li>
         Votre Nelper complète votre tâche.
       </li>
       <li>
-        Lorsque votre tâche est complétée, votre Nelper va demander que son paiement se fasse libérer.
+        Lorsque votre tâche est complétée, vous devez libérer le paiement de votre Nelper. Pour ce faire, confirmez que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>. Ceci conclue la transaction.
       </li>
       <li>
-        Pour libérer le paiement de votre Nelper et terminer la transaction, confirmez que votre tâche a été complétée en cliquant sur <em>Mon Nelper a complété ma tâche</em>. Ensuite, évaluez la performance de votre Nelper.
+        Finalement, évaluez et critiquez la performance de votre Nelper.
       </li>
     </ol>`,
     posterTitle_06: "Qu’arrive-t-il si aucun Nelper n’applique pour ma tâche?",
@@ -321,7 +325,7 @@ export default {
     paymentTitle_03: "Que faire en cas de dispute ou mésentente avec un Nelper?",
     paymentDesc_03: "Si votre Nelper réclâme son paiement sans avoir complété votre tâche, cliquez sur <em>Mon Nelper n’a pas complété ma tâche</em> dans le bas de votre page de tâche. Remplissez les champs, fournissez le plus de détails possible et incluez des preuves photos, si vous en avez.<br /><br />Nous allons examiner en détail votre dispute le plus tôt possible et vous receverez un courriel lorsque nous aurons résolu la dispute. Si votre Nelper n’a bel et bien jamais complété votre tâche, vous serez remboursé.<br /><br />Notre priorité la plus importante est de résoudre vos problèmes et disputes rapidement et en profondeur. Nous voulons vous offrir le meilleur service à la clientèle qui soit. Donc, à cet effect, si vous n’êtes pas satisfait avec l’une de nos décisions ou avez des questions après la résolution d’une dispute, vous pouvez nous contacter <u>n'importe quand</u> sur le {supportCenter}. Nous sommes là pour vous et allons répondre dans les plus brefs délais.",
     paymentTitle_04: "Que faire en cas de dispute ou mésentente avec un publieur de tâche?",
-    paymentDesc_04: "Si le publieur de la tâche refuse de confirmer que vous avez complété la tâche, affirmant que le travail était mal fait ou que vous ne l’avez complété du tout, cliquez sur Le publieur refuse de libérer le paiement dans le page de votre page d’application. Remplissez les champs, fournissez le plus de détails possible et incluez des preuves photos, si vous en avez.<br /><br />Nous allons examiner en détail votre dispute le plus tôt possible et vous receverez un courriel lorsque nous aurons résolu la dispute. Si nous jugeons que la tâche a été complétée dans des mesures acceptables, vous receverez votre paiement.<br /><br />Notre priorité la plus importante est de résoudre vos problèmes et disputes rapidement et en profondeur. Nous voulons vous offrir le meilleur service à la clientèle qui soit. Donc, à cet effect, si vous n’êtes pas satisfait avec l’une de nos décisions ou avez des questions après la résolution d’une dispute, vous pouvez nous contacter <u>n'importe quand</u> sur le {supportCenter}. Nous sommes là pour vous et allons répondre dans les plus brefs délais.",
+    paymentDesc_04: "Si le publieur de la tâche refuse de confirmer que vous avez complété la tâche, affirmant que le travail était mal fait ou que vous ne l’avez complété du tout, cliquez sur <em>Le publieur refuse de libérer le paiement</em> dans le page de votre page d’application. Remplissez les champs, fournissez le plus de détails possible et incluez des preuves photos, si vous en avez.<br /><br />Nous allons examiner en détail votre dispute le plus tôt possible et vous receverez un courriel lorsque nous aurons résolu la dispute. Si nous jugeons que la tâche a été complétée dans des mesures acceptables, vous receverez votre paiement.<br /><br />Notre priorité la plus importante est de résoudre vos problèmes et disputes rapidement et en profondeur. Nous voulons vous offrir le meilleur service à la clientèle qui soit. Donc, à cet effect, si vous n’êtes pas satisfait avec l’une de nos décisions ou avez des questions après la résolution d’une dispute, vous pouvez nous contacter <u>n'importe quand</u> sur le {supportCenter}. Nous sommes là pour vous et allons répondre dans les plus brefs délais.",
     paymentTitle_05: "Où puis-je obtenir du service à la clientèle?",
     paymentDesc_05: "Si vous avez besoin d’aide, avez des questions, désirez rapporter une erreur or voulez nous donner votre avis sur notre service, veuillez visiter le {supportCenter}. Vous pouvez nous rejoindre <u>n'importe quand</u> et nous vous répondrons dans les plus brefs délais!",
   },
