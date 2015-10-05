@@ -352,6 +352,8 @@ export default Relay.createContainer(TaskDetailHandler, {
             user {
               name,
               pictureURL,
+              rating,
+              tasksCompleted,
             },
             phone,
             email,
@@ -366,6 +368,8 @@ export default Relay.createContainer(TaskDetailHandler, {
               user {
                 name,
                 pictureURL,
+                rating,
+                tasksCompleted,
               },
               task {
                 objectId,

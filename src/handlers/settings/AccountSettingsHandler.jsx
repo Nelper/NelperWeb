@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
 import {ChangeLanguageMutation} from 'actions/settings/index';
 import Storage from 'utils/Storage';
@@ -167,7 +167,7 @@ class AccountSettingsHandler extends Component {
             {
               locations.length ?
               locations :
-              <FormattedMessage id="settings.account.noLocations" />
+              <FormattedHTMLMessage id="settings.account.noLocations" />
             }
           </div>
         </div>

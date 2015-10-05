@@ -139,7 +139,7 @@ export default {
     applicationDetail: {
 
       status: "Application status",
-      agreed: "Agreed Price",
+      agreed: "Agreed price",
       offer: "Your Offer",
 
       progressAccepted: "Accepted",

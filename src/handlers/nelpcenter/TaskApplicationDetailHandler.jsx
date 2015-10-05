@@ -101,8 +101,7 @@ class TaskApplicationDetailHandler extends Component {
               <div styleName="user-name">
                 {user.name}
               </div>
-              <Rating rating={user.rating} />
-              <div styleName="tasks-completed">8 tasks completed</div>
+              <Rating rating={user.rating} number={user.tasksCompleted} />
             </div>
           </div>
           <div styleName="header-asking-for">
@@ -183,6 +182,7 @@ export default Relay.createContainer(TaskApplicationDetailHandler, {
           pictureURL,
           about,
           rating,
+          tasksCompleted,
           skills {
             title,
           },
