@@ -2,6 +2,7 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLList,
+  GraphQLInputObjectType,
 } from 'graphql';
 
 import {
@@ -12,12 +13,15 @@ import {
   changeUserLanguage,
   updateNotificationSettings,
   editUserLocations,
+  editUserProfile,
 } from '../data/userData';
 
 import {
+  UserType,
   UserPrivateType,
   NotificationSettingInputType,
   LocationInputType,
+  FileInputType,
 } from './types';
 
 export const UpdateNotificationSettingsMutation = mutationWithClientMutationId({
@@ -75,5 +79,49 @@ export const EditLocationsMutation = mutationWithClientMutationId({
   mutateAndGetPayload: async ({locations}, {rootValue}) => {
     const privateData = await editUserLocations(rootValue, locations);
     return {privateData};
+  },
+});
+
+const UserSkillInputType = new GraphQLInputObjectType({
+  name: 'UserSkillInput',
+  description: 'A user skill input.',
+  fields: () => ({
+    title: {type: GraphQLString},
+  }),
+});
+const UserEducationInputType = new GraphQLInputObjectType({
+  name: 'UserEducationInput',
+  description: 'A user education input.',
+  fields: () => ({
+    title: {type: GraphQLString},
+  }),
+});
+const UserExperienceInputType = new GraphQLInputObjectType({
+  name: 'UserExperienceInput',
+  description: 'A user experience input.',
+  fields: () => ({
+    title: {type: GraphQLString},
+  }),
+});
+
+export const EditProfileMutation = mutationWithClientMutationId({
+  name: 'EditProfile',
+  inputFields: {
+    picture: {type: FileInputType},
+    about: {type: GraphQLString},
+    skills: {type: new GraphQLList(UserSkillInputType)},
+    education: {type: new GraphQLList(UserEducationInputType)},
+    experience: {type: new GraphQLList(UserExperienceInputType)},
+  },
+  outputFields: {
+    me: {
+      type: UserType,
+      resolve: (me) => {
+        return me;
+      },
+    },
+  },
+  mutateAndGetPayload: async ({picture, about, skills, education, experience}, {rootValue}) => {
+    return await editUserProfile(rootValue, picture, about, skills, education, experience);
   },
 });

@@ -115,6 +115,20 @@ type EditLocationsPayload {
   clientMutationId: String!
 }
 
+input EditProfileInput {
+  picture: FileInput
+  about: String
+  skills: [UserSkillInput]
+  education: [UserEducationInput]
+  experience: [UserExperienceInput]
+  clientMutationId: String!
+}
+
+type EditProfilePayload {
+  me: User
+  clientMutationId: String!
+}
+
 input EditTaskInput {
   id: ID!
   title: String
@@ -202,6 +216,7 @@ type Mutation {
   applyForTask(input: ApplyForTaskInput!): ApplyForTaskPayload
   cancelApplyForTask(input: CancelApplyForTaskInput!): CancelApplyForTaskPayload
   setApplicationState(input: SetApplicationStateInput!): SetApplicationStatePayload
+  editProfile(input: EditProfileInput!): EditProfilePayload
   editLocations(input: EditLocationsInput!): EditLocationsPayload
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
   changeLanguage(input: ChangeLanguageInput!): ChangeLanguagePayload
@@ -357,7 +372,15 @@ type UserEducation {
   title: String
 }
 
+input UserEducationInput {
+  title: String
+}
+
 type UserExperience {
+  title: String
+}
+
+input UserExperienceInput {
   title: String
 }
 
@@ -375,5 +398,9 @@ type UserPrivate implements Node {
 }
 
 type UserSkill {
+  title: String
+}
+
+input UserSkillInput {
   title: String
 }

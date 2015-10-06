@@ -24,6 +24,7 @@ import {
   CreateStripeAccountMutation,
   PostTaskMutation,
   EditLocationsMutation,
+  EditProfileMutation,
 } from './schema/mutations';
 
 import {getMe} from './data/userData';
@@ -70,6 +71,8 @@ const mutationType = new GraphQLObjectType({
     applyForTask: ApplyForTaskMutation,
     cancelApplyForTask: CancelApplyForTaskMutation,
     setApplicationState: SetApplicationStateMutation,
+
+    editProfile: EditProfileMutation,
 
     editLocations: EditLocationsMutation,
     updateNotificationSettings: UpdateNotificationSettingsMutation,

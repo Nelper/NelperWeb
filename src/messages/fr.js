@@ -236,6 +236,17 @@ export default {
     deleteLocationMessage: "Êtes-vous sûr de vouloir supprimer l'emplacement '{name}'?",
   },
 
+  profile: {
+    editPicture: "Edit picture",
+    about: "About",
+    skills: "Skills",
+    addSkill: "Add skill",
+    education: "Education",
+    addEducation: "Add education",
+    experience: "Work experience",
+    addExperience: "Add work experience",
+  },
+
   faq: {
     pageTitle_01: "Voici des questions/réponses pour vous aider à comprendre le fonctionnement de Nelper.",
     pageTitle_02: "Si vous ne trouvez pas de réponse à votre question, ou avez besoin d’assistance supplémentaire, contactez-nous sur le {supportCenter}.",
