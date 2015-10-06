@@ -7,7 +7,7 @@ export default {
 
     viewProfile: "View Profile",
 
-    cancelApply: "Cancel Application",
+    cancelApply: "Cancel application",
 
     postedRelative: "Posted {formattedAgo}",
     expiresRelative: "Expires {formattedAgo}",
@@ -52,8 +52,8 @@ export default {
 
   routes: {
     nelpcenter: "Nelp Center",
-    taskDetail: "Task Detail",
-    applicationDetail: "Application Detail",
+    taskDetail: "My Task",
+    applicationDetail: "My Application",
   },
 
   navBar: {
@@ -93,13 +93,13 @@ export default {
 
     nelperpayTitle: "NelperPay",
     nelperpayDesc: "Peace of mind for Task Posters and Nelpers.",
-    nelperpayFeature1: "No external accound needed.",
+    nelperpayFeature1: "No external account needed.",
     nelperpayFeature2: "No setup fees.",
     nelperpayFeature3: "No trouble.",
   },
 
   browse: {
-    moreFilters: "More Filters",
+    moreFilters: "More filters",
     higherThan: "Higher than",
     within: "Within",
     priceRange: "Price range",
@@ -128,7 +128,7 @@ export default {
       deleteTask: "Delete this task",
       editPic: "Edit pictures",
 
-      completion: "Task Completion",
+      completion: "Task completion process",
     },
 
     myTasks: {
@@ -172,7 +172,7 @@ export default {
       </ol>
       `,
 
-      chat: "Open Chat",
+      chat: "Open chat",
 
       offering: "Task Poster is offering",
       locationShown: "Exact task location shown",
@@ -218,7 +218,7 @@ export default {
       taskCompleted: "{name} has completed my task",
       paidOn: "paid on {date}",
 
-      chat: "Open Chat",
+      chat: "Open chat",
     },
   },
 
@@ -230,7 +230,7 @@ export default {
     taskOffer: "How much are you offering?",
     taskLocation: "Select your location",
     taskPictures: "Attach pictures",
-    post: "Post task!",
+    post: "Post my task!",
 
     deleteLocationTitle: "Delete location",
     deleteLocationMessage: "Are you sure you want to delete the location '{name}'?",
@@ -319,7 +319,7 @@ export default {
     privacyTitle_01: "Are my email & phone number publicly shown?",
     privacyDesc_01: "No. They are only shown once a Task Poster accepts a Nelper’s application. Both the Task Poster and the Nelper can see each other’s email & phone number, for communication purposes.<br /><br />You can edit email accounts & phone numbers in your {settings}.",
     privacyTitle_02: "Can I see where a Nelper is from before accepting an application?",
-    privacyDesc_02: "Yes. Under the list of Nelpers who applied for your task, you can visit a Nelper’s profile and see it there. Only their city is shown.",
+    privacyDesc_02: "Yes, on their profile page. Only their city is shown.",
     paymentSectionTitle: "Payment & Support",
     paymentTitle_00: "What is NelperPay?",
     paymentDesc_00: "It's our payment platform. Every transaction is handled via {nelperPay}. No external program or online banking account (like Paypal) are needed. It's simple, safe and trustworthy.<br /><br />You can learn more about the transaction process, payment options and trust features on the {nelperPay} page.",
@@ -375,7 +375,7 @@ export default {
     notifications: {
       title: "Notifications",
 
-      email: "Email notifications",
+      email: "Email Notifications",
       emailMe: "Email me when",
       sendMe: "Send me",
 
@@ -391,12 +391,12 @@ export default {
       newsletterSetting1: "Our newsletter introducing new features",
     },
     nelperpay: {
-      title: "Payment settings",
+      title: "Payment Settings",
       creditCards: "Credit/Debit cards",
       creditCardAdd: "Add new",
     },
     history: {
-      title: "Transaction history",
+      title: "Transaction History",
     },
   },
 };

@@ -52,8 +52,8 @@ export default {
 
   routes: {
     nelpcenter: "Centre Nelp",
-    taskDetail: "Détails de la tâche",
-    applicationDetail: "Détails de l'application",
+    taskDetail: "Ma tâche",
+    applicationDetail: "Mon application",
   },
 
   navBar: {
@@ -230,7 +230,7 @@ export default {
     taskOffer: "Combien offrez-vous?",
     taskLocation: "Ajoutez l'emplacement de la tâche",
     taskPictures: "Ajoutez des photos",
-    post: "Créer la tâche!",
+    post: "Publier ma tâche!",
 
     deleteLocationTitle: "Supprimer l'emplacement",
     deleteLocationMessage: "Êtes-vous sûr de vouloir supprimer l'emplacement '{name}'?",
