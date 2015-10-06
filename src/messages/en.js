@@ -237,14 +237,14 @@ export default {
   },
 
   profile: {
-    editPicture: "Edit picture",
+    editPicture: "Change picture",
     about: "About",
     skills: "Skills",
-    addSkill: "Add skill",
+    addSkill: "Add new",
     education: "Education",
-    addEducation: "Add education",
+    addEducation: "Add new",
     experience: "Work experience",
-    addExperience: "Add work experience",
+    addExperience: "Add new",
   },
 
   faq: {
