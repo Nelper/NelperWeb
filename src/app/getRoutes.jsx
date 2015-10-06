@@ -23,6 +23,8 @@ import ApplicationDetailHandler from 'handlers/nelpcenter/ApplicationDetailHandl
 import PostTaskCategoriesHandler from 'handlers/post/PostTaskCategoriesHandler';
 import PostTaskFormHandler from 'handlers/post/PostTaskFormHandler';
 
+import ProfileHandler from 'handlers/profile/ProfileHandler';
+
 import {
   SettingsHandler,
   AccountSettingsHandler,
@@ -67,6 +69,10 @@ const ApplicationDetailQueries = {
 };
 
 const PostQueries = {
+  me: () => Relay.QL`query { me }`,
+};
+
+const ProfileQueries = {
   me: () => Relay.QL`query { me }`,
 };
 
@@ -126,11 +132,11 @@ function getRegisterComponent(loc, cb) {
   });
 }
 
-function getProfileComponent(loc, cb) {
+/* function getProfileComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/profile/ProfileHandler'));
   });
-}
+}*/
 
 function getFAQComponent(loc, cb) {
   require.ensure([], (require) => {
@@ -210,7 +216,13 @@ export default function getRoutes() {
           renderLoading={renderLoading}
         />
       </Route>
-      <Route path="/profile" getComponent={getProfileComponent} onEnter={requireAuth} />
+      <Route
+        path="/profile"
+        component={ProfileHandler}
+        onEnter={requireAuth}
+        queries={ProfileQueries}
+        renderLoading={renderLoading}
+      />
       <Redirect from="/settings" to="/settings/account"/>
       <Route path="/settings" component={SettingsHandler} onEnter={requireAuth}>
         <Route

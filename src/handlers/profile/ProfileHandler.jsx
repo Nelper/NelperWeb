@@ -1,35 +1,26 @@
 import React, {Component, PropTypes} from 'react';
-import connectToStores from 'alt/utils/connectToStores';
+import Relay from 'react-relay';
+import cssModules from 'react-css-modules';
 
-import UserActions from 'actions/UserActions';
-import UserStore from 'stores/UserStore';
-import Editable, {EditableBox} from 'components/Editable';
+import {EditAboutMutation, EditProfilePictureMutation} from 'actions/profile/index';
+import EditSkillsView from './EditSkillsView';
+import EditEducationView from './EditEducationView';
+import EditExperienceView from './EditExperienceView';
+import Editable from 'components/Editable';
 import Rating from 'components/Rating';
 import ApiUtils from 'utils/ApiUtils';
 
-@connectToStores
-export default class ProfileHandler extends Component {
+import styles from './ProfileHandler.scss';
+
+@cssModules(styles)
+class ProfileHandler extends Component {
 
   static propTypes = {
-    user: PropTypes.object,
+    me: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
     history: PropTypes.object.isRequired,
-  }
-
-  static getStores() {
-    return [UserStore];
-  }
-
-  static getPropsFromStores() {
-    return UserStore.getState();
-  }
-
-  state = {
-    addingSkill: false,
-    addingExperience: false,
-    addingEducation: false,
   }
 
   _onUploadPicture(event) {
@@ -38,7 +29,12 @@ export default class ProfileHandler extends Component {
       const file = files[0];
       ApiUtils.uploadFile(file.name, file)
         .then(f => {
-          UserActions.setPicture(f);
+          Relay.Store.update(
+            new EditProfilePictureMutation({
+              me: this.props.me,
+              picture: f,
+            }),
+          );
         });
     }
   }
@@ -48,236 +44,75 @@ export default class ProfileHandler extends Component {
   }
 
   _onEditAbout(about) {
-    UserActions.editAbout(about);
-  }
-
-  _onAddSkill() {
-    this.setState({
-      addingSkill: true,
-    });
-  }
-
-  _onAddSkillDone(title) {
-    UserActions.addSkill({
-      title,
-    });
-    this.setState({
-      addingSkill: false,
-    });
-  }
-
-  _onAddSkillCancel() {
-    this.setState({
-      addingSkill: false,
-    });
-  }
-
-  _onEditSkillDone(skill, title) {
-    skill.title = title;
-    UserActions.editSkill(skill);
-  }
-
-  _onDeleteSkill(skill) {
-    UserActions.deleteSkill(skill);
-  }
-
-  _onAddExperience() {
-    this.setState({
-      addingExperience: true,
-    });
-  }
-
-  _onAddExperienceDone(title) {
-    UserActions.addExperience({
-      title,
-    });
-    this.setState({
-      addingExperience: false,
-    });
-  }
-
-  _onAddExperienceCancel() {
-    this.setState({
-      addingExperience: false,
-    });
-  }
-
-  _onEditExperienceDone(exp, title) {
-    exp.title = title;
-    UserActions.editExperience(exp);
-  }
-
-  _onDeleteExperience(exp) {
-    UserActions.deleteExperience(exp);
-  }
-
-  _onAddEducation() {
-    this.setState({
-      addingEducation: true,
-    });
-  }
-
-  _onAddEducationDone(title) {
-    UserActions.addEducation({
-      title,
-    });
-    this.setState({
-      addingEducation: false,
-    });
-  }
-
-  _onAddEducationCancel() {
-    this.setState({
-      addingEducation: false,
-    });
-  }
-
-  _onEditEducationDone(ed, title) {
-    ed.title = title;
-    UserActions.editEducation(ed);
-  }
-
-  _onDeleteEducation(ed) {
-    UserActions.deleteEducation(ed);
+    Relay.Store.update(
+      new EditAboutMutation({
+        me: this.props.me,
+        about,
+      }),
+    );
   }
 
   render() {
-    const {user} = this.props;
-
-    const skills = user.skills.map(s => {
-      return (
-        <div className="skill" key={s.objectId}>
-          <Editable
-            deletable
-            onEditDone={(val) => this._onEditSkillDone(s, val)}
-            onDelete={() => this._onDeleteSkill(s)}
-            value={s.title}
-          />
-        </div>
-      );
-    });
-
-    const education = user.education.map(e => {
-      return (
-        <div className="education" key={e.objectId}>
-          <Editable
-            deletable
-            onEditDone={(val) => this._onEditEducationDone(e, val)}
-            onDelete={() => this._onDeleteEducation(e)}
-            value={e.title}
-          />
-        </div>
-      );
-    });
-
-    const experience = user.experience.map(e => {
-      return (
-        <div className="experience" key={e.objectId}>
-          <Editable
-            deletable
-            onEditDone={(val) => this._onEditExperienceDone(e, val)}
-            onDelete={() => this._onDeleteExperience(e)}
-            value={e.title}
-          />
-        </div>
-      );
-    });
+    const {me} = this.props;
 
     return (
-      <div className="profile-handler container">
-        <div className="profile-header header-panel">
-          <div className="picture-picker">
+      <div styleName="module" className="container">
+        <div styleName="profile-header" className="header-panel">
+          <div styleName="picture-picker">
             <div
-              className="picture"
-              style={{backgroundImage: `url('${user.pictureURL}')`}} />
-            <div className="edit-picture-overlay">
-              <div className="edit-picture-icon" />
-              <div className="edit-picture-text">Edit picture</div>
+              styleName="picture"
+              style={{backgroundImage: `url('${me.pictureURL}')`}} />
+            <div styleName="edit-picture-overlay">
+              <div styleName="edit-picture-icon" />
+              <div styleName="edit-picture-text">Edit picture</div>
             </div>
             <input type="file" onChange={::this._onUploadPicture} />
           </div>
-          <div className="info-container">
-            <div className="user-name">
-              {user.name}
+          <div styleName="info-container">
+            <div styleName="user-name">
+              {me.name}
             </div>
-            <Rating rating={4} />
-            <div className="tasks-completed">8 tasks completed</div>
+            <Rating rating={me.rating} number={me.tasksCompleted} />
           </div>
         </div>
         <div className="container">
-          <div className="panel pad-all section-row">
-            <div className="section-title">
-              <div className="section-icon section-icon-about" />
+          <div className="panel pad-all profile-section-row">
+            <div className="profile-section-title">
+              <div styleName="section-icon-about" className="profile-section-icon" />
               <div>About</div>
             </div>
-            <div className="section-content">
+            <div className="profile-section-content">
               <Editable
                 multiline
                 onEditDone={::this._onEditAbout}
-                value={user.about}
+                value={me.about}
                 editPlaceholder="Write something about you..."
               />
             </div>
           </div>
-          <div className="panel pad-all section-row">
-            <div className="section-title">
-              <div className="section-icon section-icon-skills" />
-              <div>Skills</div>
-            </div>
-            <div className="section-content">
-              <div className="skills">
-                {skills}
-              </div>
-              {
-                !this.state.addingSkill ?
-                <button className="add-skill link-button" onClick={::this._onAddSkill}>Add skill</button> :
-                <EditableBox
-                  onEditDone={::this._onAddSkillDone}
-                  onEditCancel={::this._onAddSkillCancel}
-                />
-              }
-            </div>
-          </div>
-          <div className="panel pad-all section-row">
-            <div className="section-title">
-              <div className="section-icon section-icon-education" />
-              <div>Education</div>
-            </div>
-            <div className="section-content">
-              <div className="education">
-                {education}
-              </div>
-              {
-                !this.state.addingEducation ?
-                <button className="link-button" onClick={::this._onAddEducation}>Add education</button> :
-                <EditableBox
-                  onEditDone={::this._onAddEducationDone}
-                  onEditCancel={::this._onAddEducationCancel}
-                />
-              }
-            </div>
-          </div>
-        </div>
-        <div className="panel pad-all section-row">
-          <div className="section-title">
-            <div className="section-icon section-icon-work" />
-            <div>Work experience</div>
-          </div>
-          <div className="section-content">
-            <div className="experience">
-              {experience}
-            </div>
-            {
-              !this.state.addingExperience ?
-              <button className="link-button" onClick={::this._onAddExperience}>Add work experience</button> :
-              <EditableBox
-                onEditDone={::this._onAddExperienceDone}
-                onEditCancel={::this._onAddExperienceCancel}
-              />
-            }
-          </div>
+          <EditSkillsView me={me} />
+          <EditEducationView me={me} />
+          <EditExperienceView me={me} />
         </div>
       </div>
     );
   }
 }
+
+export default Relay.createContainer(ProfileHandler, {
+  fragments: {
+    me: () => Relay.QL`
+      fragment on User {
+        name,
+        pictureURL,
+        rating,
+        tasksCompleted,
+        about,
+        ${EditSkillsView.getFragment('me')},
+        ${EditEducationView.getFragment('me')},
+        ${EditExperienceView.getFragment('me')},
+        ${EditProfilePictureMutation.getFragment('me')},
+      }
+    `,
+  },
+});

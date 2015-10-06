@@ -50,74 +50,11 @@ class UserActions {
     return loc;
   }
 
-  addLocation(loc) {
-    ApiUtils.addUserLocation(loc);
-    return loc;
-  }
-
-  deleteLocation(loc) {
-    ApiUtils.deleteUserLocation(loc);
-    return loc;
-  }
-
   setPicture(file) {
     ApiUtils.setUserPicture(file)
       .then((picture) => {
         this.actions.receivedPicture(picture);
       });
-  }
-
-  editAbout(about) {
-    ApiUtils.editUserAbout(about);
-    return about;
-  }
-
-  addSkill(skill) {
-    skill.objectId = createId();
-    ApiUtils.addUserSkill(skill);
-    return skill;
-  }
-
-  editSkill(skill) {
-    ApiUtils.editUserSkill(skill);
-    return skill;
-  }
-
-  deleteSkill(skill) {
-    ApiUtils.deleteUserSkill(skill);
-    return skill;
-  }
-
-  addExperience(exp) {
-    exp.objectId = createId();
-    ApiUtils.addUserExperience(exp);
-    return exp;
-  }
-
-  editExperience(exp) {
-    ApiUtils.editUserExperience(exp);
-    return exp;
-  }
-
-  deleteExperience(exp) {
-    ApiUtils.deleteUserExperience(exp);
-    return exp;
-  }
-
-  addEducation(ed) {
-    ed.objectId = createId();
-    ApiUtils.addUserEducation(ed);
-    return ed;
-  }
-
-  editEducation(ed) {
-    ApiUtils.editUserEducation(ed);
-    return ed;
-  }
-
-  deleteEducation(ed) {
-    ApiUtils.deleteUserEducation(ed);
-    return ed;
   }
 
   update() {

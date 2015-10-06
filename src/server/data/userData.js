@@ -142,5 +142,30 @@ export async function getUserFeedback({sessionToken}, userId) {
     .equalTo('user', parseUser)
     .descending('createdAt');
 
-  return await query.find();
+  return await query.find({sessionToken});
+}
+
+export async function editUserProfile({sessionToken, userId}, picture, about, skills, education, experience) {
+  const parseUser = new Parse.User();
+  parseUser.id = userId;
+  if (picture) {
+    parseUser.set('customPicture', {
+      __type: 'File',
+      ...picture,
+    });
+  }
+  if (typeof about !== 'undefined') {
+    parseUser.set('about', about);
+  }
+  if (skills) {
+    parseUser.set('skills', skills);
+  }
+  if (education) {
+    parseUser.set('education', education);
+  }
+  if (experience) {
+    parseUser.set('experience', experience);
+  }
+
+  return await parseUser.save(null, {sessionToken});
 }

@@ -1,4 +1,6 @@
-.profile-handler {
+@import 'styles/base-module';
+
+:local .module {
 
   $picture-size: 120px;
   $action-icon-size: 18px;
@@ -7,7 +9,7 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    padding: 1rem;
+    padding: 1rem 2rem;
     background-color: $color-primary;
     color: $text-light;
   }
@@ -91,67 +93,14 @@
 
   .edit-picture-icon {
     @include image(2.5rem);
-    background-image: url('~images/icons/camera-white.png');
+    background-image: url('images/icons/camera-white.png');
   }
 
   .edit-picture-text {
     font-size: 0.9em;
   }
 
-  .section-row {
-    @include row();
-  }
-
-  .section-title {
-    @include span-columns(12);
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-
-  .section-icon {
-    @include image(3.5rem);
-    margin-left: 1rem;
-    margin-right: 2rem;
-  }
-
-  .section-content {
-    @include span-columns(12);
-
-    @include media($medium-screen) {
-      padding-left: 5.5rem;
-    }
-  }
-
-  .skills {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .skill {
-    @include flex(0 0 100%);
-
-    @include media($medium-screen) {
-      @include flex(0 0 50%);
-    }
-  }
-
   .section-icon-about {
-    background-image: url('~images/icons/about.png');
-  }
-
-  .section-icon-skills {
-    background-image: url('~images/icons/skills.png');
-  }
-
-  .section-icon-education {
-    background-image: url('~images/icons/education.png');
-  }
-
-  .section-icon-work {
-    background-image: url('~images/icons/work.png');
+    background-image: url('images/icons/about.png');
   }
 }
