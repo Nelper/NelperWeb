@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
+import {FormattedMessage} from 'react-intl';
 
 import {EditExperienceMutation} from 'actions/profile/index';
 import Editable, {EditableBox} from 'components/Editable';
@@ -83,7 +84,9 @@ class EditExperienceView extends Component {
       <div styleName="module" className="panel pad-all profile-section-row">
         <div className="profile-section-title">
           <div styleName="icon" className="profile-section-icon" />
-          <div>Work experience</div>
+          <div>
+            <FormattedMessage id="profile.experience" />
+          </div>
         </div>
         <div className="profile-section-content">
           <div>
@@ -91,7 +94,9 @@ class EditExperienceView extends Component {
           </div>
           {
             !this.state.addingExperience ?
-            <button className="link-button" onClick={::this._onAddExperience}>Add work experience</button> :
+            <button className="link-button" onClick={::this._onAddExperience}>
+              <FormattedMessage id="profile.addExperience" />
+            </button> :
             <EditableBox
               onEditDone={::this._onAddExperienceDone}
               onEditCancel={::this._onAddExperienceCancel}

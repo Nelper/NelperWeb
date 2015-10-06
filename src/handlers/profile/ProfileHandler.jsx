@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
+import {FormattedMessage} from 'react-intl';
 
 import {EditAboutMutation, EditProfilePictureMutation} from 'actions/profile/index';
 import EditSkillsView from './EditSkillsView';
@@ -64,7 +65,9 @@ class ProfileHandler extends Component {
               style={{backgroundImage: `url('${me.pictureURL}')`}} />
             <div styleName="edit-picture-overlay">
               <div styleName="edit-picture-icon" />
-              <div styleName="edit-picture-text">Edit picture</div>
+              <div styleName="edit-picture-text">
+                <FormattedMessage id="profile.editPicture" />
+              </div>
             </div>
             <input type="file" onChange={::this._onUploadPicture} />
           </div>
@@ -79,14 +82,15 @@ class ProfileHandler extends Component {
           <div className="panel pad-all profile-section-row">
             <div className="profile-section-title">
               <div styleName="section-icon-about" className="profile-section-icon" />
-              <div>About</div>
+              <div>
+                <FormattedMessage id="profile.about" />
+              </div>
             </div>
             <div className="profile-section-content">
               <Editable
                 multiline
                 onEditDone={::this._onEditAbout}
                 value={me.about}
-                editPlaceholder="Write something about you..."
               />
             </div>
           </div>

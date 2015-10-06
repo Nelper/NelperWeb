@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
+import {FormattedMessage} from 'react-intl';
 
 import {EditSkillsMutation} from 'actions/profile/index';
 import Editable, {EditableBox} from 'components/Editable';
@@ -83,7 +84,9 @@ class EditSkillsView extends Component {
       <div styleName="module" className="panel pad-all profile-section-row">
         <div className="profile-section-title">
           <div styleName="icon" className="profile-section-icon" />
-          <div>Skills</div>
+          <div>
+            <FormattedMessage id="profile.skills" />
+          </div>
         </div>
         <div className="profile-section-content">
           <div styleName="skills">
@@ -91,7 +94,9 @@ class EditSkillsView extends Component {
           </div>
           {
             !this.state.addingSkill ?
-            <button className="link-button" onClick={::this._onAddSkill}>Add skill</button> :
+            <button className="link-button" onClick={::this._onAddSkill}>
+              <FormattedMessage id="profile.addSkill" />
+            </button> :
             <EditableBox
               onEditDone={::this._onAddSkillDone}
               onEditCancel={::this._onAddSkillCancel}
