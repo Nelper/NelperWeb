@@ -57,11 +57,16 @@ export default {
   },
 
   navBar: {
-    howWorks: "Comment ça fonctionne?",
-    browse: "Parcourir les tâches",
-    post: "Publier une tâche",
     login: "Connexion",
+    browse: "Parcourir les tâches",
     center: "Centre Nelp",
+    post: "Publier une tâche",
+    profile: "Profile",
+    settings: "Paramètres",
+    logout: "Déconnection",
+    howItWorks: "Comment ça fonctionne?",
+    nelperPay: "NelperPay",
+    faq: "FAQ",
   },
 
   home: {
