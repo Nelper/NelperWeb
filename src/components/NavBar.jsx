@@ -107,13 +107,13 @@ export default class NavBar extends Component {
           onMouseEnter={::this._onDropdownEnter}
           onMouseLeave={::this._onDropdownLeave}
         >
-          {this._renderNavItem('View Profile', '/profile', 70)}
-          {this._renderNavItem('Settings', '/settings', 80)}
-          {this._renderNavItem('Logout', '/logout', 90)}
+          {this._renderNavItem(<FormattedMessage id="navBar.profile"/>, '/profile', 70)}
+          {this._renderNavItem(<FormattedMessage id="navBar.settings"/>, '/settings', 80)}
+          {this._renderNavItem(<FormattedMessage id="navBar.logout"/>, '/logout', 90)}
           <div className="navbar-dropdown-separator" key={100} />
-          {this._renderNavItem('How it works', '/howitworks', 110)}
-          {this._renderNavItem('NelperPay', '/nelperpay', 120)}
-          {this._renderNavItem('FAQ', '/faq', 130)}
+          {this._renderNavItem(<FormattedMessage id="navBar.howItWorks"/>, '/howitworks', 110)}
+          {this._renderNavItem(<FormattedMessage id="navBar.nelperPay"/>, '/nelperpay', 120)}
+          {this._renderNavItem(<FormattedMessage id="navBar.faq"/>, '/faq', 130)}
         </ul>
       </li>
     );
