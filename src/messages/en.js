@@ -331,7 +331,7 @@ export default {
     nelperDesc_05: "If your application gets declined, you receive a notification and your application status changes. If a task you applied for gets deleted, your application will be deleted as well in the process.",
     privacySectionTitle: "Privacy",
     privacyTitle_00: "Is my exact task location shown on the map?",
-    privacyDesc_00: "No. The location shown on the map is a random one, taken from a 400m area around the exact location. This way, the address remains confidential. Nelpers only have access to the exact task location once their application gets accepted.<br /><br />You can add a new location when posting a task or select one you already added in your {settings}.",
+    privacyDesc_00: "No. The location shown on the map is a random one, taken from a 400m area around the exact location. This way, the address remains confidential. Nelpers only have access to the exact task location once you accept their application.<br /><br />You can add a new location when posting a task or select one you already added in your {settings}.",
     privacyTitle_01: "Are my email & phone number publicly shown?",
     privacyDesc_01: "No. People can only see each other’s email and phone number once a Task Poster accepts a Nelper's application, for communication purposes.<br /><br />You can edit email accounts & phone numbers in your {settings}.",
     privacyTitle_02: "Can I see where a Nelper is from before accepting an application?",
