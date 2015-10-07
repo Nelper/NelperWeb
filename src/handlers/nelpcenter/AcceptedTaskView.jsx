@@ -6,6 +6,7 @@ import Dialog from 'components/Dialog';
 import IconButton from 'components/IconButton';
 import TaskProgress from './TaskProgress';
 import TaskPaymentDialogView from './TaskPaymentDialogView';
+import IntlUtils from 'utils/IntlUtils';
 
 class AcceptedTaskView extends Component {
 
@@ -176,7 +177,7 @@ class AcceptedTaskView extends Component {
             <div className="task-poster-contact-email">
               <div className="task-poster-contact-email-icon" />
               <div className="task-poster-contact-email-text">
-                {application.email}
+                <a href={'mailto:' + application.email}>{application.email}</a>
               </div>
             </div>
             {
@@ -184,7 +185,7 @@ class AcceptedTaskView extends Component {
               <div className="task-poster-contact-phone">
                 <div className="task-poster-contact-phone-icon" />
                 <div className="task-poster-contact-phone-text">
-                  {application.phone}
+                  {IntlUtils.formatPhoneNumber(application.phone)}
                 </div>
               </div> :
               null

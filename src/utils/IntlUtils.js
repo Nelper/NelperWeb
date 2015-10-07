@@ -117,4 +117,8 @@ export default class IntlUtils {
   static upper(formattedMessage) {
     return <span>{formattedMessage.charAt(0).toUpperCase() + formattedMessage.slice(1)}</span>;
   }
+
+  static formatPhoneNumber(number) {
+    return `(${number.slice(0, 3)}) ${number.slice(3, 6)}-${number.slice(6, 10)}`;
+  }
 }
