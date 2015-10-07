@@ -87,7 +87,7 @@ export async function getApplicantPrivate({userId, sessionToken}, application) {
     .include('privateData');
 
   // Use the master key to get the private data.
-  const user = await query.get(userId, {useMasterKey: true});
+  const user = await query.get(application.get('user').id, {useMasterKey: true});
   const privateData = user.get('privateData');
   return {
     email: privateData.get('email'),
@@ -121,7 +121,7 @@ export async function getTaskPosterPrivate({userId, sessionToken}, task) {
     .include('privateData');
 
   // Use the master key to get the private data.
-  const user = await userQuery.get(userId, {useMasterKey: true});
+  const user = await userQuery.get(task.get('user').id, {useMasterKey: true});
   const privateData = user.get('privateData');
 
   const taskPrivateQuery = new Parse.Query(TaskPrivate);

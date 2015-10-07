@@ -232,6 +232,11 @@ export default {
     taskPictures: "Attach pictures",
     post: "Post my task!",
 
+    errorTitle: "Please enter a title.",
+    errorDesc: "Please enter a description.",
+    errorPrice: "Please enter a price between {min, number, CAD} and {max, number, CAD}",
+    errorLocation: "",
+
     deleteLocationTitle: "Delete location",
     deleteLocationMessage: "Are you sure you want to delete the location '{name}'?",
   },

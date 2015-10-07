@@ -9,6 +9,7 @@ import TaskProgress from './TaskProgress';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import DateUtils from 'utils/DateUtils';
 import {LatLng} from 'utils/GoogleMapsUtils';
+import IntlUtils from 'utils/IntlUtils';
 
 import styles from './ApplicationDetailHandler.scss';
 
@@ -162,16 +163,16 @@ class ApplicationDetailHandler extends Component {
             <div styleName="task-poster-contact">
               <div styleName="task-poster-contact-email">
                 <div styleName="task-poster-contact-email-icon" />
-                <div>
+                <a href={'mailto:' + task.userPrivate.email}>
                   {task.userPrivate.email}
-                </div>
+                </a>
               </div>
               {
                 task.userPrivate.phone ?
                 <div styleName="task-poster-contact-phone">
                   <div styleName="task-poster-contact-phone-icon" />
                   <div>
-                    {task.userPrivate.phone}
+                    {IntlUtils.formatPhoneNumber(task.userPrivate.phone)}
                   </div>
                 </div> :
                 null
@@ -259,13 +260,7 @@ class ApplicationDetailHandler extends Component {
             initialCenter={new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location)}
             markers={[{
               key: 1,
-              position: new LatLng(accepted ? {
-                latitude: task.userPrivate.exactLocation.coords.latitude + (Math.random() - 0.5) / 143,
-                longitude: task.userPrivate.exactLocation.coords.longitude + (Math.random() - 0.5) / 143,
-              } : task.location),
-            }, {
-              key: 2,
-              position: new LatLng(task.location),
+              position: new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location),
             }]}/>
         </div>
         {
