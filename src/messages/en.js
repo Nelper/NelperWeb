@@ -242,14 +242,14 @@ export default {
   },
 
   profile: {
-    editPicture: "Edit picture",
+    editPicture: "Change picture",
     about: "About",
     skills: "Skills",
-    addSkill: "Add skill",
+    addSkill: "Add new",
     education: "Education",
-    addEducation: "Add education",
+    addEducation: "Add new",
     experience: "Work experience",
-    addExperience: "Add work experience",
+    addExperience: "Add new",
   },
 
   faq: {
@@ -340,9 +340,9 @@ export default {
     paymentTitle_00: "What is NelperPay?",
     paymentDesc_00: "It's our payment platform. Every transaction is handled via {nelperPay}. No external program or online banking account (like Paypal) are needed. It's simple, safe and trustworthy.<br /><br />You can learn more about the transaction process, payment options and trust features on the {nelperPay} page.",
     paymentTitle_01: "How do I send a payment?",
-    paymentDesc_01: "In your task page, click on <em>Proceed to payment</em>. A window will open for you to enter your payment info. You can pay using your Mastercard, VISA or American Express credit/debit card. <br /><br />You can either choose an existing payment method you previously added or add a new one. Add and manage credit/debit cards in your {settings}.<br /><br />Everytime you send a payment, a receipt will be automatically sent to your registered email.",
+    paymentDesc_01: "On your task page, click on <em>Proceed to payment</em> and fill in the required fields. You can pay using your Mastercard, VISA or American Express credit/debit card.<br /><br />Everytime you send a payment, a receipt will be sent automatically to your email.",
     paymentTitle_02: "How do I receive a payment?",
-    paymentDesc_02: "Once your payment gets released by a Task Poster, the money will be automatically deposited to your registered bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, visit the NelperPay subsection in your {settings}, fill in the required fields and follow the steps.<br /><br /><strong>We recommend that you link your bank account as soon as possible if you plan on completing tasks</strong>, as there can be a small delay for the information to be validated. If you receive a payment and you still haven’t linked a bank account, it will be safely held via {nelperPay} until you do so. Once it is done, you don’t have to do it anymore and payments will always be automatically deposited in your bank account.",
+    paymentDesc_02: "Once your payment gets released by a Task Poster, the money will be automatically deposited to your registered bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, go to the <em>Bank Deposits</em> subsection in your {settings}, click on <em>Link</em> and fill in the required fields.<br /><br /><strong>We recommend that you link your bank account as soon as possible if you plan on completing tasks</strong>, as there can be a small delay for the information to be validated. If you receive a payment and you haven’t linked a bank account yet, it will be safely held via {nelperPay} until you do so. Once it is done, you don’t have to do it anymore and payments will always be automatically deposited.",
     paymentTitle_03: "What do I do if I have issues with a Nelper during the payment/task completion?",
     paymentDesc_03: "If your Nelper requests the payment but didn’t complete your task, click on <em>My Nelper has not completed my task</em> at the bottom of your task page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your issue at the earliest and resolve the dispute. You will receive an email once it is resolved. If your Nelper indeed never completed your task, you will get your money back.<br /><br />We make resolving issues our first priority and will always review disputes and issues thoroughly. We want to offer you the best customer service possible so if you are unsatisfied or still have questions after a resolved issue, please feel free to contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
     paymentTitle_04: "What do I do if I have issues with a Task Poster during the payment/task completion process?",
@@ -407,9 +407,9 @@ export default {
       newsletterSetting1: "Our newsletter introducing new features",
     },
     nelperpay: {
-      title: "Payment Settings",
-      creditCards: "Credit/Debit cards",
-      creditCardAdd: "Add new",
+      title: "Bank Deposits",
+      creditCards: "Bank Account",
+      creditCardAdd: "Link",
     },
     history: {
       title: "Transaction History",

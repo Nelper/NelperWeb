@@ -7,7 +7,7 @@ export default {
 
     viewProfile: "Voir le profil",
 
-    cancelApply: "Annuler l'application",
+    cancelApply: "Supprimer mon application",
 
     postedRelative: "Créée {formattedAgo}",
     expiresRelative: "Expire {formattedAgo}",
@@ -215,8 +215,8 @@ export default {
     acceptedTaskView: {
       proceedPayment: "Procéder au paiement",
       aboutNelperPay: "À propos de NelperPay",
-      taskCompleted: "{name} has completed my task",
-      paidOn: "paid on {date}",
+      taskCompleted: "{name} a complété ma tâche",
+      paidOn: "payé le {date}",
 
       chat: "Ouvrir le chat",
     },
@@ -242,14 +242,14 @@ export default {
   },
 
   profile: {
-    editPicture: "Edit picture",
-    about: "About",
-    skills: "Skills",
-    addSkill: "Add skill",
-    education: "Education",
-    addEducation: "Add education",
-    experience: "Work experience",
-    addExperience: "Add work experience",
+    editPicture: "Changer photo",
+    about: "À propos",
+    skills: "Talents",
+    addSkill: "Ajouter",
+    education: "Éducation",
+    addEducation: "Ajouter",
+    experience: "Expérience de travail",
+    addExperience: "Ajouter",
   },
 
   faq: {
@@ -285,7 +285,7 @@ export default {
     posterDesc_05: `Lorsque vous acceptez un Nelper et vous êtes entendus sur les détails, vous êtes prêt à procéder au paiement et à faire compléter votre tâche. Toutes les étapes restantes se font directement sur votre page de tâche.
     <ol>
       <li>
-        Cliquez sur <em>Procéder au paiement</em>. Entrez vos informations de carte de crédit/débit et effectuez le paiement. Un reçu sera envoyé automatiquement à votre adresse courriel.
+        Cliquez sur <em>Procéder au paiement</em>. Entrez vos informations de carte de crédit/débit et effectuez le paiement. Un reçu vous sera envoyé automatiquement par courriel.
       </li>
       <li>
         Lorsque vous aurez envoyé le paiement, celui-ci sera sécuritairement gelé via notre plateforme {nelperPay}, jusqu'à ce que votre tâche soit complétée.
@@ -340,13 +340,13 @@ export default {
     paymentTitle_00: "Qu’est-ce que NelperPay?",
     paymentDesc_00: "NelperPay est notre plateforme de paiement. Toutes les transactions passent par NelperPay. Vous n’avez pas besoin de programme externe ou de compte bancaire en ligne (tel que Paypal). C’est simple, rapide, sécuritaire et fiable.<br /><br />Vous pouvez en apprendre plus sur la procédure des transactions, les options de paiement ainsi que sur les caratéristiques de fiabilité sur la page {nelperPay}.",
     paymentTitle_01: "Comment envoyer un paiement?",
-    paymentDesc_01: "Sur votre page de tâche, cliquez sur <em>Procéder au paiement</em>. Une fenêtre va s’ouvrir et vous devrez entrez vos informations de paiement. Vous avez le choix de payer par crédit ou débit avec Mastercard, VISA, ou American Express.<br /><br />Vous pouvez choisir une méthode de paiement préalablement ajoutée ou en ajouter une à cet instant. L’ajout et modification de vos méthodes de paiement peuvent être faits dans vos {settings}.<br /><br />À chaque fois que vous envoyez un paiement, un reçu sera automatiquement envoyé à votre adresse courriel.",
+    paymentDesc_01: "Sur votre page de tâche, cliquez sur <em>Procéder au paiement</em> et entrez vos informations de paiement. Vous pouvez payer par crédit ou débit avec votre Mastercard, VISA, ou American Express.<br /><br />Lorsque vous effectuez un paiement, un reçu vous est envoyé automatiquement par courriel",
     paymentTitle_02: "Comment recevoir un paiement?",
-    paymentDesc_02: "Lorsque votre paiement se fait libérer par le publieur de la tâche, l’argent est automatiquement déposé dans votre compte de banque. Pour que cela se produise, vous devez avoir un compte de banque lié à votre compte Nelper. Pour ce faire, allez dans la sous-section Paramètres de paiement dans vos {settings}. Remplissez les champs et suivez les étapes.<br /><br /><strong>Nous nous recommandons de lier un compte de banque à votre compte Nelper le plus tôt possible si vous avez l’intention de compléter des tâches</strong>. Puisqu’il peut y avoir un petit délai de temps pour que vos informations bancaires soient validées, lier un compte de banque à votre compte Nelper le plus tôt possible est préférable. Si aucun compte de banque n’est lié lorsque l’argent est supposé être déposé, il sera gardé sécuritairement via {nelperPay}, jusqu’à ce que vous en ajoutiez un. Lorsque ce sera fait, le paiement et tous ceux à venir seront déposé automatiquement dans votre compte de banque.",
+    paymentDesc_02: "Lorsque votre paiement se fait libérer par le publieur de la tâche, l’argent est automatiquement déposé dans votre compte de banque. Pour que cela se produise, vous devez avoir lié un compte de banque à votre compte Nelper. Pour ce faire, allez dans la sous-section <em>Dépôts bancaires</em> dans vos {settings}. Cliquez sur <em>Lier un compte</em> et remplissez les champs requis.<br /><br /><strong>Nous nous recommandons de lier un compte de banque à votre compte Nelper le plus tôt possible si vous avez l’intention de compléter des tâches</strong>. Puisqu’il peut y avoir un petit délai de temps pour que vos informations bancaires soient validées, lier un compte de banque à votre compte Nelper le plus tôt possible est préférable. Si aucun compte de banque n’est lié lorsque l’argent est supposé être déposé, il sera gardé sécuritairement via {nelperPay}, jusqu’à ce que vous en ajoutiez un. Lorsque ce sera fait, le paiement et tous ceux à venir seront déposé automatiquement dans votre compte de banque.",
     paymentTitle_03: "Que faire en cas de dispute ou mésentente avec un Nelper?",
-    paymentDesc_03: "Si votre Nelper réclâme son paiement sans avoir complété votre tâche, cliquez sur <em>Mon Nelper n’a pas complété ma tâche</em> dans le bas de votre page de tâche. Remplissez les champs, fournissez le plus de détails possible et incluez des preuves photos, si vous en avez.<br /><br />Nous allons examiner en détail votre dispute le plus tôt possible et vous receverez un courriel lorsque nous aurons résolu la dispute. Si votre Nelper n’a bel et bien jamais complété votre tâche, vous serez remboursé.<br /><br />Notre priorité la plus importante est de résoudre vos problèmes et disputes rapidement et en profondeur. Nous voulons vous offrir le meilleur service à la clientèle qui soit. Donc, à cet effect, si vous n’êtes pas satisfait avec l’une de nos décisions ou avez des questions après la résolution d’une dispute, vous pouvez nous contacter <u>n'importe quand</u> sur le {supportCenter}. Nous sommes là pour vous et allons répondre dans les plus brefs délais.",
+    paymentDesc_03: "Si votre Nelper réclâme son paiement sans avoir complété votre tâche, cliquez sur <em>Mon Nelper n’a pas complété ma tâche</em> dans le bas de votre page de tâche. Remplissez les champs requis, fournissez le plus de détails possible et incluez des preuves photos, si vous en avez.<br /><br />Nous allons examiner en détail votre dispute le plus tôt possible et vous receverez un courriel lorsque nous aurons résolu la dispute. Si votre Nelper n’a bel et bien jamais complété votre tâche, vous serez remboursé.<br /><br />Notre priorité la plus importante est de résoudre vos problèmes et disputes rapidement et en profondeur. Nous voulons vous offrir le meilleur service à la clientèle qui soit. Donc, à cet effect, si vous n’êtes pas satisfait avec l’une de nos décisions ou avez des questions après la résolution d’une dispute, vous pouvez nous contacter <u>n'importe quand</u> sur le {supportCenter}. Nous sommes là pour vous et allons répondre dans les plus brefs délais.",
     paymentTitle_04: "Que faire en cas de dispute ou mésentente avec un publieur de tâche?",
-    paymentDesc_04: "Si le publieur de la tâche refuse de confirmer que vous avez complété la tâche, affirmant que le travail était mal fait ou que vous ne l’avez complété du tout, cliquez sur <em>Le publieur refuse de libérer le paiement</em> dans le page de votre page d’application. Remplissez les champs, fournissez le plus de détails possible et incluez des preuves photos, si vous en avez.<br /><br />Nous allons examiner en détail votre dispute le plus tôt possible et vous receverez un courriel lorsque nous aurons résolu la dispute. Si nous jugeons que la tâche a été complétée dans des mesures acceptables, vous receverez votre paiement.<br /><br />Notre priorité la plus importante est de résoudre vos problèmes et disputes rapidement et en profondeur. Nous voulons vous offrir le meilleur service à la clientèle qui soit. Donc, à cet effect, si vous n’êtes pas satisfait avec l’une de nos décisions ou avez des questions après la résolution d’une dispute, vous pouvez nous contacter <u>n'importe quand</u> sur le {supportCenter}. Nous sommes là pour vous et allons répondre dans les plus brefs délais.",
+    paymentDesc_04: "Si le publieur de la tâche refuse de confirmer que vous avez complété la tâche, affirmant que le travail était mal fait ou que vous ne l’avez complété du tout, cliquez sur <em>Le publieur refuse de libérer le paiement</em> dans le page de votre page d’application. Remplissez les champs requis, fournissez le plus de détails possible et incluez des preuves photos, si vous en avez.<br /><br />Nous allons examiner en détail votre dispute le plus tôt possible et vous receverez un courriel lorsque nous aurons résolu la dispute. Si nous jugeons que la tâche a été complétée dans des mesures acceptables, vous receverez votre paiement.<br /><br />Notre priorité la plus importante est de résoudre vos problèmes et disputes rapidement et en profondeur. Nous voulons vous offrir le meilleur service à la clientèle qui soit. Donc, à cet effect, si vous n’êtes pas satisfait avec l’une de nos décisions ou avez des questions après la résolution d’une dispute, vous pouvez nous contacter <u>n'importe quand</u> sur le {supportCenter}. Nous sommes là pour vous et allons répondre dans les plus brefs délais.",
     paymentTitle_05: "Où puis-je obtenir du service à la clientèle?",
     paymentDesc_05: "Si vous avez besoin d’aide, avez des questions, désirez rapporter une erreur or voulez nous donner votre avis sur notre service, veuillez visiter le {supportCenter}. Vous pouvez nous rejoindre <u>n'importe quand</u> et nous vous répondrons dans les plus brefs délais!",
   },
@@ -407,9 +407,9 @@ export default {
       newsletterSetting1: "Notre courriel d'informations contenant les nouveautés sur Nelper",
     },
     nelperpay: {
-      title: "Paramètres de paiement",
-      creditCards: "Cartes de crédit/débit",
-      creditCardAdd: "Ajouter nouvelle",
+      title: "Dépôts bancaires",
+      creditCards: "Compte de banque",
+      creditCardAdd: "Lier un compte",
     },
     history: {
       title: "Historique des transactions",
