@@ -16,7 +16,8 @@
     "update-schema": "babel-node ./scripts/updateSchema.js",
     "clean": "rm -rf ./build",
     "test": "jest",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "plotte": "echo Suck my foukin poussy"
   },
   "engines": {
     "node": "^4.0.0",
@@ -68,9 +69,9 @@
     "null-loader": "^0.1.1",
     "parse": "^1.6.4",
     "postcss-loader": "^0.6.0",
-    "react": "^0.14.0-rc1",
+    "react": "^0.14.0",
     "react-css-modules": "^3.2.3",
-    "react-dom": "^0.14.0-rc1",
+    "react-dom": "^0.14.0",
     "react-google-maps": "Nelper/react-google-maps",
     "react-intl": "^2.0.0-pr-1",
     "react-motion": "^0.2.7",
