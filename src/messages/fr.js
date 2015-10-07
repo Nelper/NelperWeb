@@ -326,7 +326,7 @@ export default {
     nelperDesc_05: "Si votre application se fait refuser, vous recevez une notification et votre statut d’application change. Si la tâche pour laquelle vous avez appliqué se fait supprimer, votre application sera également supprimée dans le processus.",
     privacySectionTitle: "Confidentialité",
     privacyTitle_00: "Est-ce que l’emplacement d’une tâche sur la carte est celui de l’adresse exacte?",
-    privacyDesc_00: "Non. L’emplacement vu sur la carte est un rayon aléatoire de 400 mètres autour de l’emplacement exact. Un Nelper a seulement accès à l’adresse exacte lorsque son application se fait accepter.<br /><br />Vous pouvez créer un nouvel emplacement lorsque vous publiez une tâche ou en sélectionner un déjà existant, préalablement ajouté dans vos {settings}.",
+    privacyDesc_00: "Non. L’emplacement vu sur la carte est dans un rayon aléatoire de 400 mètres autour de l’emplacement exact. Un Nelper a seulement accès à l’adresse exacte lorsque son application se fait accepter.<br /><br />Vous pouvez créer un nouvel emplacement lorsque vous publiez une tâche ou en sélectionner un déjà existant, préalablement ajouté dans vos {settings}.",
     privacyTitle_01: "Est-ce que mon adresse courriel et mon numéro de téléphone peuvent être vus publiquement?",
     privacyDesc_01: "Non. Ils ne sont montrés que lorsqu’un publieur de tâche accepte l’application d’un Nelper. Les deux ont accès au numéro de téléphone et à l’adresse courriel de l’autre, à des fins de communication.<br /><br />Vous pouvez ajouter ou changer votre numéro de téléphone et votre adresse courriel dans vos {settings}.",
     privacyTitle_02: "Est-ce possible de voir où habite un Nelper avant d’accepter son application?",
