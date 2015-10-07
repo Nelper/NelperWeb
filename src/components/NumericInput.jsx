@@ -14,6 +14,7 @@ export default class NumericInput extends Component {
     disabled: PropTypes.bool,
     unit: PropTypes.string,
     max: PropTypes.number,
+    min: PropTypes.number,
   }
 
   static defaultProps = {
@@ -21,17 +22,25 @@ export default class NumericInput extends Component {
     step: 10,
     disabled: false,
     unit: '',
+    min: 0,
     max: 99999,
+    onChange: () => {},
   }
 
-  _onChange(newValue) {
+  _onChange(newValue, checkMin) {
     let value = newValue;
 
     // Makes sure the value is within the max range and not negative.
-    if (value < 0) value = 0;
+    if (checkMin && value < this.props.min) value = this.props.min;
     if (value > this.props.max) value = this.props.max;
 
-    this.props.onChange && this.props.onChange(value);
+    this.props.onChange(value);
+  }
+
+  _onBlur() {
+    if (this.props.value < this.props.min) {
+      this.props.onChange(this.props.min);
+    }
   }
 
   _onContainerClick() {
@@ -46,7 +55,7 @@ export default class NumericInput extends Component {
 
     return (
       <div styleName={classNames('numeric-input', {'disabled': this.props.disabled})}>
-        <div styleName="minus-button" onClick={() => this._onChange(value - step)}>-</div>
+        <div styleName="minus-button" onClick={() => this._onChange(value - step, true)}>-</div>
         <div styleName="input-container" onClick={::this._onContainerClick}>
           <div style={{width: this.props.value.toString().length * CHAR_WIDTH}}>
             <input
@@ -56,12 +65,13 @@ export default class NumericInput extends Component {
               min={0}
               max={max}
               value={this.props.value}
-              onChange={(e) => this._onChange(parseInt(e.target.value, 10) || 0)}
+              onChange={(e) => this._onChange(parseInt(e.target.value, 10) || 0, false)}
+              onBlur={::this._onBlur}
             />
           </div>
           <div styleName="unit">{unit}</div>
         </div>
-        <div styleName="plus-button" onClick={() => this._onChange(value + step)}>+</div>
+        <div styleName="plus-button" onClick={() => this._onChange(value + step, true)}>+</div>
       </div>
     );
   }

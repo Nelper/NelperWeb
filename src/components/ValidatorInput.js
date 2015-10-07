@@ -28,6 +28,7 @@ export default class ValidatorInput extends Component {
       type,
       ...others,
     } = this.props;
+    const isTextArea = type === 'textarea';
 
     return (
       <div
@@ -40,8 +41,9 @@ export default class ValidatorInput extends Component {
         style={style}
       >
         {
-          React.createElement(this.props.type === 'textarea' ? 'textarea' : 'input', {
+          React.createElement(isTextArea ? 'textarea' : 'input', {
             ref: 'input',
+            type: !isTextArea ? type : undefined,
             ...others,
           })
         }

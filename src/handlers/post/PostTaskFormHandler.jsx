@@ -10,6 +10,7 @@ import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import ApiUtils from 'utils/ApiUtils';
 import PostTaskMutation from 'actions/post/PostTaskMutation';
 import EditLocationsMutation from 'actions/settings/EditLocationsMutation';
+import {MIN_PRICE, MAX_PRICE, MIN_TITLE_LENGTH, MIN_DESC_LENGTH} from 'utils/constants';
 
 import styles from './PostTaskFormHandler.scss';
 
@@ -73,6 +74,7 @@ class PostTaskFormHandler extends Component {
     this.setState({
       showCreateLocationDialog: false,
       location: location,
+      locationError: null,
     });
   }
 
@@ -122,11 +124,14 @@ class PostTaskFormHandler extends Component {
   }
 
   _onPriceOfferedChanged(event) {
-    this.setState({
-      hasPriceOfferedInput: true,
-      priceOffered: event.target.value,
-      priceOfferedError: null,
-    });
+    const value = event.target.value;
+    if (value.length <= 3) {
+      this.setState({
+        hasPriceOfferedInput: true,
+        priceOffered: value,
+        priceOfferedError: null,
+      });
+    }
   }
 
   _onDescChanged(event) {
@@ -186,19 +191,22 @@ class PostTaskFormHandler extends Component {
     // TODO: TRANSLATION
     let valid = true;
     if (!this._validateTitle()) {
-      this.setState({titleError: 'Please enter a title for your task.'});
-      valid = false;
-    }
-    if (!this._validatePrice()) {
-      this.setState({priceOfferedError: 'Please enter a price for your task.'});
-      valid = false;
-    }
-    if (!this._validateLocation()) {
-      this.setState({locationError: 'Please select a location for your task.'});
+      this.setState({titleError: <FormattedMessage id="post.errorTitle" />});
       valid = false;
     }
     if (!this._validateDescription()) {
-      this.setState({descError: 'Please enter a description for your task.'});
+      this.setState({descError: <FormattedMessage id="post.errorDesc" />});
+      valid = false;
+    }
+    if (!this._validatePrice()) {
+      this.setState({priceOfferedError: <FormattedMessage id="post.errorPrice" values={{
+        min: MIN_PRICE,
+        max: MAX_PRICE,
+      }} />});
+      valid = false;
+    }
+    if (!this._validateLocation()) {
+      this.setState({locationError: <FormattedMessage id="post.errorLocation" />});
       valid = false;
     }
 
@@ -240,11 +248,12 @@ class PostTaskFormHandler extends Component {
   }
 
   _validateTitle() {
-    return this.state.title.length >= 4;
+    return this.state.title.length >= MIN_TITLE_LENGTH;
   }
 
   _validatePrice() {
-    return this.state.priceOffered.length > 0;
+    const price = parseInt(this.state.priceOffered, 10);
+    return price >= MIN_PRICE && price <= MAX_PRICE;
   }
 
   _validateLocation() {
@@ -252,7 +261,7 @@ class PostTaskFormHandler extends Component {
   }
 
   _validateDescription() {
-    return this.state.desc.length >= 4;
+    return this.state.desc.length >= MIN_DESC_LENGTH;
   }
 
   render() {
@@ -365,11 +374,6 @@ class PostTaskFormHandler extends Component {
                     </select> :
                     null
                   }
-                  {
-                    this.state.locationError ?
-                    <div styleName="location-error">{this.state.locationError}</div> :
-                    null
-                  }
                   <div className="btn-group">
                     {
                       locations.length ?
@@ -383,6 +387,11 @@ class PostTaskFormHandler extends Component {
                     </button>
                   </div>
                 </div>
+                {
+                  this.state.locationError ?
+                  <div styleName="location-error">{this.state.locationError}</div> :
+                  null
+                }
                 {
                   this.state.location ?
                   <div styleName="address">

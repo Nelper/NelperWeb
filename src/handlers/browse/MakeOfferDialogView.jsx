@@ -6,6 +6,7 @@ import {Dialog, NumericInput, TaskPictureSlider, PriceTag} from 'components/inde
 import UserStore from 'stores/UserStore';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import LocationUtils from 'utils/LocationUtils';
+import {MIN_PRICE, MAX_PRICE} from 'utils/constants';
 
 import styles from './MakeOfferDialogView.scss';
 
@@ -96,7 +97,8 @@ export default class MakeOfferDialogView extends Component {
             <div styleName="offer-text"><FormattedMessage id="browse.myOffer" /></div>
             <NumericInput
               unit="$"
-              max={999}
+              min={MIN_PRICE}
+              max={MAX_PRICE}
               value={this.state.makeOfferValue}
               onChange={::this._onMakeOfferValueChange}
             />

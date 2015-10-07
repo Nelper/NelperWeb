@@ -32,3 +32,8 @@ export const TASK_APPLICATION_STATE = {
   /** The application has been denied by the task poster */
   DENIED: 3,
 };
+
+export const MIN_PRICE = 10;
+export const MAX_PRICE = 200;
+export const MIN_TITLE_LENGTH = 4;
+export const MIN_DESC_LENGTH = 4;

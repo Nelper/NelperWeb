@@ -13,13 +13,13 @@
   }
 
   .category-picker {
-    @include outer-container;
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .category {
-    @include span-columns(12);
-
+    flex-basis: flex-grid(12);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,9 +32,10 @@
     border: $base-border;
 
     @include media($medium-screen) {
-      @include span-columns(6);
       @include omega(2n);
       display: flex;
+      flex-basis: flex-grid(6);
+      margin-right: flex-gutter(12);
     }
 
     &:hover {
