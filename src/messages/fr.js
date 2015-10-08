@@ -9,7 +9,7 @@ export default {
 
     cancelApply: "Supprimer mon application",
 
-    postedRelative: "Créée {formattedAgo}",
+    postedRelative: "Publiée {formattedAgo}",
     expiresRelative: "Expire {formattedAgo}",
 
     warning: "Attention!",
