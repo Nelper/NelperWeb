@@ -9,6 +9,7 @@ import {getMe} from './userData';
 export async function getTask({sessionToken}, id, loadApplications = false) {
   const query = new Parse.Query(Task);
   query.include('user');
+  query.include('privateData');
   const task = await query.get(id, {sessionToken});
 
   if (loadApplications) {
@@ -29,6 +30,7 @@ export async function getTasksForUser({sessionToken}, userId) {
   const parseUser = new Parse.User();
   parseUser.id = userId;
   const tasksQuery = new Parse.Query(Task)
+    .include('privateData')
     .equalTo('user', parseUser)
     .containedIn('state', [TASK_STATE.PENDING, TASK_STATE.ACCEPTED])
     .descending('createdAt');

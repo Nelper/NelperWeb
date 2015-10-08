@@ -84,10 +84,6 @@ body {
   margin-bottom: 0;
   font-size: 1.2rem;
 
-  @include media($medium-screen) {
-    padding: 1rem 2rem;
-  }
-
   h2 {
     flex: 1;
     margin-bottom: 0;
@@ -107,10 +103,6 @@ body {
 
 .panel-content {
   padding: 1rem;
-
-  @include media($medium-screen) {
-    padding: 1rem 2rem;
-  }
 }
 
 .pad-all {

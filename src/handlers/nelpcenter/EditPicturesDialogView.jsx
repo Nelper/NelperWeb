@@ -75,7 +75,7 @@ export default class EditPicturesDialogView extends Component {
     });
 
     return (
-      <Dialog opened={this.props.opened} onClose={this.props.onClose}>
+      <Dialog opened={this.props.opened} onClose={this.props.onClose} className="pad-all">
         <div className="edit-pictures-dialog-view">
           <h2>Edit pictures</h2>
           <div className="edit-picture-list">

@@ -1,13 +1,14 @@
-.find-nelp-detail-handler {
+@import 'styles/base-module';
+
+:local .module {
 
   .detail-container {
     margin-bottom: 1rem;
+    padding: 0 1rem;
   }
 
   .other-info-container {
     @include outer-container();
-    margin: 0 2rem;
-    margin-bottom: 2rem;
   }
 
   .other-info-col {
@@ -16,6 +17,11 @@
     @include media($medium-screen) {
       @include span-columns(8);
     }
+  }
+
+  .other-info-split {
+    @include outer-container();
+    margin-left: 3.5rem;
   }
 
   .other-info-split > div {
@@ -31,6 +37,7 @@
 
   .image-col {
     @include span-columns(12);
+    margin-top: 1rem;
 
     @include media($medium-screen) {
       @include span-columns(4);
@@ -52,6 +59,7 @@
     margin-top: 1rem;
     display: flex;
     justify-content: center;
+    font-size: 0.9em;
   }
 
   .detail-row {
@@ -60,7 +68,23 @@
     margin-bottom: 2rem;
   }
 
-  .detail-icon {
+  .title-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 1.3em;
+    margin: 0;
+  }
+
+  .category-icon {
+    @include image(2.5rem);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  %detail-icon {
     @include image(2.5rem);
   }
 
@@ -70,34 +94,59 @@
 
   .description {
     white-space: pre-line;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    margin-left: 2.5rem;
+    text-align: justify;
   }
 
   .applicants-count {
-    background-image: url('~images/icons/applicants.png');
+    @extend %detail-icon;
+    background-image: url('images/icons/applicants.png');
   }
 
   .price-offered {
-    background-image: url('~images/icons/money.png');
+    @extend %detail-icon;
+    background-image: url('images/icons/money.png');
+  }
+
+  .agreed-price {
+    margin-right: 1rem;
+    font-weight: bold;
+    color: $color-gray-medium;
   }
 
   .calendar {
-    background-image: url('~images/icons/calendar.png');
+    @extend %detail-icon;
+    background-image: url('images/icons/calendar.png');
   }
 
   .location {
-    background-image: url('~images/icons/pin.png');
+    @extend %detail-icon;
+    background-image: url('images/icons/pin.png');
+  }
+
+  .location-address {
+    font-size: 0.9em;
+    margin-left: 0.75rem;
+    padding-left: 1rem;
+    border-left: $base-border-strong;
   }
 
   .pending-icon {
     @include image(2.5rem);
     margin-right: 1rem;
-    background-image: url('~images/icons/state-pending.png');
+    background-image: url('images/icons/state-pending.png');
   }
 
   .denied-icon {
     @include image(2.5rem);
     margin-right: 1rem;
-    background-image: url('~images/icons/denied.png');
+    background-image: url('images/icons/denied.png');
+  }
+
+  .delete-button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
   }
 }

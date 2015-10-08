@@ -45,7 +45,7 @@ class TaskCardView extends Component {
         <FormattedMessage id="nelpcenter.common.nelperCount" values={{
           num: this.props.task.applications.pendingCount,
         }}/> :
-        <FormattedMessage id="common.accepted"/>
+        <FormattedMessage id="nelpcenter.myTasks.nelperAccepted"/>
       }
       </div>
     );
@@ -57,7 +57,7 @@ class TaskCardView extends Component {
       <Card
         className="task-card-view"
         onClick={onClick}>
-        <CardImageHeader  className="header">
+        <CardImageHeader className="header">
           <div className="image-overlay" style={this._getTaskImageStyles(task)} />
           <div className="category">
             {

@@ -1,7 +1,7 @@
 .application-card-view {
   $category-icon-size: 64px;
   $is-new-icon-size: 1.5rem;
-  $status-icon-size: 2.5rem;
+  $status-icon-size: 2rem;
   $calendar-icon-size: 2rem;
   $location-icon-size: 2rem;
 
@@ -31,6 +31,10 @@
     border-radius: 50%;
   }
 
+  .content {
+    padding: 0.8rem 1.5rem 1rem;
+  }
+
   .category {
     @include position(absolute, 0);
     display: flex;
@@ -45,6 +49,7 @@
 
   .title {
     @include ellipsis();
+    display: block;
     margin-bottom: 1rem;
     font-weight: bold;
     font-size: 1.2em;
@@ -54,7 +59,6 @@
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
-    padding: 0 1rem;
   }
 
   .text {
@@ -72,7 +76,7 @@
   }
 
   .status-text {
-    font-size: 1.1em;
+    font-size: 1em;
   }
 
   .price {
@@ -92,17 +96,19 @@
   .calendar-icon {
     @include image($calendar-icon-size, $calendar-icon-size);
     background-image: url('~images/icons/calendar.png');
-    margin: 0 0.25rem;
   }
 
   .calendar-text {
     font-size: 0.9em;
   }
 
+  .location {
+    margin-bottom: 0;
+  }
+
   .location-icon {
     @include image($location-icon-size, $location-icon-size);
     background-image: url('~images/icons/pin.png');
-    margin: 0 0.25rem;
   }
 
   .location-text {

@@ -16,6 +16,8 @@ export class EditableBox extends Component {
     multiline: false,
     type: 'text',
     initialValue: '',
+    onEditDone: () => {},
+    onEditCancel: () => {},
   }
 
   state = {
@@ -25,7 +27,7 @@ export class EditableBox extends Component {
   _onDoneEdit(event) {
     event.preventDefault();
     const newValue = this.state.editValue;
-    this.props.onEditDone && this.props.onEditDone(newValue);
+    this.props.onEditDone(newValue);
   }
 
   _onCancel(event) {
@@ -33,7 +35,7 @@ export class EditableBox extends Component {
     this.setState({
       editValue: this.props.initialValue,
     });
-    this.props.onEditCancel && this.props.onEditCancel();
+    this.props.onEditCancel();
   }
 
   _onEditValueChanged(event) {
@@ -83,12 +85,17 @@ export default class Editable extends Component {
     onEditCancel: PropTypes.func,
     onEditDone: PropTypes.func,
     onDelete: PropTypes.func,
+    children: PropTypes.node,
   }
 
   static defaultProps = {
     autoEditBox: true,
     deletable: false,
     value: '',
+    onEditStart: () => {},
+    onDelete: () => {},
+    onEditDone: () => {},
+    onEditCancel: () => {},
   }
 
   state = {
@@ -104,11 +111,11 @@ export default class Editable extends Component {
     this.setState({
       editing: true,
     });
-    this.props.onEditStart && this.props.onEditStart();
+    this.props.onEditStart();
   }
 
   _onDelete() {
-    this.props.onDelete && this.props.onDelete();
+    this.props.onDelete();
   }
 
   _onDoneEdit(newValue) {
@@ -116,14 +123,14 @@ export default class Editable extends Component {
       editing: false,
       value: newValue,
     });
-    this.props.onEditDone && this.props.onEditDone(newValue);
+    this.props.onEditDone(newValue);
   }
 
   _onCancel() {
     this.setState({
       editing: false,
     });
-    this.props.onEditCancel && this.props.onEditCancel();
+    this.props.onEditCancel();
   }
 
   render() {
@@ -133,7 +140,9 @@ export default class Editable extends Component {
         !this.state.editing ?
         <div className="editable">
           <div className="editable-text">
-            {this.state.value}
+            {
+              this.props.children || this.state.value
+            }
           </div>
           <button className="editable-action" onClick={::this._onEdit}>
             <div className="editable-icon-bg" />

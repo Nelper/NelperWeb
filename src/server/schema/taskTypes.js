@@ -149,8 +149,16 @@ export const TaskType = new GraphQLObjectType({
     },
     userPrivate: {
       type: TaskPosterUserPrivateType,
-      description: 'The private info about the task poster. Only available to the accepted Nelper.',
-      resolve: (task, _, {rootValue}) => getTaskPosterPrivate(rootValue, task),
+      description: 'The private info about the task poster. Only available to the accepted Nelper or the user that created the task.',
+      resolve: (task, _, {rootValue}) => {
+        if (task.get('user').id === rootValue.userId && !task.get('application')) {
+          const privateData = task.get('privateData');
+          return {
+            exactLocation: privateData.get('location'),
+          };
+        }
+        return getTaskPosterPrivate(rootValue, task);
+      },
     },
   }),
   interfaces: [nodeInterface],

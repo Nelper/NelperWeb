@@ -116,6 +116,7 @@ export default class MakeOfferDialogView extends Component {
         fill
         opened={this.props.opened}
         onClose={this.props.onClose}
+        className="pad-all"
       >
         {dialogContent}
       </Dialog>

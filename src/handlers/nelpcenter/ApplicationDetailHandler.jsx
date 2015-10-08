@@ -201,7 +201,7 @@ class ApplicationDetailHandler extends Component {
                     <div styleName="task-info-exact-location-icon" />
                     <div>
                       <div>{task.userPrivate.exactLocation.streetNumber} {task.userPrivate.exactLocation.route}</div>
-                      <div>{task.userPrivate.exactLocation.city}</div>
+                      <div>{task.userPrivate.exactLocation.city}, {task.userPrivate.exactLocation.province}</div>
                       <div>{task.userPrivate.exactLocation.postalCode}</div>
                     </div>
                   </div>
@@ -311,6 +311,7 @@ export default Relay.createContainer(ApplicationDetailHandler, {
               route,
               city,
               postalCode,
+              province,
               coords {
                 latitude,
                 longitude,

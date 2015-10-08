@@ -124,7 +124,7 @@ export default class ChatDialogView extends Component {
       .reverse();
 
     return (
-      <Dialog dialogClassName="chat-dialog-view" opened={this.props.opened} onClose={this.props.onClose}>
+      <Dialog className="chat-dialog-view pad-all" opened={this.props.opened} onClose={this.props.onClose}>
         <div styleName="module">
           {
             isLoading ?

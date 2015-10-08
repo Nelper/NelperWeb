@@ -205,30 +205,36 @@ class BrowseTasksListView extends Component {
           {
             selected ?
             <div styleName="detail">
-              <div styleName="desc-col">
-                <div styleName="desc">
-                  {t.desc}
+              <div styleName="profile-btn-row">
+                <div styleName="profile-btn-container">
+                  <button className="secondary border-btn">Profile</button>
                 </div>
-                <div styleName="controls" className="btn-group">
+                <div styleName="desc-col">
+                  <div styleName="desc">
+                    <div styleName="desc-text">
+                      {t.desc}
+                    </div>
+                    <div styleName="controls" className="btn-group">
+                      {
+                        t.application && t.application.state === 'PENDING' ?
+                        <button className="primary" onClick={() => this._onCancelOffer(t)}>
+                          Cancel offer
+                        </button> :
+                        <button className="primary" onClick={() => this._onMakeOffer(t)}>
+                          Make an offer
+                        </button>
+                      }
+                    </div>
+                  </div>
                   {
-                    t.application && t.application.state === 'PENDING' ?
-                    <button className="primary" onClick={() => this._onCancelOffer(t)}>
-                      Cancel offer
-                    </button> :
-                    <button className="primary" onClick={() => this._onMakeOffer(t)}>
-                      Make an offer
-                    </button>
+                    t.pictures && t.pictures.length > 0 ?
+                    <div styleName="task-pictures">
+                      <TaskPictureSlider task={t} />
+                    </div> :
+                    null
                   }
-                  <button className="secondary">View Profile</button>
                 </div>
               </div>
-              {
-                t.pictures && t.pictures.length > 0 ?
-                <div styleName="task-pictures">
-                  <TaskPictureSlider task={t} />
-                </div> :
-                null
-              }
             </div> :
             null
           }

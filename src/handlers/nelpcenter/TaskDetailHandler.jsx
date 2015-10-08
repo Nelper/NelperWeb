@@ -1,13 +1,19 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import {FormattedMessage, FormattedRelative} from 'react-intl';
-import Slider from 'react-slick';
+import cssModules from 'react-css-modules';
 
 import ApplicationListView from './ApplicationListView';
 import AcceptedApplicationView from './AcceptedTaskView';
 import EditPicturesDialogView from './EditPicturesDialogView';
-import {Dialog, Icon, Editable, PriceTag} from 'components/index';
 import {
+  Dialog,
+  Editable,
+  PriceTag,
+  TaskPictureSlider,
+} from 'components/index';
+import {
+  EditTaskTitleMutation,
   EditTaskDescMutation,
   EditTaskPicturesMutation,
   AcceptApplicantMutation,
@@ -17,7 +23,11 @@ import {
 } from 'actions/nelpcenter/index';
 import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';
+import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
+import styles from './TaskDetailHandler.scss';
+
+@cssModules(styles)
 class TaskDetailHandler extends Component {
 
   static propTypes = {
@@ -46,6 +56,15 @@ class TaskDetailHandler extends Component {
 
   componentDidUpdate() {
     this._markTaskViewed();
+  }
+
+  _onTitleChanged(title) {
+    Relay.Store.update(
+      new EditTaskTitleMutation({
+        task: this.props.task,
+        title,
+      })
+    );
   }
 
   _onDescChanged(desc) {
@@ -155,14 +174,9 @@ class TaskDetailHandler extends Component {
 
   render() {
     const {task} = this.props;
+    const location = task.userPrivate.exactLocation;
     const applications = task.applications.edges.map(edge => edge.node);
     const {confirmDeleteOpened, editPicturesOpened} = this.state;
-
-    const pictures = task.pictures && task.pictures.map((p, i) => {
-      return (
-        <div className="task-picture" style={{backgroundImage: `url('${p.url}')`}} key={i} />
-      );
-    });
 
     const pendingApplications = applications.filter(a => a.state === 'PENDING');
     const deniedApplications = applications.filter(a => a.state === 'DENIED');
@@ -180,7 +194,7 @@ class TaskDetailHandler extends Component {
           pendingApplications.length || !deniedApplications.length ?
           <div className="panel">
             <div className="panel-title">
-              <div className="pending-icon" />
+              <div styleName="pending-icon" />
               <h2>
                 <FormattedMessage id="nelpcenter.taskDetail.nelperPending"/>
               </h2>
@@ -198,7 +212,7 @@ class TaskDetailHandler extends Component {
           deniedApplications.length ?
           <div className="panel">
             <div className="panel-title">
-              <div className="denied-icon" />
+              <div styleName="denied-icon" />
               <h2>
                 <FormattedMessage id="nelpcenter.taskDetail.nelperDenied"/>
               </h2>
@@ -216,7 +230,7 @@ class TaskDetailHandler extends Component {
     }
 
     return (
-      <div className="find-nelp-detail-handler container">
+      <div styleName="module" className="container">
         <Dialog
           className="pad-all"
           opened={confirmDeleteOpened}
@@ -246,83 +260,97 @@ class TaskDetailHandler extends Component {
           onAddPicture={::this._onEditPicturesAdd}
           onDeletePicture={::this._onEditPicturesDelete}
         />
-        <div className="detail-container panel pad-all">
-          <h2>{task.title}</h2>
-          <div className="other-info-container">
-            <div className="other-info-col">
-              <div className="description">
+      <div styleName="detail-container" className="panel">
+          <div styleName="other-info-container">
+            <div styleName="other-info-col">
+              <div styleName="title-row">
+                <div styleName="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
+                <Editable value={task.title} onEditDone={::this._onTitleChanged}>
+                  <h2 styleName="title">{task.title}</h2>
+                </Editable>
+              </div>
+              <div styleName="description">
                 <Editable
                   multiline
                   onEditDone={::this._onDescChanged}
                   value={task.desc}
                 />
               </div>
-              <div className="other-info-split">
-                <div className="detail-row">
-                  <div className="detail-icon applicants-count" />
-                  <div className="detail-text">
-                    <FormattedMessage id="nelpcenter.common.nelperCount" values={{
-                      num: pendingApplications.length,
-                    }}/>
-                  </div>
-                </div>
-                <div className="detail-row">
-                  <PriceTag price={task.priceOffered} />
-                </div>
-                <div className="detail-row">
-                  <div className="detail-icon calendar" />
-                  <div className="detail-text">
-                    <div>
-                      <FormattedMessage id="common.postedRelative" values={{
-                        formattedAgo:
-                          <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,
-                      }}/>
-                    </div>
-                    <div>
-                      <FormattedMessage id="common.expiresRelative" values={{
-                        formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)}>{IntlUtils.lower}</FormattedRelative>,
-                      }}/>
-                    </div>
-                  </div>
-                </div>
-                <div className="detail-row">
-                  <div className="detail-icon location" />
-                  <div className="detail-text">
-                    {task.city}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="image-col">
               {
-                pictures.length ?
-                <Slider
-                  dots
-                  arrows
-                  infinite={false}
-                  speed={500}
-                  slidesToShow={1}
-                  slidesToScroll={1}
-                >
-                  {pictures}
-                </Slider> :
-                <div className="no-pictures"></div>
+                acceptedApplication ?
+                <div styleName="other-info-split">
+                  <div styleName="detail-row">
+                    <div styleName="location" />
+                    <div styleName="location-address">
+                      <div>{location.streetNumber} {location.route}</div>
+                      <div>{location.city}, {location.province}</div>
+                      <div>{location.postalCode}</div>
+                    </div>
+                  </div>
+                  <div styleName="detail-row">
+                    <div styleName="agreed-price">Agreed price</div>
+                    <PriceTag price={acceptedApplication.price} />
+                  </div>
+                </div> :
+                <div styleName="other-info-split">
+                  <div styleName="detail-row">
+                    <div styleName="applicants-count" />
+                    <div styleName="detail-text">
+                      <FormattedMessage id="nelpcenter.common.nelperCount" values={{
+                        num: pendingApplications.length,
+                      }}/>
+                    </div>
+                  </div>
+                  <div styleName="detail-row">
+                    <PriceTag price={task.priceOffered} />
+                  </div>
+                  <div styleName="detail-row">
+                    <div styleName="location" />
+                    <div styleName="location-address">
+                      <div>{location.streetNumber} {location.route}</div>
+                      <div>{location.city}, {location.province}</div>
+                      <div>{location.postalCode}</div>
+                    </div>
+                  </div>
+                  <div styleName="detail-row">
+                    <div styleName="calendar" />
+                    <div styleName="detail-text">
+                      <div>
+                        <FormattedMessage id="common.postedRelative" values={{
+                          formattedAgo:
+                            <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,
+                        }}/>
+                      </div>
+                      <div>
+                        <FormattedMessage id="common.expiresRelative" values={{
+                          formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)}>{IntlUtils.lower}</FormattedRelative>,
+                        }}/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               }
-              <div className="edit-pictures">
-                <button className="secondary" onClick={::this._onEditPictures}>
+            </div>
+            <div styleName="image-col">
+              {
+                task.pictures.length ?
+                <TaskPictureSlider task={task} /> :
+                <div styleName="no-pictures"></div>
+              }
+              <div styleName="edit-pictures">
+                <button className="border-btn secondary" onClick={::this._onEditPictures}>
                   <FormattedMessage id="nelpcenter.common.editPic"/>
                 </button>
               </div>
             </div>
           </div>
-          <div className="btn-group">
-            <div className="button link-button" onClick={::this._onDelete}>
-              <Icon svg={require('images/icons/delete.svg')}/>
-              <FormattedMessage id="nelpcenter.common.deleteTask"/>
-            </div>
-          </div>
         </div>
         {applicationsSection}
+        <div styleName="delete-button-container">
+          <button className="white-button" onClick={::this._onDelete}>
+            <FormattedMessage id="nelpcenter.common.deleteTask" />
+          </button>
+        </div>
       </div>
     );
   }
@@ -336,6 +364,7 @@ export default Relay.createContainer(TaskDetailHandler, {
         createdAt,
         title,
         desc,
+        category,
         priceOffered,
         city,
         location {
@@ -344,6 +373,15 @@ export default Relay.createContainer(TaskDetailHandler, {
         },
         pictures {
           url,
+        },
+        userPrivate {
+          exactLocation {
+            streetNumber,
+            route,
+            city,
+            province,
+            postalCode,
+          },
         },
         applications {
           hasAccepted,
@@ -355,6 +393,7 @@ export default Relay.createContainer(TaskDetailHandler, {
               rating,
               tasksCompleted,
             },
+            price,
             phone,
             email,
           }
@@ -381,7 +420,8 @@ export default Relay.createContainer(TaskDetailHandler, {
             }
           }
         },
-        ${AcceptedApplicationView.getFragment('task')}
+        ${AcceptedApplicationView.getFragment('task')},
+        ${EditTaskTitleMutation.getFragment('task')},
         ${EditTaskDescMutation.getFragment('task')},
         ${EditTaskPicturesMutation.getFragment('task')},
         ${AcceptApplicantMutation.getFragment('task')},

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {FormattedMessage} from 'react-intl';
 
 import {Rating, Icon, PriceTag} from 'components/index';
 
@@ -46,7 +47,9 @@ export default class ApplicationListView extends Component {
 
   render() {
     const applications = !this.props.applications.length ?
-      <div className="no-applications">No applications yet!</div> :
+      <div className="no-applications">
+        <FormattedMessage id="nelpcenter.common.noApplication" />
+      </div> :
       this.props.applications.map(a => {
         return (
           <div key={a.id} className="application">

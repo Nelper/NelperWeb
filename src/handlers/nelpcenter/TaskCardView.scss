@@ -1,8 +1,8 @@
 .task-card-view {
   $category-icon-size: 64px;
   $is-new-icon-size: 1.5rem;
-  $status-icon-size: 2.5rem;
-  $calendar-icon-size: 2.5rem;
+  $status-icon-size: 2rem;
+  $calendar-icon-size: 2rem;
 
   .image-overlay {
     @include position(absolute, -2rem);
@@ -13,6 +13,7 @@
   .content {
     display: flex;
     flex-direction: column;
+    padding: 0.8rem 1.5rem 1rem;
   }
 
   .is-new {
@@ -58,8 +59,7 @@
     display: flex;
     align-items: center;
     flex: 1;
-    margin-bottom: 2rem;
-    padding: 0 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .status-icon {
@@ -85,6 +85,6 @@
     @include image($calendar-icon-size, $calendar-icon-size);
     flex-shrink: 0;
     background-image: url('~images/icons/calendar.png');
-    margin: 0 2rem;
+    margin: 0 1.5rem;
   }
 }

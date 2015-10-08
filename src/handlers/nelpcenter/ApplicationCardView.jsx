@@ -41,7 +41,7 @@ class ApplicationCardView extends Component {
             <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
           </div>
         </CardImageHeader>
-        <CardContent>
+        <CardContent className="content">
           <div className="title">
             {task.title}
           </div>
@@ -49,14 +49,6 @@ class ApplicationCardView extends Component {
             <div className="status-icon" style={{backgroundImage: `url('${statusIcon}')`}} />
             <div className="text status-text">{statusText}</div>
             <PriceTag price={application.price} gray />
-          </div>
-          <div className="info-row calendar">
-            <div className="calendar-icon" />
-            <div className="text calendar-text">
-              <FormattedMessage id="nelpcenter.main.applied" values={{
-                moment: <FormattedRelative value={application.createdAt}>{IntlUtils.lower}</FormattedRelative>,
-              }}/>
-            </div>
           </div>
           <div className="info-row location">
             <div className="location-icon" />

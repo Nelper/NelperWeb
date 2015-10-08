@@ -129,11 +129,14 @@ export default {
       editPic: "Modifier mes images",
 
       completion: "Progrès de la tâche",
+
+      noApplication: "Aucune application!",
     },
 
     myTasks: {
       noTask: "Vous n'avez pas de tâche active.",
       post: "Publier une tâche",
+      nelperAccepted: "Nelper accepté",
     },
 
     myApplications: {

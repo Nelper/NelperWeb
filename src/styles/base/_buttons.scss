@@ -113,6 +113,10 @@ button,
       @include bordered-button-color($color-primary);
     }
 
+    &.secondary {
+      @include bordered-button-color($color-secondary);
+    }
+
     &.inverse {
       @include bordered-button-inverse-color($color-primary);
     }

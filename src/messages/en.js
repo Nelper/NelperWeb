@@ -93,8 +93,8 @@ export default {
 
     nelperpayTitle: "NelperPay",
     nelperpayDesc: "Peace of mind for Task Posters and Nelpers.",
-    nelperpayFeature1: "No third-party account needed.",
-    nelperpayFeature2: "No hidden fees.",
+    nelperpayFeature1: "No external account needed.",
+    nelperpayFeature2: "No setup fees.",
     nelperpayFeature3: "No trouble.",
   },
 
@@ -129,11 +129,14 @@ export default {
       editPic: "Edit pictures",
 
       completion: "Task completion process",
+
+      noApplication: "No applications yet!",
     },
 
     myTasks: {
       noTask: "No active tasks.",
       post: "Post a Task",
+      nelperAccepted: "Nelper accepted",
     },
 
     myApplications: {
@@ -197,7 +200,7 @@ export default {
           Click on <em>Proceed to Payment</em>. Enter your credit/debit card info and send the payment. A receipt will be sent automatically to your email.
         </li>
         <li>
-          Once the payment has been sent, it gets held securely via {nelperPay} until your task gets completed.
+          Once the payment is sent, it will be held securely via {nelperPay} until your task gets completed.
         </li>
         <li>
           Your Nelper completes your task.
@@ -234,22 +237,22 @@ export default {
 
     errorTitle: "Please enter a title.",
     errorDesc: "Please enter a description.",
-    errorPrice: "Please enter a price between {min, number, CAD} and {max, number, CAD}",
-    errorLocation: "",
+    errorPrice: "Please enter a price between {min, number, CAD} and {max, number, CAD}.",
+    errorLocation: "Please select or add a location.",
 
     deleteLocationTitle: "Delete location",
     deleteLocationMessage: "Are you sure you want to delete the location '{name}'?",
   },
 
   profile: {
-    editPicture: "Change picture",
+    editPicture: "Edit picture",
     about: "About",
     skills: "Skills",
-    addSkill: "Add new",
+    addSkill: "Add skill",
     education: "Education",
-    addEducation: "Add new",
+    addEducation: "Add education",
     experience: "Work experience",
-    addExperience: "Add new",
+    addExperience: "Add work experience",
   },
 
   faq: {
@@ -288,7 +291,7 @@ export default {
         Click on <em>Proceed to Payment</em>. Enter your credit/debit card info and send the payment. A receipt will be sent automatically to your email.
       </li>
       <li>
-        Once the payment has been sent, it gets held securely via {nelperPay} until your task gets completed.
+        Once the payment is sent, it will be held securely via {nelperPay} until your task gets completed.
       </li>
       <li>
         Your Nelper completes your task.
@@ -330,19 +333,19 @@ export default {
     nelperTitle_05: "What happens if my application gets declined or if the task gets deleted?",
     nelperDesc_05: "If your application gets declined, you receive a notification and your application status changes. If a task you applied for gets deleted, your application will be deleted as well in the process.",
     privacySectionTitle: "Privacy",
-    privacyTitle_00: "Is my exact task location shown on the map?",
-    privacyDesc_00: "No. The location shown on the map is a random one, taken from a 400m area around the exact location. This way, the address remains confidential. Nelpers only have access to the exact task location once you accept their application.<br /><br />You can add a new location when posting a task or select one you already added in your {settings}.",
+    privacyTitle_00: "Is the exact task location shown on the map?",
+    privacyDesc_00: "No. When a task is posted, its location shown on the map is within a random 400m area around the exact location. Nelpers only have access to exact locations/addresses once they get accepted by Task Posters.<br /><br />You can add a new location when posting a task or select one you already added in your {settings}.",
     privacyTitle_01: "Are my email & phone number publicly shown?",
-    privacyDesc_01: "No. People can only see each other’s email and phone number once a Task Poster accepts a Nelper's application, for communication purposes.<br /><br />You can edit email accounts & phone numbers in your {settings}.",
+    privacyDesc_01: "No. They are only shown once a Task Poster accepts a Nelper’s application. Both the Task Poster and the Nelper can see each other’s email & phone number, for communication purposes.<br /><br />You can edit email accounts & phone numbers in your {settings}.",
     privacyTitle_02: "Can I see where a Nelper is from before accepting an application?",
     privacyDesc_02: "Yes, on their profile page. Only their city is shown.",
     paymentSectionTitle: "Payment & Support",
     paymentTitle_00: "What is NelperPay?",
-    paymentDesc_00: "It's our payment platform. Every transaction is handled via {nelperPay}. No third-party account (like Paypal) are needed. It's simple, safe and trustworthy.<br /><br />You can learn more about the transaction process, payment options and trust features on the {nelperPay} page.",
+    paymentDesc_00: "It's our payment platform. Every transaction is handled via {nelperPay}. No external program or online banking account (like Paypal) are needed. It's simple, safe and trustworthy.<br /><br />You can learn more about the transaction process, payment options and trust features on the {nelperPay} page.",
     paymentTitle_01: "How do I send a payment?",
-    paymentDesc_01: "On your task page, click on <em>Proceed to payment</em> and fill in the required fields. You can pay using your Mastercard, VISA or American Express credit/debit card.<br /><br />Everytime you send a payment, a receipt will be sent automatically to your email.",
+    paymentDesc_01: "In your task page, click on <em>Proceed to payment</em>. A window will open for you to enter your payment info. You can pay using your Mastercard, VISA or American Express credit/debit card. <br /><br />You can either choose an existing payment method you previously added or add a new one. Add and manage credit/debit cards in your {settings}.<br /><br />Everytime you send a payment, a receipt will be automatically sent to your registered email.",
     paymentTitle_02: "How do I receive a payment?",
-    paymentDesc_02: "Once your payment gets released by a Task Poster, the money will be automatically deposited to your registered bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, go to the <em>Bank Deposits</em> subsection in your {settings}, click on <em>Link</em> and fill in the required fields.<br /><br /><strong>We recommend that you link your bank account as soon as possible if you plan on completing tasks</strong>, as there can be a small delay for the information to be validated. If you receive a payment and you haven’t linked a bank account yet, it will be securely held via {nelperPay} until you do so. Once it is done, you don’t have to do it anymore and payments will always be automatically deposited.",
+    paymentDesc_02: "Once your payment gets released by a Task Poster, the money will be automatically deposited to your registered bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, visit the NelperPay subsection in your {settings}, fill in the required fields and follow the steps.<br /><br /><strong>We recommend that you link your bank account as soon as possible if you plan on completing tasks</strong>, as there can be a small delay for the information to be validated. If you receive a payment and you still haven’t linked a bank account, it will be safely held via {nelperPay} until you do so. Once it is done, you don’t have to do it anymore and payments will always be automatically deposited in your bank account.",
     paymentTitle_03: "What do I do if I have issues with a Nelper during the payment/task completion?",
     paymentDesc_03: "If your Nelper requests the payment but didn’t complete your task, click on <em>My Nelper has not completed my task</em> at the bottom of your task page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your issue at the earliest and resolve the dispute. You will receive an email once it is resolved. If your Nelper indeed never completed your task, you will get your money back.<br /><br />We make resolving issues our first priority and will always review disputes and issues thoroughly. We want to offer you the best customer service possible so if you are unsatisfied or still have questions after a resolved issue, please feel free to contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
     paymentTitle_04: "What do I do if I have issues with a Task Poster during the payment/task completion process?",
@@ -407,9 +410,9 @@ export default {
       newsletterSetting1: "Our newsletter introducing new features",
     },
     nelperpay: {
-      title: "Bank Deposits",
-      creditCards: "Bank Account",
-      creditCardAdd: "Link",
+      title: "Payment Settings",
+      creditCards: "Credit/Debit cards",
+      creditCardAdd: "Add new",
     },
     history: {
       title: "Transaction History",
