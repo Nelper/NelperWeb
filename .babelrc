@@ -7,8 +7,7 @@
   "env": {
     "production": {
       "optional": [
-        "optimisation.react.constantElements",
-        "optimisation.react.inlineElements"
+        "optimisation.react.constantElements"
       ]
     },
     "development": {
