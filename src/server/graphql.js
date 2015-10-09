@@ -18,6 +18,7 @@ export default function(app) {
         userAgent: request.get('User-Agent'),
         ip: request.ip,
       },
+      pretty: process.env.NODE_ENV !== 'production',
     };
   }));
 }

@@ -1,6 +1,9 @@
 {
   "stage": 0,
   "optional": ["runtime"],
+  "loose": [
+    "es6.classes"
+  ],
   "env": {
     "production": {
       "optional": [

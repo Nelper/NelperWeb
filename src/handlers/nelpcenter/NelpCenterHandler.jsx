@@ -1,34 +1,22 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import cssModules from 'react-css-modules';
-import connectToStores from 'alt/utils/connectToStores';
 import {FormattedMessage} from 'react-intl';
 
 import AppActions from 'actions/AppActions';
-import UserStore from 'stores/UserStore';
 import AppStore from 'stores/AppStore';
 
 import styles from './NelpCenterHandler.scss';
 
-@connectToStores
 @cssModules(styles)
 export default class NelpCenterHandler extends Component {
 
   static propTypes = {
-    user: PropTypes.object,
     children: PropTypes.node,
   }
 
   static contextTypes = {
     history: React.PropTypes.object.isRequired,
-  }
-
-  static getStores() {
-    return [UserStore];
-  }
-
-  static getPropsFromStores() {
-    return UserStore.getState();
   }
 
   componentDidMount() {
