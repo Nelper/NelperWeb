@@ -32,6 +32,7 @@ import {
 
 import {
   getTaskPosterPrivate,
+  getApplicantPrivate,
 } from '../data/userData';
 
 import commonFields from './commonFields';
@@ -145,6 +146,19 @@ export const TaskType = new GraphQLObjectType({
         }
         const applications = await task.get('applications');
         return connectionFromArray(applications, args);
+      },
+    },
+    acceptedApplication: {
+      type: ApplicationType,
+      description: 'The application that has been accepted for this task.',
+      resolve: async (task, _, {rootValue}) => {
+        const application = task.get('acceptedApplication');
+        if (application) {
+          const {phone, email} = await getApplicantPrivate(rootValue, task);
+          application.set('phone', phone);
+          application.set('email', email);
+        }
+        return application;
       },
     },
     userPrivate: {

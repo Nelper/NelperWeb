@@ -35,7 +35,7 @@ class AcceptedTaskView extends Component {
 
   _onPosterProfileClick() {
     const {task} = this.props;
-    this.context.history.pushState(null, `/center/tasks/detail/${task.id}/${task.applications.accepted.id}`);
+    this.context.history.pushState(null, `/center/tasks/detail/${task.id}/${task.acceptedApplication.id}`);
   }
 
   _onProceedToPayment() {
@@ -70,7 +70,7 @@ class AcceptedTaskView extends Component {
 
   _renderTaskCompletion() {
     const {task} = this.props;
-    const application = task.applications.accepted;
+    const application = task.acceptedApplication;
     switch (task.completionState) {
     case 'PAYMENT_SENT':
       return (
@@ -113,7 +113,7 @@ class AcceptedTaskView extends Component {
 
   render() {
     const {task} = this.props;
-    const application = task.applications.accepted;
+    const application = task.acceptedApplication;
 
     return (
       <div className="accepted-application-view">
@@ -203,16 +203,14 @@ export default Relay.createContainer(AcceptedTaskView, {
       fragment on Task {
         id,
         completionState,
-        applications {
-          accepted {
-            id,
-            email,
-            phone,
-            price,
-            user {
-              name,
-              pictureURL,
-            },
+        acceptedApplication {
+          id,
+          email,
+          phone,
+          price,
+          user {
+            name,
+            pictureURL,
           },
         },
       }

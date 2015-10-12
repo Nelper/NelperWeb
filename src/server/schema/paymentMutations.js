@@ -3,6 +3,7 @@ import {
   GraphQLID,
   GraphQLString,
   GraphQLBoolean,
+  GraphQLEnumType,
 } from 'graphql';
 
 import {
@@ -10,27 +11,35 @@ import {
 } from 'graphql-relay';
 
 import {
-  createChargeForApplication,
+  sendPaymentForTask,
   createStripeAccount,
 } from '../data/paymentData';
 
-export const CreateChargeForApplicationMutation = mutationWithClientMutationId({
-  name: 'CreateChargeForApplication',
+const PaymentStatusType = new GraphQLEnumType({
+  name: 'PaymentStatus',
+  description: 'The possible states for a task.',
+  values: {
+    SUCCESS: {value: 0},
+  },
+});
+
+export const SendPaymentMutation = mutationWithClientMutationId({
+  name: 'SendPayment',
   inputFields: {
-    applicationId: {type: new GraphQLNonNull(GraphQLID)},
+    taskId: {type: new GraphQLNonNull(GraphQLID)},
     token: {type: new GraphQLNonNull(GraphQLString)},
   },
   outputFields: {
-    success: {
-      type: GraphQLBoolean,
-      resolve: ({success}) => {
-        return success;
+    paymentStatus: {
+      type: PaymentStatusType,
+      resolve: ({status}) => {
+        return status;
       },
     },
   },
-  mutateAndGetPayload: async ({applicationId, token}, {rootValue}) => {
-    await createChargeForApplication(rootValue, applicationId, token);
-    return {success: true};
+  mutateAndGetPayload: async ({taskId, token}, {rootValue}) => {
+    const status = await sendPaymentForTask(rootValue, taskId, token);
+    return {status};
   },
 });
 

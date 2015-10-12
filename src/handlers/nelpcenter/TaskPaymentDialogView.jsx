@@ -95,7 +95,7 @@ export default class TaskPaymentDialogView extends Component {
 
   render() {
     const {task} = this.props;
-    const application = task.applications.accepted;
+    const application = task.acceptedApplication;
 
     if (!this.state.stripe) {
       return null;

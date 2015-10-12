@@ -19,7 +19,6 @@ import {
 import {
   getApplication,
 } from '../data/applicationData';
-import {getApplicantPrivate} from '../data/userData';
 
 import {UserType, TaskType} from './types';
 import commonFields from './commonFields';
@@ -94,26 +93,6 @@ const applicationConnectionDefinition = connectionDefinitions({
       type: GraphQLBoolean,
       description: 'If there are applications that have not been seen by the user yet.',
       resolve: (conn) => conn.edges.some(edge => edge.node.get('isNew')),
-    },
-    hasAccepted: {
-      type: GraphQLBoolean,
-      description: 'If the is an accepted application for this task.',
-      resolve: (conn) => conn.edges.some(edge => edge.node.get('state') === TASK_APPLICATION_STATE.ACCEPTED),
-    },
-    accepted: {
-      type: ApplicationType,
-      description: 'The accepted application for this task.',
-      resolve: async (conn, _, {rootValue}) => {
-        const acceptedEdge = conn.edges.find(edge => edge.node.get('state') === TASK_APPLICATION_STATE.ACCEPTED);
-        if (acceptedEdge) {
-          const application = acceptedEdge.node;
-          const {phone, email} = await getApplicantPrivate(rootValue, application);
-          application.set('phone', phone);
-          application.set('email', email);
-          return application;
-        }
-        return null;
-      },
     },
   }),
 });

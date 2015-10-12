@@ -17,8 +17,6 @@ type ApplicationConnection {
   totalCount: Int
   pendingCount: Int
   hasNew: Boolean
-  hasAccepted: Boolean
-  accepted: Application
 }
 
 type ApplicationEdge {
@@ -71,17 +69,6 @@ input ChangeLanguageInput {
 
 type ChangeLanguagePayload {
   privateData: UserPrivate
-  clientMutationId: String!
-}
-
-input CreateChargeForApplicationInput {
-  applicationId: ID!
-  token: String!
-  clientMutationId: String!
-}
-
-type CreateChargeForApplicationPayload {
-  success: Boolean
   clientMutationId: String!
 }
 
@@ -220,7 +207,7 @@ type Mutation {
   editLocations(input: EditLocationsInput!): EditLocationsPayload
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
   changeLanguage(input: ChangeLanguageInput!): ChangeLanguagePayload
-  createChargeForApplication(input: CreateChargeForApplicationInput!): CreateChargeForApplicationPayload
+  sendPayment(input: SendPaymentInput!): SendPaymentPayload
   createStripeAccount(input: CreateStripeAccountInput!): CreateStripeAccountPayload
 }
 
@@ -251,6 +238,10 @@ type PageInfo {
   endCursor: String
 }
 
+enum PaymentStatus {
+  SUCCESS
+}
+
 input PostTaskInput {
   title: String!
   category: String!
@@ -271,6 +262,17 @@ type Query {
   node(id: ID!): Node
   me: User
   browse: Browse
+}
+
+input SendPaymentInput {
+  taskId: ID!
+  token: String!
+  clientMutationId: String!
+}
+
+type SendPaymentPayload {
+  paymentStatus: PaymentStatus
+  clientMutationId: String!
 }
 
 input SetApplicationStateInput {
@@ -303,6 +305,7 @@ type Task implements Node {
   user: User
   application: Application
   applications: ApplicationConnection
+  acceptedApplication: Application
   userPrivate: TaskPosterUserPrivate
 }
 

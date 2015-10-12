@@ -20,6 +20,7 @@ export default class AcceptApplicantMutation extends Mutation {
     return Relay.QL`
       fragment on SetApplicationStatePayload {
         task {
+          acceptedApplication,
           applications,
         },
       }
@@ -44,10 +45,7 @@ export default class AcceptApplicantMutation extends Mutation {
     return {
       task: {
         id: this.props.task.id,
-        applications: {
-          hasAccepted: true,
-          accepted: this.props.application,
-        },
+        acceptedApplication: this.props.application,
       },
     };
   }

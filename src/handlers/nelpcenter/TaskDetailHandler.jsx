@@ -181,7 +181,7 @@ class TaskDetailHandler extends Component {
     const pendingApplications = applications.filter(a => a.state === 'PENDING');
     const deniedApplications = applications.filter(a => a.state === 'DENIED');
 
-    const acceptedApplication = task.applications.accepted;
+    const acceptedApplication = task.acceptedApplication;
     let applicationsSection;
     if (acceptedApplication) {
       applicationsSection = (
@@ -383,20 +383,19 @@ export default Relay.createContainer(TaskDetailHandler, {
             postalCode,
           },
         },
+        acceptedApplication {
+          objectId,
+          user {
+            name,
+            pictureURL,
+            rating,
+            tasksCompleted,
+          },
+          price,
+          phone,
+          email,
+        },
         applications {
-          hasAccepted,
-          accepted {
-            objectId,
-            user {
-              name,
-              pictureURL,
-              rating,
-              tasksCompleted,
-            },
-            price,
-            phone,
-            email,
-          }
           edges {
             node {
               id,

@@ -20,7 +20,7 @@ import {
   EditTaskMutation,
   SetApplicationStateMutation,
   DeleteTaskMutation,
-  CreateChargeForApplicationMutation,
+  SendPaymentMutation,
   CreateStripeAccountMutation,
   PostTaskMutation,
   EditLocationsMutation,
@@ -78,7 +78,7 @@ const mutationType = new GraphQLObjectType({
     updateNotificationSettings: UpdateNotificationSettingsMutation,
     changeLanguage: ChangeLanguageMutation,
 
-    createChargeForApplication: CreateChargeForApplicationMutation,
+    sendPayment: SendPaymentMutation,
     createStripeAccount: CreateStripeAccountMutation,
   }),
 });

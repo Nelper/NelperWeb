@@ -18,6 +18,6 @@ export {
 } from './userMutations';
 
 export {
-  CreateChargeForApplicationMutation,
+  SendPaymentMutation,
   CreateStripeAccountMutation,
 } from './paymentMutations';

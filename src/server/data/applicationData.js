@@ -28,12 +28,17 @@ export async function setApplicationState({sessionToken, userId}, applicationId,
   const query = new Parse.Query(TaskApplication);
   query.include('task.user');
   const application = await query.get(applicationId, {sessionToken});
-  if (application.get('task').get('user').id !== userId) {
+  const task = application.get('task');
+  if (task.get('user').id !== userId) {
     throw new InvalidOperationError();
   }
   application.set('state', state);
   if (state === TASK_APPLICATION_STATE.ACCEPTED) {
     application.set('acceptedAt', new Date());
+    task.set('acceptedApplication', application);
+  } else {
+    task.unset('acceptedApplication');
   }
-  return await application.save(null, {sessionToken});
+  const savedObjects = await Parse.Object.saveAll([application, task], {sessionToken});
+  return savedObjects[0];
 }

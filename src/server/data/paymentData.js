@@ -2,26 +2,28 @@ import Stripe from 'stripe';
 
 import {InvalidOperationError, UnauthorizedError} from '../errors';
 import {getMe, getUserPrivateWithMasterKey} from './userData';
-import {getApplication} from './applicationData';
-import {TASK_APPLICATION_STATE} from '../../utils/constants';
+import {getTask} from './taskData';
+
+// The percentage of the total amount charged that is transfered in our account.
+const PLATFORM_FEES_PERCENTAGE = 10;
 
 const stripe = new Stripe('sk_test_JBQSP7eMqdNUqe7rQFYLEFXi');
 
 // TODO(janic): The payment process will need to be logged heavily to debug any issues.
 
-export async function createChargeForApplication(rootValue, applicationId, token) {
+export async function sendPaymentForTask(rootValue, taskId, token) {
   // The user creating the charge (the task poster).
   const user = await getMe(rootValue);
   if (!user) {
     throw new UnauthorizedError();
   }
   // The application that is being paid.
-  const application = await getApplication(rootValue, applicationId);
+  const task = await getTask(rootValue, taskId);
+  const application = task.get('acceptedApplication');
 
   // Validate the application state and that the application is for a task the user
   // owns.
-  if (application.get('task').get('user').id !== user.id ||
-      application.get('state') !== TASK_APPLICATION_STATE.ACCEPTED) {
+  if (task.get('user').id !== user.id || !application) {
     throw new InvalidOperationError();
   }
 
@@ -34,17 +36,19 @@ export async function createChargeForApplication(rootValue, applicationId, token
   const amount = application.get('price') * 100;
 
   // The platform fee. Will be deducted from the amount and transfered
-  // to the Nelper account. 5% of the total amount. Gettin so much money n****!
-  const applicationFee = amount * 5 / 100;
+  // to the Nelper account. {PLATFORM_FEES_PERCENTAGE}% of the total amount. Gettin' so much money n****!
+  const applicationFee = amount * PLATFORM_FEES_PERCENTAGE / 100;
 
   // Create the charge on stripe.
-  stripe.charges.create({
+  const response = await stripe.charges.create({
     amount: amount,
     currency: 'cad',
     source: token,
     destination: destination,
     application_fee: applicationFee,
   });
+
+  console.log(response);
 }
 
 export async function createStripeAccount({sessionToken, userId, userAgent, ip}) {

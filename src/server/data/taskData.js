@@ -7,9 +7,10 @@ import TaskCategoryUtils from '../../utils/TaskCategoryUtils';
 import {getMe} from './userData';
 
 export async function getTask({sessionToken}, id, loadApplications = false) {
-  const query = new Parse.Query(Task);
-  query.include('user');
-  query.include('privateData');
+  const query = new Parse.Query(Task)
+    .include('user')
+    .include('privateData')
+    .include('acceptedApplication.user');
   const task = await query.get(id, {sessionToken});
 
   if (loadApplications) {
@@ -31,6 +32,7 @@ export async function getTasksForUser({sessionToken}, userId) {
   parseUser.id = userId;
   const tasksQuery = new Parse.Query(Task)
     .include('privateData')
+    .include('acceptedApplication.user')
     .equalTo('user', parseUser)
     .containedIn('state', [TASK_STATE.PENDING, TASK_STATE.ACCEPTED])
     .descending('createdAt');

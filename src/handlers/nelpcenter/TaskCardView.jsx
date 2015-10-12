@@ -26,7 +26,7 @@ class TaskCardView extends Component {
 
   _renderStatus() {
     let icon;
-    if (this.props.task.applications.hasAccepted) {
+    if (this.props.task.acceptedApplication) {
       icon = require('images/icons/accepted.png');
     } else {
       icon = require('images/icons/applicants.png');
@@ -41,7 +41,7 @@ class TaskCardView extends Component {
     return (
       <div className="applicants">
       {
-        !this.props.task.applications.hasAccepted ?
+        !this.props.task.acceptedApplication ?
         <FormattedMessage id="nelpcenter.common.nelperCount" values={{
           num: this.props.task.applications.pendingCount,
         }}/> :
@@ -109,8 +109,10 @@ export default Relay.createContainer(TaskCardView, {
         pictures {
           url,
         },
+        acceptedApplication {
+          id,
+        },
         applications {
-          hasAccepted,
           hasNew,
           pendingCount,
         },
