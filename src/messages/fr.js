@@ -63,7 +63,7 @@ export default {
     post: "Publier une tâche",
     profile: "Profile",
     settings: "Paramètres",
-    logout: "Déconnection",
+    logout: "Déconnexion",
     howItWorks: "Comment ça fonctionne?",
     nelperPay: "NelperPay",
     faq: "FAQ",
