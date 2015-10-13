@@ -71,7 +71,7 @@ export default {
 
   home: {
     topSectionTitle: "Your task completion marketplace",
-    topSectionDesc: "With Nelper, find people near who can complete your tasks or earn money completing other people’s tasks.",
+    topSectionDesc: "With Nelper, find people near you who can complete your tasks or earn money completing other people’s tasks.",
 
     browseTitle: "Browse Tasks",
     browseDesc: "Browse & find tasks to complete.",
@@ -88,14 +88,14 @@ export default {
     categoriesDesc: "Anything can be completed on Nelper, from router installation to lawn mowing",
 
     becomeNelperTitle: "Become a Nelper",
-    becomeNelperDesc: "Want to help people close to you and make money by completing tasks? Join the community now!",
+    becomeNelperDesc: "Want to earn money by completing tasks? Join the community now!",
     browseTasks: "Browse Tasks",
 
     nelperpayTitle: "NelperPay",
-    nelperpayDesc: "Peace of mind for Task Posters and Nelpers.",
+    nelperpayDesc: "A safe and trustworthy payment platform.",
     nelperpayFeature1: "No third-party account needed.",
     nelperpayFeature2: "No hidden fees.",
-    nelperpayFeature3: "No trouble.",
+    nelperpayFeature3: "No worries.",
   },
 
   browse: {
@@ -272,7 +272,7 @@ export default {
     generalTitle_04: "What kind of tasks are completed on Nelper?",
     generalDesc_04: "Anything! From router installation to lawn mowing, you can find or post any kind of tasks on Nelper. Our simple categories and easy to understand interface make it easy to post or browse tasks.",
     generalTitle_05: "Is it free?",
-    generalDesc_05: "Posting tasks, browsing tasks and applying for tasks are <strong>free</strong>, no hidden fees. As a Task Poster, you only pay the agreed price for your task, nothing more.<br /><br />For Nelpers, there is a 7,5% transaction fee deducted from the total amount, for {nelperPay}’s secure payment handling.",
+    generalDesc_05: "Posting tasks, browsing tasks and applying for tasks are <strong>free</strong>, no hidden fees. As a Task Poster, you only pay the agreed price for your task, nothing more.<br /><br />As a Nelper, when you receive a payment, a service fee of 7.5% is deducted from the total amount, for {nelperPay}’s secure payment handling.",
     posterSectionTitle: "Task Poster",
     posterTitle_00: "How do I post a task?",
     posterDesc_00: "Go to {postATask}. Select a category, give your task a title, give it a description, enter your price offer, add the task location and add pictures, if needed.<br /><br />Simple as that, the whole process only take a few minutes.",
@@ -347,11 +347,11 @@ export default {
     paymentTitle_02: "How do I receive a payment?",
     paymentDesc_02: "When your payment gets released by a Task Poster after you have completed their task, your money will be automatically deposited into your bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, go to the <em>Bank Deposits</em> subsection in your {settings}, click on <em>Link</em> and fill in the required fields.<br /><br /><strong>If you plan on completing tasks, we recommend that you link your bank account as soon as possible</strong>, as there can be a short delay for your banking information to be validated. If you receive a payment and haven’t linked a bank account yet, it will be securely held via {nelperPay} until you do so. Once it’s done, every payment you receive will be automatically deposited into your bank account.",
     paymentTitle_03: "What do I do if I have issues with a Nelper during the payment/task completion?",
-    paymentDesc_03: "If your Nelper requests the payment but didn’t complete your task, click on <em>My Nelper has not completed my task</em> at the bottom of your task page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your issue at the earliest and resolve the dispute. You will receive an email once it is resolved. If your Nelper indeed never completed your task, you will get your money back.<br /><br />We make resolving issues our first priority and will always review disputes and issues thoroughly. We want to offer you the best customer service possible so if you are unsatisfied or still have questions after a resolved issue, please feel free to contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
+    paymentDesc_03: "If your Nelper requests the payment but didn’t complete your task or only refuses to complete your task, click on <em>My Nelper has not completed my task</em> at the bottom of your task page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your dispute at the earliest and you will be notified via email once it has been resolved. If your task was poorly or not complete, you will get a refund.<br /><br />Resolving disputes is our first priority and we always review them thoroughly. If you are unsatisfied or still have questions after a resolved issue, you can contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
     paymentTitle_04: "What do I do if I have issues with a Task Poster during the payment/task completion process?",
-    paymentDesc_04: "If the Task Poster refuses to confirm the task completion, claiming that the task was either poorly completed or never completed and therefore not releasing your payment, click on <em>The Task Poster refuses to release the payment</em> at the bottom of your application page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your issue at the earliest and resolve the dispute. You will receive an email once it is resolved. If you indeed completed the task in a way we see fit, you will receive your payment.<br /><br />We make resolving issues our first priority and will always review disputes and issues thoroughly. We want to offer you the best customer service possible so if you are unsatisfied or still have questions after a resolved issue, please feel free to contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
+    paymentDesc_04: "If the Task Poster refuses to confirm the task completion, therefore not releasing your payment, claiming that the task was either poorly completed or not completed, click on <em>The Task Poster refuses to release the payment</em> at the bottom of your application page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your dispute at the earliest and you will be notified via email once it has been resolved. If you prove that you completed the task in a proper way, you will receive your payment.<br /><br />Resolving disputes is our first priority and we always review them thoroughly. If you are unsatisfied or still have questions after a resolved issue, you can contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
     paymentTitle_05: "Where can I get customer support?",
-    paymentDesc_05: "If you need help with something, have questions, want to report bugs or want to leave feedback, please visit our {supportCenter}. You can ask us <u>anything</u>, we will get back to you as soon as possible!",
+    paymentDesc_05: "If you need help with something, have questions, want to report bugs or want to leave feedback, you can contact us anytime on the {supportCenter}. Our support team will get back to you as soon as possible!",
   },
 
   nelperPay: {

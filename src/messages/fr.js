@@ -70,30 +70,30 @@ export default {
   },
 
   home: {
-    topSectionTitle: "Marché en ligne d'accomplissement de tâches",
-    topSectionDesc: "Avec Nelper, entrez en contact avec les gens de votre communauté et faites compléter vos tâches ou complétez celles d'autres personnes.",
+    topSectionTitle: "Marché en ligne d'achèvement de tâches",
+    topSectionDesc: "Avec Nelper, entrez en contact avec des gens près de vous et faites compléter vos tâches ou faites de l'arget à compléter celles d'autres.",
 
     browseTitle: "Parcourir les tâches",
     browseDesc: "Appliquez pour compléter des tâches.",
     nelpcenterTitle: "Centre Nelp",
     nelpcenterDesc: "Gérez vos tâches et applications.",
     postTitle: "Publier une tâche",
-    postDesc: "Trouvez un Nelper et faites compléter votre tâche.",
+    postDesc: "Trouvez un Nelper pouvant compléter votre tâche.",
 
     getCompletedTitle: "Faites compléter vos tâches",
-    getCompletedDesc: "Des gens de votre communauté peuvent vous aider.<br />Publier une tâche est <strong>gratuit</strong>.",
+    getCompletedDesc: "Il y a quelqu'un dans votre voisinage qui peut vous aider.<br />Publier une tâche est <strong>gratuit</strong>.",
     getStarted: "Publier une tâche",
 
     categoriesTitle: "Catégories simples, options multiples",
     categoriesDesc: "De la tonte de pelouse à l’installation d’un routeur, toutes vos tâches peuvent être complétées sur Nelper.",
 
     becomeNelperTitle: "Devenez un Nelper",
-    becomeNelperDesc: "Vous souhaitez mettre à profit vos talents et faire de l’argent? Rejoignez la communauté dès maintenant et complétez des tâches.",
+    becomeNelperDesc: "Vous souhaitez mettre à profit vos talents et faire de l’argent en complétant des tâches? Rejoignez la communauté dès maintenant.",
     browseTasks: "Parcourir les tâches",
 
     nelperpayTitle: "NelperPay",
-    nelperpayDesc: "Paix d’esprit pour les Nelpers et les publieurs de tâches",
-    nelperpayFeature1: "Aucun compte bancaire en ligne requis.",
+    nelperpayDesc: "Plateforme de paiement simple et sécuritaire",
+    nelperpayFeature1: "Aucun compte en ligne requis.",
     nelperpayFeature2: "Aucun frais d’adhésion.",
     nelperpayFeature3: "<strong>Aucun soucis.</strong>",
   },
