@@ -2,7 +2,7 @@ import Parse from 'parse/node';
 
 import {InvalidOperationError} from '../errors';
 import {TaskApplication} from './parseTypes';
-import {TASK_APPLICATION_STATE} from '../../utils/constants';
+import {TASK_STATE, TASK_APPLICATION_STATE} from '../../utils/constants';
 
 export async function getApplication({sessionToken}, id) {
   const query = new Parse.Query(TaskApplication);
@@ -35,6 +35,7 @@ export async function setApplicationState({sessionToken, userId}, applicationId,
   application.set('state', state);
   if (state === TASK_APPLICATION_STATE.ACCEPTED) {
     application.set('acceptedAt', new Date());
+    task.set('state', TASK_STATE.ACCEPTED);
     task.set('acceptedApplication', application);
   } else {
     task.unset('acceptedApplication');
