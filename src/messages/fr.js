@@ -303,8 +303,8 @@ export default {
         Finalement, évaluez et critiquez la performance de votre Nelper.
       </li>
     </ol>`,
-    posterTitle_06: "Qu’arrive-t-il si aucun Nelper n’applique pour ma tâche?",
-    posterDesc_06: "Chaque tâche a un délai maximal de 30 jours. Si ce délai expire, votre tâche se fait supprimer automatiquement. Il n’y a pas de conséquences si personne n’applie sur votre tâche. Ce peut cependant être un indicateur que votre tâche est trop complexe, mal expliquée ou que votre prix offert est trop bas.",
+    posterTitle_06: "Qu’arrive-t-il si je ne reçois pas d'application?",
+    posterDesc_06: "Rien, votre tâche reste active jusqu'à ce que vous la supprimez ou jusqu'à ce que vous acceptez un Nelper. Il n’y a pas de conséquences si personne n’applique pour votre tâche. Cela peut cependant être un indicateur que celle-ci est trop complexe, mal expliquée ou que votre prix offert est trop bas.",
     nelperSectionTitle: "Nelper",
     nelperTitle_00: "Comment parcourir les tâches?",
     nelperDesc_00: "Allez dans {browseTasks}. La carte et la liste de tâches liées ensemble. Si vous cliquez sur une tâche dans la liste, vous verrez sa location sur la carte. Tandis que si vous cliquez une une tâche sur la carte (une punaise), vous la verrez dans la liste, avec ses détails complets.<br /><br />Vous pouvez filtrer les tâches que vous désirez voir tant sur la carte que dans la liste par catégorie, intervalle de prix et proximité. Le filtre de proximité est basé selon votre emplacement que vous pouvez ajouter ou modifier dans vos {settings}. Vous pouvez également trier la liste de tâches par prix, distance et date de publication.",
