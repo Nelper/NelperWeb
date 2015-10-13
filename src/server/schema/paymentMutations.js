@@ -8,6 +8,7 @@ import {
 
 import {
   mutationWithClientMutationId,
+  fromGlobalId,
 } from 'graphql-relay';
 
 import {
@@ -15,11 +16,14 @@ import {
   createStripeAccount,
 } from '../data/paymentData';
 
+import {TaskType} from './types';
+
 const PaymentStatusType = new GraphQLEnumType({
   name: 'PaymentStatus',
   description: 'The possible states for a task.',
   values: {
     SUCCESS: {value: 0},
+    FAILED: {value: 1},
   },
 });
 
@@ -32,14 +36,20 @@ export const SendPaymentMutation = mutationWithClientMutationId({
   outputFields: {
     paymentStatus: {
       type: PaymentStatusType,
-      resolve: ({status}) => {
-        return status;
+      resolve: ({paymentStatus}) => {
+        return paymentStatus;
+      },
+    },
+    task: {
+      type: TaskType,
+      resolve: ({task}) => {
+        return task;
       },
     },
   },
   mutateAndGetPayload: async ({taskId, token}, {rootValue}) => {
-    const status = await sendPaymentForTask(rootValue, taskId, token);
-    return {status};
+    const localTaskId = fromGlobalId(taskId).id;
+    return await sendPaymentForTask(rootValue, localTaskId, token);
   },
 });
 

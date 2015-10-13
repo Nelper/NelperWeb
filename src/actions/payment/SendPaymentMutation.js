@@ -15,7 +15,10 @@ export default class SendPaymentMutation extends Mutation {
     return Relay.QL`
       fragment on SendPaymentPayload {
         paymentStatus,
-        task,
+        task {
+          completionState,
+          paymentSentAt,
+        },
       }
     `;
   }

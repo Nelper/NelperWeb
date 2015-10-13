@@ -4,13 +4,11 @@
   display: flex;
 
   .rating-item {
-    width: rem(22px);
+    width: rem(22px) + 0.5rem;
     height: rem(22px);
     fill: rgba(255, 255, 255, 0.3);
 
-    &:not(:last-child) {
-      margin-right: 0.5rem;
-    }
+    padding-right: 0.5rem;
 
     &.active {
       fill: rgba(255, 255, 255, 0.9);
@@ -22,14 +20,26 @@
     line-height: rem(22px);
   }
 
+  &.editable {
+    .rating-item {
+      cursor: pointer;
+
+      &.hovered {
+        fill: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    &.dark .rating-item.hovered {
+      fill: rgba(0, 0, 0, 0.5);
+    }
+  }
+
   &.small {
     .rating-item {
-      width: rem(16px);
+      width: rem(16px) + 0.05rem;
       height: rem(16px);
 
-      &:not(:last-child) {
-        margin-right: 0.05em;
-      }
+      padding-right: 0.05rem;
     }
 
     .number {

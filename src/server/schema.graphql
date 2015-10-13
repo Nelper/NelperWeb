@@ -72,6 +72,17 @@ type ChangeLanguagePayload {
   clientMutationId: String!
 }
 
+input CompleteTaskInput {
+  taskId: ID!
+  clientMutationId: String!
+}
+
+type CompleteTaskPayload {
+  task: Task
+  me: User
+  clientMutationId: String!
+}
+
 input CreateStripeAccountInput {
   clientMutationId: String!
 }
@@ -203,6 +214,8 @@ type Mutation {
   applyForTask(input: ApplyForTaskInput!): ApplyForTaskPayload
   cancelApplyForTask(input: CancelApplyForTaskInput!): CancelApplyForTaskPayload
   setApplicationState(input: SetApplicationStateInput!): SetApplicationStatePayload
+  completeTask(input: CompleteTaskInput!): CompleteTaskPayload
+  sendApplicantFeedback(input: SendApplicantFeedbackInput!): SendApplicantFeedbackPayload
   editProfile(input: EditProfileInput!): EditProfilePayload
   editLocations(input: EditLocationsInput!): EditLocationsPayload
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
@@ -240,6 +253,7 @@ type PageInfo {
 
 enum PaymentStatus {
   SUCCESS
+  FAILED
 }
 
 input PostTaskInput {
@@ -264,6 +278,18 @@ type Query {
   browse: Browse
 }
 
+input SendApplicantFeedbackInput {
+  taskId: ID!
+  rating: Int
+  content: String
+  clientMutationId: String!
+}
+
+type SendApplicantFeedbackPayload {
+  task: Task
+  clientMutationId: String!
+}
+
 input SendPaymentInput {
   taskId: ID!
   token: String!
@@ -272,6 +298,7 @@ input SendPaymentInput {
 
 type SendPaymentPayload {
   paymentStatus: PaymentStatus
+  task: Task
   clientMutationId: String!
 }
 
@@ -295,6 +322,7 @@ type Task implements Node {
   updatedAt: String
   state: TaskState
   completionState: TaskCompletionState
+  paymentSentAt: String
   title: String
   desc: String
   category: String

@@ -4,6 +4,8 @@ export {
   CancelApplyForTaskMutation,
   DeleteTaskMutation,
   PostTaskMutation,
+  CompleteTaskMutation,
+  SendApplicantFeedbackMutation,
 } from './taskMutations';
 
 export {

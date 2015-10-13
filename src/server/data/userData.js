@@ -80,8 +80,7 @@ export async function updateNotificationSettings({userId, sessionToken}, setting
 export async function getApplicantPrivate({userId, sessionToken}, task) {
   const application = task.get('acceptedApplication');
   // Makes sure the user is the task poster.
-  if (userId !== task.get('user').id ||
-      application.get('state') !== TASK_APPLICATION_STATE.ACCEPTED) {
+  if (userId !== task.get('user').id || !application) {
     return null;
   }
   const query = new Parse.Query(Parse.User)

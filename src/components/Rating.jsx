@@ -14,12 +14,42 @@ export default class Rating extends Component {
     dark: PropTypes.bool,
     small: PropTypes.bool,
     number: PropTypes.number,
+    editable: PropTypes.bool,
+    onChange: PropTypes.func,
   }
 
   static defaultProps = {
     dark: false,
     small: false,
     number: -1,
+    editable: false,
+    onChange: () => {},
+  }
+
+  state = {
+    hoveredRating: 0,
+  }
+
+  _onRatingChange(rating) {
+    if (!this.props.editable) {
+      return;
+    }
+
+    this.props.onChange(rating + 1);
+  }
+
+  _onItemEnter(index) {
+    if (!this.props.editable) {
+      return;
+    }
+    this.setState({hoveredRating: index + 1});
+  }
+
+  _onItemLeave() {
+    if (!this.props.editable) {
+      return;
+    }
+    this.setState({hoveredRating: 0});
   }
 
   render() {
@@ -28,8 +58,16 @@ export default class Rating extends Component {
       items.push(
         <Icon
           svg={require('images/icons/star.svg')}
-          styleName={classNames('rating-item', {'active': i < this.props.rating})}
-          key={i} />
+          styleName={classNames(
+            'rating-item',
+            {'active': i < this.props.rating},
+            {'hovered': i < this.state.hoveredRating && i >= this.props.rating}
+          )}
+          key={i}
+          onClick={() => this._onRatingChange(i)}
+          onMouseEnter={() => this._onItemEnter(i)}
+          onMouseLeave={::this._onItemLeave}
+        />
       );
     }
 
@@ -38,6 +76,7 @@ export default class Rating extends Component {
         'rating',
         {'dark': this.props.dark},
         {'small': this.props.small},
+        {'editable': this.props.editable},
       )}>
         {items}
         {
