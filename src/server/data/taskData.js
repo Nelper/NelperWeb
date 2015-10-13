@@ -1,8 +1,9 @@
 import Parse from 'parse/node';
 
-import {Task, TaskPrivate, TaskApplication} from './parseTypes';
-import {TASK_STATE, TASK_APPLICATION_STATE} from '../../utils/constants';
+import {Task, TaskPrivate, TaskApplication, Feedback} from './parseTypes';
+import {TASK_STATE, TASK_APPLICATION_STATE, TASK_COMPLETION_STATE} from '../../utils/constants';
 import TaskCategoryUtils from '../../utils/TaskCategoryUtils';
+import {InvalidOperationError} from '../errors';
 
 import {getMe} from './userData';
 
@@ -225,4 +226,42 @@ export async function deleteTask({sessionToken}, taskId) {
   parseTask.id = taskId;
   parseTask.set('state', TASK_STATE.DELETED);
   return parseTask.save(null, {sessionToken});
+}
+
+export async function completeTask({sessionToken, userId}, taskId) {
+  const task = await getTask({sessionToken, userId}, taskId);
+  if (userId !== task.get('user').id || task.get('completionState') !== TASK_COMPLETION_STATE.PAYMENT_SENT) {
+    throw new InvalidOperationError();
+  }
+
+  task.set('completionState', TASK_COMPLETION_STATE.COMPLETED);
+  task.get('user').increment('tasksCompleted');
+  await task.save(null, {sessionToken});
+
+  return task;
+}
+
+export async function addApplicantFeedback({sessionToken, userId}, taskId, rating, content) {
+  const task = await getTask({sessionToken, userId}, taskId);
+  if (userId !== task.get('user').id || task.get('completionState') !== TASK_COMPLETION_STATE.COMPLETED) {
+    throw new InvalidOperationError();
+  }
+  const application = task.get('acceptedApplication');
+
+  task.set('completionState', TASK_COMPLETION_STATE.RATED);
+  task.set('state', TASK_STATE.COMPLETED);
+
+  if (rating) {
+    const feedback = new Feedback();
+    feedback.set('rating', rating);
+    feedback.set('content', content);
+    feedback.set('user', application.get('user'));
+    feedback.set('poster', task.get('user'));
+    feedback.set('task', task);
+    await Parse.Object.saveAll([task, feedback], {sessionToken});
+  } else {
+    await task.save(null, {sessionToken});
+  }
+
+  return task;
 }

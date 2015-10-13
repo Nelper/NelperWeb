@@ -28,6 +28,8 @@ import {
   applyForTask,
   cancelApplyForTask,
   deleteTask,
+  completeTask,
+  addApplicantFeedback,
 } from '../data/taskData';
 
 import {
@@ -159,5 +161,51 @@ export const DeleteTaskMutation = mutationWithClientMutationId({
     const localTaskId = fromGlobalId(id).id;
     await deleteTask(rootValue, localTaskId);
     return {id};
+  },
+});
+
+export const CompleteTaskMutation = mutationWithClientMutationId({
+  name: 'CompleteTask',
+  inputFields: {
+    taskId: {type: new GraphQLNonNull(GraphQLID)},
+  },
+  outputFields: {
+    task: {
+      type: TaskType,
+      resolve: ({task}) => {
+        return task;
+      },
+    },
+    me: {
+      type: UserType,
+      resolve: (obj, args, {rootValue}) => getMe(rootValue),
+    },
+  },
+  mutateAndGetPayload: async ({taskId}, {rootValue}) => {
+    const localTaskId = fromGlobalId(taskId).id;
+    const task = await completeTask(rootValue, localTaskId);
+    return {task};
+  },
+});
+
+export const SendApplicantFeedbackMutation = mutationWithClientMutationId({
+  name: 'SendApplicantFeedback',
+  inputFields: {
+    taskId: {type: new GraphQLNonNull(GraphQLID)},
+    rating: {type: GraphQLInt},
+    content: {type: GraphQLString},
+  },
+  outputFields: {
+    task: {
+      type: TaskType,
+      resolve: ({task}) => {
+        return task;
+      },
+    },
+  },
+  mutateAndGetPayload: async ({taskId, rating, content}, {rootValue}) => {
+    const localTaskId = fromGlobalId(taskId).id;
+    const task = await addApplicantFeedback(rootValue, localTaskId, rating, content);
+    return {task};
   },
 });

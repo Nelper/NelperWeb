@@ -2,8 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import {FormattedMessage, FormattedHTMLMessage, FormattedNumber, FormattedDate} from 'react-intl';
 
-import Dialog from 'components/Dialog';
-import IconButton from 'components/IconButton';
+import CompleteTaskMutation from 'actions/nelpcenter/CompleteTaskMutation';
+import SendApplicantFeedbackMutation from 'actions/nelpcenter/SendApplicantFeedbackMutation';
+import {Rating, IconButton, Dialog} from 'components/index';
 import TaskProgress from './TaskProgress';
 import TaskPaymentDialogView from './TaskPaymentDialogView';
 import IntlUtils from 'utils/IntlUtils';
@@ -21,6 +22,8 @@ class AcceptedTaskView extends Component {
   state = {
     showProgressHelpDialog: false,
     showPaymentDialog: false,
+    ratingText: '',
+    rating: 0,
   }
 
   _onShowProgressHelp() {
@@ -47,11 +50,33 @@ class AcceptedTaskView extends Component {
   }
 
   _onPaymentSuccess() {
-
+    this.setState({showPaymentDialog: false});
   }
 
   _onTaskCompleted() {
+    Relay.Store.update(
+      new CompleteTaskMutation({
+        task: this.props.task,
+      }),
+    );
+  }
 
+  _onRatingTextChange(event) {
+    this.setState({ratingText: event.target.value});
+  }
+
+  _onRatingChange(rating) {
+    this.setState({rating});
+  }
+
+  _onSendRatingClick() {
+    Relay.Store.update(
+      new SendApplicantFeedbackMutation({
+        task: this.props.task,
+        content: this.state.ratingText,
+        rating: this.state.rating,
+      }),
+    );
   }
 
   _getTaskStep() {
@@ -80,7 +105,7 @@ class AcceptedTaskView extends Component {
           </div>
           <div className="paid-on">
             <FormattedMessage id="nelpcenter.acceptedTaskView.paidOn" values={{
-              date: <FormattedDate value={new Date()} />,
+              date: <FormattedDate value={task.paymentSentAt} />,
             }} />
           </div>
           <button className="primary" onClick={::this._onTaskCompleted}>
@@ -89,9 +114,21 @@ class AcceptedTaskView extends Component {
         </div>
       );
     case 'COMPLETED':
-      return 2;
+      return (
+        <div>
+          <h1>Review your nelper</h1>
+          <Rating editable dark rating={this.state.rating} onChange={::this._onRatingChange} />
+          <textarea value={this.state.ratingText} onChange={::this._onRatingTextChange} />
+          <div className="btn-group">
+            <button className="primary" onClick={::this._onSendRatingClick}>Send</button>
+            <button>No thanks</button>
+          </div>
+        </div>
+      );
     case 'RATED':
-      return 3;
+      return (
+        <div>You are done gratz</div>
+      );
     case 'ACCEPTED':
     default:
       return (
@@ -203,6 +240,7 @@ export default Relay.createContainer(AcceptedTaskView, {
       fragment on Task {
         id,
         completionState,
+        paymentSentAt,
         acceptedApplication {
           id,
           email,
@@ -213,6 +251,9 @@ export default Relay.createContainer(AcceptedTaskView, {
             pictureURL,
           },
         },
+        ${TaskPaymentDialogView.getFragment('task')},
+        ${CompleteTaskMutation.getFragment('task')},
+        ${SendApplicantFeedbackMutation.getFragment('task')},
       }
     `,
   },

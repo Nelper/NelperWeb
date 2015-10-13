@@ -33,6 +33,13 @@ export const TASK_APPLICATION_STATE = {
   DENIED: 3,
 };
 
+export const TASK_COMPLETION_STATE = {
+  ACCEPTED: 0,
+  PAYMENT_SENT: 1,
+  COMPLETED: 2,
+  RATED: 3,
+};
+
 export const MIN_PRICE = 10;
 export const MAX_PRICE = 200;
 export const MIN_TITLE_LENGTH = 4;

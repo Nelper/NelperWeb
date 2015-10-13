@@ -1,17 +1,19 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedNumber} from 'react-intl';
 import {Link} from 'react-router';
 import {VelocityComponent} from 'velocity-react';
 import classNames from 'classnames';
 
+import SendPaymentMutation from 'actions/payment/SendPaymentMutation';
 import {Dialog, Progress} from 'components/index';
 import PaymentUtils from 'utils/PaymentUtils';
 
 import styles from './TaskPaymentDialogView.scss';
 
 @cssModules(styles)
-export default class TaskPaymentDialogView extends Component {
+class TaskPaymentDialogView extends Component {
 
   static propTypes = {
     task: PropTypes.object.isRequired,
@@ -25,8 +27,7 @@ export default class TaskPaymentDialogView extends Component {
     name: '',
     number: '',
     cvc: '',
-    expMonth: 0,
-    expYear: 0,
+    expiration: '',
     loading: false,
     completed: false,
   }
@@ -37,27 +38,6 @@ export default class TaskPaymentDialogView extends Component {
         this.setState({stripe});
       });
     }
-  }
-
-  _onSubmit(event) {
-    event.preventDefault();
-
-    const {
-      stripe,
-      number,
-      cvc,
-      expMonth,
-      expYear,
-    } = this.state;
-
-    stripe.card.createToken({
-      number,
-      cvc,
-      exp_month: expMonth,
-      exp_year: expYear,
-    }, (status, response) => {
-
-    });
   }
 
   _onNameChanged(event) {
@@ -85,12 +65,43 @@ export default class TaskPaymentDialogView extends Component {
       return;
     }
     this.setState({loading: true});
-    setTimeout(() => {
-      this.setState({completed: true});
-      setTimeout(() => {
-        this.props.onSuccess();
-      }, 2000);
-    }, 3000);
+
+    const {
+      stripe,
+      number,
+      cvc,
+      expiration,
+    } = this.state;
+
+    const [expMonth, expYear] = expiration.split('/');
+
+    stripe.card.createToken({
+      number,
+      cvc,
+      exp_month: parseInt(expMonth, 10),
+      exp_year: parseInt(expYear, 10),
+    }, (status, response) => {
+      if (response.error) {
+        this.setState({loading: false});
+        return;
+      }
+      Relay.Store.update(
+        new SendPaymentMutation({
+          task: this.props.task,
+          token: response.id,
+        }), {
+          onFailure: () => {
+            this.setState({loading: false});
+          },
+          onSuccess: () => {
+            this.setState({completed: true});
+            setTimeout(() => {
+              this.props.onSuccess();
+            }, 2000);
+          },
+        }
+      );
+    });
   }
 
   render() {
@@ -114,7 +125,7 @@ export default class TaskPaymentDialogView extends Component {
           <VelocityComponent animation={this.state.completed ? 'slideUp' : 'slideDown'} duration={300}>
             <VelocityComponent animation={{opacity: this.state.completed ? 0 : 1}} duration={300}>
               <div styleName="content">
-                <form onSubmit={::this._onSubmit}>
+                <form>
                   <div styleName="cardholder-name">
                     <div styleName="cardholder-name-icon" />
                     <input
@@ -191,3 +202,19 @@ export default class TaskPaymentDialogView extends Component {
     );
   }
 }
+
+export default Relay.createContainer(TaskPaymentDialogView, {
+  fragments: {
+    task: () => Relay.QL`
+      fragment on Task {
+        acceptedApplication {
+          price,
+          user {
+            name,
+          },
+        },
+        ${SendPaymentMutation.getFragment('task')},
+      }
+    `,
+  },
+});

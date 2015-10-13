@@ -86,11 +86,18 @@ export const TaskType = new GraphQLObjectType({
     ...commonFields,
     state: {
       type: TaskStateType,
+      description: 'The state of the task.',
       resolve: (task) => task.get('state'),
     },
     completionState: {
       type: TaskCompletionStateType,
+      description: 'The state of the task completion once it is accepted.',
       resolve: (task) => task.get('completionState'),
+    },
+    paymentSentAt: {
+      type: GraphQLString,
+      description: 'The date the task has been paid for.',
+      resolve: (task) => task.get('paymentSentAt') && task.get('paymentSentAt').toJSON(),
     },
     title: {
       type: GraphQLString,

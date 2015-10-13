@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import {InvalidOperationError, UnauthorizedError} from '../errors';
 import {getMe, getUserPrivateWithMasterKey} from './userData';
 import {getTask} from './taskData';
+import {TASK_COMPLETION_STATE} from '../../utils/constants';
 
 // The percentage of the total amount charged that is transfered in our account.
 const PLATFORM_FEES_PERCENTAGE = 10;
@@ -48,7 +49,24 @@ export async function sendPaymentForTask(rootValue, taskId, token) {
     application_fee: applicationFee,
   });
 
-  console.log(response);
+  if (response.status !== 'succeeded') {
+    return {
+      paymentStatus: 1,
+      task,
+    };
+  }
+
+  const taskPrivate = task.get('privateData');
+  taskPrivate.set('charge', response);
+  task.set('completionState', TASK_COMPLETION_STATE.PAYMENT_SENT);
+  task.set('paymentSentAt', new Date());
+
+  await task.save(null, {sessionToken: rootValue.sessionToken});
+
+  return {
+    paymentStatus: 0,
+    task,
+  };
 }
 
 export async function createStripeAccount({sessionToken, userId, userAgent, ip}) {
