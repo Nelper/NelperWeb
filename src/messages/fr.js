@@ -70,30 +70,30 @@ export default {
   },
 
   home: {
-    topSectionTitle: "Marché en ligne d'accomplissement de tâches",
-    topSectionDesc: "Avec Nelper, entrez en contact avec les gens de votre communauté et faites compléter vos tâches ou complétez celles d'autres personnes.",
+    topSectionTitle: "Marché en ligne d'achèvement de tâches",
+    topSectionDesc: "Avec Nelper, entrez en contact avec des gens près de vous et faites compléter vos tâches ou faites de l'arget à compléter celles d'autres.",
 
     browseTitle: "Parcourir les tâches",
     browseDesc: "Appliquez pour compléter des tâches.",
     nelpcenterTitle: "Centre Nelp",
     nelpcenterDesc: "Gérez vos tâches et applications.",
     postTitle: "Publier une tâche",
-    postDesc: "Trouvez un Nelper et faites compléter votre tâche.",
+    postDesc: "Trouvez un Nelper pouvant compléter votre tâche.",
 
     getCompletedTitle: "Faites compléter vos tâches",
-    getCompletedDesc: "Des gens de votre communauté peuvent vous aider.<br />Publier une tâche est <strong>gratuit</strong>.",
+    getCompletedDesc: "Il y a quelqu'un dans votre voisinage qui peut vous aider.<br />Publier une tâche est <strong>gratuit</strong>.",
     getStarted: "Publier une tâche",
 
     categoriesTitle: "Catégories simples, options multiples",
     categoriesDesc: "De la tonte de pelouse à l’installation d’un routeur, toutes vos tâches peuvent être complétées sur Nelper.",
 
     becomeNelperTitle: "Devenez un Nelper",
-    becomeNelperDesc: "Vous souhaitez mettre à profit vos talents et faire de l’argent? Rejoignez la communauté dès maintenant et complétez des tâches.",
+    becomeNelperDesc: "Vous souhaitez mettre à profit vos talents et faire de l’argent en complétant des tâches? Rejoignez la communauté dès maintenant.",
     browseTasks: "Parcourir les tâches",
 
     nelperpayTitle: "NelperPay",
-    nelperpayDesc: "Paix d’esprit pour les Nelpers et les publieurs de tâches",
-    nelperpayFeature1: "Aucun compte bancaire en ligne requis.",
+    nelperpayDesc: "Plateforme de paiement simple et sécuritaire",
+    nelperpayFeature1: "Aucun compte en ligne requis.",
     nelperpayFeature2: "Aucun frais d’adhésion.",
     nelperpayFeature3: "<strong>Aucun soucis.</strong>",
   },
@@ -303,8 +303,8 @@ export default {
         Finalement, évaluez et critiquez la performance de votre Nelper.
       </li>
     </ol>`,
-    posterTitle_06: "Qu’arrive-t-il si aucun Nelper n’applique pour ma tâche?",
-    posterDesc_06: "Chaque tâche a un délai maximal de 30 jours. Si ce délai expire, votre tâche se fait supprimer automatiquement. Il n’y a pas de conséquences si personne n’applie sur votre tâche. Ce peut cependant être un indicateur que votre tâche est trop complexe, mal expliquée ou que votre prix offert est trop bas.",
+    posterTitle_06: "Qu’arrive-t-il si je ne reçois pas d'application?",
+    posterDesc_06: "Rien, votre tâche reste active jusqu'à ce que vous la supprimez ou jusqu'à ce que vous acceptez un Nelper. Il n’y a pas de conséquences si personne n’applique pour votre tâche. Cela peut cependant être un indicateur que celle-ci est trop complexe, mal expliquée ou que votre prix offert est trop bas.",
     nelperSectionTitle: "Nelper",
     nelperTitle_00: "Comment parcourir les tâches?",
     nelperDesc_00: "Allez dans {browseTasks}. La carte et la liste de tâches liées ensemble. Si vous cliquez sur une tâche dans la liste, vous verrez sa location sur la carte. Tandis que si vous cliquez une une tâche sur la carte (une punaise), vous la verrez dans la liste, avec ses détails complets.<br /><br />Vous pouvez filtrer les tâches que vous désirez voir tant sur la carte que dans la liste par catégorie, intervalle de prix et proximité. Le filtre de proximité est basé selon votre emplacement que vous pouvez ajouter ou modifier dans vos {settings}. Vous pouvez également trier la liste de tâches par prix, distance et date de publication.",
