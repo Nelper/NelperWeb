@@ -79,6 +79,7 @@
     "react-router-relay": "^0.6.0",
     "react-slick": "^0.8.0",
     "sass-loader": "^3.0.0",
+    "sendgrid": "^1.9.2",
     "slick-carousel": "^1.5.8",
     "source-map-support": "^0.3.2",
     "stripe": "^4.0.0",

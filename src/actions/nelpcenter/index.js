@@ -5,3 +5,4 @@ export AcceptApplicantMutation from './AcceptApplicantMutation';
 export DenyApplicantMutation from './DenyApplicantMutation';
 export RestoreApplicantMutation from './RestoreApplicantMutation';
 export DeleteTaskMutation from './DeleteTaskMutation';
+export RemoveAcceptedApplicantMutation from './RemoveAcceptedApplicantMutation';

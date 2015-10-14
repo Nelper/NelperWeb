@@ -1,15 +1,13 @@
 import Relay, {Mutation} from 'react-relay';
 
-export default class AcceptApplicantMutation extends Mutation {
+export default class RemoveAcceptedApplicantMutation extends Mutation {
   static fragments = {
     task: () => Relay.QL`
       fragment on Task {
         id,
-      }
-    `,
-    application: () => Relay.QL`
-      fragment on Application {
-        id,
+        acceptedApplication {
+          id,
+        },
       }
     `,
   };
@@ -21,10 +19,12 @@ export default class AcceptApplicantMutation extends Mutation {
       fragment on SetApplicationStatePayload {
         task {
           state,
-          completionState,
           acceptedApplication,
           applications,
           userPrivate,
+        },
+        application {
+          state,
         },
       }
     `;
@@ -34,23 +34,27 @@ export default class AcceptApplicantMutation extends Mutation {
       type: 'FIELDS_CHANGE',
       fieldIDs: {
         task: this.props.task.id,
+        application: this.props.task.acceptedApplication.id,
       },
     }];
   }
   getVariables() {
     return {
       taskId: this.props.task.id,
-      applicationId: this.props.application.id,
-      state: 'ACCEPTED',
+      applicationId: this.props.task.acceptedApplication.id,
+      state: 'PENDING',
     };
   }
   getOptimisticResponse() {
     return {
       task: {
         id: this.props.task.id,
-        acceptedApplication: this.props.application,
-        state: 'ACCEPTED',
-        completionState: 'ACCEPTED',
+        acceptedApplication: null,
+        state: 'PENDING',
+      },
+      application: {
+        id: this.props.task.acceptedApplication.id,
+        state: 'PENDING',
       },
     };
   }

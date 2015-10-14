@@ -32,14 +32,20 @@ export async function setApplicationState({sessionToken, userId}, applicationId,
   if (task.get('user').id !== userId) {
     throw new InvalidOperationError();
   }
-  application.set('state', state);
+
+  // If we are accepting an application.
   if (state === TASK_APPLICATION_STATE.ACCEPTED) {
     application.set('acceptedAt', new Date());
     task.set('state', TASK_STATE.ACCEPTED);
     task.set('acceptedApplication', application);
-  } else {
+  // If we are removing an accepted application.
+  } else if (state === TASK_APPLICATION_STATE.PENDING &&
+             application.get('state') === TASK_APPLICATION_STATE.ACCEPTED) {
+    application.unset('acceptedAt');
+    task.set('state', TASK_STATE.PENDING);
     task.unset('acceptedApplication');
   }
+  application.set('state', state);
   const savedObjects = await Parse.Object.saveAll([application, task], {sessionToken});
   return savedObjects[0];
 }

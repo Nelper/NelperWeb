@@ -20,6 +20,7 @@ import {
   DenyApplicantMutation,
   RestoreApplicantMutation,
   DeleteTaskMutation,
+  RemoveAcceptedApplicantMutation,
 } from 'actions/nelpcenter/index';
 import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';
@@ -115,13 +116,21 @@ class TaskDetailHandler extends Component {
     Relay.Store.update(
       new DeleteTaskMutation({
         task: this.props.task,
-      })
+      }),
     );
     this.context.history.goBack();
   }
 
   _onDelete() {
     this.setState({confirmDeleteOpened: true});
+  }
+
+  _onRemoveAccepted() {
+    Relay.Store.update(
+      new RemoveAcceptedApplicantMutation({
+        task: this.props.task,
+      }),
+    );
   }
 
   _onEditPictures() {
@@ -170,6 +179,24 @@ class TaskDetailHandler extends Component {
         TaskActions.setTaskViewed(this.props.task);
       }, 0);
     }*/
+  }
+
+  _renderButtomActionButton() {
+    if (this.props.task.acceptedApplication) {
+      if (this.props.task.completionState !== 'ACCEPTED') {
+        return null;
+      }
+      return (
+        <button className="white-button" onClick={::this._onRemoveAccepted}>
+          <FormattedMessage id="nelpcenter.taskDetail.removeApplicant" />
+        </button>
+      );
+    }
+    return (
+      <button className="white-button" onClick={::this._onDelete}>
+        <FormattedMessage id="nelpcenter.common.deleteTask" />
+      </button>
+    );
   }
 
   render() {
@@ -347,9 +374,7 @@ class TaskDetailHandler extends Component {
         </div>
         {applicationsSection}
         <div styleName="delete-button-container">
-          <button className="white-button" onClick={::this._onDelete}>
-            <FormattedMessage id="nelpcenter.common.deleteTask" />
-          </button>
+          {this._renderButtomActionButton()}
         </div>
       </div>
     );
@@ -367,6 +392,7 @@ export default Relay.createContainer(TaskDetailHandler, {
         category,
         priceOffered,
         city,
+        completionState,
         location {
           latitude,
           longitude,
@@ -427,6 +453,7 @@ export default Relay.createContainer(TaskDetailHandler, {
         ${DenyApplicantMutation.getFragment('task')},
         ${RestoreApplicantMutation.getFragment('task')},
         ${DeleteTaskMutation.getFragment('task')},
+        ${RemoveAcceptedApplicantMutation.getFragment('task')},
       }
     `,
   },

@@ -213,6 +213,8 @@ export default {
         </li>
       </ol>
       `,
+
+      removeApplicant: "Remove applicant",
     },
 
     acceptedTaskView: {
