@@ -50,12 +50,12 @@ class TasksHandler extends Component {
     const activeTasks = tasks.edges
       .filter(edge => edge.node.state !== 'COMPLETED')
       .sort(this._sortTasks)
-      .map(this._renderTaskEdge);
+      .map(::this._renderTaskEdge);
 
     const completedTasks = tasks.edges
       .filter(edge => edge.node.state === 'COMPLETED')
       .sort(this._sortTasks)
-      .map(this._renderTaskEdge);
+      .map(::this._renderTaskEdge);
 
     return (
       <div styleName="tasks-handler">
