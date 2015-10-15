@@ -137,6 +137,8 @@ export default {
       noTask: "Vous n'avez pas de tâche active.",
       post: "Publier une tâche",
       nelperAccepted: "Nelper accepté",
+      activeTasks: "Tâches actives",
+      completedTasks: "Tâches complétées",
     },
 
     myApplications: {

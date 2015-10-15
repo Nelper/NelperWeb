@@ -137,6 +137,8 @@ export default {
       noTask: "No active tasks.",
       post: "Post a Task",
       nelperAccepted: "Nelper accepted",
+      activeTasks: "Active tasks",
+      completedTasks: "Completed tasks",
     },
 
     myApplications: {

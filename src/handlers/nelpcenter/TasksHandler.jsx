@@ -73,7 +73,7 @@ class TasksHandler extends Component {
             <div>
               {
                 completedTasks.length ?
-                <h2 styleName="title">Active tasks</h2> :
+                <h2 styleName="title"><FormattedMessage id="nelpcenter.myTasks.activeTasks" /></h2> :
                 null
               }
               <div styleName="tasks">{activeTasks}</div>
@@ -82,7 +82,7 @@ class TasksHandler extends Component {
           {
             completedTasks.length ?
             <div>
-              <h2 styleName="title">Completed tasks</h2>
+              <h2 styleName="title"><FormattedMessage id="nelpcenter.myTasks.completedTasks" /></h2>
               <div styleName="tasks">{completedTasks}</div>
             </div> :
             null
