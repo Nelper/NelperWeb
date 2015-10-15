@@ -9,13 +9,13 @@ export class Card extends Component {
 
   static propTypes = {
     children: PropTypes.node,
-    styleName: PropTypes.string,
+    className: PropTypes.string,
   }
 
   render() {
-    const {styleName, ...others} = this.props;
+    const {className, ...others} = this.props;
     return (
-      <div {...others} styleName={classNames('card', styleName)}>
+      <div {...others} className={className} styleName="card">
         {this.props.children}
         <div styleName="hover"/>
       </div>

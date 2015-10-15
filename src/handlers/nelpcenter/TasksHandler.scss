@@ -1,15 +1,6 @@
-.tasks-handler {
+@import 'styles/base-module';
 
-  .task-card-view {
-    @include span-columns(12);
-    margin-bottom: flex-gutter(12);
-
-    @include media($medium-screen) {
-      @include span-columns(6);
-      @include omega(2n);
-    }
-  }
-
+:local .tasks-handler {
   .no-task {
     display: flex;
     flex-direction: column;
@@ -22,5 +13,15 @@
     margin-top: 3rem;
     margin-bottom: 1.5rem;
     color: $color-gray-medium;
+  }
+
+  .title {
+    margin-top: 1rem;
+    color: $color-gray-medium;
+    font-weight: normal;
+  }
+
+  .tasks {
+    @include outer-container();
   }
 }

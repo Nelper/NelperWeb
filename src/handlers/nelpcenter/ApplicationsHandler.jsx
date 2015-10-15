@@ -21,10 +21,17 @@ class ApplicationsHandler extends Component {
 
   render() {
     const {applications} = this.props.me;
-    const displayedApplications = applications.edges.map(edge => {
-      const a = edge.node;
-      return <ApplicationCardView key={a.id} application={a} onClick={() => this._onShowApplicationDetail(a)} />;
-    });
+    const displayedApplications = applications.edges
+      .map(edge => {
+        const a = edge.node;
+        return (
+          <ApplicationCardView
+            key={a.id}
+            application={a}
+            onClick={() => this._onShowApplicationDetail(a)}
+          />
+        );
+      });
 
     return (
       <div className="applications-handler">

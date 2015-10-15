@@ -4,6 +4,14 @@
   $status-icon-size: 2rem;
   $calendar-icon-size: 2rem;
 
+  @include span-columns(12);
+  margin-bottom: flex-gutter(12);
+
+  @include media($medium-screen) {
+    @include span-columns(6);
+    @include omega(2n);
+  }
+
   .image-overlay {
     @include position(absolute, -2rem);
     @include image-fill();

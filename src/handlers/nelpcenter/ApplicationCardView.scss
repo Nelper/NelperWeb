@@ -1,9 +1,19 @@
-.application-card-view {
+@import 'styles/base-module';
+
+:local .application-card-view {
   $category-icon-size: 64px;
   $is-new-icon-size: 1.5rem;
   $status-icon-size: 2rem;
   $calendar-icon-size: 2rem;
   $location-icon-size: 2rem;
+
+  @include span-columns(12);
+  margin-bottom: flex-gutter(12);
+
+  @include media($medium-screen) {
+    @include span-columns(6);
+    @include omega(2n);
+  }
 
   .image-overlay {
     @include position(absolute, -2rem);
@@ -27,7 +37,7 @@
     position: absolute;
     bottom: $is-new-icon-size * 1.25;
     right: $is-new-icon-size / 4;
-    background-image: url('~images/icons/state-new.png');
+    background-image: url('images/icons/state-new.png');
     border-radius: 50%;
   }
 
@@ -55,18 +65,19 @@
     font-size: 1.2em;
   }
 
-  .info-row {
+  %info-row {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
   }
 
-  .text {
+  %text {
     flex: 1;
     margin-left: 1rem;
   }
 
   .status {
+    @extend %info-row;
     margin-bottom: 1.5rem;
   }
 
@@ -76,26 +87,13 @@
   }
 
   .status-text {
+    @extend %text;
     font-size: 1em;
-  }
-
-  .price {
-    flex-basis: rem(80px);
-    text-align: center;
-    background-image: url('~images/icons/money.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 76px;
-    padding-top: 6px;
-    height: 41px;
-    padding-left: 6px;
-    font-size: 1.2em;
-    color: $color-background-light;
   }
 
   .calendar-icon {
     @include image($calendar-icon-size, $calendar-icon-size);
-    background-image: url('~images/icons/calendar.png');
+    background-image: url('images/icons/calendar.png');
   }
 
   .calendar-text {
@@ -103,19 +101,21 @@
   }
 
   .location {
+    @extend %info-row;
     margin-bottom: 0;
   }
 
   .location-icon {
     @include image($location-icon-size, $location-icon-size);
-    background-image: url('~images/icons/pin.png');
+    background-image: url('images/icons/pin.png');
   }
 
   .location-text {
-    font-size: 0.9em;
+    @extend %text;
+    font-size: 1em;
   }
 
   .distance {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
 }

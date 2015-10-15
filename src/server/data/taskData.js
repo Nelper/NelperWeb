@@ -35,7 +35,7 @@ export async function getTasksForUser({sessionToken}, userId) {
     .include('privateData')
     .include('acceptedApplication.user')
     .equalTo('user', parseUser)
-    .containedIn('state', [TASK_STATE.PENDING, TASK_STATE.ACCEPTED])
+    .containedIn('state', [TASK_STATE.PENDING, TASK_STATE.ACCEPTED, TASK_STATE.COMPLETED])
     .descending('createdAt');
   const tasks = await tasksQuery.find({sessionToken});
   const applicationsQuery = new Parse.Query(TaskApplication)
