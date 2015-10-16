@@ -45,14 +45,23 @@ export function getUserPicture(user) {
   return fixParseFileURL(user.get('pictureURL'));
 }
 
-export async function changeUserLanguage({userId, sessionToken}, language) {
-  if (language !== 'en' && language !== 'fr') {
-    throw Error('Invalid language code ' + language);
-  }
-
+export async function saveGeneralSettings({userId, sessionToken}, email, phone, language) {
   const user = await getUser({sessionToken}, userId, true);
   const privateData = user.get('privateData');
-  privateData.set('language', language);
+
+  if (email) {
+    privateData.set('email', email);
+  }
+  if (phone) {
+    privateData.set('phone', phone);
+  }
+  if (language) {
+    if (language !== 'en' && language !== 'fr') {
+      throw Error('Invalid language code ' + language);
+    }
+    privateData.set('language', language);
+  }
+
   await privateData.save(null, {sessionToken});
 
   return privateData;

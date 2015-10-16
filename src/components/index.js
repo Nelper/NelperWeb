@@ -14,3 +14,4 @@ export Rating from './Rating';
 export TaskPictureSlider from './TaskPictureSlider';
 export AddLocationDialogView from './AddLocationDialogView';
 export ValidatorInput from './ValidatorInput';
+export ProgressButton from './ProgressButton';

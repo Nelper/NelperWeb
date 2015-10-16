@@ -1,6 +1,5 @@
 import {
   GraphQLString,
-  GraphQLNonNull,
   GraphQLList,
   GraphQLInputObjectType,
 } from 'graphql';
@@ -10,7 +9,7 @@ import {
 } from 'graphql-relay';
 
 import {
-  changeUserLanguage,
+  saveGeneralSettings,
   updateNotificationSettings,
   editUserLocations,
   editUserProfile,
@@ -44,10 +43,12 @@ export const UpdateNotificationSettingsMutation = mutationWithClientMutationId({
   },
 });
 
-export const ChangeLanguageMutation = mutationWithClientMutationId({
-  name: 'ChangeLanguage',
+export const SaveGeneralSettingsMutation = mutationWithClientMutationId({
+  name: 'SaveGeneralSettings',
   inputFields: {
-    language: {type: new GraphQLNonNull(GraphQLString)},
+    email: {type: GraphQLString},
+    phone: {type: GraphQLString},
+    language: {type: GraphQLString},
   },
   outputFields: {
     privateData: {
@@ -57,8 +58,8 @@ export const ChangeLanguageMutation = mutationWithClientMutationId({
       },
     },
   },
-  mutateAndGetPayload: async ({language}, {rootValue}) => {
-    const privateData = await changeUserLanguage(rootValue, language);
+  mutateAndGetPayload: async ({email, phone, language}, {rootValue}) => {
+    const privateData = await saveGeneralSettings(rootValue, email, phone, language);
     return {privateData};
   },
 });

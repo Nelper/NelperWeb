@@ -13,7 +13,7 @@ export {
 } from './applicationMutations';
 
 export {
-  ChangeLanguageMutation,
+  SaveGeneralSettingsMutation,
   UpdateNotificationSettingsMutation,
   EditLocationsMutation,
   EditProfileMutation,

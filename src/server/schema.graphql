@@ -62,16 +62,6 @@ type CancelApplyForTaskPayload {
   clientMutationId: String!
 }
 
-input ChangeLanguageInput {
-  language: String!
-  clientMutationId: String!
-}
-
-type ChangeLanguagePayload {
-  privateData: UserPrivate
-  clientMutationId: String!
-}
-
 input CompleteTaskInput {
   taskId: ID!
   clientMutationId: String!
@@ -219,7 +209,7 @@ type Mutation {
   editProfile(input: EditProfileInput!): EditProfilePayload
   editLocations(input: EditLocationsInput!): EditLocationsPayload
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
-  changeLanguage(input: ChangeLanguageInput!): ChangeLanguagePayload
+  saveGeneralSettings(input: SaveGeneralSettingsInput!): SaveGeneralSettingsPayload
   sendPayment(input: SendPaymentInput!): SendPaymentPayload
   createStripeAccount(input: CreateStripeAccountInput!): CreateStripeAccountPayload
 }
@@ -276,6 +266,18 @@ type Query {
   node(id: ID!): Node
   me: User
   browse: Browse
+}
+
+input SaveGeneralSettingsInput {
+  email: String
+  phone: String
+  language: String
+  clientMutationId: String!
+}
+
+type SaveGeneralSettingsPayload {
+  privateData: UserPrivate
+  clientMutationId: String!
 }
 
 input SendApplicantFeedbackInput {

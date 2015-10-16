@@ -15,7 +15,7 @@ import {
 import {
   ApplyForTaskMutation,
   CancelApplyForTaskMutation,
-  ChangeLanguageMutation,
+  SaveGeneralSettingsMutation,
   UpdateNotificationSettingsMutation,
   EditTaskMutation,
   SetApplicationStateMutation,
@@ -80,7 +80,7 @@ const mutationType = new GraphQLObjectType({
 
     editLocations: EditLocationsMutation,
     updateNotificationSettings: UpdateNotificationSettingsMutation,
-    changeLanguage: ChangeLanguageMutation,
+    saveGeneralSettings: SaveGeneralSettingsMutation,
 
     sendPayment: SendPaymentMutation,
     createStripeAccount: CreateStripeAccountMutation,

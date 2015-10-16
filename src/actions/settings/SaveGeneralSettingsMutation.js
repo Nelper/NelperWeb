@@ -1,6 +1,6 @@
 import Relay, {Mutation} from 'react-relay';
 
-export default class ChangeLanguageMutation extends Mutation {
+export default class SaveGeneralSettingsMutation extends Mutation {
   static fragments = {
     privateData: () => Relay.QL`
       fragment on UserPrivate {
@@ -9,12 +9,14 @@ export default class ChangeLanguageMutation extends Mutation {
     `,
   };
   getMutation() {
-    return Relay.QL`mutation{changeLanguage}`;
+    return Relay.QL`mutation{saveGeneralSettings}`;
   }
   getFatQuery() {
     return Relay.QL`
-      fragment on ChangeLanguagePayload {
+      fragment on SaveGeneralSettingsPayload {
         privateData {
+          email,
+          phone,
           language,
         }
       }
@@ -30,6 +32,8 @@ export default class ChangeLanguageMutation extends Mutation {
   }
   getVariables() {
     return {
+      email: this.props.email,
+      phone: this.props.phone,
       language: this.props.language,
     };
   }

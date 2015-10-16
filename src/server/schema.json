@@ -2548,7 +2548,7 @@
               "deprecationReason": null
             },
             {
-              "name": "changeLanguage",
+              "name": "saveGeneralSettings",
               "description": null,
               "args": [
                 {
@@ -2559,7 +2559,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "ChangeLanguageInput",
+                      "name": "SaveGeneralSettingsInput",
                       "ofType": null
                     }
                   },
@@ -2568,7 +2568,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "ChangeLanguagePayload",
+                "name": "SaveGeneralSettingsPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -4002,21 +4002,37 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "ChangeLanguageInput",
+          "name": "SaveGeneralSettingsInput",
           "description": null,
           "fields": null,
           "inputFields": [
             {
+              "name": "email",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "phone",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
               "name": "language",
               "description": null,
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "defaultValue": null
             },
@@ -4041,7 +4057,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "ChangeLanguagePayload",
+          "name": "SaveGeneralSettingsPayload",
           "description": null,
           "fields": [
             {

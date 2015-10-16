@@ -3,11 +3,12 @@ import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
-import {ChangeLanguageMutation} from 'actions/settings/index';
+import {SaveGeneralSettingsMutation} from 'actions/settings/index';
 import Storage from 'utils/Storage';
 
 import {
   IconButton,
+  ProgressButton,
   AddLocationDialogView,
 } from 'components/index';
 
@@ -24,17 +25,10 @@ class AccountSettingsHandler extends Component {
     showLocationDialog: false,
     email: this.props.user.privateData.email,
     phone: this.props.user.privateData.phone,
+    language: this.props.user.privateData.language,
     oldPassword: '',
     newPassword: '',
     newPasswordConfirm: '',
-  }
-
-  componentWillReceiveProps(newProps) {
-    // If the language has changed we need to reload the page to fetch the new messages.
-    // TODO(janic): Dont reload the page :D
-    if (newProps.user.privateData.language !== this.props.user.privateData.language) {
-      window.location.reload();
-    }
   }
 
   _onEmailChange(event) {
@@ -70,11 +64,36 @@ class AccountSettingsHandler extends Component {
   }
 
   _onChangeLanguage(event) {
-    Relay.Store.update(new ChangeLanguageMutation({
+    this.setState({language: event.target.value});
+  }
+
+  _onSaveGeneralClick() {
+    const needReload = this.props.user.privateData.language !== this.state.language;
+    this.setState({savingGeneral: true});
+    Relay.Store.update(new SaveGeneralSettingsMutation({
       privateData: this.props.user.privateData,
-      language: event.target.value,
-    }));
-    Storage.setItem('lang', event.target.value);
+      email: this.state.email,
+      phone: this.state.phone,
+      language: this.state.language,
+    }), {
+      onSuccess: () => {
+        if (needReload) {
+          window.location.reload();
+        }
+        this.setState({savingGeneral: false});
+      },
+      onError: () => {
+        this.setState({savingGeneral: false});
+      },
+    });
+    Storage.setItem('lang', this.state.language);
+  }
+
+  _getCanSaveGeneral() {
+    const {privateData} = this.props.user;
+    return this.state.email !== privateData.email &&
+      this.state.phone !== privateData.phone &&
+      this.state.language !== privateData.language;
   }
 
   render() {
@@ -136,7 +155,7 @@ class AccountSettingsHandler extends Component {
                 <FormattedMessage id="settings.account.language" />
               </div>
               <div styleName="setting-input">
-                <select value={user.privateData.language} onChange={::this._onChangeLanguage}>
+                <select value={this.state.language} onChange={::this._onChangeLanguage}>
                   <FormattedMessage id="settings.account.english">
                     {(message) => <option value="en">{message}</option>}
                   </FormattedMessage>
@@ -146,6 +165,14 @@ class AccountSettingsHandler extends Component {
                 </select>
               </div>
             </div>
+            <ProgressButton
+              className="primary"
+              disabled={this._getCanSaveGeneral()}
+              loading={this.state.savingGeneral}
+              onClick={::this._onSaveGeneralClick}
+            >
+              Save changes
+            </ProgressButton>
           </div>
         </div>
         <div className="panel">
@@ -247,7 +274,7 @@ export default Relay.createContainer(AccountSettingsHandler, {
             postalCode,
             country,
           },
-          ${ChangeLanguageMutation.getFragment('privateData')}
+          ${SaveGeneralSettingsMutation.getFragment('privateData')}
         },
       }
     `,
