@@ -2,6 +2,7 @@ import {
   GraphQLString,
   GraphQLList,
   GraphQLInputObjectType,
+  GraphQLNonNull,
 } from 'graphql';
 
 import {
@@ -13,6 +14,7 @@ import {
   updateNotificationSettings,
   editUserLocations,
   editUserProfile,
+  changePassword,
 } from '../data/userData';
 
 import {
@@ -80,6 +82,24 @@ export const EditLocationsMutation = mutationWithClientMutationId({
   mutateAndGetPayload: async ({locations}, {rootValue}) => {
     const privateData = await editUserLocations(rootValue, locations);
     return {privateData};
+  },
+});
+
+export const ChangePasswordMutation = mutationWithClientMutationId({
+  name: 'ChangePassword',
+  inputFields: {
+    currentPassword: {type: new GraphQLNonNull(GraphQLString)},
+    newPassword: {type: new GraphQLNonNull(GraphQLString)},
+  },
+  outputFields: {
+    error: {
+      type: GraphQLString,
+      resolve: ({error}) => error,
+    },
+  },
+  mutateAndGetPayload: async ({currentPassword, newPassword}, {rootValue}) => {
+    const error = await changePassword(rootValue, currentPassword, newPassword);
+    return {error};
   },
 });
 

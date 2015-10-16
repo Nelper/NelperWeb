@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
-import {SaveGeneralSettingsMutation} from 'actions/settings/index';
+import {SaveGeneralSettingsMutation, ChangePasswordMutation} from 'actions/settings/index';
 import Storage from 'utils/Storage';
 
 import {
@@ -26,7 +26,7 @@ class AccountSettingsHandler extends Component {
     email: this.props.user.privateData.email,
     phone: this.props.user.privateData.phone,
     language: this.props.user.privateData.language,
-    oldPassword: '',
+    currentPassword: '',
     newPassword: '',
     newPasswordConfirm: '',
   }
@@ -39,8 +39,8 @@ class AccountSettingsHandler extends Component {
     this.setState({phone: event.target.value});
   }
 
-  _onOldPasswordChange(event) {
-    this.setState({oldPassword: event.target.value});
+  _oncurrentPasswordChange(event) {
+    this.setState({currentPassword: event.target.value});
   }
 
   _onNewPasswordChange(event) {
@@ -82,18 +82,38 @@ class AccountSettingsHandler extends Component {
         }
         this.setState({savingGeneral: false});
       },
-      onError: () => {
+      onFailure: () => {
         this.setState({savingGeneral: false});
       },
     });
     Storage.setItem('lang', this.state.language);
   }
 
+  _onChangePasswordClick() {
+    Relay.Store.update(new ChangePasswordMutation({
+      currentPassword: this.state.currentPassword,
+      newPassword: this.state.newPassword,
+    }), {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+      onFailure: (transaction) => {
+        console.log(transaction.getError());
+      },
+    });
+  }
+
   _getCanSaveGeneral() {
     const {privateData} = this.props.user;
-    return this.state.email !== privateData.email &&
-      this.state.phone !== privateData.phone &&
+    return this.state.email !== privateData.email ||
+      this.state.phone !== privateData.phone ||
       this.state.language !== privateData.language;
+  }
+
+  _getCanSavePassword() {
+    return this.state.currentPassword.length &&
+      this.state.newPassword.length &&
+      this.state.newPassword === this.state.newPasswordConfirm;
   }
 
   render() {
@@ -167,7 +187,7 @@ class AccountSettingsHandler extends Component {
             </div>
             <ProgressButton
               className="primary"
-              disabled={this._getCanSaveGeneral()}
+              disabled={!this._getCanSaveGeneral()}
               loading={this.state.savingGeneral}
               onClick={::this._onSaveGeneralClick}
             >
@@ -198,47 +218,58 @@ class AccountSettingsHandler extends Component {
             }
           </div>
         </div>
-        <div className="panel">
-          <h2 className="panel-title">Password</h2>
-          <div className="panel-content">
-            <div styleName="setting-row">
-              <div styleName="setting-title">
-                <FormattedMessage id="settings.account.passwordCurrent" />
+        {
+          this.props.user.hasEmailProvider ?
+          <div className="panel">
+            <h2 className="panel-title">Password</h2>
+            <div className="panel-content">
+              <div styleName="setting-row">
+                <div styleName="setting-title">
+                  <FormattedMessage id="settings.account.passwordCurrent" />
+                </div>
+                <div styleName="setting-input">
+                  <input
+                    type="password"
+                    value={this.state.currentPassword}
+                    onChange={::this._oncurrentPasswordChange}
+                  />
+                </div>
               </div>
-              <div styleName="setting-input">
-                <input
-                  type="password"
-                  value={this.state.oldPassword}
-                  onChange={::this._onOldPasswordChange}
-                />
+              <div styleName="setting-row">
+                <div styleName="setting-title">
+                  <FormattedMessage id="settings.account.passwordNew" />
+                </div>
+                <div styleName="setting-input">
+                  <input
+                    type="password"
+                    value={this.state.newPassword}
+                    onChange={::this._onNewPasswordChange}
+                  />
+                </div>
               </div>
+              <div styleName="setting-row">
+                <div styleName="setting-title">
+                  <FormattedMessage id="settings.account.passwordConfirm" />
+                </div>
+                <div styleName="setting-input">
+                  <input
+                    type="password"
+                    value={this.state.newPasswordConfirm}
+                    onChange={::this._onNewPasswordConfirmChange}
+                  />
+                </div>
+              </div>
+              <button
+                className="primary"
+                disabled={!this._getCanSavePassword()}
+                onClick={::this._onChangePasswordClick}
+              >
+                Change password
+              </button>
             </div>
-            <div styleName="setting-row">
-              <div styleName="setting-title">
-                <FormattedMessage id="settings.account.passwordNew" />
-              </div>
-              <div styleName="setting-input">
-                <input
-                  type="password"
-                  value={this.state.newPassword}
-                  onChange={::this._onNewPasswordChange}
-                />
-              </div>
-            </div>
-            <div styleName="setting-row">
-              <div styleName="setting-title">
-                <FormattedMessage id="settings.account.passwordConfirm" />
-              </div>
-              <div styleName="setting-input">
-                <input
-                  type="password"
-                  value={this.state.newPasswordConfirm}
-                  onChange={::this._onNewPasswordConfirmChange}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+          </div> :
+          null
+        }
         <div className="panel">
           <h2 className="panel-title">
             <FormattedMessage id="settings.account.deleteAccount" />
@@ -261,6 +292,7 @@ export default Relay.createContainer(AccountSettingsHandler, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
+        hasEmailProvider,
         privateData {
           email,
           phone,

@@ -62,6 +62,17 @@ type CancelApplyForTaskPayload {
   clientMutationId: String!
 }
 
+input ChangePasswordInput {
+  currentPassword: String!
+  newPassword: String!
+  clientMutationId: String!
+}
+
+type ChangePasswordPayload {
+  error: String
+  clientMutationId: String!
+}
+
 input CompleteTaskInput {
   taskId: ID!
   clientMutationId: String!
@@ -210,6 +221,7 @@ type Mutation {
   editLocations(input: EditLocationsInput!): EditLocationsPayload
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
   saveGeneralSettings(input: SaveGeneralSettingsInput!): SaveGeneralSettingsPayload
+  changePassword(input: ChangePasswordInput!): ChangePasswordPayload
   sendPayment(input: SendPaymentInput!): SendPaymentPayload
   createStripeAccount(input: CreateStripeAccountInput!): CreateStripeAccountPayload
 }
@@ -387,6 +399,7 @@ type User implements Node {
   createdAt: String
   updatedAt: String
   logged: Boolean
+  hasEmailProvider: Boolean
   name: String
   pictureURL: String
   rating: Float

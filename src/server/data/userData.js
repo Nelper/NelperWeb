@@ -74,6 +74,22 @@ export async function editUserLocations({userId, sessionToken}, locations) {
   return await privateData.save(null, {sessionToken});
 }
 
+export async function changePassword({userId, sessionToken}, currentPassword, newPassword) {
+  const user = await getUser({sessionToken}, userId);
+  try {
+    const loggedUser = await Parse.User.logIn(user.get('username'), currentPassword);
+    if (!loggedUser) {
+      throw Error('Invalid current password');
+    }
+  } catch (e) {
+    throw Error('Invalid current password');
+  }
+
+  user.setPassword(newPassword);
+  await user.save(null, {sessionToken});
+  return null;
+}
+
 export async function updateNotificationSettings({userId, sessionToken}, settingId, settingValue) {
   const user = await getUser({sessionToken}, userId, true);
   const privateData = user.get('privateData');

@@ -27,6 +27,7 @@ import {
   EditProfileMutation,
   CompleteTaskMutation,
   SendApplicantFeedbackMutation,
+  ChangePasswordMutation,
 } from './schema/mutations';
 
 import {getMe} from './data/userData';
@@ -81,6 +82,7 @@ const mutationType = new GraphQLObjectType({
     editLocations: EditLocationsMutation,
     updateNotificationSettings: UpdateNotificationSettingsMutation,
     saveGeneralSettings: SaveGeneralSettingsMutation,
+    changePassword: ChangePasswordMutation,
 
     sendPayment: SendPaymentMutation,
     createStripeAccount: CreateStripeAccountMutation,

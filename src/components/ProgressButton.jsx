@@ -12,6 +12,7 @@ export default class ProgressButton extends Component {
     loading: PropTypes.bool,
     inverse: PropTypes.bool,
     children: PropTypes.node,
+    onClick: PropTypes.func,
   }
 
   static defaultProps = {
@@ -19,10 +20,21 @@ export default class ProgressButton extends Component {
     inverse: true,
   }
 
+  _onClick(event) {
+    if (this.props.onClick && !this.props.loading) {
+      this.props.onClick(event);
+    }
+  }
+
   render() {
-    const {children, inverse, ...others} = this.props;
+    const {
+      children,
+      inverse,
+      onClick,
+      ...others,
+    } = this.props;
     return (
-      <button {...others} styleName="button">
+      <button {...others} styleName="button" onClick={::this._onClick}>
         <div styleName={this.props.loading ? 'loading-visible' : 'loading'}>
           <Progress inverse={inverse} small />
         </div>

@@ -159,7 +159,12 @@ export const UserType = new GraphQLObjectType({
     ...commonFields,
     logged: {
       type: GraphQLBoolean,
-      description: 'If the user is logged id',
+      description: 'If the user is logged id.',
+    },
+    hasEmailProvider: {
+      type: GraphQLBoolean,
+      description: 'If the user registered using email.',
+      resolve: (user) => !user.get('authData'),
     },
     name: {
       type: GraphQLString,

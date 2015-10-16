@@ -17,6 +17,7 @@ export {
   UpdateNotificationSettingsMutation,
   EditLocationsMutation,
   EditProfileMutation,
+  ChangePasswordMutation,
 } from './userMutations';
 
 export {
