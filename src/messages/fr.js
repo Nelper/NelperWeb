@@ -394,6 +394,9 @@ export default {
       deleteAccount: "Supprimer mon compte",
       deleteAccountMessage: "La suppression du compte est permanente",
       deleteAccountButton: "Supprimer mon compte",
+
+      saveGeneral: "Sauvegarder les modifications",
+      changePassword: "Changer le mot de passe",
     },
     notifications: {
       title: "Notifications",

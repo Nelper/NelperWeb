@@ -28,3 +28,8 @@
   background: $color-primary;
   border-radius: 3px;
 }
+
+@mixin flex-columns($columns) {
+  flex-basis: flex-grid($columns);
+  margin-right: flex-gutter(12);
+}

@@ -34,28 +34,28 @@
   }
 
   .locations-header {
-    @include outer-container();
+    display: flex;
     margin-bottom: 1rem;
     font-weight: bold;
   }
 
   .location-row {
-    @include outer-container();
+    display: flex;
     margin-bottom: 1rem;
     color: $color-gray-dark;
   }
 
   .name-col {
-    @include span-columns(4);
+    @include flex-columns(4);
   }
 
   .address-col {
-    @include span-columns(7);
+    flex: 1;
   }
 
   .edit-col {
-    @include span-columns(1);
-    @include omega();
+    display: flex;
+    flex-shrink: 0;
   }
 
   .delete-message {

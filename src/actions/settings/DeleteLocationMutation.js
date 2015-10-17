@@ -1,10 +1,24 @@
 import Relay, {Mutation} from 'react-relay';
 
-export default class EditLocationsMutation extends Mutation {
+export default class DeleteLocationMutation extends Mutation {
   static fragments = {
     privateData: () => Relay.QL`
       fragment on UserPrivate {
         id,
+        locations {
+          name,
+          formattedAddress,
+          streetNumber,
+          route,
+          city,
+          province,
+          country,
+          postalCode,
+          coords {
+            latitude,
+            longitude,
+          },
+        },
       }
     `,
   };
@@ -29,8 +43,10 @@ export default class EditLocationsMutation extends Mutation {
     }];
   }
   getVariables() {
+    const locations = [...this.props.privateData.locations];
+    locations.splice(this.props.index, 1);
     return {
-      locations: this.props.locations.map(l => ({
+      locations: locations.map(l => ({
         name: l.name,
         formattedAddress: l.formattedAddress,
         streetNumber: l.streetNumber,
@@ -47,10 +63,13 @@ export default class EditLocationsMutation extends Mutation {
     };
   }
   getOptimisticResponse() {
-    const {privateData} = this.props;
-    privateData.locations = this.props.locations;
+    const locations = [...this.props.privateData.locations];
+    locations.splice(this.props.index, 1);
     return {
-      privateData,
+      privateData: {
+        id: this.props.privateData.id,
+        locations: locations,
+      },
     };
   }
 }
