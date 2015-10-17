@@ -159,7 +159,7 @@ export default {
       progressReleased: "Payment released",
       completed: "I have completed the task!",
       progressHelp: `
-      <h2>How does the payment & task completion process work?</h2>
+      <h2>What is the payment & task completion process?</h2>
       <ol>
         <li>
           The Task Poster sends the payment via {nelperPay} where it gets held
@@ -197,7 +197,7 @@ export default {
       progressApproved: "Confirm task completion",
       progressRating: "Feedback",
       progressHelp: `
-      <h2>How does the payment & task completion process work?</h2>
+      <h2>What is the payment & task completion process?</h2>
       <ol>
         <li>
           Click on <em>Proceed to Payment</em>. Enter your credit/debit card info and send the payment. A receipt will be sent automatically to your email.
@@ -292,7 +292,7 @@ export default {
     posterDesc_03: "In your {nelpCenter}, under <em>My Tasks</em>. All your active and completed tasks are there along with their price, posted date & number of Nelpers who applied.<br /><br />If you click on one of your active tasks, you can edit it and see the full list of Nelpers who applied for it.",
     posterTitle_04: "How do I choose a Nelper?",
     posterDesc_04: "Click on your task and browse from the list of Nelpers who applied. You can see their name, rating, number of tasks completed and price offer. If you click on their profile picture, you have access to their profile and feedback from previously completed tasks. You can also open a chat window if you want to ask them questions.",
-    posterTitle_05: "How does the payment & task completion process work as a Task Poster?",
+    posterTitle_05: "As a Task Poster, what is the payment & task completion process?",
     posterDesc_05: `Once you accept a Nelper and that all details have been taken care of, your task is ready for payment & completion. All the remaining steps are completed on your task page.
     <ol>
       <li>
@@ -322,7 +322,7 @@ export default {
     nelperDesc_02: "In your {nelpCenter}, under <em>My Applications</em>. All your active applications are there, along with their status (Pending, Accepted or Declined). You can also see the tasks you previously completed.<br /><br />If you click on one of your applications, you can review its details and open a chat window between you and the Task Poster.",
     nelperTitle_03: "How can I improve my chances of being accepted for a task?",
     nelperDesc_03: "Make sure to complete your {profile} thoroughly. Write about yourself, your skills, your education & work experience. A Task Poster will most likely look at it before making a decision, so being clear about your skills and including as many details as possible is important.",
-    nelperTitle_04: "How does the payment & task completion process work as a Task Poster?",
+    nelperTitle_04: "As a Nelper, what is the payment & task completion process?",
     nelperDesc_04: `If your application gets accepted, you receive a notification and your application status changes. Once all details have been taken care of between you and the Task Poster, the task is ready for payment and completion. All the remaining steps are completed on your application’s page.
     <ol>
       <li>
