@@ -5,6 +5,7 @@ import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
 import {SaveGeneralSettingsMutation, ChangePasswordMutation} from 'actions/settings/index';
 import Storage from 'utils/Storage';
+import ApiUtils from 'utils/ApiUtils';
 
 import {
   IconButton,
@@ -94,8 +95,8 @@ class AccountSettingsHandler extends Component {
       currentPassword: this.state.currentPassword,
       newPassword: this.state.newPassword,
     }), {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
+        ApiUtils.updateUserSession(this.state.newPassword);
       },
       onFailure: (transaction) => {
         console.log(transaction.getError());

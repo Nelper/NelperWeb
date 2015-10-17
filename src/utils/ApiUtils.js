@@ -126,6 +126,13 @@ class ApiUtils {
     return parseUser.id + '-' + parseUser.getSessionToken();
   }
 
+  updateUserSession(password) {
+    const parseUser = Parse.User.current();
+    return Parse.User.logOut()
+      .then(() => Parse.User.logIn(parseUser.get('username'), password))
+      .then(() => this._initSession());
+  }
+
   /**
    * Sets the user geo location.
    * @param {GeoPoint} loc The user geo point
