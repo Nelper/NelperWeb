@@ -11,6 +11,7 @@ export default class AddLocationDialogView extends Component {
 
   static propTypes = {
     opened: PropTypes.bool,
+    location: PropTypes.object,
     onLocationAdded: PropTypes.func,
     onCancel: PropTypes.func,
   }
@@ -37,6 +38,17 @@ export default class AddLocationDialogView extends Component {
     GoogleMapsUtils.load().then((maps) => {
       this.setState({googleMaps: maps});
     });
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (!this.props.location && newProps.location) {
+      this.setState({
+        name: newProps.location.name,
+        address: newProps.location.formattedAddress,
+      });
+    } else {
+
+    }
   }
 
   componentDidUpdate() {
@@ -177,7 +189,9 @@ export default class AddLocationDialogView extends Component {
   _resetAddress() {
     this.setState({
       name: '',
+      nameError: null,
       address: '',
+      addressError: null,
       coords: null,
       streetNumber: '',
       route: '',

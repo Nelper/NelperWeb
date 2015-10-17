@@ -1,4 +1,6 @@
 export SaveGeneralSettingsMutation from './SaveGeneralSettingsMutation';
 export UpdateNotificationSettingsMutation from './UpdateNotificationSettingsMutation';
-export EditLocationsMutation from './EditLocationsMutation';
+export EditLocationMutation from './EditLocationMutation';
+export AddLocationMutation from './AddLocationMutation';
+export DeleteLocationMutation from './DeleteLocationMutation';
 export ChangePasswordMutation from './ChangePasswordMutation';

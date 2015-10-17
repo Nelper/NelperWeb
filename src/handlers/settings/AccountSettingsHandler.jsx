@@ -3,7 +3,13 @@ import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
-import {SaveGeneralSettingsMutation, ChangePasswordMutation} from 'actions/settings/index';
+import {
+  SaveGeneralSettingsMutation,
+  ChangePasswordMutation,
+  EditLocationMutation,
+  AddLocationMutation,
+  DeleteLocationMutation,
+} from 'actions/settings/index';
 import Storage from 'utils/Storage';
 import ApiUtils from 'utils/ApiUtils';
 
@@ -24,12 +30,15 @@ class AccountSettingsHandler extends Component {
 
   state = {
     showLocationDialog: false,
+    editedLocation: null,
     email: this.props.user.privateData.email,
     phone: this.props.user.privateData.phone,
     language: this.props.user.privateData.language,
     currentPassword: '',
     newPassword: '',
     newPasswordConfirm: '',
+    savingGeneral: false,
+    savingPassword: false,
   }
 
   _onEmailChange(event) {
@@ -57,11 +66,40 @@ class AccountSettingsHandler extends Component {
   }
 
   _onCloseLocationDialog() {
-    this.setState({showLocationDialog: false});
+    this.setState({showLocationDialog: false, editedLocation: null});
   }
 
-  _onAddLocation() {
+  _onAddLocation(location) {
+    if (this.state.editedLocation) {
+      Relay.Store.update(
+        new EditLocationMutation({
+          privateData: this.props.user.privateData,
+          index: this.props.user.privateData.locations.indexOf(this.state.editedLocation),
+          location,
+        })
+      );
+    } else {
+      Relay.Store.update(
+        new AddLocationMutation({
+          privateData: this.props.user.privateData,
+          location,
+        })
+      );
+    }
+    this.setState({showLocationDialog: false, editedLocation: null});
+  }
 
+  _onEditLocation(location) {
+    this.setState({showLocationDialog: true, editedLocation: location});
+  }
+
+  _onDeleteLocation(location) {
+    Relay.Store.update(
+      new DeleteLocationMutation({
+        privateData: this.props.user.privateData,
+        index: this.props.user.privateData.locations.indexOf(location),
+      })
+    );
   }
 
   _onChangeLanguage(event) {
@@ -126,11 +164,12 @@ class AccountSettingsHandler extends Component {
           <div styleName="name-col">{l.name}</div>
           <div styleName="address-col">
             <div>{l.streetNumber} {l.route}</div>
-            <div>{l.city}, {l.province} {l.postalCode}</div>
-            <div>{l.country}</div>
+            <div>{l.city}, {l.province} </div>
+            <div>{l.postalCode}</div>
           </div>
           <div styleName="edit-col">
-            <IconButton icon={require('images/icons/edit.svg')}/>
+            <IconButton icon={require('images/icons/edit.svg')} onClick={() => this._onEditLocation(l)}/>
+            <IconButton icon={require('images/icons/delete.svg')} onClick={() => this._onDeleteLocation(l)}/>
           </div>
         </div>
       );
@@ -140,6 +179,7 @@ class AccountSettingsHandler extends Component {
       <div styleName="module" className="container">
         <AddLocationDialogView
           opened={this.state.showLocationDialog}
+          location={this.state.editedLocation}
           onLocationAdded={::this._onAddLocation}
           onCancel={::this._onCloseLocationDialog} />
         <div className="panel">
@@ -192,7 +232,7 @@ class AccountSettingsHandler extends Component {
               loading={this.state.savingGeneral}
               onClick={::this._onSaveGeneralClick}
             >
-              Save changes
+              <FormattedMessage id="settings.account.saveGeneral" />
             </ProgressButton>
           </div>
         </div>
@@ -260,13 +300,14 @@ class AccountSettingsHandler extends Component {
                   />
                 </div>
               </div>
-              <button
+              <ProgressButton
                 className="primary"
                 disabled={!this._getCanSavePassword()}
+                loading={this.state.savingPassword}
                 onClick={::this._onChangePasswordClick}
               >
-                Change password
-              </button>
+                <FormattedMessage id="settings.account.changePassword" />
+              </ProgressButton>
             </div>
           </div> :
           null
@@ -300,14 +341,17 @@ export default Relay.createContainer(AccountSettingsHandler, {
           language,
           locations {
             name,
+            formattedAddress,
             streetNumber,
             route,
             city,
             province,
             postalCode,
-            country,
           },
-          ${SaveGeneralSettingsMutation.getFragment('privateData')}
+          ${SaveGeneralSettingsMutation.getFragment('privateData')},
+          ${EditLocationMutation.getFragment('privateData')},
+          ${AddLocationMutation.getFragment('privateData')},
+          ${DeleteLocationMutation.getFragment('privateData')},
         },
       }
     `,

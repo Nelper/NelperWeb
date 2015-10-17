@@ -394,6 +394,9 @@ export default {
       deleteAccount: "Delete Account",
       deleteAccountMessage: "Account deletion is permanent",
       deleteAccountButton: "Delete my account",
+
+      saveGeneral: "Save changes",
+      changePassword: "Change password",
     },
     notifications: {
       title: "Notifications",

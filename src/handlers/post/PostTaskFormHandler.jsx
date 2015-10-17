@@ -9,7 +9,10 @@ import AddLocationDialogView from 'components/AddLocationDialogView';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import ApiUtils from 'utils/ApiUtils';
 import PostTaskMutation from 'actions/post/PostTaskMutation';
-import EditLocationsMutation from 'actions/settings/EditLocationsMutation';
+import {
+  AddLocationMutation,
+  DeleteLocationMutation,
+} from 'actions/settings/index';
 import {MIN_PRICE, MAX_PRICE, MIN_TITLE_LENGTH, MIN_DESC_LENGTH} from 'utils/constants';
 
 import styles from './PostTaskFormHandler.scss';
@@ -64,11 +67,10 @@ class PostTaskFormHandler extends Component {
   }
 
   _onAddLocation(location) {
-    const locations = [location, ...this.props.me.privateData.locations];
     Relay.Store.update(
-      new EditLocationsMutation({
+      new AddLocationMutation({
         privateData: this.props.me.privateData,
-        locations,
+        location,
       })
     );
     this.setState({
@@ -104,12 +106,10 @@ class PostTaskFormHandler extends Component {
   }
 
   _onDeleteLocationConfirm() {
-    const locations = this.props.me.privateData.locations
-      .filter(l => l !== this.state.location);
     Relay.Store.update(
-      new EditLocationsMutation({
+      new DeleteLocationMutation({
         privateData: this.props.me.privateData,
-        locations,
+        index: this.props.me.privateData.locations.indexOf(this.state.location),
       })
     );
     this.setState({showDeleteLocationDialog: false});
@@ -455,7 +455,8 @@ export default Relay.createContainer(PostTaskFormHandler, {
               longitude,
             }
           },
-          ${EditLocationsMutation.getFragment('privateData')}
+          ${AddLocationMutation.getFragment('privateData')},
+          ${DeleteLocationMutation.getFragment('privateData')},
         },
         ${PostTaskMutation.getFragment('me')},
       }
