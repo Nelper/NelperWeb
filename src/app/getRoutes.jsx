@@ -13,12 +13,12 @@ import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
 
 import BrowseTasksHandler from 'handlers/browse/BrowseTasksHandler';
 
-import NelpCenterHandler from 'handlers/nelpcenter/NelpCenterHandler';
-import ApplicationsHandler from 'handlers/nelpcenter/ApplicationsHandler';
-import TasksHandler from 'handlers/nelpcenter/TasksHandler';
-import TaskDetailHandler from 'handlers/nelpcenter/TaskDetailHandler';
-import TaskApplicationDetailHandler from 'handlers/nelpcenter/TaskApplicationDetailHandler';
-import ApplicationDetailHandler from 'handlers/nelpcenter/ApplicationDetailHandler';
+import NelpCenterHandler from 'handlers/nelpcenter/home/NelpCenterHandler';
+import ApplicationsHandler from 'handlers/nelpcenter/home/ApplicationsHandler';
+import TasksHandler from 'handlers/nelpcenter/home/TasksHandler';
+import TaskDetailHandler from 'handlers/nelpcenter/taskdetail/TaskDetailHandler';
+import TaskApplicationDetailHandler from 'handlers/nelpcenter/taskdetail/TaskApplicationDetailHandler';
+import ApplicationDetailHandler from 'handlers/nelpcenter/applicationdetail/ApplicationDetailHandler';
 
 import PostTaskCategoriesHandler from 'handlers/post/PostTaskCategoriesHandler';
 import PostTaskFormHandler from 'handlers/post/PostTaskFormHandler';

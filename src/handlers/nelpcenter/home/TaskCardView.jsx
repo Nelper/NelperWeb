@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import {FormattedMessage, FormattedRelative} from 'react-intl';
-import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';
 
 import {Card, CardImageHeader, CardContent} from 'components/Card';

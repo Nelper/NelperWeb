@@ -4,8 +4,8 @@ import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedHTMLMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 
 import {Dialog, IconButton, MapView, TaskPictureSlider} from 'components/index';
-import ChatDialogView from './ChatDialogView';
-import TaskProgress from './TaskProgress';
+import ChatDialogView from '../common/ChatDialogView';
+import TaskProgress from '../common/TaskProgress';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import DateUtils from 'utils/DateUtils';
 import {LatLng} from 'utils/GoogleMapsUtils';

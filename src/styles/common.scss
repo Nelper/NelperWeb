@@ -19,12 +19,12 @@
 @import 'components/Breadcrumbs';
 @import 'components/TaskPictureSlider';
 
-@import 'handlers/nelpcenter/ApplicationsHandler';
-@import 'handlers/nelpcenter/TaskCardView';
-@import 'handlers/nelpcenter/ApplicationListView';
-@import 'handlers/nelpcenter/AcceptedTaskView';
-@import 'handlers/nelpcenter/EditPicturesDialogView';
-@import 'handlers/nelpcenter/TaskProgress';
+@import 'handlers/nelpcenter/home/ApplicationsHandler';
+@import 'handlers/nelpcenter/home/TaskCardView';
+@import 'handlers/nelpcenter/taskdetail/ApplicationListView';
+@import 'handlers/nelpcenter/taskdetail/AcceptedTaskView';
+@import 'handlers/nelpcenter/taskdetail/EditPicturesDialogView';
+@import 'handlers/nelpcenter/common/TaskProgress';
 
 @import 'handlers/about/HowItWorksHandler';
 

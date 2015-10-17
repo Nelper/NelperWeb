@@ -6,7 +6,7 @@ import {FormattedMessage, FormattedHTMLMessage, FormattedNumber, FormattedDate} 
 import CompleteTaskMutation from 'actions/nelpcenter/CompleteTaskMutation';
 import SendApplicantFeedbackMutation from 'actions/nelpcenter/SendApplicantFeedbackMutation';
 import {Rating, IconButton, Dialog} from 'components/index';
-import TaskProgress from './TaskProgress';
+import TaskProgress from '../common/TaskProgress';
 import TaskPaymentDialogView from './TaskPaymentDialogView';
 import IntlUtils from 'utils/IntlUtils';
 

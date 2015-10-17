@@ -4,7 +4,7 @@ import {FormattedDate} from 'react-intl';
 import cssModules from 'react-css-modules';
 
 import {Rating, PriceTag} from 'components/index';
-import ChatDialogView from './ChatDialogView';
+import ChatDialogView from '../common/ChatDialogView';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
 import styles from './TaskApplicationDetailHandler.scss';
