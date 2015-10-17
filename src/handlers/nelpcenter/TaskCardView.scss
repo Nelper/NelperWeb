@@ -83,16 +83,12 @@
   .calendar-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0 1rem;
-    font-size: 0.8em;
     text-align: center;
   }
 
   .calendar-icon {
     @include image($calendar-icon-size, $calendar-icon-size);
-    flex-shrink: 0;
     background-image: url('~images/icons/calendar.png');
-    margin: 0 1.5rem;
+    margin-right: 1rem;
   }
 }

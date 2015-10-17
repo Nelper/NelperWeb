@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 import {FormattedMessage, FormattedHTMLMessage, FormattedNumber, FormattedDate} from 'react-intl';
 
 import CompleteTaskMutation from 'actions/nelpcenter/CompleteTaskMutation';
@@ -136,13 +137,9 @@ class AcceptedTaskView extends Component {
           <button className="primary" onClick={::this._onProceedToPayment}>
             <FormattedMessage id="nelpcenter.acceptedTaskView.proceedPayment" />
           </button>
-          <div className="about-nelper-pay">
-            <IconButton
-              className="task-progress-help"
-              icon={require('images/icons/help.svg')}
-            />
+          <Link to="/nelperpay" className="about-nelper-pay">
             <FormattedMessage id="nelpcenter.acceptedTaskView.aboutNelperPay" />
-          </div>
+          </Link>
         </div>
       );
     }

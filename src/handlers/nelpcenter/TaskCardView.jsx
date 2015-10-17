@@ -80,15 +80,10 @@ class TaskCardView extends Component {
             <PriceTag price={task.priceOffered} gray />
           </div>
           <div className="calendar-row">
+            <div className="calendar-icon" />
             <div>
               <FormattedMessage id="common.postedRelative" values={{
                 formattedAgo: <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,
-              }}/>
-            </div>
-            <div className="calendar-icon" />
-            <div>
-              <FormattedMessage id="common.expiresRelative" values={{
-                formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)}>{IntlUtils.lower}</FormattedRelative>,
               }}/>
             </div>
           </div>

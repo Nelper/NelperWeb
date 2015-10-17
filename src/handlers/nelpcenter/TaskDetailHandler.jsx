@@ -6,6 +6,7 @@ import cssModules from 'react-css-modules';
 import ApplicationListView from './ApplicationListView';
 import AcceptedApplicationView from './AcceptedTaskView';
 import EditPicturesDialogView from './EditPicturesDialogView';
+import ConfirmAcceptNelperDialogView from './ConfirmAcceptNelperDialogView';
 import {
   Dialog,
   Editable,
@@ -22,7 +23,6 @@ import {
   DeleteTaskMutation,
   RemoveAcceptedApplicantMutation,
 } from 'actions/nelpcenter/index';
-import DateUtils from 'utils/DateUtils';
 import IntlUtils from 'utils/IntlUtils';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
@@ -44,6 +44,8 @@ class TaskDetailHandler extends Component {
     confirmDeleteOpened: false,
     editPicturesOpened: false,
     progressHelpDialogOpened: false,
+    confirmAcceptApplication: null,
+    confirmed: false,
   };
 
   constructor(props) {
@@ -78,12 +80,21 @@ class TaskDetailHandler extends Component {
   }
 
   _onAccept(application) {
+    this.setState({confirmAcceptApplication: application});
+  }
+
+  _onCancelAccept() {
+    this.setState({confirmAcceptApplication: null});
+  }
+
+  _onConfirmAccept() {
     Relay.Store.update(
       new AcceptApplicantMutation({
         task: this.props.task,
-        application,
+        application: this.state.confirmAcceptApplication,
       })
     );
+    this.setState({confirmAcceptApplication: null, confirmed: false});
   }
 
   _onDeny(application) {
@@ -203,7 +214,7 @@ class TaskDetailHandler extends Component {
     const {task} = this.props;
     const location = task.userPrivate.exactLocation;
     const applications = task.applications.edges.map(edge => edge.node);
-    const {confirmDeleteOpened, editPicturesOpened} = this.state;
+    const {confirmDeleteOpened, editPicturesOpened, confirmAcceptApplication} = this.state;
 
     const pendingApplications = applications.filter(a => a.state === 'PENDING');
     const deniedApplications = applications.filter(a => a.state === 'DENIED');
@@ -280,6 +291,12 @@ class TaskDetailHandler extends Component {
             </button>
           </div>
         </Dialog>
+        <ConfirmAcceptNelperDialogView
+          application={confirmAcceptApplication}
+          opened={!!confirmAcceptApplication}
+          onClose={::this._onCancelAccept}
+          onConfirm={::this._onConfirmAccept}
+        />
         <EditPicturesDialogView
           pictures={task.pictures || []}
           opened={editPicturesOpened}
@@ -346,11 +363,6 @@ class TaskDetailHandler extends Component {
                         <FormattedMessage id="common.postedRelative" values={{
                           formattedAgo:
                             <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,
-                        }}/>
-                      </div>
-                      <div>
-                        <FormattedMessage id="common.expiresRelative" values={{
-                          formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)}>{IntlUtils.lower}</FormattedRelative>,
                         }}/>
                       </div>
                     </div>
@@ -442,6 +454,7 @@ export default Relay.createContainer(TaskDetailHandler, {
               ${AcceptApplicantMutation.getFragment('application')},
               ${DenyApplicantMutation.getFragment('application')},
               ${RestoreApplicantMutation.getFragment('application')},
+              ${ConfirmAcceptNelperDialogView.getFragment('application')},
             }
           }
         },

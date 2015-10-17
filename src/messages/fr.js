@@ -1,6 +1,7 @@
 export default {
 
   common: {
+    accept: "Accepter",
     accepted: "Accepté",
     pending: "En attente",
     applied: "Appliqué",
@@ -216,7 +217,10 @@ export default {
       </ol>
       `,
 
-      removeApplicant: "Enlever l'applicant",
+      removeApplicant: "Enlever le Nelper",
+
+      confirmAcceptTitle: "Êtes-vous sûr de vouloir accepter ce Nelper?",
+      confirmNelperAccepted: "Nelper accepté",
     },
 
     acceptedTaskView: {

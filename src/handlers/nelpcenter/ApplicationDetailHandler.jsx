@@ -106,8 +106,12 @@ class ApplicationDetailHandler extends Component {
               <div>
                 {
                   accepted ?
-                  <FormattedRelative value={application.acceptedAt || new Date()} /> :
-                  <FormattedRelative value={application.createdAt} />
+                  <FormattedRelative value={application.acceptedAt || new Date()}>
+                    {IntlUtils.upper}
+                  </FormattedRelative> :
+                  <FormattedRelative value={application.createdAt}>
+                    {IntlUtils.upper}
+                  </FormattedRelative>
                 }
               </div>
             </div>
