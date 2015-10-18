@@ -71,6 +71,7 @@ const ApplicationsQueries = {
 
 const ApplicationDetailQueries = {
   application: () => Relay.QL`query { node(id: $applicationId) }`,
+  me: () => Relay.QL`query { me }`,
 };
 
 const PostQueries = {
@@ -221,7 +222,7 @@ export default function getRoutes() {
           <Route
             path=":applicationId"
             component={TaskApplicationDetailHandler}
-            name={IntlUtils.getMessage('routes.applicationDetail')}
+            name={IntlUtils.getMessage('routes.taskApplicationDetail')}
             queries={TaskDetailApplicationQueries}
             renderLoading={renderLoading}
           />

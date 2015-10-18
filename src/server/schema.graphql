@@ -39,6 +39,7 @@ input ApplyForTaskInput {
 
 type ApplyForTaskPayload {
   task: Task
+  me: User
   clientMutationId: String!
 }
 
@@ -59,6 +60,7 @@ input CancelApplyForTaskInput {
 
 type CancelApplyForTaskPayload {
   task: Task
+  me: User
   clientMutationId: String!
 }
 

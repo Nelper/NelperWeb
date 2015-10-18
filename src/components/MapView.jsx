@@ -70,7 +70,12 @@ export default class MapView extends Component {
         ref="map"
         defaultZoom={this.props.initialZoom}
         onDragend={::this._onDragEnd}
-        center={this.state.location}>
+        center={this.state.location}
+        options={{
+          streetViewControl: false,
+          mapTypeControl: false,
+        }}
+      >
         {markers}
       </GoogleMap>
     );

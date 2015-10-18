@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedHTMLMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 
+import CancelApplyForTaskMutation from 'actions/CancelApplyForTaskMutation';
 import {Dialog, IconButton, MapView, TaskPictureSlider} from 'components/index';
 import ChatDialogView from '../common/ChatDialogView';
 import TaskProgress from '../common/TaskProgress';
@@ -17,7 +18,8 @@ import styles from './ApplicationDetailHandler.scss';
 class ApplicationDetailHandler extends Component {
 
   static propTypes = {
-    application: PropTypes.object,
+    application: PropTypes.object.isRequired,
+    me: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
@@ -43,6 +45,16 @@ class ApplicationDetailHandler extends Component {
 
   _onShowProgressHelpClose() {
     this.setState({showProgressHelpDialog: false});
+  }
+
+  _onCancelApply() {
+    Relay.Store.update(
+      new CancelApplyForTaskMutation({
+        task: this.props.application.task,
+        me: this.props.me,
+      }),
+    );
+    this.context.history.pushState(null, '/center');
   }
 
   render() {
@@ -270,7 +282,7 @@ class ApplicationDetailHandler extends Component {
         {
           !accepted ?
           <div styleName="cancel-button-container">
-            <button className="white-button">
+            <button className="white-button" onClick={::this._onCancelApply}>
               <FormattedMessage id="common.cancelApply" />
             </button>
           </div> :
@@ -322,7 +334,13 @@ export default Relay.createContainer(ApplicationDetailHandler, {
               }
             },
           },
+          ${CancelApplyForTaskMutation.getFragment('task')},
         },
+      }
+    `,
+    me: () => Relay.QL`
+      fragment on User {
+        ${CancelApplyForTaskMutation.getFragment('me')}
       }
     `,
   },

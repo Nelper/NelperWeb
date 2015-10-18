@@ -87,6 +87,10 @@ export const ApplyForTaskMutation = mutationWithClientMutationId({
         return task;
       },
     },
+    me: {
+      type: UserType,
+      resolve: (obj, args, {rootValue}) => getMe(rootValue),
+    },
   },
   mutateAndGetPayload: async ({id, price}, {rootValue}) => {
     const localTaskId = fromGlobalId(id).id;
@@ -106,6 +110,10 @@ export const CancelApplyForTaskMutation = mutationWithClientMutationId({
       resolve: ({localTaskId}, _, {rootValue}) => {
         return getTask(rootValue, localTaskId);
       },
+    },
+    me: {
+      type: UserType,
+      resolve: (obj, args, {rootValue}) => getMe(rootValue),
     },
   },
   mutateAndGetPayload: async ({id}, {rootValue}) => {

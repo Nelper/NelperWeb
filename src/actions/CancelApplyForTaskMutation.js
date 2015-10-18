@@ -7,6 +7,11 @@ export default class CancelApplyForTaskMutation extends Mutation {
         id,
       }
     `,
+    me: () => Relay.QL`
+      fragment on User {
+        id,
+      }
+    `,
   };
   getMutation() {
     return Relay.QL`mutation{cancelApplyForTask}`;
@@ -21,6 +26,9 @@ export default class CancelApplyForTaskMutation extends Mutation {
           application {
             state,
           }
+        },
+        me {
+          applications,
         }
       }
     `;
@@ -30,6 +38,7 @@ export default class CancelApplyForTaskMutation extends Mutation {
       type: 'FIELDS_CHANGE',
       fieldIDs: {
         task: this.props.task.id,
+        me: this.props.me.id,
       },
     }];
   }

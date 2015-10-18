@@ -130,6 +130,7 @@ class BrowseTasksListView extends Component {
     Relay.Store.update(
       new ApplyForTaskMutation({
         task: this.state.makeOfferTask,
+        me: this.props.me,
         price: value,
       })
     );
@@ -278,6 +279,7 @@ export default Relay.createContainer(BrowseTasksListView, {
             longitude,
           }
         }
+        ${ApplyForTaskMutation.getFragment('me')},
       }
     `,
     browse: () => Relay.QL`

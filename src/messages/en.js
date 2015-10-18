@@ -54,6 +54,7 @@ export default {
   routes: {
     nelpcenter: "Nelp Center",
     taskDetail: "My Task",
+    taskApplicationDetail: "Nelper's application",
     applicationDetail: "My Application",
     browse: "Browse tasks",
     browseProfile: "Poster's profile",

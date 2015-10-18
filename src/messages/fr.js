@@ -55,6 +55,7 @@ export default {
     nelpcenter: "Centre Nelp",
     taskDetail: "Ma tâche",
     applicationDetail: "Mon application",
+    taskApplicationDetail: "Application du Nelper",
     browse: "Parcourir les tâches",
     browseProfile: "Profile de l'afficheur",
   },
