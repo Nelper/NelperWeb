@@ -54,7 +54,7 @@ export default {
   routes: {
     nelpcenter: "Nelp Center",
     taskDetail: "My Task",
-    taskApplicationDetail: "Nelper's application",
+    taskApplicationDetail: "Nelper's profile",
     applicationDetail: "My Application",
     browse: "Browse tasks",
     browseProfile: "Poster's profile",
@@ -131,7 +131,7 @@ export default {
     },
 
     common: {
-      nelperCount: "{num, plural, =0 {No pending Nelper} =1 {{num} pending Nelper} other {{num} pending Nelpers}}",
+      nelperCount: "{num, plural, =0 {No application} =1 {{num} pending application} other {{num} pending applications}}",
       deleteTask: "Delete this task",
       editPic: "Edit pictures",
 
@@ -186,7 +186,7 @@ export default {
 
       chat: "Open chat",
 
-      offering: "Task Poster is offering",
+      offering: "{name} is offering",
       locationShown: "Exact task location shown",
       locationWithin: "Task location within 400m",
     },

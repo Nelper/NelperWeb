@@ -8,7 +8,6 @@ import {Dialog, IconButton, MapView, TaskPictureSlider} from 'components/index';
 import ChatDialogView from '../common/ChatDialogView';
 import TaskProgress from '../common/TaskProgress';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
-import DateUtils from 'utils/DateUtils';
 import {LatLng} from 'utils/GoogleMapsUtils';
 import IntlUtils from 'utils/IntlUtils';
 
@@ -226,17 +225,10 @@ class ApplicationDetailHandler extends Component {
                   <div styleName="task-info-calendar-row">
                     <div styleName="task-info-calendar">
                       <div styleName="task-info-calendar-icon" />
-                      <div styleName="task-info-calendar-text">
-                        <div>
-                          <FormattedMessage id="common.postedRelative" values={{
-                            formattedAgo: <FormattedRelative value={task.createdAt} />,
-                          }}/>
-                        </div>
-                        <div>
-                          <FormattedMessage id="common.expiresRelative" values={{
-                            formattedAgo: <FormattedRelative value={DateUtils.addDays(task.createdAt, 15)} />,
-                          }}/>
-                        </div>
+                      <div>
+                        <FormattedMessage id="common.postedRelative" values={{
+                          formattedAgo: <FormattedRelative value={task.createdAt} />,
+                        }}/>
                       </div>
                     </div>
                     <div styleName="task-info-location">
@@ -246,7 +238,9 @@ class ApplicationDetailHandler extends Component {
                   </div>
                   <div styleName="task-info-price-row">
                     <div styleName="task-info-price-text">
-                      <FormattedMessage id="nelpcenter.applicationDetail.offering" />
+                      <FormattedMessage id="nelpcenter.applicationDetail.offering" values={{
+                        name: task.user.firstName,
+                      }} />
                     </div>
                     <div styleName="task-info-price">
                       <FormattedNumber value={task.priceOffered} format="priceTag" />
@@ -277,7 +271,14 @@ class ApplicationDetailHandler extends Component {
             markers={[{
               key: 1,
               position: new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location),
-            }]}/>
+            }]}
+            shapes={
+              !accepted ? [{
+                key: 2,
+                center: new LatLng(task.location),
+                radius: 400,
+              }] : []
+            } />
         </div>
         {
           !accepted ?
@@ -317,6 +318,7 @@ export default Relay.createContainer(ApplicationDetailHandler, {
           user {
             objectId,
             name,
+            firstName,
             pictureURL,
           },
           userPrivate {
