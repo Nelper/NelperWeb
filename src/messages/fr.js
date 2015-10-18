@@ -227,6 +227,21 @@ export default {
 
       confirmAcceptTitle: "Êtes-vous sûr de vouloir accepter ce Nelper?",
       confirmNelperAccepted: "Nelper accepté",
+
+      paymentTitle: "Payment",
+      paymentTo: "to {name}",
+      paymentPlaceholderName: "Cardholder name",
+      paymentPlaceholderCard: "Card number",
+      paymentPlaceholderExpiry: "MM / YY",
+      paymentPlaceholderCVC: "CVC",
+      paymentPay: "Pay {amount}",
+      paymentTerms: "Terms of use",
+      paymentErrorName: "Enter your name.",
+      paymentErrorCard: "Invalid card number.",
+      paymentErrorExpiry: "Invalid expiry date.",
+      paymentErrorCVC: "Invalid CVC code.",
+      paymentError: "Une erreur est survenu veuillez réessayer.",
+      paymentCompleted: "Payment successfully completed!",
     },
 
     acceptedTaskView: {

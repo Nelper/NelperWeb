@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+import InputElement from 'react-input-mask';
 
 import {
   SaveGeneralSettingsMutation,
@@ -204,7 +205,9 @@ class AccountSettingsHandler extends Component {
                 <FormattedMessage id="settings.account.phone" /
                   ></div>
               <div styleName="setting-input">
-                <input
+                <InputElement
+                  mask="(999) 999-9999"
+                  maskChar={null}
                   type="tel"
                   value={this.state.phone}
                   onChange={::this._onPhoneChange}
