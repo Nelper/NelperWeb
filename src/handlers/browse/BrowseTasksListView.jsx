@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
+import {Link} from 'react-router';
 import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
 import {VelocityTransitionGroup} from 'velocity-react';
 
 import MakeOfferDialogView from './MakeOfferDialogView';
 import TaskPictureSlider from 'components/TaskPictureSlider';
 import ApplyForTaskMutation from 'actions/ApplyForTaskMutation';
-import CancelApplyForTaskMutation from 'actions/CancelApplyForTaskMutation';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 import LocationUtils from 'utils/LocationUtils';
 import IntlUtils from 'utils/IntlUtils';
@@ -140,14 +140,6 @@ class BrowseTasksListView extends Component {
     });
   }
 
-  _onCancelOffer(task) {
-    Relay.Store.update(
-      new CancelApplyForTaskMutation({
-        task,
-      })
-    );
-  }
-
   render() {
     const {tasks} = this.props.browse;
 
@@ -207,7 +199,11 @@ class BrowseTasksListView extends Component {
             <div styleName="detail">
               <div styleName="profile-btn-row">
                 <div styleName="profile-btn-container">
-                  <button className="secondary border-btn">Profile</button>
+                  <Link to={`/browse/profile/${t.user.id}`}>
+                    <button className="secondary border-btn">
+                      <FormattedMessage id="browse.profile" />
+                    </button>
+                  </Link>
                 </div>
                 <div styleName="desc-col">
                   <div styleName="desc">
@@ -217,11 +213,13 @@ class BrowseTasksListView extends Component {
                     <div styleName="controls" className="btn-group">
                       {
                         t.application && t.application.state === 'PENDING' ?
-                        <button className="primary" onClick={() => this._onCancelOffer(t)}>
-                          Cancel offer
-                        </button> :
+                        <Link to={`/center/applications/detail/${t.application.id}`}>
+                          <button className="primary">
+                            <FormattedMessage id="browse.viewApplication" />
+                          </button>
+                        </Link> :
                         <button className="primary" onClick={() => this._onMakeOffer(t)}>
-                          Make an offer
+                          <FormattedMessage id="browse.makeOffer" />
                         </button>
                       }
                     </div>
@@ -302,6 +300,7 @@ export default Relay.createContainer(BrowseTasksListView, {
                 longitude,
               },
               user {
+                id,
                 name,
                 pictureURL,
               },
@@ -309,10 +308,10 @@ export default Relay.createContainer(BrowseTasksListView, {
                 url,
               },
               application {
+                id,
                 state,
               },
               ${ApplyForTaskMutation.getFragment('task')},
-              ${CancelApplyForTaskMutation.getFragment('task')},
             }
           }
         }

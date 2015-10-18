@@ -51,7 +51,7 @@ class ApplicationCardView extends Component {
           <div className={styles.status}>
             <div className={styles['status-icon']} style={{backgroundImage: `url('${statusIcon}')`}} />
             <div className={styles['status-text']}>{statusText}</div>
-            <PriceTag price={application.price} gray />
+            <PriceTag price={application.price} />
           </div>
           <div className={styles.location}>
             <div className={styles['location-icon']} />

@@ -1,0 +1,26 @@
+@import 'styles/base-module';
+
+:local .module {
+  .profile-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: $color-accepted;
+    color: $color-background-light;
+  }
+
+  .profile-picture {
+    @include image(rem(120px));
+    border-radius: 50%;
+    border: solid 3px $color-background-light;
+    margin-right: 1rem;
+  }
+
+  .username {
+    font-size: 1.5em;
+  }
+
+  .rating {
+    margin-bottom: 0.5rem;
+  }
+}

@@ -80,7 +80,7 @@ class TaskCardView extends Component {
           <div className={styles['applicants-row']}>
             {this._renderStatus()}
             {this._renderApplicants()}
-            <PriceTag price={task.priceOffered} gray />
+            <PriceTag price={task.priceOffered} />
           </div>
           <div className={styles['calendar-row']}>
             <div className={styles['calendar-icon']} />

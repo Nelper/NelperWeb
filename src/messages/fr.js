@@ -55,6 +55,8 @@ export default {
     nelpcenter: "Centre Nelp",
     taskDetail: "Ma tâche",
     applicationDetail: "Mon application",
+    browse: "Parcourir les tâches",
+    browseProfile: "Profile de l'afficheur",
   },
 
   navBar: {
@@ -113,6 +115,9 @@ export default {
     date: "Date de publication",
 
     myOffer: "Mon offre",
+    makeOffer: "Faire une offre",
+    viewApplication: "Voir mon application",
+    profile: "Profile",
   },
 
   nelpcenter: {

@@ -1,3 +1,5 @@
+import IntlUtils from './IntlUtils';
+
 const colors = {
   yellow: '#f7cc39',
   purple: '#997dd9',
@@ -41,6 +43,10 @@ export default class TaskCategoryUtils {
     if (!this._categories[category]) {
       return null;
     }
-    return require(`images/categories/${category}.png`);
+    try {
+      return require(`images/categories/${category}_${IntlUtils.getLanguage()}.png`);
+    } catch (e) {
+      return require(`images/categories/${category}.png`);
+    }
   }
 }

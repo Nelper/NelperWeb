@@ -79,6 +79,5 @@
   .other-icon {
     @include image(5rem);
     border-radius: 50%;
-    background-image: url('images/categories/other.png');
   }
 }

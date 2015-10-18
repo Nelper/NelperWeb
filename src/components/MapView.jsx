@@ -47,6 +47,13 @@ export default class MapView extends Component {
       return (
         <Marker
           key={m.key}
+          icon={{
+            scaledSize: {
+              height: 32,
+              width: 32,
+            },
+            url: require('images/icons/pin-map.png'),
+          }}
           position={m.position}
           onClick={m.onClick}/>
       );

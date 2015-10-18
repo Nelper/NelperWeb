@@ -55,6 +55,8 @@ export default {
     nelpcenter: "Nelp Center",
     taskDetail: "My Task",
     applicationDetail: "My Application",
+    browse: "Browse tasks",
+    browseProfile: "Poster's profile",
   },
 
   navBar: {
@@ -113,6 +115,9 @@ export default {
     date: "Posted date",
 
     myOffer: "My offer",
+    makeOffer: "Make an offer",
+    viewApplication: "View my application",
+    profile: "Profile",
   },
 
   nelpcenter: {

@@ -42,7 +42,9 @@ export default class PostTaskCategoriesHandler extends Component {
         <div styleName="category-picker">{categories}</div>
         <div styleName="other-row">
           <div styleName="category" onClick={() => this._onSelectCategory('other')}>
-            <div styleName="other-icon" />
+            <div styleName="other-icon" style={{
+              backgroundImage: `url('${TaskCategoryUtils.getImage('other')}')`,
+            }} />
           </div>
         </div>
       </div>

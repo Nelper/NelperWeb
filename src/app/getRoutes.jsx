@@ -12,6 +12,7 @@ import AppHandler from 'handlers/AppHandler';
 import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
 
 import BrowseTasksHandler from 'handlers/browse/BrowseTasksHandler';
+import TaskPosterProfileHandler from 'handlers/browse/TaskPosterProfileHandler';
 
 import NelpCenterHandler from 'handlers/nelpcenter/home/NelpCenterHandler';
 import ApplicationsHandler from 'handlers/nelpcenter/home/ApplicationsHandler';
@@ -42,6 +43,10 @@ const AppQueries = {
 const BrowseQueries = {
   me: () => Relay.QL`query Browse { me }`,
   browse: () => Relay.QL`query { browse }`,
+};
+
+const TaskPosterProfileQueries = {
+  user: () => Relay.QL`query { node(id: $userId) }`,
 };
 
 const SettingsQueries = {
@@ -162,11 +167,24 @@ export default function getRoutes() {
       <Route path="/register" getComponent={getRegisterComponent} />
       <Route path="/logout" component={LogoutHandler} />
       <Route
+        name={IntlUtils.getMessage('routes.browse')}
         path="/browse"
         component={BrowseTasksHandler}
         queries={BrowseQueries}
         renderLoading={renderLoading}
       />
+      <Route
+        name={IntlUtils.getMessage('routes.browse')}
+        path="/browse/profile"
+      >
+        <Route
+          name={IntlUtils.getMessage('routes.browseProfile')}
+          path=":userId"
+          component={TaskPosterProfileHandler}
+          queries={TaskPosterProfileQueries}
+          renderLoading={renderLoading}
+        />
+      </Route>
       <Route path="/post" component={PostTaskCategoriesHandler} />
       <Route
         path="/post/:category"

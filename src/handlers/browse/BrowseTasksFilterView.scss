@@ -45,14 +45,21 @@
     opacity: 1;
   }
 
-  .category-all {
+  %category-all {
     @extend %category-icon;
-    background-image: url('images/categories/all.png');
+    background-image: url('images/categories/all_EN.png');
+
+    .lang-fr & {
+      background-image: url('images/categories/all_FR.png');
+    }
+  }
+
+  .category-all {
+    @extend %category-all;
   }
 
   .category-all-selected {
-    @extend %category-icon;
-    background-image: url('images/categories/all.png');
+    @extend %category-all;
     opacity: 1;
   }
 

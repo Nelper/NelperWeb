@@ -7,6 +7,7 @@ import {addLocaleData} from 'react-intl';
 export default class IntlUtils {
 
   static _messages = null
+  static _language = null
 
   /**
    * Loads the data for the specified locale. Includes a polyfill for window.Intl
@@ -41,8 +42,9 @@ export default class IntlUtils {
 
     return new Promise((resolve) => {
       const polyfillIntl = __CLIENT__ && !window.Intl;
-
-      switch (locale.split('-')[0].toUpperCase()) {
+      const lang = locale.split('-')[0].toUpperCase();
+      IntlUtils._language = lang;
+      switch (lang) {
       case 'FR':
         if (polyfillIntl) {
           require.ensure([
@@ -98,6 +100,10 @@ export default class IntlUtils {
    */
   static getMessage(id) {
     return IntlUtils._messages[id];
+  }
+
+  static getLanguage() {
+    return IntlUtils._language;
   }
 
   /**
