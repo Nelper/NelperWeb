@@ -236,12 +236,12 @@ export default {
       paymentPlaceholderCVC: "CVC",
       paymentPay: "Pay {amount}",
       paymentTerms: "Terms of use",
-      paymentErrorName: "Enter your name.",
-      paymentErrorCard: "Invalid card number.",
-      paymentErrorExpiry: "Invalid expiry date.",
-      paymentErrorCVC: "Invalid CVC code.",
-      paymentError: "Une erreur est survenu veuillez réessayer.",
-      paymentCompleted: "Payment successfully completed!",
+      paymentErrorName: "Invalid cardholder name",
+      paymentErrorCard: "Invalid card number",
+      paymentErrorExpiry: "Invalid expiration date",
+      paymentErrorCVC: "Invalid CVC code",
+      paymentError: "An error occured, please try again.",
+      paymentCompleted: "Payment successfully sent!",
     },
 
     acceptedTaskView: {
