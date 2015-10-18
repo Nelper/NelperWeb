@@ -223,9 +223,9 @@ export default {
       </ol>
       `,
 
-      removeApplicant: "Enlever le Nelper",
+      removeApplicant: "Changer de Nelper",
 
-      confirmAcceptTitle: "Êtes-vous sûr de vouloir accepter ce Nelper?",
+      confirmAcceptTitle: "Êtes-vous certain de vouloir accepter ce Nelper?",
       confirmNelperAccepted: "Nelper accepté",
 
       paymentTitle: "Payment",
@@ -270,7 +270,7 @@ export default {
     errorLocation: "Please select or add a location.",
 
     deleteLocationTitle: "Supprimer l'emplacement",
-    deleteLocationMessage: "Êtes-vous sûr de vouloir supprimer l'emplacement '{name}'?",
+    deleteLocationMessage: "Êtes-vous certain de vouloir supprimer l'emplacement '{name}'?",
   },
 
   profile: {
