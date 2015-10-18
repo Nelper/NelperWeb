@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
-import {FormattedDate} from 'react-intl';
+import {FormattedMessage, FormattedDate} from 'react-intl';
 import cssModules from 'react-css-modules';
 
 import {Rating} from 'components/index';
@@ -62,7 +62,7 @@ class UserProfileView extends Component {
           );
         });
       } else {
-        feedback = <div>No feedback yet</div>;
+        feedback = <div><FormattedMessage id="profile.noFeedback" /></div>;
       }
     }
 
@@ -71,7 +71,7 @@ class UserProfileView extends Component {
         <div styleName="section-row" className="panel pad-all">
           <div styleName="section-title">
             <div styleName="section-icon-about" />
-            <div>About</div>
+            <div><FormattedMessage id="profile.about" /></div>
           </div>
           <div styleName="section-content">
             {user.about}
@@ -80,7 +80,7 @@ class UserProfileView extends Component {
         <div styleName="section-row" className="panel pad-all">
           <div styleName="section-title">
             <div styleName="section-icon-skills" />
-            <div>Skills</div>
+            <div><FormattedMessage id="profile.skills" /></div>
           </div>
           <div styleName="section-content">
             <div styleName="skills">
@@ -91,7 +91,7 @@ class UserProfileView extends Component {
         <div styleName="section-row" className="panel pad-all">
           <div styleName="section-title">
             <div styleName="section-icon-education" />
-            <div>Education</div>
+            <div><FormattedMessage id="profile.education" /></div>
           </div>
           <div styleName="section-content">
             <div>
@@ -102,7 +102,7 @@ class UserProfileView extends Component {
         <div styleName="section-row" className="panel pad-all">
           <div styleName="section-title">
             <div styleName="section-icon-work" />
-            <div>Work experience</div>
+            <div><FormattedMessage id="profile.experience" /></div>
           </div>
           <div styleName="section-content">
             <div>
@@ -113,7 +113,7 @@ class UserProfileView extends Component {
         <div styleName="section-row" className="panel pad-all">
           <div styleName="section-title">
             <div styleName="section-icon-feedback" />
-            <div>Feedback</div>
+            <div><FormattedMessage id="profile.feedback" /></div>
           </div>
           <div styleName="section-content">
             <div styleName="feedback">

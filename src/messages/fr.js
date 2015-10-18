@@ -266,6 +266,9 @@ export default {
     addEducation: "Ajouter",
     experience: "Expérience de travail",
     addExperience: "Ajouter",
+    feedback: "Feedback",
+
+    noFeedback: "No feedback yet",
   },
 
   faq: {
