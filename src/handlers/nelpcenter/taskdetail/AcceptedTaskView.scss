@@ -1,4 +1,6 @@
-.accepted-application-view {
+@import 'styles/base-module';
+
+:local .accepted-application-view {
 
   $nelper-pay-icon-size: 4rem;
 
@@ -11,7 +13,7 @@
 
   .nelper-pay-icon {
     @include image($nelper-pay-icon-size);
-    background-image: url('~images/icons/nelperpay.png');
+    background-image: url('images/icons/nelperpay.png');
     margin-top: -$nelper-pay-icon-size / 2;
   }
 
@@ -104,7 +106,7 @@
 
   .task-poster-picture-icon {
     @include image(2.5rem);
-    background-image: url('~images/icons/profile-white.png');
+    background-image: url('images/icons/profile-white.png');
   }
 
   .task-poster-picture-text {
@@ -124,7 +126,7 @@
   .task-poster-chat-icon {
     @include image(2.5rem);
     margin-right: 1rem;
-    background-image: url('~images/icons/chat-red.png');
+    background-image: url('images/icons/chat-red.png');
   }
 
   .task-poster-chat-btn {
@@ -146,7 +148,7 @@
 
   .task-poster-contact-email-icon {
     @include image(2rem);
-    background-image: url('~images/icons/email.png');
+    background-image: url('images/icons/email.png');
     margin-right: 1rem;
   }
 
@@ -157,7 +159,7 @@
 
   .task-poster-contact-phone-icon {
     @include image(2rem);
-    background-image: url('~images/icons/phone.png');
+    background-image: url('images/icons/phone.png');
     margin-right: 1rem;
   }
 }

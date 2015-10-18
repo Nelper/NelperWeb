@@ -1,4 +1,6 @@
-.task-card-view {
+@import 'styles/base-module';
+
+:local .task-card-view {
   $category-icon-size: 64px;
   $is-new-icon-size: 1.5rem;
   $status-icon-size: 2rem;
@@ -40,7 +42,7 @@
     position: absolute;
     bottom: $is-new-icon-size * 1.25;
     right: $is-new-icon-size / 4;
-    background-image: url('~images/icons/state-new.png');
+    background-image: url('images/icons/state-new.png');
     border-radius: 50%;
   }
 
@@ -88,7 +90,7 @@
 
   .calendar-icon {
     @include image($calendar-icon-size, $calendar-icon-size);
-    background-image: url('~images/icons/calendar.png');
+    background-image: url('images/icons/calendar.png');
     margin-right: 1rem;
   }
 }

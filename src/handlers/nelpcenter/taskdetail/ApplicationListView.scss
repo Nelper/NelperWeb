@@ -1,4 +1,6 @@
-.application-list-view {
+@import 'styles/base-module';
+
+:local .application-list-view {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -62,7 +64,7 @@
 
   .view-profile-icon {
     @include image(2.5rem);
-    background-image: url('~images/icons/profile-white.png');
+    background-image: url('images/icons/profile-white.png');
   }
 
   .view-profile-text {
@@ -101,22 +103,25 @@
     font-size: 1.1em;
   }
 
-  .price-icon {
+  %price-icon {
     width: 1.5rem;
     height: 1.5rem;
     margin-left: 0.5rem;
   }
 
   .price-even {
+    @extend %price-icon;
     fill: $color-secondary;
   }
 
   .price-up {
+    @extend %price-icon;
     fill: $color-primary;
     transform: rotate(180deg);
   }
 
   .price-down {
+    @extend %price-icon;
     fill: $color-money;
   }
 
@@ -141,14 +146,14 @@
   }
 
   .btn-accept {
-    background-image: url('~images/icons/accepted.png');
+    background-image: url('images/icons/accepted.png');
   }
 
   .btn-deny {
-    background-image: url('~images/icons/denied.png');
+    background-image: url('images/icons/denied.png');
   }
 
   .btn-restore {
-    background-image: url('~images/icons/restore.png');
+    background-image: url('images/icons/restore.png');
   }
 }

@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
+import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedRelative} from 'react-intl';
 import IntlUtils from 'utils/IntlUtils';
 
@@ -7,6 +8,9 @@ import {Card, CardImageHeader, CardContent} from 'components/Card';
 import PriceTag from 'components/PriceTag';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
+import styles from './TaskCardView.scss';
+
+@cssModules(styles)
 class TaskCardView extends Component {
 
   static propTypes = {
@@ -32,13 +36,13 @@ class TaskCardView extends Component {
     }
 
     return (
-      <div className="status-icon" style={{backgroundImage: `url('${icon}')`}} />
+      <div className={styles['status-icon']} style={{backgroundImage: `url('${icon}')`}} />
     );
   }
 
   _renderApplicants() {
     return (
-      <div className="applicants">
+      <div className={styles.applicants}>
       {
         !this.props.task.acceptedApplication ?
         <FormattedMessage id="nelpcenter.common.nelperCount" values={{
@@ -54,32 +58,32 @@ class TaskCardView extends Component {
     const {task, onClick} = this.props;
     return (
       <Card
-        className="task-card-view"
+        className={styles['task-card-view']}
         onClick={onClick}>
         <CardImageHeader className="header">
-          <div className="image-overlay" style={this._getTaskImageStyles(task)} />
-          <div className="category">
+          <div className={styles['image-overlay']} style={this._getTaskImageStyles(task)} />
+          <div className={styles.category}>
             {
               task.isNew ?
-              <div className="is-new">
-                <div className="is-new-icon" />
+              <div className={styles['is-new']}>
+                <div className={styles['is-new-icon']} />
               </div> :
               null
             }
-            <div className="category-icon" style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
+            <div className={styles['category-icon']} style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
           </div>
         </CardImageHeader>
         <CardContent className="content">
-          <div className="title">
+          <div className={styles.title}>
             {task.title}
           </div>
-          <div className="applicants-row">
+          <div className={styles['applicants-row']}>
             {this._renderStatus()}
             {this._renderApplicants()}
             <PriceTag price={task.priceOffered} gray />
           </div>
-          <div className="calendar-row">
-            <div className="calendar-icon" />
+          <div className={styles['calendar-row']}>
+            <div className={styles['calendar-icon']} />
             <div>
               <FormattedMessage id="common.postedRelative" values={{
                 formattedAgo: <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,

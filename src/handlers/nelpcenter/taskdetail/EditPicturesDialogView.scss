@@ -1,4 +1,6 @@
-.edit-pictures-dialog-view {
+@import 'styles/base-module';
+
+:local .edit-pictures-dialog-view {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -46,7 +48,7 @@
     .add-picture-icon {
       @include image(3rem);
       margin: 0.5rem;
-      background-image: url('~images/icons/plus.png');
+      background-image: url('images/icons/plus.png');
       cursor: pointer;
     }
 

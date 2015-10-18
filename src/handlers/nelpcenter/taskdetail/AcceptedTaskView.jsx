@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
+import cssModules from 'react-css-modules';
 import {Link} from 'react-router';
 import {FormattedMessage, FormattedHTMLMessage, FormattedNumber, FormattedDate} from 'react-intl';
 
@@ -10,6 +11,9 @@ import TaskProgress from '../common/TaskProgress';
 import TaskPaymentDialogView from './TaskPaymentDialogView';
 import IntlUtils from 'utils/IntlUtils';
 
+import styles from './AcceptedTaskView.scss';
+
+@cssModules(styles)
 class AcceptedTaskView extends Component {
 
   static contextTypes = {
@@ -100,11 +104,11 @@ class AcceptedTaskView extends Component {
     switch (task.completionState) {
     case 'PAYMENT_SENT':
       return (
-        <div className="payment-sent-container">
-          <div className="paid-amount">
+        <div styleName="payment-sent-container">
+          <div styleName="paid-amount">
             <FormattedNumber value={application.price} style="currency" currency="CAD" />
           </div>
-          <div className="paid-on">
+          <div styleName="paid-on">
             <FormattedMessage id="nelpcenter.acceptedTaskView.paidOn" values={{
               date: <FormattedDate value={task.paymentSentAt} />,
             }} />
@@ -133,11 +137,11 @@ class AcceptedTaskView extends Component {
     case 'ACCEPTED':
     default:
       return (
-        <div className="proceed-payment-container">
+        <div styleName="proceed-payment-container">
           <button className="primary" onClick={::this._onProceedToPayment}>
             <FormattedMessage id="nelpcenter.acceptedTaskView.proceedPayment" />
           </button>
-          <Link to="/nelperpay" className="about-nelper-pay">
+          <Link to="/nelperpay" styleName="about-nelper-pay">
             <FormattedMessage id="nelpcenter.acceptedTaskView.aboutNelperPay" />
           </Link>
         </div>
@@ -150,7 +154,7 @@ class AcceptedTaskView extends Component {
     const application = task.acceptedApplication;
 
     return (
-      <div className="accepted-application-view">
+      <div styleName="accepted-application-view">
         <TaskPaymentDialogView
           task={task}
           opened={this.state.showPaymentDialog}
@@ -177,48 +181,48 @@ class AcceptedTaskView extends Component {
             {title: <FormattedMessage id="nelpcenter.taskDetail.progressApproved" />},
             {title: <FormattedMessage id="nelpcenter.taskDetail.progressRating" />},
           ]} />
-          <div className="nelper-pay-separator">
-            <div className="nelper-pay-icon" />
+          <div styleName="nelper-pay-separator">
+            <div styleName="nelper-pay-icon" />
           </div>
           {
             this._renderTaskCompletion()
           }
         </div>
-        <div className="panel task-poster-section">
-          <div className="task-poster-profile-row">
-            <div className="task-poster-profile" onClick={::this._onPosterProfileClick}>
+        <div styleName="task-poster-section" className="panel">
+          <div styleName="task-poster-profile-row">
+            <div styleName="task-poster-profile" onClick={::this._onPosterProfileClick}>
               <div
-                className="task-poster-picture"
+                styleName="task-poster-picture"
                 style={{backgroundImage: `url('${application.user.pictureURL}')`}}
               >
-                <div className="task-poster-picture-overlay">
-                  <div className="task-poster-picture-icon" />
-                  <div className="task-poster-picture-text">
+                <div styleName="task-poster-picture-overlay">
+                  <div styleName="task-poster-picture-icon" />
+                  <div styleName="task-poster-picture-text">
                     <FormattedMessage id="common.viewProfile" />
                   </div>
                 </div>
               </div>
-              <div className="task-poster-name">{application.user.name}</div>
+              <div styleName="task-poster-name">{application.user.name}</div>
             </div>
-            <div className="task-poster-chat">
-              <div className="task-poster-chat-icon" />
-              <button className="border-btn primary task-poster-chat-btn">
+            <div styleName="task-poster-chat">
+              <div styleName="task-poster-chat-icon" />
+              <button styleName="task-poster-chat-btn" className="border-btn primary">
                 <FormattedMessage id="nelpcenter.acceptedTaskView.chat" />
               </button>
             </div>
           </div>
-          <div className="task-poster-contact">
-            <div className="task-poster-contact-email">
-              <div className="task-poster-contact-email-icon" />
-              <div className="task-poster-contact-email-text">
+          <div styleName="task-poster-contact">
+            <div styleName="task-poster-contact-email">
+              <div styleName="task-poster-contact-email-icon" />
+              <div>
                 <a href={'mailto:' + application.email}>{application.email}</a>
               </div>
             </div>
             {
               application.phone ?
-              <div className="task-poster-contact-phone">
-                <div className="task-poster-contact-phone-icon" />
-                <div className="task-poster-contact-phone-text">
+              <div styleName="task-poster-contact-phone">
+                <div styleName="task-poster-contact-phone-icon" />
+                <div>
                   {IntlUtils.formatPhoneNumber(application.phone)}
                 </div>
               </div> :

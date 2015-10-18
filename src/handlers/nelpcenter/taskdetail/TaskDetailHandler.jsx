@@ -213,9 +213,8 @@ class TaskDetailHandler extends Component {
   render() {
     const {task} = this.props;
     const location = task.userPrivate.exactLocation;
-    const applications = task.applications.edges.map(edge => edge.node);
     const {confirmDeleteOpened, editPicturesOpened, confirmAcceptApplication} = this.state;
-
+    const applications = task.applications.edges.map(a => a.node);
     const pendingApplications = applications.filter(a => a.state === 'PENDING');
     const deniedApplications = applications.filter(a => a.state === 'DENIED');
 
@@ -437,20 +436,8 @@ export default Relay.createContainer(TaskDetailHandler, {
           edges {
             node {
               id,
-              objectId,
               state,
-              price,
-              state,
-              user {
-                name,
-                pictureURL,
-                rating,
-                tasksCompleted,
-              },
-              task {
-                objectId,
-                priceOffered,
-              },
+              ${ApplicationListView.getFragment('applications')},
               ${AcceptApplicantMutation.getFragment('application')},
               ${DenyApplicantMutation.getFragment('application')},
               ${RestoreApplicantMutation.getFragment('application')},

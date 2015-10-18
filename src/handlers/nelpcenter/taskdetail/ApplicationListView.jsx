@@ -1,9 +1,14 @@
 import React, {Component, PropTypes} from 'react';
+import Relay from 'react-relay';
+import cssModules from 'react-css-modules';
 import {FormattedMessage} from 'react-intl';
 
 import {Rating, Icon, PriceTag} from 'components/index';
 
-export default class ApplicationListView extends Component {
+import styles from './ApplicationListView.scss';
+
+@cssModules(styles)
+class ApplicationListView extends Component {
 
   static propTypes = {
     applications: PropTypes.array.isRequired,
@@ -38,47 +43,48 @@ export default class ApplicationListView extends Component {
 
   _renderSamePriceIcon(application) {
     if (!application.price || application.price === application.task.priceOffered) {
-      return <Icon className="price-icon price-even" svg={require('images/icons/check.svg')} />;
+      return <Icon styleName="price-even" svg={require('images/icons/check.svg')} />;
     } else if (application.price < application.task.priceOffered) {
-      return <Icon className="price-icon price-down" svg={require('images/icons/arrow.svg')} />;
+      return <Icon styleName="price-down" svg={require('images/icons/arrow.svg')} />;
     }
-    return <Icon className="price-icon price-up" svg={require('images/icons/arrow.svg')} />;
+    return <Icon styleName="price-up" svg={require('images/icons/arrow.svg')} />;
   }
 
   render() {
-    const applications = !this.props.applications.length ?
-      <div className="no-applications">
+    const {applications} = this.props;
+    const displayedApplications = !applications.length ?
+      <div styleName="no-applications">
         <FormattedMessage id="nelpcenter.common.noApplication" />
       </div> :
-      this.props.applications.map(a => {
+      applications.map(a => {
         return (
-          <div key={a.id} className="application">
-            <div className="user-profile" onClick={() => this._onViewProfile(a)}>
-              <div className="user-picture"
+          <div key={a.id} styleName="application">
+            <div styleName="user-profile" onClick={() => this._onViewProfile(a)}>
+              <div styleName="user-picture"
                 style={{backgroundImage: `url('${a.user.pictureURL}')`}}
               >
-                <div className="user-picture-overlay">
-                  <div className="view-profile-icon" />
-                  <div className="view-profile-text">View Profile</div>
+                <div styleName="user-picture-overlay">
+                  <div styleName="view-profile-icon" />
+                  <div styleName="view-profile-text">View Profile</div>
                 </div>
               </div>
-              <div className="user-info">
-                <div className="user-info-name">{a.user.name}</div>
+              <div>
+                <div styleName="user-info-name">{a.user.name}</div>
                 <Rating rating={a.user.rating} number={a.user.tasksCompleted} dark small />
               </div>
             </div>
-            <div className="list-price-offered">
+            <div styleName="list-price-offered">
               <PriceTag price={a.price} />
               {this._renderSamePriceIcon(a)}
             </div>
             {
               a.state === 'PENDING' ?
-              <div className="btn-group actions">
-                <div className="btn-accept" onClick={() => this._onAccept(a)} />
-                <div className="btn-deny" onClick={() => this._onDeny(a)} />
+              <div styleName="actions" className="btn-group">
+                <div styleName="btn-accept" onClick={() => this._onAccept(a)} />
+                <div styleName="btn-deny" onClick={() => this._onDeny(a)} />
               </div> :
-              <div className="btn-group actions">
-                <div className="btn-restore" onClick={() => this._onRestore(a)} />
+              <div styleName="actions" className="btn-group">
+                <div styleName="btn-restore" onClick={() => this._onRestore(a)} />
               </div>
             }
           </div>
@@ -86,9 +92,30 @@ export default class ApplicationListView extends Component {
       });
 
     return (
-      <div className="application-list-view">
-        {applications}
+      <div styleName="application-list-view">
+        {displayedApplications}
       </div>
     );
   }
 }
+
+export default Relay.createContainer(ApplicationListView, {
+  fragments: {
+    applications: () => Relay.QL`
+      fragment on Application @relay(plural: true) {
+        id,
+        price,
+        state,
+        user {
+          name,
+          pictureURL,
+          rating,
+          tasksCompleted,
+        },
+        task {
+          priceOffered,
+        },
+      }
+    `,
+  },
+});

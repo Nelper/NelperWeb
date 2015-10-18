@@ -1,10 +1,14 @@
 import React, {Component, PropTypes} from 'react';
+import cssModules from 'react-css-modules';
 
 import Dialog from 'components/Dialog';
 import IconButton from 'components/IconButton';
 import Progress from 'components/Progress';
 import ApiUtils from 'utils/ApiUtils';
 
+import styles from './EditPicturesDialogView.scss';
+
+@cssModules(styles)
 export default class EditPicturesDialogView extends Component {
 
   static propTypes = {
@@ -55,33 +59,33 @@ export default class EditPicturesDialogView extends Component {
   render() {
     const pictures = this.state.pictures.map((p, i) => {
       return (
-        <div key={i} className="edit-picture">
+        <div key={i} styleName="edit-picture">
           {
             !p.loading ?
             <IconButton
-              className="edit-picture-delete-icon"
+              styleName="edit-picture-delete-icon"
               icon={require('images/icons/delete.svg')}
               onClick={() => this.props.onDeletePicture(p)}
             /> : null
           }
           {
             !p.loading ?
-            <div className="edit-picture-image" style={{backgroundImage: `url('${p.url}')`}} /> :
-            <div className="edit-picture-loading"><Progress small /></div>
+            <div styleName="edit-picture-image" style={{backgroundImage: `url('${p.url}')`}} /> :
+            <div styleName="edit-picture-loading"><Progress small /></div>
           }
-          <div className="edit-picture-title">{p.name}</div>
+          <div>{p.name}</div>
         </div>
       );
     });
 
     return (
       <Dialog opened={this.props.opened} onClose={this.props.onClose} className="pad-all">
-        <div className="edit-pictures-dialog-view">
+        <div styleName="edit-pictures-dialog-view">
           <h2>Edit pictures</h2>
-          <div className="edit-picture-list">
+          <div styleName="edit-picture-list">
             {pictures}
-            <div className="add-picture">
-              <div className="add-picture-icon" />
+            <div styleName="add-picture">
+              <div styleName="add-picture-icon" />
               <input type="file" accept="image/*" onChange={::this._onFileChanged} />
             </div>
           </div>
