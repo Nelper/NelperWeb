@@ -16,7 +16,8 @@ module.exports = [
     output: {
       filename: '[hash].[name].js',
       chunkFilename: '[hash].[id].chunk.js',
-      publicPath: process.env.NODE_ENV === 'production' ? 'https://d1qq8wp10enzpa.cloudfront.net/' : '/',
+      publicPath: process.env.NODE_ENV === 'production' && process.env.NELPER_CDN !== 'local' ?
+        'https://d1qq8wp10enzpa.cloudfront.net/' : '/',
     },
     module: {
       loaders: commonLoaders.concat([{
