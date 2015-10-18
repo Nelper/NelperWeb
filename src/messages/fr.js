@@ -55,7 +55,7 @@ export default {
     nelpcenter: "Centre Nelp",
     taskDetail: "Ma tâche",
     applicationDetail: "Mon application",
-    taskApplicationDetail: "Application du Nelper",
+    taskApplicationDetail: "Profile du Nelper",
     browse: "Parcourir les tâches",
     browseProfile: "Profile de l'afficheur",
   },
@@ -186,7 +186,7 @@ export default {
 
       chat: "Ouvrir le chat",
 
-      offering: "Le publieur offre",
+      offering: "{name} offre",
       locationShown: "Emplacement exact de la tâche affiché",
       locationWithin: "Emplacement de la tâche dans un rayon de 400m",
     },

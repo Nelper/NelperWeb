@@ -171,6 +171,16 @@ export const UserType = new GraphQLObjectType({
       description: 'The user full name.',
       resolve: (user) => user.get('name'),
     },
+    firstName: {
+      type: GraphQLString,
+      description: 'The user first name.',
+      resolve: (user) => user.get('firstName'),
+    },
+    lastName: {
+      type: GraphQLString,
+      description: 'The user last name.',
+      resolve: (user) => user.get('lastName'),
+    },
     pictureURL: {
       type: GraphQLString,
       description: 'The user profile picture url.',

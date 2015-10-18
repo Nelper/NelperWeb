@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import {GoogleMap, Marker} from 'react-google-maps';
+import {GoogleMap, Marker, Circle} from 'react-google-maps';
 
+import Colors from 'utils/Colors';
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
 
 export default class MapView extends Component {
@@ -9,11 +10,13 @@ export default class MapView extends Component {
     initialCenter: PropTypes.object,
     initialZoom: PropTypes.number,
     markers: PropTypes.array,
+    shapes: PropTypes.array,
   }
 
   static defaultProps = {
     initialZoom: 15,
     markers: [],
+    shapes: [],
   }
 
   state = {
@@ -43,6 +46,20 @@ export default class MapView extends Component {
       return <div />;
     }
 
+    const shapes = this.props.shapes.map(s => {
+      return (
+        <Circle
+          key={s.key}
+          center={s.center}
+          radius={s.radius}
+          options={{
+            fillColor: Colors.primary,
+            strokeColor: Colors.primary,
+          }}
+        />
+      );
+    });
+
     const markers = this.props.markers.map((m) => {
       return (
         <Marker
@@ -55,7 +72,8 @@ export default class MapView extends Component {
             url: require('images/icons/pin-map.png'),
           }}
           position={m.position}
-          onClick={m.onClick}/>
+          onClick={m.onClick}
+        />
       );
     });
 
@@ -77,6 +95,7 @@ export default class MapView extends Component {
         }}
       >
         {markers}
+        {shapes}
       </GoogleMap>
     );
   }

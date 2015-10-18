@@ -403,6 +403,8 @@ type User implements Node {
   logged: Boolean
   hasEmailProvider: Boolean
   name: String
+  firstName: String
+  lastName: String
   pictureURL: String
   rating: Float
   tasksCompleted: Int
