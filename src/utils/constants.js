@@ -37,7 +37,8 @@ export const TASK_COMPLETION_STATE = {
   ACCEPTED: 0,
   PAYMENT_SENT: 1,
   COMPLETED: 2,
-  RATED: 3,
+  PAYMENT_REQUESTED: 3,
+  RATED: 4,
 };
 
 export const MIN_PRICE = 10;

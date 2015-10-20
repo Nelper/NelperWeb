@@ -6,6 +6,7 @@ export {
   PostTaskMutation,
   CompleteTaskMutation,
   SendApplicantFeedbackMutation,
+  RequestPaymentMutation,
 } from './taskMutations';
 
 export {

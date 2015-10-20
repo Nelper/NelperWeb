@@ -72,6 +72,12 @@
     margin-bottom: 1.5rem;
   }
 
+  .status {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
   .status-icon {
     @include image($status-icon-size, $status-icon-size);
   }

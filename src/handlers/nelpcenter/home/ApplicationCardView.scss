@@ -76,9 +76,13 @@
     margin-left: 1rem;
   }
 
-  .status {
+  .status-row {
     @extend %info-row;
     margin-bottom: 1.5rem;
+  }
+
+  .status {
+    flex: 1;
   }
 
   .status-icon {

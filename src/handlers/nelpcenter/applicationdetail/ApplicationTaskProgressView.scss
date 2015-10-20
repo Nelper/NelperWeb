@@ -1,0 +1,31 @@
+@import 'styles/base-module';
+
+:local {
+  .task-progress {
+    padding: 0.5rem;
+  }
+
+  .task-progress-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .task-progress-completed-btn {
+    font-size: 1.1em;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .task-progress-help {
+    fill: $color-gray-medium;
+
+    &:hover {
+      fill: $color-background-light;
+    }
+
+    .icon-button-component-icon {
+      @include position(absolute, 0.5rem);
+    }
+  }
+}

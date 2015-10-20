@@ -28,6 +28,7 @@ import {
   CompleteTaskMutation,
   SendApplicantFeedbackMutation,
   ChangePasswordMutation,
+  RequestPaymentMutation,
 } from './schema/mutations';
 
 import {getMe} from './data/userData';
@@ -76,6 +77,7 @@ const mutationType = new GraphQLObjectType({
     setApplicationState: SetApplicationStateMutation,
     completeTask: CompleteTaskMutation,
     sendApplicantFeedback: SendApplicantFeedbackMutation,
+    requestPayment: RequestPaymentMutation,
 
     editProfile: EditProfileMutation,
 

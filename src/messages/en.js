@@ -17,6 +17,7 @@ export default {
     cancel: "Cancel",
     add: "Add",
     delete: "Delete",
+    close: "Close",
 
     browse: "Browse...",
   },
@@ -144,6 +145,11 @@ export default {
       noTask: "No active tasks.",
       post: "Post a Task",
       nelperAccepted: "Nelper accepted",
+      paymentSent: "Payment sent",
+      feedback: "Rating & Feedback",
+      paymentRequested: "Payment requested",
+      paymentReleased: "Payment released",
+      completed: "Completed",
       activeTasks: "Active tasks",
       completedTasks: "Completed tasks",
     },
@@ -154,8 +160,8 @@ export default {
     },
 
     applicationDetail: {
-
-      status: "Application status",
+      taskStatus: "Task status",
+      applicationStatus: "Application status",
       agreed: "Agreed price",
       offer: "Your offer",
 

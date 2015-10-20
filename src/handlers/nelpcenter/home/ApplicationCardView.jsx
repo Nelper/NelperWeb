@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage} from 'react-intl';
 
+import ApplicantStatusView from '../common/ApplicantStatusView';
 import {Card, CardImageHeader, CardContent} from 'components/Card';
 import PriceTag from 'components/PriceTag';
 import UserStore from 'stores/UserStore';
@@ -24,13 +25,6 @@ class ApplicationCardView extends Component {
     const task = application.task;
 
     const distance = Math.round(LocationUtils.kilometersBetween(task.location, UserStore.state.user.location));
-    const statusIcon = application.state === 'ACCEPTED' ?
-      require('images/icons/accepted.png') :
-      require('images/icons/state-pending.png');
-
-    const statusText = application.state === 'ACCEPTED' ?
-      <FormattedMessage id="common.accepted"/> :
-      <FormattedMessage id="common.pending"/>;
 
     return (
       <Card
@@ -48,9 +42,10 @@ class ApplicationCardView extends Component {
           <div className={styles.title}>
             {task.title}
           </div>
-          <div className={styles.status}>
-            <div className={styles['status-icon']} style={{backgroundImage: `url('${statusIcon}')`}} />
-            <div className={styles['status-text']}>{statusText}</div>
+          <div className={styles['status-row']}>
+            <div className={styles.status}>
+              <ApplicantStatusView application={application} />
+            </div>
             <PriceTag price={application.price} />
           </div>
           <div className={styles.location}>
@@ -86,6 +81,7 @@ export default Relay.createContainer(ApplicationCardView, {
             longitude,
           }
         },
+        ${ApplicantStatusView.getFragment('application')},
       }
     `,
   },

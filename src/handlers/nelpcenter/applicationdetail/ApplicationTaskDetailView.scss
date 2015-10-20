@@ -1,0 +1,141 @@
+@import 'styles/base-module';
+
+:local .module {
+  .task-info-section {
+    padding: 1rem;
+    padding-bottom: 0.15rem;
+    margin-bottom: 0;
+  }
+
+  .task-info-title-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .task-info-category-icon {
+    @include image(2.5rem);
+    margin-right: 1rem;
+    border-radius: 50%;
+  }
+
+  .task-info-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  .task-info-other-row {
+    @include outer-container();
+
+    @include media($medium-screen) {
+      margin-left: 3.5rem;
+    }
+  }
+
+  %main-col {
+    @include span-columns(12);
+  }
+
+  .main-col {
+    @extend %main-col;
+  }
+
+  .main-col-has-pictures {
+    @extend %main-col;
+
+    @include media($medium-screen) {
+      @include span-columns(8);
+    }
+  }
+
+  .task-info-image-col {
+    @include span-columns(12);
+
+    @include media($medium-screen) {
+      @include span-columns(4);
+      @include omega();
+    }
+  }
+
+  .task-info-desc {
+    margin-bottom: 2.5rem;
+    white-space: pre-line;
+  }
+
+  .task-info-calendar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+  }
+
+  .task-info-calendar {
+    display: flex;
+    align-items: center;
+  }
+
+  .task-info-calendar-icon {
+    @include image(2.5rem);
+    background-image: url('images/icons/calendar.png');
+    margin-right: 1rem;
+  }
+
+  .task-info-location {
+    display: flex;
+    align-items: center;
+  }
+
+  .task-info-location-icon {
+    @include image(2.5rem);
+    background-image: url('images/icons/pin.png');
+    margin-right: 1rem;
+  }
+
+  .task-info-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .task-info-price-text {
+    margin-right: 0.5rem;
+    font-weight: bold;
+    color: $color-gray-medium;
+  }
+
+  .task-info-price {
+    @include price-tag();
+    transform: scale(0.9);
+  }
+
+  .task-info-exact-location {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .task-info-exact-location-icon {
+    @include image(2.5rem);
+    margin-right: 1rem;
+    background-image: url('images/icons/pin.png');
+  }
+
+  .task-info-exact-location-text {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: $base-border;
+    font-size: 0.9em;
+    white-space: pre-line;
+  }
+
+  .map-message {
+    font-size: 0.85em;
+    color: $color-gray-medium;
+  }
+
+  .task-info-map {
+    height: rem(300px);
+    border-top: 0;
+  }
+}

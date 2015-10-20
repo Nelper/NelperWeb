@@ -1,0 +1,52 @@
+@import 'styles/base-module';
+
+:local {
+  .application-summary {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    @include media($medium-screen) {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1rem 6rem;
+    }
+  }
+
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+
+    @include media($medium-screen) {
+      align-items: center;
+      margin-bottom: 0;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .summary-item-title {
+    margin-bottom: 0.75rem;
+    color: $color-gray-medium;
+    font-size: 1.1em;
+  }
+
+  .summary-item-price {
+    @include price-tag();
+    margin-top: rem(-5px);
+    transform: scale(0.9);
+  }
+
+  .summary-item-applied {
+    display: flex;
+    align-items: center;
+  }
+
+  .summary-item-applied-icon {
+    @include image(2rem);
+    margin-right: 1rem;
+    background-image: url('images/icons/calendar.png');
+  }
+}

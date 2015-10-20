@@ -74,7 +74,8 @@ export const TaskCompletionStateType = new GraphQLEnumType({
     ACCEPTED: {value: 0},
     PAYMENT_SENT: {value: 1},
     COMPLETED: {value: 2},
-    RATED: {value: 3},
+    PAYMENT_REQUESTED: {value: 3},
+    RATED: {value: 4},
   },
 });
 

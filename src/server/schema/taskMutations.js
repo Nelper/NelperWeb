@@ -30,6 +30,7 @@ import {
   deleteTask,
   completeTask,
   addApplicantFeedback,
+  requestPayment,
 } from '../data/taskData';
 
 import {
@@ -192,6 +193,26 @@ export const CompleteTaskMutation = mutationWithClientMutationId({
   mutateAndGetPayload: async ({taskId}, {rootValue}) => {
     const localTaskId = fromGlobalId(taskId).id;
     const task = await completeTask(rootValue, localTaskId);
+    return {task};
+  },
+});
+
+export const RequestPaymentMutation = mutationWithClientMutationId({
+  name: 'RequestPayment',
+  inputFields: {
+    taskId: {type: new GraphQLNonNull(GraphQLID)},
+  },
+  outputFields: {
+    task: {
+      type: TaskType,
+      resolve: ({task}) => {
+        return task;
+      },
+    },
+  },
+  mutateAndGetPayload: async ({taskId, rating, content}, {rootValue}) => {
+    const localTaskId = fromGlobalId(taskId).id;
+    const task = await requestPayment(rootValue, localTaskId);
     return {task};
   },
 });

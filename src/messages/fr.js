@@ -17,6 +17,7 @@ export default {
     cancel: "Annuler",
     add: "Ajouter",
     delete: "Supprimer",
+    close: "Fermer",
 
     browse: "Parcourir...",
   },
@@ -144,6 +145,11 @@ export default {
       noTask: "Vous n'avez pas de tâche active.",
       post: "Publier une tâche",
       nelperAccepted: "Nelper accepté",
+      paymentSent: "Paiement envoyé",
+      feedback: "Rating & Feedback",
+      paymentRequested: "Payment requested",
+      paymentReleased: "Payment released",
+      completed: "Completed",
       activeTasks: "Tâches actives",
       completedTasks: "Tâches complétées",
     },
@@ -154,8 +160,8 @@ export default {
     },
 
     applicationDetail: {
-
-      status: "État de l'application",
+      taskStatus: "État de la tâche",
+      applicationStatus: "État de l'application",
       agreed: "Prix convenu",
       offer: "Votre offre",
 

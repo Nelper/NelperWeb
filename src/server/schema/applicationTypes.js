@@ -41,6 +41,11 @@ export const ApplicationType = new GraphQLObjectType({
   fields: () => ({
     id: globalIdField('Application'),
     ...commonFields,
+    acceptedAt: {
+      type: GraphQLString,
+      description: 'The date the application was accepted',
+      resolve: (application) => application.get('acceptedAt'),
+    },
     state: {
       type: ApplicationStateType,
       description: 'The application state',

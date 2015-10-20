@@ -1,0 +1,13 @@
+@import 'styles/base-module';
+
+:local {
+  .status {
+    display: flex;
+    align-items: center;
+  }
+
+  .status-icon {
+    @include image(2rem);
+    margin-right: 1rem;
+  }
+}

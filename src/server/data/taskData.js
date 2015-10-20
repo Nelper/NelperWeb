@@ -230,12 +230,27 @@ export async function deleteTask({sessionToken}, taskId) {
 
 export async function completeTask({sessionToken, userId}, taskId) {
   const task = await getTask({sessionToken, userId}, taskId);
-  if (userId !== task.get('user').id || task.get('completionState') !== TASK_COMPLETION_STATE.PAYMENT_SENT) {
+  if (userId !== task.get('user').id || (
+      task.get('completionState') !== TASK_COMPLETION_STATE.PAYMENT_SENT &&
+      task.get('completionState') !== TASK_COMPLETION_STATE.PAYMENT_REQUESTED)) {
     throw new InvalidOperationError();
   }
 
   task.set('completionState', TASK_COMPLETION_STATE.COMPLETED);
   task.get('user').increment('tasksCompleted');
+  await task.save(null, {sessionToken});
+
+  return task;
+}
+
+export async function requestPayment({sessionToken, userId}, taskId) {
+  const task = await getTask({sessionToken, userId}, taskId);
+  if (userId !== task.get('acceptedApplication').get('user').id ||
+      task.get('completionState') !== TASK_COMPLETION_STATE.PAYMENT_SENT) {
+    throw new InvalidOperationError();
+  }
+
+  task.set('completionState', TASK_COMPLETION_STATE.PAYMENT_REQUESTED);
   await task.save(null, {sessionToken});
 
   return task;

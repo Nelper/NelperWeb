@@ -87,6 +87,7 @@ class AcceptedTaskView extends Component {
   _getTaskStep() {
     switch (this.props.task.completionState) {
     case 'PAYMENT_SENT':
+    case 'PAYMENT_REQUESTED':
       return 1;
     case 'COMPLETED':
       return 2;
@@ -103,6 +104,7 @@ class AcceptedTaskView extends Component {
     const application = task.acceptedApplication;
     switch (task.completionState) {
     case 'PAYMENT_SENT':
+    case 'PAYMENT_REQUESTED':
       return (
         <div styleName="payment-sent-container">
           <div styleName="paid-amount">

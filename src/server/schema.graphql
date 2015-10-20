@@ -3,6 +3,7 @@ type Application implements Node {
   objectId: String
   createdAt: String
   updatedAt: String
+  acceptedAt: String
   state: ApplicationState
   price: Int
   task: Task
@@ -219,6 +220,7 @@ type Mutation {
   setApplicationState(input: SetApplicationStateInput!): SetApplicationStatePayload
   completeTask(input: CompleteTaskInput!): CompleteTaskPayload
   sendApplicantFeedback(input: SendApplicantFeedbackInput!): SendApplicantFeedbackPayload
+  requestPayment(input: RequestPaymentInput!): RequestPaymentPayload
   editProfile(input: EditProfileInput!): EditProfilePayload
   editLocations(input: EditLocationsInput!): EditLocationsPayload
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
@@ -280,6 +282,16 @@ type Query {
   node(id: ID!): Node
   me: User
   browse: Browse
+}
+
+input RequestPaymentInput {
+  taskId: ID!
+  clientMutationId: String!
+}
+
+type RequestPaymentPayload {
+  task: Task
+  clientMutationId: String!
 }
 
 input SaveGeneralSettingsInput {
@@ -357,6 +369,7 @@ enum TaskCompletionState {
   ACCEPTED
   PAYMENT_SENT
   COMPLETED
+  PAYMENT_REQUESTED
   RATED
 }
 

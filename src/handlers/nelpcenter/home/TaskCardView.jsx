@@ -29,27 +29,45 @@ class TaskCardView extends Component {
 
   _renderStatus() {
     let icon;
-    if (this.props.task.acceptedApplication) {
+    let text;
+    if (this.props.task.state === 'ACCEPTED') {
+      switch (this.props.task.completionState) {
+      case 'PAYMENT_SENT':
+        icon = require('images/status/payment-sent.png');
+        text = <FormattedMessage id="nelpcenter.myTasks.paymentSent"/>;
+        break;
+      case 'COMPLETED':
+        icon = require('images/status/give-feedback.png');
+        text = <FormattedMessage id="nelpcenter.myTasks.feedback"/>;
+        break;
+      case 'PAYMENT_REQUESTED':
+        icon = require('images/status/payment-request.png');
+        text = <FormattedMessage id="nelpcenter.myTasks.paymentRequested"/>;
+        break;
+      case 'ACCEPTED':
+      default:
+        icon = require('images/icons/accepted.png');
+        text = <FormattedMessage id="nelpcenter.myTasks.nelperAccepted"/>;
+        break;
+      }
+    } else if (this.props.task.state === 'COMPLETED') {
       icon = require('images/icons/accepted.png');
+      text = <FormattedMessage id="nelpcenter.myTasks.completed"/>;
     } else {
       icon = require('images/icons/applicants.png');
+      text = (
+        <FormattedMessage id="nelpcenter.common.nelperCount" values={{
+          num: this.props.task.applications.pendingCount,
+        }}/>
+      );
     }
 
     return (
-      <div className={styles['status-icon']} style={{backgroundImage: `url('${icon}')`}} />
-    );
-  }
-
-  _renderApplicants() {
-    return (
-      <div className={styles.applicants}>
-      {
-        !this.props.task.acceptedApplication ?
-        <FormattedMessage id="nelpcenter.common.nelperCount" values={{
-          num: this.props.task.applications.pendingCount,
-        }}/> :
-        <FormattedMessage id="nelpcenter.myTasks.nelperAccepted"/>
-      }
+      <div className={styles.status}>
+        <div className={styles['status-icon']} style={{backgroundImage: `url('${icon}')`}} />
+        <div className={styles.applicants}>
+          {text}
+        </div>
       </div>
     );
   }
@@ -79,7 +97,6 @@ class TaskCardView extends Component {
           </div>
           <div className={styles['applicants-row']}>
             {this._renderStatus()}
-            {this._renderApplicants()}
             <PriceTag price={task.priceOffered} />
           </div>
           <div className={styles['calendar-row']}>
@@ -101,14 +118,13 @@ export default Relay.createContainer(TaskCardView, {
     task: () => Relay.QL`
       fragment on Task {
         title,
+        state,
+        completionState,
         createdAt,
         category,
         priceOffered,
         pictures {
           url,
-        },
-        acceptedApplication {
-          id,
         },
         applications {
           hasNew,
