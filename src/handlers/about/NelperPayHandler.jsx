@@ -22,52 +22,67 @@ export default class NelperPayHandler extends Component {
           </div>
         </section>
         <section styleName="section-dark">
-          <div styleName="whatis-section" className="container">
+          <div styleName="section" className="container">
             <h2>
-              <FormattedMessage id="nelperPay.whatIsTitle" />
+              <FormattedMessage id="nelperPay.section1Title" />
             </h2>
+            <h3>
+              <FormattedMessage id="nelperPay.section1Subtitle" />
+            </h3>
             <div>
-              <FormattedMessage id="nelperPay.whatIsText" />
+              <FormattedHTMLMessage id="nelperPay.section1Desc" />
             </div>
           </div>
         </section>
         <section styleName="section-light">
-          <div styleName="whatis-section" className="container">
+          <div styleName="section" className="container">
             <h2>
-              <FormattedMessage id="nelperPay.whatIsTitle" />
+              <FormattedMessage id="nelperPay.section2Title" />
             </h2>
+            <h3>
+              <FormattedMessage id="nelperPay.section2Subtitle" />
+            </h3>
             <div>
-              <FormattedMessage id="nelperPay.whatIsText" />
+              <FormattedHTMLMessage id="nelperPay.section2Desc" />
             </div>
           </div>
         </section>
         <section styleName="section-dark">
-          <div styleName="whatis-section" className="container">
+          <div styleName="section" className="container">
             <h2>
-              <FormattedMessage id="nelperPay.whatIsTitle" />
+              <FormattedMessage id="nelperPay.section3Title" />
             </h2>
+            <h3>
+              <FormattedMessage id="nelperPay.section3Subtitle" />
+            </h3>
             <div>
-              <FormattedMessage id="nelperPay.whatIsText" />
+              <FormattedHTMLMessage id="nelperPay.section3Desc" />
             </div>
           </div>
         </section>
         <section styleName="section-light">
-          <div styleName="whatis-section" className="container">
+          <div styleName="section" className="container">
             <h2>
-              <FormattedMessage id="nelperPay.whatIsTitle" />
+              <FormattedMessage id="nelperPay.section4Title" />
             </h2>
+            <h3>
+              <FormattedMessage id="nelperPay.section4Subtitle" />
+            </h3>
             <div>
-              <FormattedMessage id="nelperPay.whatIsText" />
+              <FormattedHTMLMessage id="nelperPay.section4Desc" />
             </div>
           </div>
         </section>
         <section styleName="section-dark">
-          <div styleName="whatis-section" className="container">
+          <div styleName="section" className="container">
             <h2>
-              <FormattedMessage id="nelperPay.whatIsTitle" />
+              <FormattedMessage id="nelperPay.section5Title" />
             </h2>
+            <h3>
+              <FormattedMessage id="nelperPay.section5Subtitle" />
+            </h3>
             <div>
-              <FormattedMessage id="nelperPay.whatIsText" />
+              <FormattedHTMLMessage id="nelperPay.section5Desc" />
             </div>
           </div>
         </section>

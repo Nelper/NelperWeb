@@ -390,8 +390,102 @@ export default {
     headerTitle: "NelperPay",
     headerText: "A <strong>safe</strong> payment platform for everyone",
 
-    whatIsTitle: "What is NelperPay?",
-    whatIsText: "NelperPay is our payment platform. It's simple, safe and trustworthy.",
+    section1Title: "Safe Payment Experience",
+    section1Subtitle: "No third-party account needed. No hidden fees.",
+    section1Desc: `
+      <p>
+        Every transaction on Nelper is handled via NelperPay. Instead of letting
+        you handle payments on your own, we take care of them for you. This way,
+        you don’t have to leave Nelper at any step of the process and your payments
+        are safely handled.
+      </p>
+      <p>
+        Online payments shouldn’t be worrisome and complex. With NelperPay, you
+        don’t have to worry about fraud or disputes and don’t need third-party
+        payment platforms.
+      </p>
+      <p>Peace of mind and simplicity, that’s what NelperPay is about.</p>
+    `,
+
+    section2Title: "4 Simple Steps",
+    section2Subtitle: "Hassle-free transaction guaranteed. Peace of mind for everyone.",
+    section2Desc: `
+      <p>Here is the payment & task completion process, step by step :</p>
+      <ol>
+        <li>
+          The Task Poster sends the payment.
+        </li>
+        <li>
+          The payment gets held securely via NelperPay until the task gets completed.
+        </li>
+        <li>
+          The Nelper completes the task.
+        </li>
+        <li>
+          The Task Poster confirms the task completion and the Nelper’s payment gets released.
+        </li>
+      </ol>
+      <p>
+        With NelperPay in the middle, the whole payment process is secured. As a
+        Task Poster, you approve the task completion before the payment gets
+        released so you can’t get scammed and, as a Nelper, you can start working
+        on the task knowing the payment is held for you.
+      </p>
+    `,
+
+    section3Title: "Sending Payments",
+    section3Subtitle: "Quick payments, free of charge.",
+    section3Desc: `
+      <p>
+        You only pay the agreed price for your task, nothing more, no hidden fees.
+        Sending a payment also doesn’t require any setup. You only need to enter
+        your name and your credit/debit card’s number, expiration date & CVC.
+      </p>
+      <p>
+        You can pay using your Mastercard, VISA or American Express credit/debit card.
+      </p>
+    `,
+
+    section4Title: "Receiving Payments",
+    section4Subtitle: "One time setup, automatic bank deposits.",
+    section4Desc: `
+      <p>
+        When your payment gets released after you have completed a task, your money
+        will be automatically deposited into your bank account. For this to happen,
+        you need to have a bank account linked to your Nelper account.
+      </p>
+      <p>
+        Go to the Bank Deposits subsection in your Settings, click on Link and fill
+        in the required fields. It’s a quick one time setup. Once it’s done, every
+        payment you receive will be automatically deposited into your bank account.
+        If you plan on completing tasks, we recommend that you link your bank account
+        as soon as possible.
+      </p>
+      <p>
+        When you receive a payment, a service fee of 7.5% is deducted from the
+        total amount, for NelperPay’s secure payment handling.
+      </p>
+    `,
+
+    section5Title: "Customer Support",
+    section5Subtitle: "We’re here for you.",
+    section5Desc: `
+      <p>
+        In case of disputes, bugs or issues related to payments and task completion,
+        we are here to help.
+      </p>
+      <p>
+        If you have a misunderstanding with another user, flag the transaction on
+        your task or application page. We will review your dispute at the earliest
+        and you will be notified via email once it has been resolved. Resolving
+        disputes is our first priority and we always review them thoroughly.
+      </p>
+      <p>
+        If you are unsatisfied or have questions after a resolved dispute, want
+        to report a bug or have an issue, you can contact us anytime on the
+        Support Center. Our support team is here to help.
+      </p>
+    `,
   },
 
   settings: {
