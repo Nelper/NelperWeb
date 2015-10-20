@@ -73,7 +73,7 @@ class TaskCardView extends Component {
             <div className={styles['category-icon']} style={{backgroundImage: `url('${TaskCategoryUtils.getImage(task.category)}')`}} />
           </div>
         </CardImageHeader>
-        <CardContent className="content">
+        <CardContent className={styles.content}>
           <div className={styles.title}>
             {task.title}
           </div>
