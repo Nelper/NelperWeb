@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 import InputElement from 'react-input-mask';
+import IntlUtils from 'utils/IntlUtils';
 
 import {
   SaveGeneralSettingsMutation,
@@ -113,7 +114,7 @@ class AccountSettingsHandler extends Component {
     Relay.Store.update(new SaveGeneralSettingsMutation({
       privateData: this.props.user.privateData,
       email: this.state.email,
-      phone: this.state.phone,
+      phone: IntlUtils.cleanPhoneNumber(this.state.phone),
       language: this.state.language,
     }), {
       onSuccess: () => {

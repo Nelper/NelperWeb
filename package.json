@@ -24,10 +24,18 @@
     "npm": "^3.3.3"
   },
   "jest": {
-    "scriptPreprocessor": "node_modules/babel-jest",
+    "scriptPreprocessor": "<rootDir>/scripts/jestPreprocessor.js",
+    "preprocessorIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
     "unmockedModulePathPatterns": [
-      "node_modules/react",
-      "node_modules/react-tools"
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/fbjs",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-static-container",
+      "<rootDir>/node_modules/core-js",
+      "<rootDir>/node_modules/promise",
+      "<rootDir>/node_modules/babel-runtime"
     ]
   },
   "dependencies": {

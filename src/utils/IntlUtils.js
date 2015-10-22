@@ -127,4 +127,8 @@ export default class IntlUtils {
   static formatPhoneNumber(number) {
     return `(${number.slice(0, 3)}) ${number.slice(3, 6)}-${number.slice(6, 10)}`;
   }
+
+  static cleanPhoneNumber(number) {
+    return number.replace(/[^0-9]/g, '');
+  }
 }
