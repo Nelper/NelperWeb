@@ -25,6 +25,7 @@
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/scripts/jestPreprocessor.js",
+    "setupEnvScriptFile": "<rootDir>/scripts/jestEnvironnement.js",
     "preprocessorIgnorePatterns": [
       "<rootDir>/node_modules/"
     ],
@@ -36,7 +37,9 @@
       "<rootDir>/node_modules/core-js",
       "<rootDir>/node_modules/promise",
       "<rootDir>/node_modules/babel-runtime",
-      "<rootDir>/node_modules/babel-core"
+      "<rootDir>/node_modules/babel-core",
+      "<rootDir>/node_modules/react-intl",
+      "<rootDir>/node_modules/intl-messageformat"
     ]
   },
   "dependencies": {
