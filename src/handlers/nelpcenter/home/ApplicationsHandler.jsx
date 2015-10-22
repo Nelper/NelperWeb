@@ -38,7 +38,7 @@ class ApplicationsHandler extends Component {
       });
 
     return (
-      <div className="applications-handler">
+      <div styleName="applications-handler">
         <div className="container pad-hor-sm">
         {
           !displayedApplications.length ?

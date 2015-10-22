@@ -35,7 +35,8 @@
       "<rootDir>/node_modules/react-static-container",
       "<rootDir>/node_modules/core-js",
       "<rootDir>/node_modules/promise",
-      "<rootDir>/node_modules/babel-runtime"
+      "<rootDir>/node_modules/babel-runtime",
+      "<rootDir>/node_modules/babel-core"
     ]
   },
   "dependencies": {
