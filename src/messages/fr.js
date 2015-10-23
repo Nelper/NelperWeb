@@ -142,7 +142,7 @@ export default {
     },
 
     myTasks: {
-      noTask: "Vous n'avez pas de tâche active.",
+      noTask: "Vous n'avez aucune tâche active.",
       post: "Publier une tâche",
       nelperAccepted: "Nelper accepté",
       paymentSent: "Paiement envoyé",
@@ -155,7 +155,7 @@ export default {
     },
 
     myApplications: {
-      noApplication: "Vous n'avez pas d'application active.",
+      noApplication: "Vous n'avez aucune application active.",
       browse: "Parcourir les tâches",
     },
 

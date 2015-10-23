@@ -104,7 +104,7 @@ export default {
   },
 
   browse: {
-    moreFilters: "More filters",
+    moreFilters: "Filters",
     higherThan: "Higher than",
     within: "Within",
     priceRange: "Price range",
@@ -394,7 +394,7 @@ export default {
 
   nelperPay: {
     headerTitle: "NelperPay",
-    headerText: "A <strong>safe</strong> payment platform for everyone",
+    headerText: "A <strong>safe</strong> and <strong>trustworthy</strong> payment platform",
 
     section1Title: "Safe Payment Experience",
     section1Subtitle: "No third-party account needed. No hidden fees.",
@@ -407,8 +407,8 @@ export default {
       </p>
       <p>
         Online payments shouldn’t be worrisome and complex. With NelperPay, you
-        don’t have to worry about fraud or disputes and don’t need third-party
-        payment platforms.
+        don’t have to worry about fraud or disputes and don’t need any third-party
+        payment platform.
       </p>
       <p>Peace of mind and simplicity, that’s what NelperPay is about.</p>
     `,
