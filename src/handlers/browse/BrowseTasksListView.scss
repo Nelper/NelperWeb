@@ -175,6 +175,7 @@
     flex: 1;
     font-family: $content-font-family;
     white-space: pre-line;
+    word-break: break-word;
     margin-bottom: 1rem;
     text-align: justify;
   }
