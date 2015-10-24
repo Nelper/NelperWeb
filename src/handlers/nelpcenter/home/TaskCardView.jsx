@@ -37,8 +37,8 @@ class TaskCardView extends Component {
         text = <FormattedMessage id="nelpcenter.myTasks.paymentSent"/>;
         break;
       case 'COMPLETED':
-        icon = require('images/status/give-feedback.png');
-        text = <FormattedMessage id="nelpcenter.myTasks.feedback"/>;
+        icon = require('images/status/payment-released.png');
+        text = <FormattedMessage id="nelpcenter.myTasks.paymentReleased"/>;
         break;
       case 'PAYMENT_REQUESTED':
         icon = require('images/status/payment-request.png');
@@ -72,6 +72,57 @@ class TaskCardView extends Component {
     );
   }
 
+  _renderStatusSection2() {
+    const {task} = this.props;
+    if (task.state === 'COMPLETED') {
+      return null;
+    }
+    let icon = require('images/icons/calendar.png');
+    let text = (
+      <FormattedMessage id="common.postedRelative" values={{
+        formattedAgo: <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,
+      }}/>
+    );
+    if (task.state === 'ACCEPTED') {
+      switch (task.completionState) {
+      case 'COMPLETED':
+        icon = require('images/status/give-feedback.png');
+        text = <FormattedMessage id="nelpcenter.myTasks.feedback"/>;
+        break;
+      case 'PAYMENT_SENT':
+        text = (
+          <FormattedMessage id="nelpcenter.myTasks.sentRelative" values={{
+            formattedAgo: <FormattedRelative value={task.acceptedApplication.acceptedAt}>{IntlUtils.lower}</FormattedRelative>,
+          }}/>
+        );
+        break;
+      case 'PAYMENT_REQUESTED':
+        text = (
+          <FormattedMessage id="nelpcenter.myTasks.requestedRelative" values={{
+            formattedAgo: <FormattedRelative value={task.acceptedApplication.acceptedAt}>{IntlUtils.lower}</FormattedRelative>,
+          }}/>
+        );
+        break;
+      case 'ACCEPTED':
+      default:
+        text = (
+          <FormattedMessage id="nelpcenter.myTasks.acceptedRelative" values={{
+            formattedAgo: <FormattedRelative value={task.acceptedApplication.acceptedAt}>{IntlUtils.lower}</FormattedRelative>,
+          }}/>
+        );
+        break;
+      }
+    }
+    return (
+      <div className={styles['calendar-row']}>
+        <div className={styles['calendar-icon']} style={{backgroundImage: `url('${icon}')`}} />
+        <div>
+          {text}
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const {task, onClick} = this.props;
     return (
@@ -99,14 +150,7 @@ class TaskCardView extends Component {
             {this._renderStatus()}
             <PriceTag price={task.priceOffered} />
           </div>
-          <div className={styles['calendar-row']}>
-            <div className={styles['calendar-icon']} />
-            <div>
-              <FormattedMessage id="common.postedRelative" values={{
-                formattedAgo: <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,
-              }}/>
-            </div>
-          </div>
+          {this._renderStatusSection2()}
         </CardContent>
       </Card>
     );
@@ -125,6 +169,9 @@ export default Relay.createContainer(TaskCardView, {
         priceOffered,
         pictures {
           url,
+        },
+        acceptedApplication {
+          acceptedAt,
         },
         applications {
           hasNew,

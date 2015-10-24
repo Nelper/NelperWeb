@@ -9,8 +9,12 @@ export default class Checkbox extends Component {
     title: PropTypes.node,
   }
 
+  static defaultProps = {
+    onCheck: () => {},
+  }
+
   _onCheck() {
-    this.props.onCheck && this.props.onCheck(!this.props.selected);
+    this.props.onCheck(!this.props.selected);
   }
 
   render() {

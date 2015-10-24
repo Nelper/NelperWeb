@@ -152,18 +152,27 @@ export default {
       completed: "Completed",
       activeTasks: "Tâches actives",
       completedTasks: "Tâches complétées",
+      acceptedRelative: "Accepté {formattedAgo}",
+      sentRelative: "Sent {formattedAgo}",
+      requestedRelative: "Requested {formattedAgo}",
     },
 
     myApplications: {
       noApplication: "Vous n'avez aucune application active.",
       browse: "Parcourir les tâches",
+      accepted: "Application accepted",
+      pending: "Application pending",
+      denied: "Application declined",
     },
 
     applicationDetail: {
-      taskStatus: "État de la tâche",
-      applicationStatus: "État de l'application",
+      status: "État",
       agreed: "Prix convenu",
       offer: "Votre offre",
+      amount: "Montant",
+      sent: "Sent",
+      requested: "Requested",
+      initiated: "Initiated",
 
       progressAccepted: "Accepté",
       progressSent: "Paiement envoyé",

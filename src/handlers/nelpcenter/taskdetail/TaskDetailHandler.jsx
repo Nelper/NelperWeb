@@ -98,6 +98,7 @@ class TaskDetailHandler extends Component {
   }
 
   _onDeny(application) {
+    // TODO: fix this
     Relay.Store.update(
       new DenyApplicantMutation({
         task: this.props.task,

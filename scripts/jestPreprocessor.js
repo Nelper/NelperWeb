@@ -3,11 +3,15 @@ const babel = require('babel-core');
 const babelOptions = {
   retainLines: true,
   stage: 0,
-  optional: [],
+  auxiliaryCommentBefore: 'istanbul ignore next',
+  plugins: [],
 };
 
 module.exports = {
-  process: (src, path) => {
-    return babel.transform(src, Object.assign({filename: path}, babelOptions)).code;
+  process: (src, filename) => {
+    if (!babel.canCompile(filename)) {
+      return '';
+    }
+    return babel.transform(src, Object.assign({filename: filename}, babelOptions)).code;
   },
 };

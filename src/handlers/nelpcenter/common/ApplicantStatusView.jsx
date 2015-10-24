@@ -32,24 +32,24 @@ class ApplicationSummaryView extends Component {
         text = <FormattedMessage id="nelpcenter.myTasks.paymentRequested"/>;
         break;
       case 'COMPLETED':
-        icon = require('images/status/payment-release.png');
+        icon = require('images/status/payment-released.png');
         text = <FormattedMessage id="nelpcenter.myTasks.paymentReleased"/>;
         break;
       case 'ACCEPTED':
       default:
         icon = require('images/icons/accepted.png');
-        text = <FormattedMessage id="common.accepted"/>;
+        text = <FormattedMessage id="nelpcenter.myApplications.accepted"/>;
         break;
       }
     } else if (applicationState === 'DENIED') {
       icon = require('images/icons/state-pending.png');
-      text = <FormattedMessage id="common.denied" />;
+      text = <FormattedMessage id="nelpcenter.myApplications.denied" />;
     } else if (applicationState === 'COMPLETED') {
       icon = require('images/icons/accepted.png');
       text = <FormattedMessage id="nelpcenter.myTasks.completed" />;
     } else {
       icon = require('images/icons/state-pending.png');
-      text = <FormattedMessage id="common.pending" />;
+      text = <FormattedMessage id="nelpcenter.myApplications.pending" />;
     }
 
     return (

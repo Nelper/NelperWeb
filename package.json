@@ -32,8 +32,11 @@
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/fbjs",
       "<rootDir>/node_modules/babel-runtime",
-      "<rootDir>/node_modules/react-intl"
+      "<rootDir>/node_modules/graphql",
+      "<rootDir>/node_modules/graphql-relay"
     ]
   },
   "dependencies": {
@@ -109,6 +112,8 @@
     "eslint-plugin-react": "^3.5.1",
     "event-source-polyfill": "0.0.6",
     "jest-cli": "^0.6.1",
+    "jest-css-modules": "^1.0.0",
+    "react-addons-test-utils": "^0.14.0",
     "react-hot-loader": "^1.3.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",

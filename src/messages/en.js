@@ -145,30 +145,39 @@ export default {
       noTask: "No active tasks.",
       post: "Post a Task",
       nelperAccepted: "Nelper accepted",
-      paymentSent: "Payment sent",
+      paymentSent: "Payment Sent",
       feedback: "Rating & Feedback",
-      paymentRequested: "Payment requested",
-      paymentReleased: "Payment released",
+      paymentRequested: "Payment Requested",
+      paymentReleased: "Payment Released",
       completed: "Completed",
       activeTasks: "Active tasks",
       completedTasks: "Completed tasks",
+      acceptedRelative: "Accepted {formattedAgo}",
+      sentRelative: "Sent {formattedAgo}",
+      requestedRelative: "Requested {formattedAgo}",
     },
 
     myApplications: {
       noApplication: "No active applications.",
       browse: "Browse Tasks",
+      accepted: "Application accepted",
+      pending: "Application pending",
+      denied: "Application declined",
     },
 
     applicationDetail: {
-      taskStatus: "Task status",
-      applicationStatus: "Application status",
+      status: "Status",
       agreed: "Agreed price",
       offer: "Your offer",
+      amount: "Amount",
+      sent: "Sent",
+      requested: "Requested",
+      initiated: "Initiated",
 
       progressAccepted: "Accepted",
-      progressSent: "Payment sent",
-      progressPayment: "Payment requested",
-      progressReleased: "Payment released",
+      progressSent: "Payment Sent",
+      progressPayment: "Payment Requested",
+      progressReleased: "Payment Released",
       completed: "I have completed the task!",
       progressHelp: `
       <h2>What is the payment & task completion process?</h2>
@@ -198,15 +207,14 @@ export default {
     },
 
     taskDetail: {
-
       nelperPending: "Nelpers",
-      nelperDenied: "Denied Nelpers",
+      nelperDenied: "Declined Nelpers",
       nelperAccepted: "Accepted Nelper",
       deleteConfirm: "Are your sure you want to delete the task {title}?",
 
-      progressAccepted: "Nelper accepted",
-      progressSent: "Payment sent",
-      progressApproved: "Confirm task completion",
+      progressAccepted: "Nelper Accepted",
+      progressSent: "Payment Sent",
+      progressApproved: "Confirm Task Completion",
       progressRating: "Feedback",
       progressHelp: `
       <h2>What is the payment & task completion process?</h2>

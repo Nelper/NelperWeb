@@ -17,28 +17,55 @@ class ApplicationSummaryView extends Component {
 
   render() {
     const {application} = this.props;
+    const task = application.task;
 
     const accepted = application.state === 'ACCEPTED';
+
+    let priceTagTitle;
+    let calendarTitle;
+    let calendarValue;
+    if (accepted) {
+      switch (task.completionState) {
+      case 'PAYMENT_SENT':
+        priceTagTitle = <FormattedMessage id="nelpcenter.applicationDetail.amount" />;
+        calendarTitle = <FormattedMessage id="nelpcenter.applicationDetail.sent" />;
+        calendarValue = task.paymentSentAt;
+        break;
+      case 'PAYMENT_REQUESTED':
+        priceTagTitle = <FormattedMessage id="nelpcenter.applicationDetail.amount" />;
+        calendarTitle = <FormattedMessage id="nelpcenter.applicationDetail.requested" />;
+        calendarValue = new Date();
+        break;
+      case 'COMPLETED':
+        priceTagTitle = <FormattedMessage id="nelpcenter.applicationDetail.amount" />;
+        calendarTitle = <FormattedMessage id="nelpcenter.applicationDetail.initiated" />;
+        calendarValue = new Date();
+        break;
+      case 'ACCEPTED':
+      default:
+        priceTagTitle = <FormattedMessage id="nelpcenter.applicationDetail.agreed" />;
+        calendarTitle = <FormattedMessage id="common.accepted" />;
+        calendarValue = application.acceptedAt;
+        break;
+      }
+    } else {
+      priceTagTitle = <FormattedMessage id="nelpcenter.applicationDetail.offer" />;
+      calendarTitle = <FormattedMessage id="common.applied" />;
+      calendarValue = application.createdAt;
+    }
+
 
     return (
       <div styleName="application-summary" className="panel">
         <div styleName="summary-item">
           <div styleName="summary-item-title">
-            {
-              application.task.completionState !== 'ACCEPTED' ?
-              <FormattedMessage id="nelpcenter.applicationDetail.taskStatus" /> :
-              <FormattedMessage id="nelpcenter.applicationDetail.applicationStatus" />
-            }
+            <FormattedMessage id="nelpcenter.applicationDetail.status" />
           </div>
           <ApplicantStatusView application={application} />
         </div>
         <div styleName="summary-item">
           <div styleName="summary-item-title">
-            {
-              accepted ?
-              <FormattedMessage id="nelpcenter.applicationDetail.agreed" /> :
-              <FormattedMessage id="nelpcenter.applicationDetail.offer" />
-            }
+            {priceTagTitle}
           </div>
           <div styleName="summary-item-price">
             <FormattedNumber value={application.price} format="priceTag" />
@@ -46,20 +73,14 @@ class ApplicationSummaryView extends Component {
         </div>
         <div styleName="summary-item">
           <div styleName="summary-item-title">
-            {accepted ? <FormattedMessage id="common.accepted" /> : <FormattedMessage id="common.applied" />}
+            {calendarTitle}
           </div>
           <div styleName="summary-item-applied">
             <div styleName="summary-item-applied-icon" />
             <div>
-              {
-                accepted ?
-                <FormattedRelative value={application.acceptedAt || new Date()}>
-                  {IntlUtils.upper}
-                </FormattedRelative> :
-                <FormattedRelative value={application.createdAt}>
-                  {IntlUtils.upper}
-                </FormattedRelative>
-              }
+              <FormattedRelative value={calendarValue}>
+                {IntlUtils.upper}
+              </FormattedRelative>
             </div>
           </div>
         </div>
@@ -78,6 +99,7 @@ export default Relay.createContainer(ApplicationSummaryView, {
         price,
         task {
           completionState,
+          paymentSentAt,
         },
         ${ApplicantStatusView.getFragment('application')},
       }

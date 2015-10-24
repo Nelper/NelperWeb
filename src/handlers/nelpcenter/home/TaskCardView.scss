@@ -96,7 +96,6 @@
 
   .calendar-icon {
     @include image($calendar-icon-size, $calendar-icon-size);
-    background-image: url('images/icons/calendar.png');
     margin-right: 1rem;
   }
 }
