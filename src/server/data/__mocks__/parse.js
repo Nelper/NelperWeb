@@ -35,6 +35,8 @@ ParseMock.__clearMockData = () => {
 };
 
 ParseMock.Object = ParseActual.Object;
+ParseMock.Object.prototype.save = jest.genMockFunction().mockReturnThis();
+
 ParseMock.User = ParseActual.User;
 
 export default ParseMock;

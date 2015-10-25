@@ -4,8 +4,6 @@ import {UserPrivateData, Feedback, TaskPrivate} from './parseTypes';
 import {fixParseFileURL} from '../../utils/ParseUtils';
 import {TASK_APPLICATION_STATE} from '../../utils/constants';
 
-console.log(Parse.Query);
-
 export async function getMe({userId, sessionToken}) {
   if (!userId || !sessionToken) {
     return null;
@@ -13,7 +11,7 @@ export async function getMe({userId, sessionToken}) {
 
   const query = new Parse.Query(Parse.User)
     .include('privateData');
-  console.log(query);
+
   const user = await query.get(userId, {sessionToken});
   // Makes sure that the provided userId matches the session token by
   // trying to get a private field.

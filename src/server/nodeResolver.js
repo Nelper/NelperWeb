@@ -3,8 +3,6 @@ import {
   fromGlobalId,
 } from 'graphql-relay';
 
-console.log(nodeDefinitions);
-
 const _resolvers = [];
 
 const {nodeInterface, nodeField} = nodeDefinitions(

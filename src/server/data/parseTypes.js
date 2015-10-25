@@ -1,4 +1,4 @@
-import Parse from 'parse/node';
+import Parse from './parse';
 
 export const Task = Parse.Object.extend({className: 'Task'});
 export const TaskPrivate = Parse.Object.extend({className: 'TaskPrivate'});
