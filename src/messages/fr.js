@@ -76,7 +76,7 @@ export default {
 
   home: {
     topSectionTitle: "Marché en ligne d'achèvement de tâches",
-    topSectionDesc: "Avec Nelper, entrez en contact avec des gens près de vous et faites compléter vos tâches ou faites de l'arget à compléter celles d'autres.",
+    topSectionDesc: "Avec Nelper, entrez en contact avec des gens près de vous et faites compléter vos tâches ou faites de l'argent à compléter celles d'autres.",
 
     browseTitle: "Parcourir les tâches",
     browseDesc: "Appliquez pour compléter des tâches.",
