@@ -24,4 +24,5 @@ export {
 export {
   SendPaymentMutation,
   CreateStripeAccountMutation,
+  SetExternalAccountMutation,
 } from './paymentMutations';

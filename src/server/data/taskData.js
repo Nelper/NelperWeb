@@ -6,6 +6,7 @@ import TaskCategoryUtils from '../../utils/TaskCategoryUtils';
 import {InvalidOperationError} from '../errors';
 
 import {getMe} from './userData';
+import {transferToBankAccount} from './paymentData';
 
 export async function getTask({sessionToken}, id, loadApplications = false) {
   const query = new Parse.Query(Task)
@@ -235,6 +236,8 @@ export async function completeTask({sessionToken, userId}, taskId) {
       task.get('completionState') !== TASK_COMPLETION_STATE.PAYMENT_REQUESTED)) {
     throw new InvalidOperationError();
   }
+
+  await transferToBankAccount({sessionToken, userId}, task);
 
   task.set('completionState', TASK_COMPLETION_STATE.COMPLETED);
   task.get('user').increment('tasksCompleted');

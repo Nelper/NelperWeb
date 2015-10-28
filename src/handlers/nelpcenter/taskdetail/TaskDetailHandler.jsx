@@ -34,11 +34,11 @@ class TaskDetailHandler extends Component {
   static propTypes = {
     task: PropTypes.object,
     params: PropTypes.object,
-  }
+  };
 
   static contextTypes = {
     history: React.PropTypes.object.isRequired,
-  }
+  };
 
   state = {
     confirmDeleteOpened: false,
@@ -79,7 +79,8 @@ class TaskDetailHandler extends Component {
     );
   }
 
-  _onAccept(application) {
+  _onAccept(applicationId) {
+    const application = this._getApplicationById(applicationId);
     this.setState({confirmAcceptApplication: application});
   }
 
@@ -97,8 +98,8 @@ class TaskDetailHandler extends Component {
     this.setState({confirmAcceptApplication: null, confirmed: false});
   }
 
-  _onDeny(application) {
-    // TODO: fix this
+  _onDeny(applicationId) {
+    const application = this._getApplicationById(applicationId);
     Relay.Store.update(
       new DenyApplicantMutation({
         task: this.props.task,
@@ -107,7 +108,8 @@ class TaskDetailHandler extends Component {
     );
   }
 
-  _onRestore(application) {
+  _onRestore(applicationId) {
+    const application = this._getApplicationById(applicationId);
     Relay.Store.update(
       new RestoreApplicantMutation({
         task: this.props.task,
@@ -116,8 +118,8 @@ class TaskDetailHandler extends Component {
     );
   }
 
-  _onViewApplication(application) {
-    this.context.history.pushState(null, `/center/tasks/detail/${this.props.params.taskId}/${application.id}`);
+  _onViewApplication(applicationId) {
+    this.context.history.pushState(null, `/center/tasks/detail/${this.props.params.taskId}/${applicationId}`);
   }
 
   _onCancelDelete() {
@@ -180,6 +182,11 @@ class TaskDetailHandler extends Component {
         pictures,
       })
     );
+  }
+
+  _getApplicationById(applicationId) {
+    const edge = this.props.task.applications.edges.find(e => e.node.id === applicationId);
+    return edge && edge.node;
   }
 
   _markTaskViewed() {

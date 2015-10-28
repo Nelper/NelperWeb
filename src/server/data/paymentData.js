@@ -91,35 +91,38 @@ export async function createStripeAccount({sessionToken, userId, userAgent, ip})
     },
   });
 
-  console.log(response);
-
   privateData.set('stripeAccount', response.id);
   return await privateData.save();
 }
 
-export async function addBankAccount(rootValue, token) {
+export async function getStripeAccount(userId) {
+  const privateData = await getUserPrivateWithMasterKey(userId);
+  return privateData.get('stripeAccount');
+}
+
+export async function addBankAccount(rootValue, token, identityInfo) {
   const user = await getMe(rootValue);
   const privateData = user.get('privateData');
   const stripeAccount = privateData.get('stripeAccount');
-
+  const birthday = new Date(identityInfo.birthday);
   const updateAccountRes = await stripe.accounts.update(
     stripeAccount, {
       legal_entity: {
         type: 'individual',
         address: {
-          line1: '',
-          city: '',
-          state: '',
-          postal_code: '',
-          country: '',
+          line1: identityInfo.address.streetNumber + ' ' + identityInfo.route,
+          city: identityInfo.address.city,
+          state: identityInfo.address.province,
+          postal_code: identityInfo.address.postalCode,
+          country: identityInfo.address.country,
         },
         dob: {
-          day: 0,
-          month: 0,
-          year: 0,
+          day: birthday.getDate(),
+          month: birthday.getMonth(),
+          year: birthday.getFullYear(),
         },
-        first_name: '',
-        last_name: '',
+        first_name: identityInfo.firstName,
+        last_name: identityInfo.lastName,
       },
     },
   );
@@ -131,20 +134,37 @@ export async function addBankAccount(rootValue, token) {
     {external_account: token},
   );
 
+  privateData.set('bankAccount', {
+    identity: identityInfo,
+    stripeId: response.id,
+  });
+
   console.log(response);
+
+  // TODO: Transfer all pending funds when the bank account is registered.
+  return await privateData.save(null, {sessionToken: rootValue.sessionToken});
 }
 
-export async function transferToBankAccount() {
-  const stripeAccount = '';
-  const amount = 1000;
-  const response = await stripe.transfers.create({
-    amount: amount,
-    currency: 'cad',
-    destination: 'default_for_currency',
-  },
-  {stripe_account: stripeAccount});
-
-  console.log(response);
+export async function transferToBankAccount({sessionToken, userId}, task) {
+  const applicantStripeAccount = await getStripeAccount(task.get('acceptedApplication').get('user').id);
+  const charge = task.get('privateData').get('charge');
+  const amount = charge.amount;
+  try {
+    const response = await stripe.transfers.create({
+      amount: amount,
+      currency: 'cad',
+      destination: 'default_for_currency',
+    },
+    {stripe_account: applicantStripeAccount});
+    console.log(response);
+  } catch (err) {
+    // If there is no external account available to transfer the funds stripe
+    // will return a StripeInvalidRequestError so we will ignore this case and
+    // retry transferring the funds when the person has registered a bank account.
+    if (err.type !== 'StripeInvalidRequestError') {
+      throw err;
+    }
+  }
 }
 
 export async function processStripeEvent(event) {

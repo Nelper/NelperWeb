@@ -29,6 +29,7 @@ import {
   SendApplicantFeedbackMutation,
   ChangePasswordMutation,
   RequestPaymentMutation,
+  SetExternalAccountMutation,
 } from './schema/mutations';
 
 import {getMe} from './data/userData';
@@ -88,6 +89,7 @@ const mutationType = new GraphQLObjectType({
 
     sendPayment: SendPaymentMutation,
     createStripeAccount: CreateStripeAccountMutation,
+    setExternalAccount: SetExternalAccountMutation,
   }),
 });
 

@@ -87,7 +87,7 @@ export const LocationInputType = new GraphQLInputObjectType({
       description: 'The postal code.',
     },
     coords: {
-      type: new GraphQLNonNull(GeoPointInputType),
+      type: GeoPointInputType,
       description: 'The map coordinates.',
     },
   }),

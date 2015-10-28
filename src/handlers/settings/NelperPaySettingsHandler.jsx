@@ -36,7 +36,22 @@ export default Relay.createContainer(AccountSettingsHandler, {
     user: () => Relay.QL`
       fragment on User {
         privateData {
-          language,
+          bankAccount {
+            identity {
+              firstName,
+              lastName,
+              birthday,
+              address {
+                streetNumber,
+                route,
+                city,
+                province,
+                country,
+                postalCode,
+              },
+            },
+            stripeId,
+          }
         }
       }
     `,

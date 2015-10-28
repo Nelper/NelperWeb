@@ -14,9 +14,14 @@ import {
 import {
   sendPaymentForTask,
   createStripeAccount,
+  addBankAccount,
 } from '../data/paymentData';
 
-import {TaskType} from './types';
+import {
+  TaskType,
+  LocationInputType,
+  UserPrivateType,
+} from './types';
 
 const PaymentStatusType = new GraphQLEnumType({
   name: 'PaymentStatus',
@@ -67,5 +72,33 @@ export const CreateStripeAccountMutation = mutationWithClientMutationId({
   mutateAndGetPayload: async (_, {rootValue}) => {
     await createStripeAccount(rootValue);
     return {success: true};
+  },
+});
+
+export const SetExternalAccountMutation = mutationWithClientMutationId({
+  name: 'SetExternalAccount',
+  inputFields: {
+    firstName: {type: GraphQLString},
+    lastName: {type: GraphQLString},
+    token: {type: GraphQLString},
+    birthday: {type: GraphQLString},
+    address: {type: LocationInputType},
+  },
+  outputFields: {
+    privateData: {
+      type: UserPrivateType,
+      resolve: ({privateData}) => {
+        return privateData;
+      },
+    },
+  },
+  mutateAndGetPayload: async ({firstName, lastName, address, birthday, token}, {rootValue}) => {
+    const privateData = await addBankAccount(rootValue, token, {
+      firstName,
+      lastName,
+      address,
+      birthday,
+    });
+    return {privateData};
   },
 });

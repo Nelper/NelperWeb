@@ -39,6 +39,32 @@ import {
 
 import commonFields from './commonFields';
 
+const BankAccountIdentityType = new GraphQLObjectType({
+  name: 'BankAccountIdentity',
+  description: 'Settings for the user\'s bank account.',
+  fields: () => ({
+    firstName: {type: GraphQLString},
+    lastName: {type: GraphQLString},
+    birthday: {type: GraphQLString},
+    address: {type: LocationType},
+  }),
+});
+
+const BankAccountSettingType = new GraphQLObjectType({
+  name: 'BankAccountSetting',
+  description: 'Settings for the user\'s bank account.',
+  fields: () => ({
+    stripeId: {
+      type: GraphQLString,
+      description: 'The id of the bank account on stripe.',
+    },
+    identity: {
+      type: BankAccountIdentityType,
+      description: 'The identity of the owner of the bank account.',
+    },
+  }),
+});
+
 const NotificationSettingType = new GraphQLObjectType({
   name: 'NotificationSetting',
   description: 'Settings for a notification type.',
@@ -124,6 +150,11 @@ export const UserPrivateType = new GraphQLObjectType({
       type: NotificationType,
       description: 'The user notifications settings',
       resolve: (data) => data.get('notifications'),
+    },
+    bankAccount: {
+      type: BankAccountSettingType,
+      description: 'The user bank account info.',
+      resolve: (data) => data.get('bankAccount'),
     },
   }),
   interfaces: [nodeInterface],

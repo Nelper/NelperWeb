@@ -12,12 +12,12 @@
     "start-server": "node ./build/server/server.js",
     "build": "webpack --config webpack/webpack.config.js",
     "watch": "babel-node ./src/server/devServer.js",
-    "watch-server": "webpack --watch --config webpack/webpack.config.js",
+    "watch-client": "babel-node ./src/server/devServer.js --client",
+    "watch-server": "babel-node ./src/server/devServer.js --server",
     "update-schema": "babel-node ./scripts/updateSchema.js",
     "clean": "rm -rf ./build",
     "test": "jest",
-    "lint": "eslint ./src",
-    "plotte": "echo Suck my foukin poussy"
+    "lint": "eslint ./src"
   },
   "engines": {
     "node": "^4.0.0",
@@ -52,6 +52,7 @@
     "color": "^0.10.1",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.0",
+    "cors": "^2.7.1",
     "css-loader": "^0.19.0",
     "eslint-config-airbnb": "^0.1.0",
     "exports-loader": "^0.6.2",

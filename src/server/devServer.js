@@ -4,22 +4,12 @@ import webpack from 'webpack';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 import Parse from 'parse/node';
+import cors from 'cors';
 
 import config from './../../webpack/webpack-dev.config';
 import template from './template';
 import devTemplate from './devTemplate';
 import graphql from './graphql';
-
-const compiledTemplate = template
-  // Remove the stylesheet since styles will be inline in dev.
-  .replace('<link href="{styles}" rel="stylesheet" type="text/css">', '')
-  // Remove the shared script in dev because we dont use the chunk optimise plugin.
-  .replace('<script src="{shared}"></script>', '')
-  .replace('{main}', '/main.js')
-  .replace('{content}', '');
-
-const app = express();
-const compiler = webpack(config);
 
 Parse.initialize(
   'w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN',
@@ -27,30 +17,62 @@ Parse.initialize(
   'PjVCIvICgrOZjwSG5AiuKCjdyrzHjfalWbAK5mwR'
 );
 
-graphql(app);
+function client() {
+  const compiledTemplate = template
+    // Remove the stylesheet since styles will be inline in dev.
+    .replace('<link href="{styles}" rel="stylesheet" type="text/css">', '')
+    // Remove the shared script in dev because we dont use the chunk optimise plugin.
+    .replace('<script src="{shared}"></script>', '')
+    .replace('{main}', '/main.js')
+    .replace('{content}', '');
 
-app.use(express.static(path.resolve(__dirname, '../static'), {index: false}));
+  const app = express();
+  const compiler = webpack(config);
 
-app.use(new WebpackDevMiddleware(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath,
-}));
+  app.use(express.static(path.resolve(__dirname, '../static'), {index: false}));
 
-app.use(new WebpackHotMiddleware(compiler));
+  app.use(new WebpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath,
+  }));
 
-app.get('/dev', (req, res) => {
-  res.send(devTemplate);
-});
+  app.use(new WebpackHotMiddleware(compiler));
 
-app.get('*', (req, res) => {
-  res.send(compiledTemplate);
-});
+  app.get('/dev', (req, res) => {
+    res.send(devTemplate);
+  });
 
-app.listen(8080, 'localhost', (err) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
+  app.get('*', (req, res) => {
+    res.send(compiledTemplate);
+  });
 
-  console.log('Listening at http://localhost:8080');
-});
+  app.listen(8080, 'localhost', (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log('Client listening at http://localhost:8080');
+  });
+}
+
+function server() {
+  const app = express();
+  app.use(cors());
+  graphql(app);
+  app.listen(8081, 'localhost', (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log('Server listening at http://localhost:8081');
+  });
+}
+
+if (process.argv[2] === '--server') {
+  server();
+} else if (process.argv[2] === '--client') {
+  client();
+} else {
+  server();
+  client();
+}

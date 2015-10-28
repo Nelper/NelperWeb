@@ -44,6 +44,18 @@ type ApplyForTaskPayload {
   clientMutationId: String!
 }
 
+type BankAccountIdentity {
+  firstName: String
+  lastName: String
+  birthday: String
+  address: Location
+}
+
+type BankAccountSetting {
+  stripeId: String
+  identity: BankAccountIdentity
+}
+
 type Browse {
   tasks(sort: BrowseTaskSort, maxDistance: Int, minPrice: Int, categories: [String], location: GeoPointInput, before: String, after: String, first: Int, last: Int): TaskConnection
 }
@@ -208,7 +220,7 @@ input LocationInput {
   province: String!
   country: String!
   postalCode: String!
-  coords: GeoPointInput!
+  coords: GeoPointInput
 }
 
 type Mutation {
@@ -228,6 +240,7 @@ type Mutation {
   changePassword(input: ChangePasswordInput!): ChangePasswordPayload
   sendPayment(input: SendPaymentInput!): SendPaymentPayload
   createStripeAccount(input: CreateStripeAccountInput!): CreateStripeAccountPayload
+  setExternalAccount(input: SetExternalAccountInput!): SetExternalAccountPayload
 }
 
 interface Node {
@@ -340,6 +353,20 @@ input SetApplicationStateInput {
 type SetApplicationStatePayload {
   task: Task
   application: Application
+  clientMutationId: String!
+}
+
+input SetExternalAccountInput {
+  firstName: String
+  lastName: String
+  token: String
+  birthday: String
+  address: LocationInput
+  clientMutationId: String!
+}
+
+type SetExternalAccountPayload {
+  privateData: UserPrivate
   clientMutationId: String!
 }
 
@@ -458,6 +485,7 @@ type UserPrivate implements Node {
   location: GeoPoint
   locations: [Location]
   notifications: Notification
+  bankAccount: BankAccountSetting
 }
 
 type UserSkill {

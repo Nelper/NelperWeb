@@ -41,7 +41,7 @@ const AppQueries = {
 };
 
 const BrowseQueries = {
-  me: () => Relay.QL`query Browse { me }`,
+  me: () => Relay.QL`query { me }`,
   browse: () => Relay.QL`query { browse }`,
 };
 
@@ -171,6 +171,7 @@ export default function getRoutes() {
         name={IntlUtils.getMessage('routes.browse')}
         path="/browse"
         component={BrowseTasksHandler}
+        forceFetch
         queries={BrowseQueries}
         renderLoading={renderLoading}
       />

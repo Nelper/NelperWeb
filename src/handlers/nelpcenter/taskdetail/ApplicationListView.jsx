@@ -26,19 +26,19 @@ class ApplicationListView extends Component {
   }
 
   _onAccept(application) {
-    this.props.onAccept(application);
+    this.props.onAccept(application.id);
   }
 
   _onDeny(application) {
-    this.props.onDeny(application);
+    this.props.onDeny(application.id);
   }
 
   _onRestore(application) {
-    this.props.onRestore(application);
+    this.props.onRestore(application.id);
   }
 
   _onViewProfile(application) {
-    this.props.onViewProfile(application);
+    this.props.onViewProfile(application.id);
   }
 
   _renderSamePriceIcon(application) {
