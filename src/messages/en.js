@@ -404,28 +404,19 @@ export default {
     headerTitle: "NelperPay",
     headerText: "A <strong>safe</strong> and <strong>trustworthy</strong> payment platform",
 
-    section1Title: "Safe Payment Experience",
-    section1Subtitle: "No third-party account needed. No hidden fees.",
+    section1Title: "Transactions",
+    section1Subtitle: "No third-party account needed.",
     section1Desc: `
       <p>
-        Every transaction on Nelper is handled via NelperPay. Instead of letting
-        you handle payments on your own, we take care of them for you. This way,
-        you don’t have to leave Nelper at any step of the process and your payments
-        are safely handled.
+        Online payments shouldn’t be worrisome and complex and, at Nelper, we get that. Every transaction on Nelper is handled via NelperPay. Instead of letting you handle payments on your own, we take care of them for you. This way, you don’t have to worry about fraud or disputes.
       </p>
-      <p>
-        Online payments shouldn’t be worrisome and complex. With NelperPay, you
-        don’t have to worry about fraud or disputes and don’t need any third-party
-        payment platform.
-      </p>
-      <p>Peace of mind and simplicity, that’s what NelperPay is about.</p>
+      <p>You also don’t need an account from a third-party payment platform such as Paypal. In order to send or receive a payment, you never have to leave Nelper.</p>
     `,
 
     section2Title: "4 Simple Steps",
-    section2Subtitle: "Hassle-free transaction guaranteed. Peace of mind for everyone.",
+    section2Subtitle: "Peace of mind for Task Posters and Nelpers.",
     section2Desc: `
-      <p>Here is the payment & task completion process, step by step :</p>
-      <ol>
+        <ol>
         <li>
           The Task Poster sends the payment.
         </li>
@@ -436,27 +427,22 @@ export default {
           The Nelper completes the task.
         </li>
         <li>
-          The Task Poster confirms the task completion and the Nelper’s payment gets released.
+          The Task Poster confirms the task completion and the payment gets released.
         </li>
       </ol>
       <p>
-        With NelperPay in the middle, the whole payment process is secured. As a
-        Task Poster, you approve the task completion before the payment gets
-        released so you can’t get scammed and, as a Nelper, you can start working
-        on the task knowing the payment is held for you.
+        The whole payment process is quick, simple and secured. As a Task Poster, you need to approve the task completion before the payment gets released so you know your task will be completed properly. As a Nelper, you only start working on a task when the payment is held for you, so you can’t get scammed.
       </p>
     `,
 
     section3Title: "Sending Payments",
-    section3Subtitle: "Quick payments, free of charge.",
+    section3Subtitle: "Quick payments. No hidden fees.",
     section3Desc: `
       <p>
-        You only pay the agreed price for your task, nothing more, no hidden fees.
-        Sending a payment also doesn’t require any setup. You only need to enter
-        your name and your credit/debit card’s number, expiration date & CVC.
+        There are no fees for posting a task or sending a payment. You only pay the agreed price for your task, nothing more.
       </p>
       <p>
-        You can pay using your Mastercard, VISA or American Express credit/debit card.
+        Sending a payment doesn’t require any setup, you only need to enter your name and your credit/debit card’s number, expiration date & CVC. You can pay using your Mastercard, VISA or American Express credit/debit card.
       </p>
     `,
 
@@ -464,20 +450,13 @@ export default {
     section4Subtitle: "One time setup, automatic bank deposits.",
     section4Desc: `
       <p>
-        When your payment gets released after you have completed a task, your money
-        will be automatically deposited into your bank account. For this to happen,
-        you need to have a bank account linked to your Nelper account.
+        Before being able to apply for tasks, you need to link a bank account to your Nelper account. This verifies your ID and later on, once you receive a payment, it will be automatically deposited into your bank account.
       </p>
       <p>
-        Go to the Bank Deposits subsection in your Settings, click on Link and fill
-        in the required fields. It’s a quick one time setup. Once it’s done, every
-        payment you receive will be automatically deposited into your bank account.
-        If you plan on completing tasks, we recommend that you link your bank account
-        as soon as possible.
+        Go to the <em>Bank Account</em> subsection in your {settings}, click on <em>Link</em> and fill in the required fields. It’s a quick one time setup.
       </p>
       <p>
-        When you receive a payment, a service fee of 7.5% is deducted from the
-        total amount, for NelperPay’s secure payment handling.
+        Although there are no fees for browsing or applying for tasks, there’s one when receiving a payment. It’s a small service fee that the Nelper has to cover, for NelperPay’s secure payment handling. It consists of 7.5% of the total task amount, deducted from the amount received.
       </p>
     `,
 
@@ -496,8 +475,8 @@ export default {
       </p>
       <p>
         If you are unsatisfied or have questions after a resolved dispute, want
-        to report a bug or have an issue, you can contact us anytime on the
-        Support Center. Our support team is here to help.
+        to report a bug or have an issue, you can contact us <u>anytime</u> on the
+        {supportCenter}. Our support team is here to help.
       </p>
     `,
   },
@@ -553,7 +532,7 @@ export default {
       newsletterSetting1: "Our newsletter introducing new features",
     },
     nelperpay: {
-      title: "Bank Deposits",
+      title: "Bank Account",
       creditCards: "Bank Account",
       creditCardAdd: "Link",
     },
