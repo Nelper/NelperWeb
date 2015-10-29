@@ -1,9 +1,14 @@
+/* @flow */
+
 import Stripe from 'stripe';
 
 import {InvalidOperationError, UnauthorizedError} from '../errors';
 import {getMe, getUserPrivateWithMasterKey} from './userData';
 import {getTask} from './taskData';
 import {TASK_COMPLETION_STATE} from '../../utils/constants';
+
+import {RootValue} from '../graphql';
+import {ParseObject, ParseID} from './parseTypes';
 
 // The percentage of the total amount charged that is transfered in our account.
 const PLATFORM_FEES_PERCENTAGE = 10;
@@ -12,7 +17,7 @@ const stripe = new Stripe('sk_test_JBQSP7eMqdNUqe7rQFYLEFXi');
 
 // TODO(janic): The payment process will need to be logged heavily to debug any issues.
 
-export async function sendPaymentForTask(rootValue, taskId, token) {
+export async function sendPaymentForTask(rootValue: RootValue, taskId: ParseID, token: string): Promise<Object> {
   // The user creating the charge (the task poster).
   const user = await getMe(rootValue);
   if (!user) {
@@ -69,7 +74,7 @@ export async function sendPaymentForTask(rootValue, taskId, token) {
   };
 }
 
-export async function createStripeAccount({sessionToken, userId, userAgent, ip}) {
+export async function createStripeAccount({sessionToken, userId, userAgent, ip}: RootValue): Promise<ParseObject> {
   const user = await getMe({sessionToken, userId});
   if (!user) {
     throw new UnauthorizedError();
@@ -95,12 +100,12 @@ export async function createStripeAccount({sessionToken, userId, userAgent, ip})
   return await privateData.save();
 }
 
-export async function getStripeAccount(userId) {
+export async function getStripeAccount(userId: ParseID): Promise<string> {
   const privateData = await getUserPrivateWithMasterKey(userId);
   return privateData.get('stripeAccount');
 }
 
-export async function addBankAccount(rootValue, token, identityInfo) {
+export async function addBankAccount(rootValue: RootValue, token: string, identityInfo: any): Promise<ParseObject> {
   const user = await getMe(rootValue);
   const privateData = user.get('privateData');
   const stripeAccount = privateData.get('stripeAccount');
@@ -145,7 +150,7 @@ export async function addBankAccount(rootValue, token, identityInfo) {
   return await privateData.save(null, {sessionToken: rootValue.sessionToken});
 }
 
-export async function transferToBankAccount({sessionToken, userId}, task) {
+export async function transferToBankAccount({sessionToken, userId}: RootValue, task: ParseObject): Promise {
   const applicantStripeAccount = await getStripeAccount(task.get('acceptedApplication').get('user').id);
   const charge = task.get('privateData').get('charge');
   const amount = charge.amount;
@@ -167,6 +172,6 @@ export async function transferToBankAccount({sessionToken, userId}, task) {
   }
 }
 
-export async function processStripeEvent(event) {
+export async function processStripeEvent(event: any): Promise {
   console.log(event);
 }

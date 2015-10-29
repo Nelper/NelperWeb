@@ -1,3 +1,5 @@
+/* @flow */
+
 import Parse from 'parse/node';
 
 import {Task, TaskPrivate, TaskApplication, Feedback} from './parseTypes';
@@ -8,7 +10,10 @@ import {InvalidOperationError} from '../errors';
 import {getMe} from './userData';
 import {transferToBankAccount} from './paymentData';
 
-export async function getTask({sessionToken}, id, loadApplications = false) {
+import {RootValue} from '../graphql';
+import {ParseObject, ParseID} from './parseTypes';
+
+export async function getTask({sessionToken}: RootValue, id: ParseID, loadApplications = false) {
   const query = new Parse.Query(Task)
     .include('user')
     .include('privateData')
@@ -29,7 +34,7 @@ export async function getTask({sessionToken}, id, loadApplications = false) {
   return task;
 }
 
-export async function getTasksForUser({sessionToken}, userId) {
+export async function getTasksForUser({sessionToken}: RootValue, userId: ParseID) {
   const parseUser = new Parse.User();
   parseUser.id = userId;
   const tasksQuery = new Parse.Query(Task)
@@ -56,7 +61,7 @@ export async function getTasksForUser({sessionToken}, userId) {
   });
 }
 
-export async function findTasks({userId, sessionToken}, {sort, minPrice, maxDistance, location, categories}) {
+export async function findTasks({userId, sessionToken}: RootValue, {sort, minPrice, maxDistance, location, categories}: any) {
   let sortValue = sort;
   let userLoc = location;
   if (sortValue === undefined) {
@@ -137,7 +142,7 @@ function roundCoords(coords) {
   };
 }
 
-export async function postTask({sessionToken, userId}, title, category, desc, priceOffered, location, pictures) {
+export async function postTask({sessionToken, userId}: RootValue, title: string, category: string, desc: string, priceOffered: number, location: any, pictures: [any]) {
   const parseUser = new Parse.User();
   parseUser.id = userId;
   const parseTask = new Task();
@@ -173,7 +178,7 @@ export async function postTask({sessionToken, userId}, title, category, desc, pr
   return await parseTask.save();
 }
 
-export async function editTask({sessionToken}, taskId, {title, desc, pictures}) {
+export async function editTask({sessionToken}: RootValue, taskId: ParseID, {title, desc, pictures}: any) {
   const parseTask = new Task();
   parseTask.id = taskId;
   if (title) {
@@ -192,7 +197,7 @@ export async function editTask({sessionToken}, taskId, {title, desc, pictures}) 
   return await parseTask.save(null, {sessionToken});
 }
 
-export async function applyForTask({userId, sessionToken}, taskId, price) {
+export async function applyForTask({userId, sessionToken}: RootValue, taskId: ParseID, price: number) {
   const parseTask = new Task();
   parseTask.id = taskId;
   const parseUser = new Parse.User();

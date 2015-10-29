@@ -1,0 +1,14 @@
+[ignore]
+.*/build/.*
+.*/__tests__/.*
+.*/__mocks__/.*
+.*/coverage/.*
+.*/node_modules/fbjs/.*
+.*/node_modules/node-sass/.*
+
+[include]
+
+[libs]
+
+[options]
+suppress_comment=.*\\$FlowIssue

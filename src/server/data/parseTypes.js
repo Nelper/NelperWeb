@@ -1,4 +1,9 @@
+/* @flow */
+
 import Parse from './parse';
+
+export type ParseObject = Object;
+export type ParseID = string;
 
 export const Task = Parse.Object.extend({className: 'Task'});
 export const TaskPrivate = Parse.Object.extend({className: 'TaskPrivate'});

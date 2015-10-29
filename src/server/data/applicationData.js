@@ -1,10 +1,15 @@
-import Parse from 'parse/node';
+/* @flow */
+
+import Parse from './parse';
 
 import {InvalidOperationError} from '../errors';
 import {TaskApplication} from './parseTypes';
 import {TASK_STATE, TASK_APPLICATION_STATE} from '../../utils/constants';
 
-export async function getApplication({sessionToken}, id) {
+import type {RootValue} from '../graphql';
+import type {ParseObject, ParseID} from './parseTypes';
+
+export async function getApplication({sessionToken}: RootValue, id: ParseID): Promise<ParseObject> {
   const query = new Parse.Query(TaskApplication);
   query.include('user');
   query.include('task.user');
@@ -13,7 +18,7 @@ export async function getApplication({sessionToken}, id) {
   return application;
 }
 
-export async function getApplicationsForUser({sessionToken}, userId) {
+export async function getApplicationsForUser({sessionToken}: RootValue, userId: ParseID): Promise<ParseObject> {
   const query = new Parse.Query(TaskApplication);
   const parseUser = new Parse.User();
   parseUser.id = userId;
@@ -24,7 +29,7 @@ export async function getApplicationsForUser({sessionToken}, userId) {
   return await query.find({sessionToken});
 }
 
-export async function setApplicationState({sessionToken, userId}, applicationId, state) {
+export async function setApplicationState({sessionToken, userId}: RootValue, applicationId: ParseID, state: number): Promise<ParseObject> {
   const query = new Parse.Query(TaskApplication);
   query.include('task.user');
   const application = await query.get(applicationId, {sessionToken});

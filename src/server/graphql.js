@@ -1,8 +1,17 @@
+/* @flow */
+
 import graphqlHTTP from 'express-graphql';
 
 import {Schema} from './schema';
 
-export default function(app) {
+export type RootValue = {
+  userId: ?string,
+  sessionToken: ?string,
+  userAgent: string,
+  ip: string,
+}
+
+export default function(app: any) {
   app.use('/graphql', graphqlHTTP(request => {
     const auth = request.get('Authorization');
     let userId;

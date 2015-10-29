@@ -1,1 +1,2 @@
-export default from 'parse/node';
+import Parse from 'parse/node';
+export default Parse;
