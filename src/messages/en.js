@@ -393,7 +393,7 @@ export default {
     paymentTitle_02: "How do I receive a payment?",
     paymentDesc_02: "When your payment gets released by a Task Poster after you have completed their task, your money will be automatically deposited into your bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, go to the <em>Bank Deposits</em> subsection in your {settings}, click on <em>Link</em> and fill in the required fields.<br /><br /><strong>If you plan on completing tasks, we recommend that you link your bank account as soon as possible</strong>, as there can be a short delay for your banking information to be validated. If you receive a payment and haven’t linked a bank account yet, it will be securely held via {nelperPay} until you do so. Once it’s done, every payment you receive will be automatically deposited into your bank account.",
     paymentTitle_03: "What do I do if I have issues with a Nelper during the payment/task completion?",
-    paymentDesc_03: "If your Nelper requests the payment but didn’t complete your task or only refuses to complete your task, click on <em>My Nelper has not completed my task</em> at the bottom of your task page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your dispute at the earliest and you will be notified via email once it has been resolved. If your task was poorly or not complete, you will get a refund.<br /><br />Resolving disputes is our first priority and we always review them thoroughly. If you are unsatisfied or still have questions after a resolved issue, you can contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
+    paymentDesc_03: "If your Nelper requests the payment but didn’t complete your task or only refuses to complete your task, click on <em>My Nelper has not completed my task</em> at the bottom of your task page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your dispute at the earliest and you will be notified via email once it has been resolved. If your task was poorly or not complete, you will get a refund.<br /><br />We always review disputes and thoroughly and make resolving them our first priority. If you are unsatisfied or still have questions after a resolved issue, you can contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
     paymentTitle_04: "What do I do if I have issues with a Task Poster during the payment/task completion process?",
     paymentDesc_04: "If the Task Poster refuses to confirm the task completion, therefore not releasing your payment, claiming that the task was either poorly completed or not completed, click on <em>The Task Poster refuses to release the payment</em> at the bottom of your application page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your dispute at the earliest and you will be notified via email once it has been resolved. If you prove that you completed the task in a proper way, you will receive your payment.<br /><br />Resolving disputes is our first priority and we always review them thoroughly. If you are unsatisfied or still have questions after a resolved issue, you can contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
     paymentTitle_05: "Where can I get customer support?",
@@ -404,8 +404,8 @@ export default {
     headerTitle: "NelperPay",
     headerText: "A <strong>safe</strong> and <strong>trustworthy</strong> payment platform",
 
-    section1Title: "Transactions",
-    section1Subtitle: "No third-party account needed.",
+    section1Title: "Hassle-free Transactions",
+    section1Subtitle: "No third-party account needed. Fraud protection.",
     section1Desc: `
       <p>
         Online payments shouldn’t be worrisome and complex and, at Nelper, we get that. Every transaction on Nelper is handled via NelperPay. Instead of letting you handle payments on your own, we take care of them for you. This way, you don’t have to worry about fraud or disputes.
@@ -414,7 +414,7 @@ export default {
     `,
 
     section2Title: "4 Simple Steps",
-    section2Subtitle: "Peace of mind for Task Posters and Nelpers.",
+    section2Subtitle: "Quick, simple and secured payment process.",
     section2Desc: `
         <ol>
         <li>
@@ -431,7 +431,10 @@ export default {
         </li>
       </ol>
       <p>
-        The whole payment process is quick, simple and secured. As a Task Poster, you need to approve the task completion before the payment gets released so you know your task will be completed properly. As a Nelper, you only start working on a task when the payment is held for you, so you can’t get scammed.
+        As a Task Poster, you need to confirm that your task has been completed before the payment gets released so you can rest assured it will be completed properly.
+      </p>
+      <p>
+        As a Nelper, with the payment held for you before the task completion, you can start working without worrying about being paid or not.
       </p>
     `,
 
