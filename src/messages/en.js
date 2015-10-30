@@ -473,8 +473,7 @@ export default {
       <p>
         If you have a misunderstanding with another user, flag the transaction on
         your task or application page. We will review your dispute at the earliest
-        and you will be notified via email once it has been resolved. Resolving
-        disputes is our first priority and we always review them thoroughly.
+        and you will be notified via email once it has been resolved. We always review disputes and thoroughly and make resolving them our first priority
       </p>
       <p>
         If you are unsatisfied or have questions after a resolved dispute, want
