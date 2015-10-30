@@ -4,6 +4,7 @@ import cssModules from 'react-css-modules';
 import {FormattedMessage} from 'react-intl';
 import InputElement from 'react-input-mask';
 
+import SetExternalAccountMutation from 'actions/payment/SetExternalAccountMutation';
 import PaymentUtils from 'utils/PaymentUtils';
 
 import styles from './NelperPaySettingsHandler.scss';
@@ -115,9 +116,18 @@ class AccountSettingsHandler extends Component {
       currency: 'cad',
       routing_number: routingNumber,
       account_number: this.state.accountNumber,
-    })
-    .then((resp) => {
-
+    }, (status, resp) => {
+      console.log(resp);
+      Relay.Store.update(
+        new SetExternalAccountMutation({
+          token: resp.id,
+          address: location,
+          firstName,
+          lastName,
+          birthday,
+          privateData: this.props.user.privateData,
+        }),
+      );
     });
   }
 
@@ -206,7 +216,8 @@ export default Relay.createContainer(AccountSettingsHandler, {
               },
             },
             stripeId,
-          }
+          },
+          ${SetExternalAccountMutation.getFragment('privateData')},
         }
       }
     `,

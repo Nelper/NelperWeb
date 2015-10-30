@@ -110,16 +110,24 @@ export async function addBankAccount(rootValue: RootValue, token: string, identi
   const privateData = user.get('privateData');
   const stripeAccount = privateData.get('stripeAccount');
   const birthday = new Date(identityInfo.birthday);
+  console.log(identityInfo, token);
   const updateAccountRes = await stripe.accounts.update(
     stripeAccount, {
       legal_entity: {
         type: 'individual',
         address: {
-          line1: identityInfo.address.streetNumber + ' ' + identityInfo.route,
+          line1: identityInfo.address.streetNumber + ' ' + identityInfo.address.route,
           city: identityInfo.address.city,
           state: identityInfo.address.province,
           postal_code: identityInfo.address.postalCode,
-          country: identityInfo.address.country,
+          country: 'CA',
+        },
+        personal_address: {
+          line1: identityInfo.address.streetNumber + ' ' + identityInfo.address.route,
+          city: identityInfo.address.city,
+          state: identityInfo.address.province,
+          postal_code: identityInfo.address.postalCode,
+          country: 'CA',
         },
         dob: {
           day: birthday.getDate(),
