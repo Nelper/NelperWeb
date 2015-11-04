@@ -328,7 +328,7 @@ export default {
     posterDesc_03: "In your {nelpCenter}, under <em>My Tasks</em>. All your active and completed tasks are there along with their price, status & number of Nelpers who applied.<br /><br />Click on your task to review its full details, edit its title & description, add/remove pictures and see the full list of Nelpers who applied for it.",
     posterTitle_04: "Where can I see who applied for my task?",
     posterDesc_04: "The list of Nelpers who applied is on your task page. Check out their rating, number of completed tasks and price offer. To visit their profile, click on their picture. You can also see their feedback from previously completed tasks and open a chat window to ask them questions.",
-    posterTitle_05: "What is the payment and task completion process?",
+    posterTitle_05: "What is the payment & task completion process?",
     posterDesc_05: `Once you have accepted a Nelper and that all details have been taken care of, your task is ready for payment & completion. Everything is done on your task page.
     <ol>
       <li>
@@ -350,16 +350,18 @@ export default {
     posterTitle_06: "Am I obliged to accept a Nelper?",
     posterDesc_06: "No. There are no obligations to accept a Nelper and go through with payment.<br /><br />If you don't accept any application or if no one applies for your task, it will stay active until you delete it or until you accept an application. However, if no one applies, it may be an indicator that your task is unclear, too complicated or that the price offered is too low.",
     nelperSectionTitle: "Completing tasks",
-    nelperTitle_00: "Where and how do I browse tasks?",
-    nelperDesc_00: "Go to {browseTasks}. The task list and the map are linked together. If you select a task in the list, you see its location on the map. If you click a task pin on the map, it gets shown in the list.<br /><br />You can filter the displayed tasks by category, price range or distance range. You can also sort the task list by price, distance or posted date. Distance filtering and sorting are based on your location. You can add/manage locations in your {settings} or have your current location taken by allowing Nelper to access it, when asked.",
-    nelperTitle_01: "How do I apply for a task?",
-    nelperDesc_01: "If you find a task that you would like to complete, click on <em>Make an offer</em>. You can either apply for the price that is offered by the Task Poster or make a price offer of your own. The choice is yours, based on what you think is fair.",
-    nelperTitle_02: "Where can I see my task applications?",
-    nelperDesc_02: "In your {nelpCenter}, under <em>My Applications</em>. All your active applications are there, along with their status. You can also see the tasks you previously completed.<br /><br />If you click on one of your applications, you can review its details and open a chat window between you and the Task Poster.",
-    nelperTitle_03: "How can I improve my chances of being accepted for a task?",
-    nelperDesc_03: "Make sure to complete your {profile} thoroughly. Write about yourself, your skills, your education & work experience. A Task Poster will most likely look at it before making a decision, so being clear about your skills and including as many details as possible is important.",
-    nelperTitle_04: "As a Nelper, what is the payment & task completion process?",
-    nelperDesc_04: `If your application gets accepted, you receive a notification and your application status changes. Once all details have been taken care of between you and the Task Poster, the task is ready for payment and completion. All the remaining steps are completed on your application’s page.
+    nelperTitle_00: "How do I browse tasks?",
+    nelperDesc_00: "All the tasks can be found in {browseTasks}. The map and the list are linked together. If you select a task in the list, you see its location on the map. If you click a task pin on the map, it gets shown in the list.<br /><br />You can filter the displayed tasks by category, price range or distance range. You can also sort the task list by price, distance or posted date. Distance filtering and sorting are based on your location. You can add/manage locations in your {settings} or have your current location taken by allowing Nelper to access it, when asked.",
+    nelperTitle_01: "Why do I need to link my bank account before applying for tasks?",
+    nelperDesc_01: "For safety purposes, we need to verify your ID before you start completing tasks. The information you provide during the bank account linking verifies your ID. Later on, payments will also be automatically deposited into your bank account.<br /><br />Go to the <em>Bank Deposits</em> subsection in your {settings}, click on <em>Link a bank account</em> and fill in the required fields. It's a quick one time setup.",
+    nelperTitle_02: "How do I apply for a task?",
+    nelperDesc_02: "Once you have found a task you would like to complete, click on <em>Make an offer</em>. You can either apply for the price that is offered by the Task Poster or make a price offer of your own. The choice is yours, based on what you think is fair.",
+    nelperTitle_03: "Where can I see my task applications?",
+    nelperDesc_03: "In your {nelpCenter}, under <em>My Applications</em>. All your active applications are there along with their status. You can also see the tasks you previously completed.<br /><br />If you click on one of your applications, you can review its details and open a chat window between you and the Task Poster.",
+    nelperTitle_04: "How can I improve my chances of being accepted for a task?",
+    nelperDesc_04: "Make sure to complete your {profile} thoroughly. Write about yourself, your skills, your education & work experience. A Task Poster will most likely look at it before making a decision, so being clear about your skills and including as many details as possible is important.",
+    nelperTitle_05: "As a Nelper, what is the payment & task completion process?",
+    nelperDesc_05: `If your application gets accepted, you receive a notification and your application status changes. Once all details have been taken care of between you and the Task Poster, the task is ready for payment and completion. All the remaining steps are completed on your application’s page.
     <ol>
       <li>
         The Task Poster sends the payment via {nelperPay} where it gets held securely until you complete the task. This way, you can start working on the task knowing the money is held for you.
@@ -374,8 +376,8 @@ export default {
         The Task Poster confirms that the task has been completed and you receive the payment.
       </li>
     </ol>`,
-    nelperTitle_05: "What happens if my application gets declined or if the task gets deleted?",
-    nelperDesc_05: "If your application gets declined, you receive a notification and your application status changes. If a task you applied for gets deleted, your application will be deleted as well in the process.",
+    nelperTitle_06: "What happens if my application gets declined or if the task gets deleted?",
+    nelperDesc_06: "If your application gets declined, you receive a notification and your application status changes. If a task you applied for gets deleted, your application will be deleted as well in the process.",
     privacySectionTitle: "Privacy",
     privacyTitle_00: "Is my exact task location shown on the map?",
     privacyDesc_00: "No. The location shown on the map is a random one, taken from a 400m area around the exact location. This way, the address remains confidential. Nelpers only have access to the exact task location once you accept their application.<br /><br />You can add a new location when posting a task or select one you already added in your {settings}.",
@@ -389,7 +391,7 @@ export default {
     paymentTitle_01: "How do I send a payment?",
     paymentDesc_01: "On your task page, click on <em>Proceed to payment</em> and fill in the required fields. You can pay using your Mastercard, VISA or American Express credit card.<br /><br />Everytime you send a payment, a receipt will be sent automatically to your email.",
     paymentTitle_02: "How do I receive a payment?",
-    paymentDesc_02: "When your payment gets released by a Task Poster after you have completed their task, your money will be automatically deposited into your bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, go to the <em>Bank Deposits</em> subsection in your {settings}, click on <em>Link</em> and fill in the required fields.<br /><br /><strong>If you plan on completing tasks, we recommend that you link your bank account as soon as possible</strong>, as there can be a short delay for your banking information to be validated. If you receive a payment and haven’t linked a bank account yet, it will be securely held via {nelperPay} until you do so. Once it’s done, every payment you receive will be automatically deposited into your bank account.",
+    paymentDesc_02: "When your payment gets released by a Task Poster after you have completed their task, your money will be automatically deposited into your bank account. For this to happen, you need to have a bank account linked to your Nelper account. To do so, go to the <em>Bank Deposits</em> subsection in your {settings}, click on <em>Link a bank account</em> and fill in the required fields.<br /><br /><strong>If you plan on completing tasks, we recommend that you link your bank account as soon as possible</strong>, as there can be a short delay for your banking information to be validated. If you receive a payment and haven’t linked a bank account yet, it will be securely held via {nelperPay} until you do so. Once it’s done, every payment you receive will be automatically deposited into your bank account.",
     paymentTitle_03: "What do I do if I have issues with a Nelper during the payment/task completion?",
     paymentDesc_03: "If your Nelper requests the payment but didn’t complete your task or only refuses to complete your task, click on <em>My Nelper has not completed my task</em> at the bottom of your task page. Fill in the required fields and provide as many details & pictures as possible.<br /><br />We will review your dispute at the earliest and you will be notified via email once it has been resolved. If your task was poorly or not complete, you will get a refund.<br /><br />We always review disputes and thoroughly and make resolving them our first priority. If you are unsatisfied or still have questions after a resolved issue, you can contact us <u>anytime</u> on the {supportCenter}. We’re here for you.",
     paymentTitle_04: "What do I do if I have issues with a Task Poster during the payment/task completion process?",
@@ -454,7 +456,7 @@ export default {
         Before being able to apply for tasks, you need to link a bank account to your Nelper account. This verifies your ID and later on, once you receive a payment, it will be automatically deposited into your bank account.
       </p>
       <p>
-        Go to the <em>Bank Account</em> subsection in your {settings}, click on <em>Link</em> and fill in the required fields. It’s a quick one time setup.
+        Go to the <em>Bank Account</em> subsection in your {settings}, click on <em>Link a bank account</em> and fill in the required fields. It’s a quick one time setup.
       </p>
       <p>
         Although there are no fees for browsing or applying for tasks, there’s one when receiving a payment. It’s a small service fee that the Nelper has to cover, for NelperPay’s secure payment handling. It consists of 7.5% of the total task amount, deducted from the amount received.
