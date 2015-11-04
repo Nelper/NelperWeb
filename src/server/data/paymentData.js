@@ -74,12 +74,7 @@ export async function sendPaymentForTask(rootValue: RootValue, taskId: ParseID, 
   };
 }
 
-export async function createStripeAccount({sessionToken, userId, userAgent, ip}: RootValue): Promise<ParseObject> {
-  const user = await getMe({sessionToken, userId});
-  if (!user) {
-    throw new UnauthorizedError();
-  }
-
+export async function createStripeAccount({sessionToken, userAgent, ip}: RootValue, user: ParseObject): Promise {
   const privateData = user.get('privateData');
 
   const response = await stripe.accounts.create({
@@ -97,7 +92,6 @@ export async function createStripeAccount({sessionToken, userId, userAgent, ip}:
   });
 
   privateData.set('stripeAccount', response.id);
-  return await privateData.save();
 }
 
 export async function getStripeAccount(userId: ParseID): Promise<string> {

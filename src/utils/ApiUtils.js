@@ -1,13 +1,16 @@
 import Parse from 'parse';
 import Relay from 'react-relay';
 
-import {TaskApplication, UserPrivateData} from './ParseModels';
+import {TaskApplication} from './ParseModels';
 
 import {
   meFromParse,
   fixParseFileURL,
 } from './ParseUtils';
 import patchParse from './patchParse';
+
+import CreateAccountMutation from 'actions/user/CreateAccountMutation';
+import RelayNetworkLayer from '../app/RelayNetworkLayer';
 
 patchParse(Parse);
 
@@ -25,12 +28,8 @@ class ApiUtils {
    */
   login({email, password}) {
     return Parse.User.logIn(email, password)
-      .then((user) => {
-        return user.get('privateData').fetch();
-      })
       .then(() => {
         this._initSession();
-        return meFromParse(Parse.User.current());
       });
   }
 
@@ -42,18 +41,27 @@ class ApiUtils {
    * @param  {string} registerInfo.name     Full name
    * @return {Promise} The registered user
    */
-  register({email, password, name}) {
+  register({email, password, firstName, lastName}) {
     const parseUser = new Parse.User();
     parseUser.set('username', email);
     parseUser.set('password', password);
     parseUser.set('name', name);
     return parseUser.signUp()
-      .then((user) => {
-        return this._createUserBase(user, {email});
-      })
       .then(() => {
         this._initSession();
-        return meFromParse(Parse.User.current());
+        return new Promise((resolve, reject) => {
+          Relay.Store.update(
+            new CreateAccountMutation({
+              type: 'facebook',
+              email: email,
+              firstName: firstName,
+              lastName: lastName,
+            }), {
+              onSuccess: resolve,
+              onError: reject,
+            }
+          );
+        });
       });
   }
 
@@ -67,28 +75,27 @@ class ApiUtils {
     return new Promise((resolve, reject) => {
       Parse.FacebookUtils.logIn('email', {
         success: (user) => {
-          resolve(user);
-        },
-        error: (error) => {
-          reject(error);
+          this._getUserInfoFromFacebook().then((fbUser) => {
+            this._initSession();
+            if (user.isNew()) {
+              Relay.Store.update(
+                new CreateAccountMutation({
+                  type: 'facebook',
+                  email: fbUser.email,
+                  firstName: fbUser.first_name,
+                  lastName: fbUser.last_name,
+                  pictureURL: fbUser.picture.data.url,
+                }), {
+                  onSuccess: resolve,
+                  onError: reject,
+                }
+              );
+            } else {
+              resolve();
+            }
+          });
         },
       });
-    }).then((user) => {
-      return this._getUserInfoFromFacebook()
-        .then((fbUser) => {
-          user.set('name', fbUser.name);
-          user.set('firstName', fbUser.first_name);
-          user.set('lastName', fbUser.last_name);
-          user.set('pictureURL', fbUser.picture.data.url);
-          if (!user.has('privateData')) {
-            return this._createUserBase(user, {email: fbUser.email});
-          }
-          return user.get('privateData').fetch();
-        })
-        .then(() => {
-          this._initSession();
-          return meFromParse(Parse.User.current());
-        });
     });
   }
 
@@ -138,24 +145,12 @@ class ApiUtils {
    * @param {GeoPoint} loc The user geo point
    */
   setUserLocation(loc) {
-    const user = Parse.User.current();
+    /* const user = Parse.User.current();
     if (!user) return;
     const pt = new Parse.GeoPoint(loc.latitude, loc.longitude);
     const privateData = user.get('privateData');
     privateData.set('location', pt);
-    privateData.save();
-  }
-
-  /**
-   * Set the user profile picture.
-   * @param {File} file The picture's file
-   */
-  setUserPicture(file) {
-    const user = Parse.User.current();
-    user.set('customPicture', file.file);
-    return user.save().then(u => {
-      return this._fileFromParse(u.get('customPicture'));
-    });
+    privateData.save();*/
   }
 
   /**
@@ -195,50 +190,11 @@ class ApiUtils {
       const parseUserId = Parse.User.current().id;
       document.cookie = `p_session=${parseSessionToken}`;
       document.cookie = `p_user=${parseUserId}`;
-      const headers = {};
       const session = this.getUserSession();
-      if (session) {
-        headers.Authorization = session;
-      }
       Relay.injectNetworkLayer(
-        new Relay.DefaultNetworkLayer('/graphql', {
-          headers,
-        })
+        new RelayNetworkLayer(session),
       );
     }
-  }
-
-  _createUserBase(user, {email}) {
-    user.set('about', '');
-    user.set('skills', []);
-    user.set('education', []);
-    user.set('experience', []);
-    const userPrivate = new UserPrivateData();
-    userPrivate.set('email', email);
-    userPrivate.set('locations', []);
-    userPrivate.set('notifications', {
-      posterApplication: {
-        email: true,
-      },
-      posterRequestPayment: {
-        email: true,
-      },
-      nelperApplicationStatus: {
-        email: true,
-      },
-      nelperReceivedPayment: {
-        email: true,
-      },
-      newsletter: {
-        email: true,
-      },
-    });
-    userPrivate.setACL(new Parse.ACL(user));
-    return userPrivate.save()
-      .then(p => {
-        user.set('privateData', p);
-        return user.save();
-      });
   }
 
   _fileFromParse(parseFile) {

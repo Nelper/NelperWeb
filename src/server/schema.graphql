@@ -99,6 +99,20 @@ type CompleteTaskPayload {
   clientMutationId: String!
 }
 
+input CreateAccountInput {
+  type: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  pictureURL: String
+  clientMutationId: String!
+}
+
+type CreateAccountPayload {
+  me: User
+  clientMutationId: String!
+}
+
 input CreateStripeAccountInput {
   clientMutationId: String!
 }
@@ -238,6 +252,7 @@ type Mutation {
   updateNotificationSettings(input: UpdateNotificationSettingsInput!): UpdateNotificationSettingsPayload
   saveGeneralSettings(input: SaveGeneralSettingsInput!): SaveGeneralSettingsPayload
   changePassword(input: ChangePasswordInput!): ChangePasswordPayload
+  createAccount(input: CreateAccountInput!): CreateAccountPayload
   sendPayment(input: SendPaymentInput!): SendPaymentPayload
   createStripeAccount(input: CreateStripeAccountInput!): CreateStripeAccountPayload
   setExternalAccount(input: SetExternalAccountInput!): SetExternalAccountPayload

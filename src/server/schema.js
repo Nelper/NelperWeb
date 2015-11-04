@@ -21,7 +21,6 @@ import {
   SetApplicationStateMutation,
   DeleteTaskMutation,
   SendPaymentMutation,
-  CreateStripeAccountMutation,
   PostTaskMutation,
   EditLocationsMutation,
   EditProfileMutation,
@@ -30,6 +29,7 @@ import {
   ChangePasswordMutation,
   RequestPaymentMutation,
   SetExternalAccountMutation,
+  CreateAccountMutation,
 } from './schema/mutations';
 
 import {getMe} from './data/userData';
@@ -86,9 +86,9 @@ const mutationType = new GraphQLObjectType({
     updateNotificationSettings: UpdateNotificationSettingsMutation,
     saveGeneralSettings: SaveGeneralSettingsMutation,
     changePassword: ChangePasswordMutation,
+    createAccount: CreateAccountMutation,
 
     sendPayment: SendPaymentMutation,
-    createStripeAccount: CreateStripeAccountMutation,
     setExternalAccount: SetExternalAccountMutation,
   }),
 });

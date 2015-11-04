@@ -2,7 +2,6 @@ import {
   GraphQLNonNull,
   GraphQLID,
   GraphQLString,
-  GraphQLBoolean,
   GraphQLEnumType,
 } from 'graphql';
 
@@ -13,7 +12,6 @@ import {
 
 import {
   sendPaymentForTask,
-  createStripeAccount,
   addBankAccount,
 } from '../data/paymentData';
 
@@ -55,23 +53,6 @@ export const SendPaymentMutation = mutationWithClientMutationId({
   mutateAndGetPayload: async ({taskId, token}, {rootValue}) => {
     const localTaskId = fromGlobalId(taskId).id;
     return await sendPaymentForTask(rootValue, localTaskId, token);
-  },
-});
-
-export const CreateStripeAccountMutation = mutationWithClientMutationId({
-  name: 'CreateStripeAccount',
-  inputFields: {},
-  outputFields: {
-    success: {
-      type: GraphQLBoolean,
-      resolve: ({success}) => {
-        return success;
-      },
-    },
-  },
-  mutateAndGetPayload: async (_, {rootValue}) => {
-    await createStripeAccount(rootValue);
-    return {success: true};
   },
 });
 

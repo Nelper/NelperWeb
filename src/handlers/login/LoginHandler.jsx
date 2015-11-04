@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-import UserActions from 'actions/UserActions';
-import UserStore from 'stores/UserStore';
+import ApiUtils from 'utils/ApiUtils';
 
 export default class LoginHandler extends Component {
 
@@ -22,20 +21,6 @@ export default class LoginHandler extends Component {
     password: '',
   }
 
-  constructor(props) {
-    super(props);
-
-    this.userStoreListener = this._onUserChanged.bind(this);
-  }
-
-  componentDidMount() {
-    UserStore.listen(this.userStoreListener);
-  }
-
-  componentWillUnmount() {
-    UserStore.unlisten(this.userStoreListener);
-  }
-
   _onEmailChanged(event) {
     this.setState({
       email: event.target.value,
@@ -54,18 +39,21 @@ export default class LoginHandler extends Component {
   }
 
   _onLogin() {
-    UserActions.login({
+    ApiUtils.login({
       email: this.state.email,
       password: this.state.password,
-    });
+    })
+    .then(::this._onLoginSuccess);
   }
 
   _onLoginWithFacebook() {
-    UserActions.loginWithFacebook();
+    ApiUtils.loginWithFacebook()
+      .then(::this._onLoginSuccess);
   }
 
   _onRegister() {
-    this.context.history.pushState({nextPathname: this.props.location.state.nextPathname}, '/register');
+    const {state} = this.props.location;
+    this.context.history.pushState({nextPathname: state && state.nextPathname}, '/register');
   }
 
   _onUserChanged(state) {
@@ -77,9 +65,9 @@ export default class LoginHandler extends Component {
   _onLoginSuccess() {
     const {state} = this.props.location;
     if (state && state.nextPathname) {
-      this.context.history.replaceState(null, state.nextPathname);
+      window.location = state.nextPathname;
     } else {
-      this.context.history.replaceState(null, '/browse');
+      window.location = '/browse';
     }
   }
 

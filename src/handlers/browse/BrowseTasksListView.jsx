@@ -143,11 +143,12 @@ class BrowseTasksListView extends Component {
 
   render() {
     const {tasks} = this.props.browse;
+    const {me} = this.props;
 
     const displayedTasks = tasks.edges.map((edge) => {
       const t = edge.node;
-      const distance = this.props.me.logged ?
-        Math.round(LocationUtils.kilometersBetween(t.location, this.props.me.privateData.location)) :
+      const distance = me.logged && me.privateData.location ?
+        Math.round(LocationUtils.kilometersBetween(t.location, me.privateData.location)) :
         null;
 
       const selected = this.state.selectedTask && t.id === this.state.selectedTask.id;
