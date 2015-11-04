@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-import UserActions from 'actions/UserActions';
-import UserStore from 'stores/UserStore';
+import ApiUtils from 'utils/ApiUtils';
 
 export default class RegisterHandler extends Component {
 
@@ -13,28 +12,11 @@ export default class RegisterHandler extends Component {
     history: React.PropTypes.object.isRequired,
   }
 
-  static showNavBar() {
-    return true;
-  }
-
   state = {
     email: '',
     password: '',
-    name: '',
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.userStoreListener = this._onUserChanged.bind(this);
-  }
-
-  componentDidMount() {
-    UserStore.listen(this.userStoreListener);
-  }
-
-  componentWillUnmount() {
-    UserStore.unlisten(this.userStoreListener);
+    firstName: '',
+    lastName: '',
   }
 
   _onEmailChanged(event) {
@@ -49,38 +31,41 @@ export default class RegisterHandler extends Component {
     });
   }
 
-  _onNameChanged(event) {
+  _onFirstNameChanged(event) {
     this.setState({
-      name: event.target.value,
+      firstName: event.target.value,
+    });
+  }
+
+  _onLastNameChanged(event) {
+    this.setState({
+      lastName: event.target.value,
     });
   }
 
   _onSubmit(event) {
     event.preventDefault();
-    this._register();
+    this._onRegister();
   }
 
   _onRegister() {
-    UserActions.register({
+    ApiUtils.register({
       email: this.state.email,
       password: this.state.password,
-      name: this.state.name,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+    }).then(() => {
+      const {state} = this.props.location;
+      if (state && state.nextPathname) {
+        window.location = state.nextPathname;
+      } else {
+        window.location = '/browse';
+      }
     });
   }
 
   _onBack() {
     this.context.history.goBack();
-  }
-
-  _onUserChanged(user) {
-    if (user) {
-      const {state} = this.props.location;
-      if (state && state.nextPathname) {
-        this.context.history.replaceState(null, state.nextPathname);
-      } else {
-        this.context.history.replaceState(null, '/browse');
-      }
-    }
   }
 
   render() {
@@ -107,9 +92,15 @@ export default class RegisterHandler extends Component {
             />
             <input
               type="text"
-              value={this.state.name}
-              placeholder="Name"
-              onChange={::this._onNameChanged}
+              value={this.state.firstName}
+              placeholder="First name"
+              onChange={::this._onFirstNameChanged}
+            />
+            <input
+              type="text"
+              value={this.state.lastName}
+              placeholder="Last name"
+              onChange={::this._onLastNameChanged}
             />
             <button className="register" type="submit">Register</button>
           </form>

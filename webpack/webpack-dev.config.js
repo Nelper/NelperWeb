@@ -43,6 +43,9 @@ module.exports = merge(shared.config, {
       test: /\.jsx?$/,
       loaders: ['react-hot', 'babel?plugins=./scripts/babelRelayPlugin'],
       include: path.resolve(ROOT_PATH, 'src'),
+    }, {
+      test: /\.(png|jpg)$/,
+      loader: 'url-loader?limit=4098&name=[path][name].[ext]',
     }]),
   },
   postcss: [autoprefixer({browsers: ['last 1 Chrome versions']})],

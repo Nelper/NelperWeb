@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import {IntlProvider} from 'react-intl';
 import classNames from 'classnames';
 
-import UserStore from 'stores/UserStore';
+import UserActions from 'actions/UserActions';
 import NavBar from 'components/NavBar';
 import Breadcrumbs from 'components/Breadcrumbs';
 
@@ -19,21 +19,8 @@ class AppHandler extends Component {
     messages: PropTypes.object.isRequired,
   }
 
-  _logged = UserStore.isLogged()
-
-  _userStoreListener = () => {
-    // TODO: find a way to update the user.
-    if (this._logged !== UserStore.isLogged()) {
-      window.location.reload();
-    }
-  }
-
   componentDidMount() {
-    UserStore.listen(this._userStoreListener);
-  }
-
-  componentWillUnmount() {
-    UserStore.unlisten(this._userStoreListener);
+    UserActions.receivedUser(this.props.me);
   }
 
   render() {

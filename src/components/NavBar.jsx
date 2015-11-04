@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import classNames from 'classnames';
 import {FormattedMessage} from 'react-intl';
 
+import UserActions from 'actions/UserActions';
 import {isInside} from 'utils/DomUtils';
 
 export default class NavBar extends Component {
@@ -73,13 +74,27 @@ export default class NavBar extends Component {
     this.setState({insideDropDown: false});
   }
 
-  _renderNavItem(title, href, key) {
-    const active = this.context.history.isActive(href);
+  _renderNavItem(title, action, key) {
+    let active;
+    let onClick;
+    let href;
+    if (typeof action === 'string') {
+      active = this.context.history.isActive(action);
+      onClick = this._onActive.bind(this);
+      href = action;
+    } else {
+      active = false;
+      onClick = () => {
+        this._onActive();
+        action();
+      };
+      href = '/';
+    }
     return (
       <li
         className={classNames('nav-link', {'active': active})}
         key={key}>
-        <Link to={href} onClick={::this._onActive}>
+        <Link to={href} onClick={onClick}>
           {title}
         </Link>
       </li>
@@ -96,7 +111,7 @@ export default class NavBar extends Component {
       >
         <div className="navbar-separator" />
         <div className="navbar-profile-picture" style={{
-          backgroundImage: `url('${this.props.user.pictureURL}')`,
+          backgroundImage: `url('${this.props.user.pictureURL || require('images/user-no-picture.jpg')}')`,
         }} />
         <div className="navbar-profile-icon" />
         <ul
@@ -109,7 +124,7 @@ export default class NavBar extends Component {
         >
           {this._renderNavItem(<FormattedMessage id="navBar.profile"/>, '/profile', 70)}
           {this._renderNavItem(<FormattedMessage id="navBar.settings"/>, '/settings', 80)}
-          {this._renderNavItem(<FormattedMessage id="navBar.logout"/>, '/logout', 90)}
+          {this._renderNavItem(<FormattedMessage id="navBar.logout"/>, () => UserActions.logout(), 90)}
           <div className="navbar-dropdown-separator" key={100} />
           {this._renderNavItem(<FormattedMessage id="navBar.howItWorks"/>, '/howitworks', 110)}
           {this._renderNavItem(<FormattedMessage id="navBar.nelperPay"/>, '/nelperpay', 120)}

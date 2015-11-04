@@ -15,6 +15,7 @@ import {
   editUserLocations,
   editUserProfile,
   changePassword,
+  createAccount,
 } from '../data/userData';
 
 import {
@@ -24,6 +25,29 @@ import {
   LocationInputType,
   FileInputType,
 } from './types';
+
+export const CreateAccountMutation = mutationWithClientMutationId({
+  name: 'CreateAccount',
+  inputFields: {
+    type: {type: new GraphQLNonNull(GraphQLString)},
+    email: {type: new GraphQLNonNull(GraphQLString)},
+    firstName: {type: new GraphQLNonNull(GraphQLString)},
+    lastName: {type: new GraphQLNonNull(GraphQLString)},
+    pictureURL: {type: GraphQLString},
+  },
+  outputFields: {
+    me: {
+      type: UserType,
+      resolve: ({user}) => {
+        return user;
+      },
+    },
+  },
+  mutateAndGetPayload: async ({type, email, firstName, lastName, pictureURL}, {rootValue}) => {
+    const user = await createAccount(rootValue, type, email, firstName, lastName, pictureURL);
+    return {user};
+  },
+});
 
 export const UpdateNotificationSettingsMutation = mutationWithClientMutationId({
   name: 'UpdateNotificationSettings',

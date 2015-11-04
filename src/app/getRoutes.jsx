@@ -34,8 +34,6 @@ import {
   TransactionHistoryHandler,
 } from 'handlers/settings/index';
 
-import LogoutHandler from 'handlers/login/LogoutHandler';
-
 const AppQueries = {
   me: () => Relay.QL`query { me }`,
 };
@@ -166,7 +164,6 @@ export default function getRoutes() {
       <Route path="/" getComponent={getHomeComponent} />
       <Route path="/login" getComponent={getLoginComponent} />
       <Route path="/register" getComponent={getRegisterComponent} />
-      <Route path="/logout" component={LogoutHandler} />
       <Route
         name={IntlUtils.getMessage('routes.browse')}
         path="/browse"

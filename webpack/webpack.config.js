@@ -21,6 +21,9 @@ module.exports = [
     },
     module: {
       loaders: commonLoaders.concat([{
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=4098',
+      }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style', 'css'),
       }, {

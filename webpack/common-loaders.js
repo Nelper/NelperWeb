@@ -8,9 +8,6 @@ module.exports = [{
   test: /\.svg$/,
   loader: 'svg-inline',
 }, {
-  test: /\.(png|jpg)$/,
-  loader: 'url-loader?limit=4098',
-}, {
   test: /\.json$/,
   loader: 'json-loader',
 }];

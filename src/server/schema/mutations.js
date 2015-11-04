@@ -19,10 +19,10 @@ export {
   EditLocationsMutation,
   EditProfileMutation,
   ChangePasswordMutation,
+  CreateAccountMutation,
 } from './userMutations';
 
 export {
   SendPaymentMutation,
-  CreateStripeAccountMutation,
   SetExternalAccountMutation,
 } from './paymentMutations';

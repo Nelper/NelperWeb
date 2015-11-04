@@ -3,6 +3,9 @@ import Parse from './parse';
 import {UserPrivateData, Feedback, TaskPrivate} from './parseTypes';
 import {fixParseFileURL} from '../../utils/ParseUtils';
 import {TASK_APPLICATION_STATE} from '../../utils/constants';
+import {createStripeAccount} from './paymentData';
+
+import type {ParseObject} from './parseTypes';
 
 export async function getMe({userId, sessionToken}) {
   if (!userId || !sessionToken) {
@@ -36,13 +39,55 @@ export async function getUserPrivate({sessionToken}, id) {
   return await query.get(id, {sessionToken});
 }
 
-export function getUserPicture(user) {
+export function getUserPicture(user: ParseObject): string {
   const customPicture = user.get('customPicture');
   if (customPicture) {
     return fixParseFileURL(customPicture.url());
   }
 
   return fixParseFileURL(user.get('pictureURL'));
+}
+
+export async function createAccount(rootValue, type, email, firstName, lastName, pictureURL) {
+  const {userId, sessionToken} = rootValue;
+  const user = new Parse.User();
+  user.id = userId;
+  user.set('name', firstName + ' ' + lastName);
+  user.set('firstName', firstName);
+  user.set('lastName', lastName);
+  user.set('pictureURL', pictureURL);
+  user.set('tasksCompleted', 0);
+  user.set('about', '');
+  user.set('skills', []);
+  user.set('education', []);
+  user.set('experience', []);
+  user.set('loginProvider', type);
+  const userPrivate = new UserPrivateData();
+  userPrivate.set('email', email);
+  userPrivate.set('locations', []);
+  userPrivate.set('notifications', {
+    posterApplication: {
+      email: true,
+    },
+    posterRequestPayment: {
+      email: true,
+    },
+    nelperApplicationStatus: {
+      email: true,
+    },
+    nelperReceivedPayment: {
+      email: true,
+    },
+    newsletter: {
+      email: true,
+    },
+  });
+  userPrivate.setACL(new Parse.ACL(user));
+  user.set('privateData', userPrivate);
+
+  await createStripeAccount(rootValue, user);
+
+  return user.save(null, {sessionToken});
 }
 
 export async function saveGeneralSettings({userId, sessionToken}, email, phone, language) {

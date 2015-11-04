@@ -11,6 +11,10 @@ import template from './template';
 import devTemplate from './devTemplate';
 import graphql from './graphql';
 
+global.__DEVELOPMENT__ = true;
+global.__SERVER__ = true;
+global.__CLIENT__ = true;
+
 Parse.initialize(
   'w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN',
   'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si',
