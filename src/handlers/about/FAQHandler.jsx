@@ -15,7 +15,7 @@ export default class FAQHandler extends Component {
     // for the description. The description message can be HTML.
     const sections = [{
       id: 'general',
-      childrens: 6,
+      childrens: 5,
     }, {
       id: 'poster',
       childrens: 7,
