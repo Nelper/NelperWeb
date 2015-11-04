@@ -7,35 +7,6 @@ class UserActions {
     this.generateActions('receivedUser', 'receivedPicture');
   }
 
-  login(loginInfo) {
-    ApiUtils.login(loginInfo)
-      .then((user) => {
-        this.actions.receivedUser(user);
-      })
-      .fail(err => {
-        console.log(err);
-      });
-  }
-
-  register(registerInfo) {
-    ApiUtils.register(registerInfo)
-      .then((user) => {
-        this.actions.receivedUser(user);
-      })
-      .fail(err => {
-        console.log(err);
-      });
-  }
-
-  loginWithFacebook() {
-    ApiUtils.loginWithFacebook()
-      .then((user) => {
-        this.actions.receivedUser(user);
-      }).catch(err => {
-        console.log(err);
-      });
-  }
-
   logout() {
     ApiUtils.logout();
     this.actions.receivedUser({logged: false});
