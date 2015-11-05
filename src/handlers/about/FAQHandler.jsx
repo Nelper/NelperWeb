@@ -21,7 +21,7 @@ export default class FAQHandler extends Component {
       childrens: 7,
     }, {
       id: 'nelper',
-      childrens: 6,
+      childrens: 7,
     }, {
       id: 'privacy',
       childrens: 3,
