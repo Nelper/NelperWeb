@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import UserActions from 'actions/UserActions';
 import NavBar from 'components/NavBar';
 import Breadcrumbs from 'components/Breadcrumbs';
+import Footer from 'components/Footer';
 
 class AppHandler extends Component {
 
@@ -36,7 +37,7 @@ class AppHandler extends Component {
     const showNavBar = !children || !children.type.showNavBar || children.type.showNavBar();
     return (
       <IntlProvider locale={locale} messages={messages} formats={formats}>
-        <div style={{height: '100%'}} className={'lang-' + lang}>
+        <div className={'main-container lang-' + lang}>
           {
             showNavBar ?
             <NavBar user={me} /> :
@@ -48,6 +49,7 @@ class AppHandler extends Component {
             </div>
             {children}
           </div>
+          <Footer user={me} />
         </div>
       </IntlProvider>
     );
@@ -62,6 +64,7 @@ export default Relay.createContainer(AppHandler, {
         logged,
         name,
         pictureURL,
+        ${Footer.getFragment('user')},
       }
     `,
   },

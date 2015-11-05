@@ -1,0 +1,121 @@
+@import 'styles/base-module';
+
+$color-footer-background: #292929;
+$color-footer-content: #c7c6c6;
+$font-size-headers: 1.4em;
+$font-size-content: 0.95em;
+
+:local .footer {
+
+  background-color: $color-footer-background;
+  color: $color-background-light;
+  padding: 3rem 0 1rem;
+
+  a {
+    color: $color-footer-content;
+    font-size: $font-size-content;
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
+
+  .footer-container {
+    display: flex;
+  }
+
+  .col-header {
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: $font-size-headers;
+  }
+
+  .info-col {
+    flex-basis: 40%;
+    padding-right: 4rem;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .logo {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-right: 1rem;
+  }
+
+  .logo-text {
+    font-size: $font-size-headers;
+  }
+
+  .desc {
+    color: $color-footer-content;
+    line-height: 2em;
+    font-size: $font-size-content;
+    margin-bottom: 2rem;
+  }
+
+  .language {
+    display: flex;
+    align-items: center;
+  }
+
+  .language-label {
+    font-size: 1.1em;
+  }
+
+  .language-dropdown {
+    margin-left: 1rem;
+    color: $color-black;
+
+    select {
+      margin: 0;
+      padding: 0.1rem;
+    }
+  }
+
+  .discover-col {
+    flex-basis: 20%;
+    padding-right: 2rem;
+  }
+
+  .company-col {
+    flex-basis: 20%;
+    padding-right: 2rem;
+  }
+
+  .app-col {
+    flex-basis: 20%;
+  }
+
+  .download-app {
+    margin-top: 0.7rem;
+    font-size: $font-size-headers;
+    margin-bottom: 1rem;
+  }
+
+  .download-app-button {
+    width: 150px;
+    margin-bottom: 1.5rem;
+  }
+
+  .follow {
+    font-size: $font-size-headers;
+    margin-bottom: 0.75rem;
+  }
+
+  .follow-icons {
+    display: flex;
+  }
+
+  .follow-icon {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem;
+  }
+}

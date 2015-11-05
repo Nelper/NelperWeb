@@ -20,6 +20,7 @@ import TasksHandler from 'handlers/nelpcenter/home/TasksHandler';
 import TaskDetailHandler from 'handlers/nelpcenter/taskdetail/TaskDetailHandler';
 import TaskApplicationDetailHandler from 'handlers/nelpcenter/taskdetail/TaskApplicationDetailHandler';
 import ApplicationDetailHandler from 'handlers/nelpcenter/applicationdetail/ApplicationDetailHandler';
+import ApplicationDetailProfileHandler from 'handlers/nelpcenter/applicationdetail/ApplicationDetailProfileHandler';
 
 import PostTaskCategoriesHandler from 'handlers/post/PostTaskCategoriesHandler';
 import PostTaskFormHandler from 'handlers/post/PostTaskFormHandler';
@@ -70,6 +71,10 @@ const ApplicationsQueries = {
 const ApplicationDetailQueries = {
   application: () => Relay.QL`query { node(id: $applicationId) }`,
   me: () => Relay.QL`query { me }`,
+};
+
+const ApplicationDetailProfileQueries = {
+  application: () => Relay.QL`query { node(id: $applicationId) }`,
 };
 
 const PostQueries = {
@@ -232,6 +237,17 @@ export default function getRoutes() {
           queries={ApplicationDetailQueries}
           renderLoading={renderLoading}
         />
+        <Route
+          name={IntlUtils.getMessage('routes.applicationDetail')}
+        >
+          <Route
+            path="/center/applications/detail/:applicationId/profile"
+            component={ApplicationDetailProfileHandler}
+            name={IntlUtils.getMessage('routes.applicationDetailProfile')}
+            queries={ApplicationDetailProfileQueries}
+            renderLoading={renderLoading}
+          />
+        </Route>
       </Route>
       <Route
         path="/profile"

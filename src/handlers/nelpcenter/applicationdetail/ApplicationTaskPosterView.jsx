@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 import {FormattedMessage} from 'react-intl';
+import {Link} from 'react-router';
 
 import IntlUtils from 'utils/IntlUtils';
 
@@ -13,6 +14,7 @@ class ApplicationTaskPosterView extends Component {
   static propTypes = {
     application: PropTypes.object.isRequired,
     onOpenChat: PropTypes.func,
+    onViewProfile: PropTypes.func,
   }
 
   render() {
@@ -23,7 +25,7 @@ class ApplicationTaskPosterView extends Component {
     return (
       <div styleName="task-poster-section" className="panel">
         <div styleName="task-poster-profile-row">
-          <div styleName="task-poster-profile">
+          <Link styleName="task-poster-profile" to={`/center/applications/detail/${application.id}/profile`}>
             <div
               styleName="task-poster-picture"
               style={{backgroundImage: `url('${task.user.pictureURL}')`}}
@@ -36,7 +38,7 @@ class ApplicationTaskPosterView extends Component {
               </div>
             </div>
             <div styleName="task-poster-name">{task.user.name}</div>
-          </div>
+          </Link>
           <div styleName="task-poster-chat">
             <div styleName="task-poster-chat-icon" />
             <button styleName="task-poster-chat-btn" className="border-btn primary" onClick={this.props.onOpenChat}>
@@ -75,6 +77,7 @@ export default Relay.createContainer(ApplicationTaskPosterView, {
   fragments: {
     application: () => Relay.QL`
       fragment on Application {
+        id,
         state,
         task {
           user {

@@ -64,7 +64,10 @@ class ApplicationDetailHandler extends Component {
           <ApplicationTaskProgressView application={application} /> :
           null
         }
-        <ApplicationTaskPosterView application={application} onOpenChat={::this._onChatDialogOpen} />
+        <ApplicationTaskPosterView
+          application={application}
+          onOpenChat={::this._onChatDialogOpen}
+        />
         <ApplicationTaskDetailView application={application} />
         {
           !accepted ?

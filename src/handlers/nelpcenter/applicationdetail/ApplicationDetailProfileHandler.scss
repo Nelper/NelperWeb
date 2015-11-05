@@ -1,0 +1,44 @@
+@import 'styles/base-module';
+
+:local .module {
+
+  $picture-size: 120px;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: $color-primary;
+    color: $text-light;
+  }
+
+  .header-profile {
+    display: flex;
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: center;
+    flex: 1;
+    margin-left: 1rem;
+  }
+
+  .user-name {
+    font-size: 1.5em;
+  }
+
+  .rating {
+    margin-bottom: 0.5rem;
+  }
+
+  .picture {
+    @include image(rem($picture-size));
+    border-radius: 50%;
+
+    border: solid 3px $color-background-light;
+  }
+}

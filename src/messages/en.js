@@ -57,6 +57,7 @@ export default {
     taskDetail: "My Task",
     taskApplicationDetail: "Nelper's profile",
     applicationDetail: "My Application",
+    applicationDetailProfile: "Poster's profile",
     browse: "Browse tasks",
     browseProfile: "Poster's profile",
   },

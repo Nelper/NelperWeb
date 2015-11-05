@@ -57,6 +57,7 @@ export default {
     taskDetail: "Ma tâche",
     applicationDetail: "Mon application",
     taskApplicationDetail: "Profile du Nelper",
+    applicationDetailProfile: "Profile de l'afficheur",
     browse: "Parcourir les tâches",
     browseProfile: "Profile de l'afficheur",
   },
