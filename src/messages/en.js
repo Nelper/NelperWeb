@@ -37,7 +37,7 @@ export default {
     },
     gardening: {
       name: "Gardening",
-      examples: "Garden Maintenance, Landscaping, Lawn Mowing, Leaf Raking, Outdoor Pest Control, Arborism, Fruit Tree Pruning, Tree Planting, Bushe Pruning, and more!",
+      examples: "Garden Maintenance, Landscaping, Lawn Mowing, Leaf Raking, Outdoor Pest Control, Arborism, Tree Planting, Bush & Tree Pruning, and more!",
     },
     handywork: {
       name: "Handyman",
