@@ -115,7 +115,7 @@ export default {
 
     price: "Prix",
     distance: "Distance",
-    date: "Date de publication",
+    date: "Date",
 
     myOffer: "Mon offre",
     makeOffer: "Faire une offre",
@@ -355,7 +355,7 @@ export default {
     posterDesc_06: "Rien, votre tâche reste active jusqu'à ce que vous la supprimez ou jusqu'à ce que vous acceptez un Nelper. Il n’y a pas de conséquences si personne n’applique pour votre tâche. Cela peut cependant être un indicateur que celle-ci est trop complexe, mal expliquée ou que votre prix offert est trop bas.",
     nelperSectionTitle: "Nelper",
     nelperTitle_00: "Comment parcourir les tâches?",
-    nelperDesc_00: "Allez dans {browseTasks}. La carte et la liste de tâches liées ensemble. Si vous cliquez sur une tâche dans la liste, vous verrez sa location sur la carte. Tandis que si vous cliquez une une tâche sur la carte (une punaise), vous la verrez dans la liste, avec ses détails complets.<br /><br />Vous pouvez filtrer les tâches que vous désirez voir tant sur la carte que dans la liste par catégorie, intervalle de prix et proximité. Le filtre de proximité est basé selon votre emplacement que vous pouvez ajouter ou modifier dans vos {settings}. Vous pouvez également trier la liste de tâches par prix, distance et date de publication.",
+    nelperDesc_00: "Allez dans {browseTasks}. La carte et la liste de tâches liées ensemble. Si vous cliquez sur une tâche dans la liste, vous verrez sa location sur la carte. Tandis que si vous cliquez une une tâche sur la carte (une punaise), vous la verrez dans la liste, avec ses détails complets.<br /><br />Vous pouvez filtrer les tâches que vous désirez voir tant sur la carte que dans la liste par catégorie, intervalle de prix et proximité. Le filtre de proximité est basé selon votre emplacement que vous pouvez ajouter ou modifier dans vos {settings}. Vous pouvez également trier la liste de tâches par prix, date ou distance.",
     nelperTitle_01: "Comment appliquer pour une tâche?",
     nelperDesc_01: "Lorsque vous avez choisi la tâche que vous voulez compléter, cliquez sur <em>Faire une offre</em>. Vous avez le choix d’appliquer pour le prix offert par le publieur ou faire votre propre offre. Le choix vous revient, selon ce que vous croyez être un prix juste pour la tâche en question.",
     nelperTitle_02: "Où puis-je voir mes applications?",
