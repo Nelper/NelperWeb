@@ -115,7 +115,7 @@ export default {
 
     price: "Price",
     distance: "Distance",
-    date: "Posted date",
+    date: "Date",
 
     myOffer: "My offer",
     makeOffer: "Make an offer",
