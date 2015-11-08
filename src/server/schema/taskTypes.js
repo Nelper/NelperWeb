@@ -35,6 +35,10 @@ import {
   getApplicantPrivate,
 } from '../data/userData';
 
+import {getBankTransferState} from '../data/paymentData';
+
+import {TASK_PAYMENT_STATE} from '../data/constants';
+
 import commonFields from './commonFields';
 
 const TaskPosterUserPrivateType = new GraphQLObjectType({
@@ -79,6 +83,16 @@ export const TaskCompletionStateType = new GraphQLEnumType({
   },
 });
 
+const TaskTransferStateType = new GraphQLEnumType({
+  name: 'TaskTransferState',
+  description: 'The state of a bank transfer.',
+  values: {
+    PENDING: {value: TASK_PAYMENT_STATE.PENDING},
+    COMPLETED: {value: TASK_PAYMENT_STATE.COMPLETED},
+    FAILED: {value: TASK_PAYMENT_STATE.FAILED},
+  },
+});
+
 export const TaskType = new GraphQLObjectType({
   name: 'Task',
   description: 'A task on Nelper',
@@ -94,6 +108,11 @@ export const TaskType = new GraphQLObjectType({
       type: TaskCompletionStateType,
       description: 'The state of the task completion once it is accepted.',
       resolve: (task) => task.get('completionState'),
+    },
+    transferState: {
+      type: TaskTransferStateType,
+      description: 'The state of the bank transfer',
+      resolve: (task, args, {rootValue}) => getBankTransferState(rootValue, task.id),
     },
     paymentSentAt: {
       type: GraphQLString,

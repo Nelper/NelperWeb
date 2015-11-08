@@ -5,7 +5,7 @@ import Stripe from 'stripe';
 import {InvalidOperationError, UnauthorizedError} from '../errors';
 import {getMe, getUserPrivateWithMasterKey} from './userData';
 import {getTask} from './taskData';
-import {TASK_COMPLETION_STATE} from '../../utils/constants';
+import {TASK_COMPLETION_STATE, TASK_PAYMENT_STATE} from './constants';
 
 import {RootValue} from '../graphql';
 import {ParseObject, ParseID} from './parseTypes';
@@ -156,8 +156,9 @@ export async function transferToBankAccount({sessionToken, userId}: RootValue, t
   const applicantStripeAccount = await getStripeAccount(task.get('acceptedApplication').get('user').id);
   const charge = task.get('privateData').get('charge');
   const amount = charge.amount;
+  let response;
   try {
-    const response = await stripe.transfers.create({
+    response = await stripe.transfers.create({
       amount: amount,
       currency: 'cad',
       destination: 'default_for_currency',
@@ -172,6 +173,35 @@ export async function transferToBankAccount({sessionToken, userId}: RootValue, t
       throw err;
     }
   }
+  task.get('privateData').set('transferId', response.id);
+}
+
+export async function getBankTransferState(rootValue: RootValue, taskId: ParseID): Promise {
+  const task = await getTask(rootValue, taskId);
+  if (!task.get('privateData') || !task.get('privateData').get('transferId')) {
+    return null;
+  }
+
+  const response = await stripe.transfers.retrieve(task.get('privateData').get('transferId'));
+
+  let state;
+  switch (response.status) {
+  case 'pending':
+  case 'in_transit':
+    state = TASK_PAYMENT_STATE.PENDING;
+    break;
+  case 'paid':
+    state = TASK_PAYMENT_STATE.COMPLETED;
+    break;
+  case 'canceled':
+  case 'failed':
+    state = TASK_PAYMENT_STATE.FAILED;
+    break;
+  default:
+    throw Error('Unknown task status ' + response.status);
+  }
+
+  return state;
 }
 
 export async function processStripeEvent(event: any): Promise {

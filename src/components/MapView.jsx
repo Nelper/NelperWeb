@@ -3,6 +3,7 @@ import {GoogleMap, Marker, Circle} from 'react-google-maps';
 
 import Colors from 'utils/Colors';
 import GoogleMapsUtils from 'utils/GoogleMapsUtils';
+import TaskCategoryUtils from 'utils/TaskCategoryUtils';
 
 export default class MapView extends Component {
 
@@ -11,12 +12,14 @@ export default class MapView extends Component {
     initialZoom: PropTypes.number,
     markers: PropTypes.array,
     shapes: PropTypes.array,
+    disabled: PropTypes.bool,
   }
 
   static defaultProps = {
     initialZoom: 15,
     markers: [],
     shapes: [],
+    disabled: false,
   }
 
   state = {
@@ -69,7 +72,9 @@ export default class MapView extends Component {
               height: 32,
               width: 32,
             },
-            url: require('images/icons/pin-map.png'),
+            url: m.category ?
+              TaskCategoryUtils.getPinImage(m.category) :
+              require('images/icons/pin-map.png'),
           }}
           position={m.position}
           onClick={m.onClick}
@@ -92,6 +97,7 @@ export default class MapView extends Component {
         options={{
           streetViewControl: false,
           mapTypeControl: false,
+          scrollwheel: !this.props.disabled,
         }}
       >
         {markers}

@@ -113,15 +113,6 @@ type CreateAccountPayload {
   clientMutationId: String!
 }
 
-input CreateStripeAccountInput {
-  clientMutationId: String!
-}
-
-type CreateStripeAccountPayload {
-  success: Boolean
-  clientMutationId: String!
-}
-
 input DeleteTaskInput {
   id: ID!
   clientMutationId: String!
@@ -254,7 +245,6 @@ type Mutation {
   changePassword(input: ChangePasswordInput!): ChangePasswordPayload
   createAccount(input: CreateAccountInput!): CreateAccountPayload
   sendPayment(input: SendPaymentInput!): SendPaymentPayload
-  createStripeAccount(input: CreateStripeAccountInput!): CreateStripeAccountPayload
   setExternalAccount(input: SetExternalAccountInput!): SetExternalAccountPayload
 }
 
@@ -392,6 +382,7 @@ type Task implements Node {
   updatedAt: String
   state: TaskState
   completionState: TaskCompletionState
+  transferState: TaskTransferState
   paymentSentAt: String
   title: String
   desc: String
@@ -437,6 +428,12 @@ enum TaskState {
   ACCEPTED
   DELETED
   COMPLETED
+}
+
+enum TaskTransferState {
+  PENDING
+  COMPLETED
+  FAILED
 }
 
 input UpdateNotificationSettingsInput {

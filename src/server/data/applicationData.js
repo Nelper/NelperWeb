@@ -43,12 +43,21 @@ export async function setApplicationState({sessionToken, userId}: RootValue, app
     application.set('acceptedAt', new Date());
     task.set('state', TASK_STATE.ACCEPTED);
     task.set('acceptedApplication', application);
+    // Update the ACL to include the accepted nelper.
+    const acl = new Parse.ACL();
+    acl.setReadAccess(task.get('user'), true);
+    acl.setWriteAccess(task.get('user'), true);
+    acl.setReadAccess(application.get('user'), true);
+    task.get('privateData').setACL(acl);
   // If we are removing an accepted application.
   } else if (state === TASK_APPLICATION_STATE.PENDING &&
              application.get('state') === TASK_APPLICATION_STATE.ACCEPTED) {
     application.unset('acceptedAt');
     task.set('state', TASK_STATE.PENDING);
     task.unset('acceptedApplication');
+    // Update the ACL to include only the task poster.
+    const acl = new Parse.ACL(task.get('user'));
+    task.get('privateData').setACL(acl);
   }
   application.set('state', state);
   const savedObjects = await Parse.Object.saveAll([application, task], {sessionToken});

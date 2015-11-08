@@ -49,4 +49,15 @@ export default class TaskCategoryUtils {
       return require(`images/categories/${category}.png`);
     }
   }
+
+  static getPinImage(category) {
+    if (!this._categories[category]) {
+      return null;
+    }
+    try {
+      return require(`images/categories/${category}-pin_${IntlUtils.getLanguage()}.png`);
+    } catch (e) {
+      return require(`images/categories/${category}-pin.png`);
+    }
+  }
 }

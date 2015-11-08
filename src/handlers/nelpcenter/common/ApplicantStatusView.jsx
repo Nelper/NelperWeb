@@ -68,6 +68,7 @@ export default Relay.createContainer(ApplicationSummaryView, {
         state,
         task {
           completionState,
+          transferState,
         },
       }
     `,

@@ -27,7 +27,6 @@ class BrowseTasksHandler extends Component {
   state = {
     filters: {category: null, minPrice: null, maxDistance: null},
     sort: this._getInitialLocation() ? {sort: 'DISTANCE'} : {sort: 'DATE'},
-    taskFilter: null,
     location: this._getInitialLocation() || {latitude: 45.5016889, longitude: -73.567256},
   }
 
@@ -47,10 +46,7 @@ class BrowseTasksHandler extends Component {
     }
   }
 
-  _onMarkerClick(event, filterKey) {
-    this.setState({
-      taskFilter: filterKey,
-    });
+  _onMarkerClick(event) {
     this.refs.map.panTo(event.latLng);
   }
 
@@ -88,31 +84,18 @@ class BrowseTasksHandler extends Component {
     const {sort} = this.state;
     const {tasks} = this.props.browse;
 
-    const taskGroups = tasks.edges
-      .map(edge => edge.node)
-      .filter(t => t.location)
-      .reduce((prev, cur) => {
-        const mapKey = `${cur.location.latitude}:${cur.location.longitude}`;
-        if (prev[mapKey]) {
-          prev[mapKey].push(cur);
-        } else {
-          prev[mapKey] = [cur];
-        }
-        return prev;
-      }, {});
-
-    const markers = Object.keys(taskGroups)
-      .map(k => {
-        const cur = taskGroups[k];
-        return {
-          key: k,
-          position: new LatLng(
-            cur[0].location.latitude,
-            cur[0].location.longitude,
-          ),
-          onClick: (event) => this._onMarkerClick(event, k),
-        };
-      });
+    const markers = tasks.edges.map(edge => {
+      const t = edge.node;
+      return {
+        key: t.id,
+        position: new LatLng(
+          t.location.latitude,
+          t.location.longitude,
+        ),
+        category: t.category,
+        onClick: (event) => this._onMarkerClick(event, t),
+      };
+    });
 
     const pos = this.state.location;
     const center = pos ?
@@ -195,6 +178,8 @@ export default Relay.createContainer(BrowseTasksHandler, {
         tasks(first: $first) {
           edges {
             node {
+              id,
+              category,
               location {
                 latitude,
                 longitude,
