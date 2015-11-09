@@ -27,7 +27,7 @@ body {
   flex: 1;
 
   &.has-navbar {
-    padding-top: $navbar-height;
+    margin-top: $navbar-height;
   }
 }
 

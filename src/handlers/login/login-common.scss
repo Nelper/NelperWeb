@@ -1,11 +1,10 @@
 .login-common {
   $controls-border-width: 1.5px;
 
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: stretch;
-  min-height: 100%;
   padding: 1em;
 
   background-color: $color-primary;
@@ -27,8 +26,8 @@
 
     .nelpy {
       padding: 1em;
-      width: em(250px);
-      @include align-self(center);
+      height: em(250px);
+      align-self: center;
     }
 
     form {
@@ -38,12 +37,12 @@
 
     input {
       border: $color-black solid $controls-border-width;
-      margin-bottom:0.5em;
+      margin-bottom: 0.5em;
     }
 
     button {
       border: $color-black solid $controls-border-width;
-      margin-bottom:0.5em;
+      margin-bottom: 0.5em;
     }
   }
 }

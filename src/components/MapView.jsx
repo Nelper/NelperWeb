@@ -69,8 +69,8 @@ export default class MapView extends Component {
           key={m.key}
           icon={{
             scaledSize: {
-              height: 32,
-              width: 32,
+              height: 50,
+              width: 50,
             },
             url: m.category ?
               TaskCategoryUtils.getPinImage(m.category) :
