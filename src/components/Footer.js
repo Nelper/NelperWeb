@@ -16,18 +16,26 @@ class Footer extends Component {
   };
 
   _onChangeLanguage(event) {
-    Relay.Store.update(new SaveGeneralSettingsMutation({
-      privateData: this.props.user.privateData,
-      language: event.target.value,
-    }), {
-      onSuccess: () => {
-        window.location.reload();
-      },
-    });
     Storage.setItem('lang', event.target.value);
+
+    if (this.props.user.privateData) {
+      Relay.Store.update(new SaveGeneralSettingsMutation({
+        privateData: this.props.user.privateData,
+        language: event.target.value,
+      }), {
+        onSuccess: () => {
+          window.location.reload();
+        },
+      });
+    } else {
+      window.location.reload();
+    }
   }
 
   render() {
+    const lang = this.props.user.privateData ?
+      this.props.user.privateData.language : (Storage.getItem('lang') || 'en');
+
     return (
       <div styleName="footer">
         <div className="container" styleName="footer-container">
@@ -44,7 +52,7 @@ class Footer extends Component {
             <div styleName="language">
               <div styleName="language-label">Language:</div>
               <div styleName="language-dropdown">
-                <select value={this.props.user.privateData.language} onChange={::this._onChangeLanguage}>
+                <select value={lang} onChange={::this._onChangeLanguage}>
                   <option value="en">EN</option>
                   <option value="fr">FR</option>
                 </select>
