@@ -95,6 +95,7 @@
     @include media($medium-screen) {
       @include span-columns(4);
       display: flex;
+      padding-left: 3%;
     }
   }
 

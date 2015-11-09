@@ -96,6 +96,7 @@ class ApplicationTaskDetailView extends Component {
         </div>
         <div styleName="task-info-map" className="panel">
           <MapView
+            disabled
             initialCenter={new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location)}
             markers={[{
               key: 1,

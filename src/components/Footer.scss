@@ -14,6 +14,10 @@ $font-size-content: 0.95em;
   a {
     color: $color-footer-content;
     font-size: $font-size-content;
+
+    &:hover {
+      color: $color-background-light;
+    }
   }
 
   li {
@@ -22,6 +26,11 @@ $font-size-content: 0.95em;
 
   .footer-container {
     display: flex;
+    flex-direction: column;
+
+    @include media($medium-screen) {
+      flex-direction: row;
+    }
   }
 
   .col-header {
@@ -34,7 +43,11 @@ $font-size-content: 0.95em;
 
   .info-col {
     flex-basis: 40%;
-    padding-right: 4rem;
+    margin-bottom: 1rem;
+
+    @include media($medium-screen) {
+      margin-right: 4rem;
+    }
   }
 
   .logo-container {
@@ -81,16 +94,19 @@ $font-size-content: 0.95em;
 
   .discover-col {
     flex-basis: 20%;
-    padding-right: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
   }
 
   .company-col {
     flex-basis: 20%;
-    padding-right: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
   }
 
   .app-col {
     flex-basis: 20%;
+    margin-bottom: 2rem;
   }
 
   .download-app {
