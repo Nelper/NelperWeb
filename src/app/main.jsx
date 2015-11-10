@@ -5,6 +5,7 @@ import Relay from 'react-relay';
 import {Router} from 'react-router';
 import ReactRouterRelay from 'react-router-relay';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
+import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import {Parse} from 'parse';
 
 import IntlUtils from 'utils/IntlUtils';
@@ -53,7 +54,7 @@ function renderApp() {
 
   // Render the app!
   ReactDOM.render((
-    <Router history={createBrowserHistory()} createElement={(Component, props) => {
+    <Router history={useScroll(createBrowserHistory)()} createElement={(Component, props) => {
       return ReactRouterRelay.createElement(
         Component, {
           ...props,
