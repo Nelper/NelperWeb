@@ -88,7 +88,7 @@
     "react-intl": "^2.0.0-pr-3",
     "react-relay": "^0.4.0",
     "react-router": "^1.0.0",
-    "react-router-relay": "^0.7.0",
+    "react-router-relay": "^0.8.0",
     "react-slick": "^0.8.0",
     "sass-loader": "^3.0.0",
     "scroll-behavior": "^0.2.0",

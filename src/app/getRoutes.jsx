@@ -11,9 +11,6 @@ import UserStore from 'stores/UserStore';
 import AppHandler from 'handlers/AppHandler';
 import PageNotFoundHandler from 'handlers/PageNotFoundHandler';
 
-import BrowseTasksHandler from 'handlers/browse/BrowseTasksHandler';
-import TaskPosterProfileHandler from 'handlers/browse/TaskPosterProfileHandler';
-
 import NelpCenterHandler from 'handlers/nelpcenter/home/NelpCenterHandler';
 import ApplicationsHandler from 'handlers/nelpcenter/home/ApplicationsHandler';
 import TasksHandler from 'handlers/nelpcenter/home/TasksHandler';
@@ -21,11 +18,6 @@ import TaskDetailHandler from 'handlers/nelpcenter/taskdetail/TaskDetailHandler'
 import TaskApplicationDetailHandler from 'handlers/nelpcenter/taskdetail/TaskApplicationDetailHandler';
 import ApplicationDetailHandler from 'handlers/nelpcenter/applicationdetail/ApplicationDetailHandler';
 import ApplicationDetailProfileHandler from 'handlers/nelpcenter/applicationdetail/ApplicationDetailProfileHandler';
-
-import PostTaskCategoriesHandler from 'handlers/post/PostTaskCategoriesHandler';
-import PostTaskFormHandler from 'handlers/post/PostTaskFormHandler';
-
-import ProfileHandler from 'handlers/profile/ProfileHandler';
 
 import {
   SettingsHandler,
@@ -105,9 +97,15 @@ function getHomeComponent(loc, cb) {
   });
 }
 
-/* function getBrowseComponent(loc, cb) {
+function getBrowseComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/browse/BrowseTasksHandler'));
+  });
+}
+
+function getTaskPosterProfileComponent(loc, cb) {
+  require.ensure([], (require) => {
+    cb(null, require('handlers/browse/TaskPosterProfileHandler'));
   });
 }
 
@@ -115,13 +113,13 @@ function getPostCategoriesComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/post/PostTaskCategoriesHandler'));
   });
-} */
+}
 
-/* function getPostFormComponent(loc, cb) {
+function getPostFormComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/post/PostTaskFormHandler'));
   });
-}*/
+}
 
 function getHowItWorksComponent(loc, cb) {
   require.ensure([], (require) => {
@@ -141,11 +139,11 @@ function getRegisterComponent(loc, cb) {
   });
 }
 
-/* function getProfileComponent(loc, cb) {
+function getProfileComponent(loc, cb) {
   require.ensure([], (require) => {
     cb(null, require('handlers/profile/ProfileHandler'));
   });
-}*/
+}
 
 function getFAQComponent(loc, cb) {
   require.ensure([], (require) => {
@@ -170,88 +168,82 @@ export default function getRoutes() {
       <Route path="/login" getComponent={getLoginComponent} />
       <Route path="/register" getComponent={getRegisterComponent} />
       <Route
-        name={IntlUtils.getMessage('routes.browse')}
         path="/browse"
-        component={BrowseTasksHandler}
+        getComponent={getBrowseComponent}
         forceFetch
         queries={BrowseQueries}
         renderLoading={renderLoading}
       />
       <Route
-        name={IntlUtils.getMessage('routes.browse')}
-        path="/browse/profile"
-      >
-        <Route
-          name={IntlUtils.getMessage('routes.browseProfile')}
-          path=":userId"
-          component={TaskPosterProfileHandler}
-          queries={TaskPosterProfileQueries}
-          renderLoading={renderLoading}
-        />
-      </Route>
-      <Route path="/post" component={PostTaskCategoriesHandler} />
+        breadcrumbs={[
+          IntlUtils.getMessage('routes.browse'),
+          IntlUtils.getMessage('routes.browseProfile'),
+        ]}
+        path="/browse/:userId"
+        getComponent={getTaskPosterProfileComponent}
+        queries={TaskPosterProfileQueries}
+        renderLoading={renderLoading}
+      />
+      <Route path="/post" getComponent={getPostCategoriesComponent} />
       <Route
         path="/post/:category"
-        component={PostTaskFormHandler}
+        getComponent={getPostFormComponent}
         onEnter={requireAuth}
         queries={PostQueries}
         renderLoading={renderLoading}
       />
-      <Route onEnter={requireAuth} name={IntlUtils.getMessage('routes.nelpcenter')}>
-        <Route path="/center" component={NelpCenterHandler}>
-          <Route
-            path="applications"
-            component={ApplicationsHandler}
-            queries={ApplicationsQueries}
-            renderLoading={renderLoading}
-          />
-          <Route
-            path="tasks"
-            component={TasksHandler}
-            queries={TasksQueries}
-            renderLoading={renderLoading}
-          />
-        </Route>
-        <Route path="/center/tasks/detail/:taskId"
-          component={TaskDetailHandler}
-          name={IntlUtils.getMessage('routes.taskDetail')}
-          queries={TaskDetailQueries}
+      <Route path="/center" component={NelpCenterHandler}>
+        <Route
+          path="applications"
+          component={ApplicationsHandler}
+          queries={ApplicationsQueries}
           renderLoading={renderLoading}
         />
         <Route
-          path="/center/tasks/detail/:taskId"
-          name={IntlUtils.getMessage('routes.taskDetail')}
-        >
-          <Route
-            path=":applicationId"
-            component={TaskApplicationDetailHandler}
-            name={IntlUtils.getMessage('routes.taskApplicationDetail')}
-            queries={TaskDetailApplicationQueries}
-            renderLoading={renderLoading}
-          />
-        </Route>
-        <Route
-          path="/center/applications/detail/:applicationId"
-          component={ApplicationDetailHandler}
-          name={IntlUtils.getMessage('routes.applicationDetail')}
-          queries={ApplicationDetailQueries}
+          path="tasks"
+          component={TasksHandler}
+          queries={TasksQueries}
           renderLoading={renderLoading}
         />
-        <Route
-          name={IntlUtils.getMessage('routes.applicationDetail')}
-        >
-          <Route
-            path="/center/applications/detail/:applicationId/profile"
-            component={ApplicationDetailProfileHandler}
-            name={IntlUtils.getMessage('routes.applicationDetailProfile')}
-            queries={ApplicationDetailProfileQueries}
-            renderLoading={renderLoading}
-          />
-        </Route>
       </Route>
+      <Route path="/center/tasks/detail/:taskId"
+        breadcrumbs={[IntlUtils.getMessage('routes.nelpcenter'), IntlUtils.getMessage('routes.taskDetail')]}
+        component={TaskDetailHandler}
+        queries={TaskDetailQueries}
+        renderLoading={renderLoading}
+      />
+      <Route
+        breadcrumbs={[
+          IntlUtils.getMessage('routes.nelpcenter'),
+          IntlUtils.getMessage('routes.taskDetail'),
+          IntlUtils.getMessage('routes.taskApplicationDetail'),
+        ]}
+        path="/center/tasks/detail/:taskId/:applicationId"
+        component={TaskApplicationDetailHandler}
+        queries={TaskDetailApplicationQueries}
+        renderLoading={renderLoading}
+      />
+      <Route
+        breadcrumbs={[IntlUtils.getMessage('routes.nelpcenter'), IntlUtils.getMessage('routes.applicationDetail')]}
+        path="/center/applications/detail/:applicationId"
+        component={ApplicationDetailHandler}
+        queries={ApplicationDetailQueries}
+        renderLoading={renderLoading}
+      />
+      <Route
+        breadcrumbs={[
+          IntlUtils.getMessage('routes.nelpcenter'),
+          IntlUtils.getMessage('routes.applicationDetail'),
+          IntlUtils.getMessage('routes.applicationDetailProfile'),
+        ]}
+        path="/center/applications/detail/:applicationId/profile"
+        component={ApplicationDetailProfileHandler}
+        queries={ApplicationDetailProfileQueries}
+        renderLoading={renderLoading}
+      />
       <Route
         path="/profile"
-        component={ProfileHandler}
+        getComponent={getProfileComponent}
         onEnter={requireAuth}
         queries={ProfileQueries}
         renderLoading={renderLoading}

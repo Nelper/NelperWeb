@@ -16,24 +16,22 @@ export default class Breadcrumbs extends Component {
   }
 
   render() {
-    const routes = this.props.branch.filter(b => {
-      return b.name;
-    });
+    const curRoute = this.props.branch[this.props.branch.length - 1];
 
     // Only display the breadcumbs if theres 2+ levels of route.
-    if (routes.length < 2) {
+    if (!curRoute || !curRoute.breadcrumbs) {
       return null;
     }
 
-    const displayedRoutes = routes.map((b, i) => {
-      const isLast = i === routes.length - 1;
+    const displayedRoutes = curRoute.breadcrumbs.map((b, i) => {
+      const isLast = i === curRoute.breadcrumbs.length - 1;
       return (
         <div
           key={i}
           className={classNames('breadcrumbs-route', {'active-route': isLast})}
-          onClick={() => this._onRouteClick(b, routes.length - i - 1)}
+          onClick={() => this._onRouteClick(b, curRoute.breadcrumbs.length - i - 1)}
         >
-          {b.name}
+          {b}
           {
             !isLast ?
             <div className="breadcrumbs-separator" /> :

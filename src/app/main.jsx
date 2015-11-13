@@ -2,8 +2,7 @@ import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
-import {Router} from 'react-router';
-import ReactRouterRelay from 'react-router-relay';
+import {RelayRouter} from 'react-router-relay';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import {Parse} from 'parse';
@@ -54,18 +53,11 @@ function renderApp() {
 
   // Render the app!
   ReactDOM.render((
-    <Router history={useScroll(createBrowserHistory)()} createElement={(Component, props) => {
-      return ReactRouterRelay.createElement(
-        Component, {
-          ...props,
-          messages,
-          locale,
-          formats,
-        },
-      );
+    <RelayRouter history={useScroll(createBrowserHistory)()} createElement={(Component, props) => {
+      return <Component {...props} messages={messages} locale={locale} formats={formats} />;
     }}>
       {getRoutes()}
-    </Router>
+    </RelayRouter>
   ), document.getElementById('app'));
 }
 
