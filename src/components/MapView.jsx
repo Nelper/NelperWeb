@@ -95,7 +95,7 @@ export default class MapView extends Component {
         onDragend={::this._onDragEnd}
         center={this.state.location}
         options={{
-          streetViewControl: false,
+          streetViewControl: true,
           mapTypeControl: false,
           scrollwheel: !this.props.disabled,
         }}

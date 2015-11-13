@@ -124,13 +124,7 @@
   .location {
     @extend %detail-icon;
     background-image: url('images/icons/pin.png');
-  }
-
-  .location-address {
-    font-size: 0.9em;
-    margin-left: 0.75rem;
-    padding-left: 1rem;
-    border-left: $base-border-strong;
+    margin-right: 1rem;
   }
 
   .pending-icon {

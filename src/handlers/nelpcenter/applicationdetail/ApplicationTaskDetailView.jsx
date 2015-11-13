@@ -98,10 +98,10 @@ class ApplicationTaskDetailView extends Component {
           <MapView
             disabled
             initialCenter={new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location)}
-            markers={[{
+            markers={accepted ? [{
               key: 1,
-              position: new LatLng(accepted ? task.userPrivate.exactLocation.coords : task.location),
-            }]}
+              position: new LatLng(task.userPrivate.exactLocation.coords),
+            }] : []}
             shapes={
               !accepted ? [{
                 key: 2,

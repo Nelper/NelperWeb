@@ -12,6 +12,7 @@ import {
   Editable,
   PriceTag,
   TaskPictureSlider,
+  AddressView,
 } from 'components/index';
 import {
   EditTaskTitleMutation,
@@ -357,11 +358,7 @@ class TaskDetailHandler extends Component {
                   </div>
                   <div styleName="detail-row">
                     <div styleName="location" />
-                    <div styleName="location-address">
-                      <div>{location.streetNumber} {location.route}</div>
-                      <div>{location.city}, {location.province}</div>
-                      <div>{location.postalCode}</div>
-                    </div>
+                    <AddressView location={location} short />
                   </div>
                   <div styleName="detail-row">
                     <div styleName="calendar" />

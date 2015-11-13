@@ -179,7 +179,7 @@ export default function getRoutes() {
           IntlUtils.getMessage('routes.browse'),
           IntlUtils.getMessage('routes.browseProfile'),
         ]}
-        path="/browse/:userId"
+        path="/browse/profile/:userId"
         getComponent={getTaskPosterProfileComponent}
         queries={TaskPosterProfileQueries}
         renderLoading={renderLoading}
