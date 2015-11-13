@@ -20,8 +20,7 @@
     "lint": "eslint ./src"
   },
   "engines": {
-    "node": "^4.0.0",
-    "npm": "^3.3.3"
+    "node": "^5.0.0"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/scripts/jestPreprocessor.js",
@@ -85,7 +84,7 @@
     "react-dom": "^0.14.0",
     "react-google-maps": "^4.1.1",
     "react-input-mask": "^0.3.1",
-    "react-intl": "^2.0.0-pr-3",
+    "react-intl": "^2.0.0-beta-1",
     "react-relay": "^0.4.0",
     "react-router": "^1.0.0",
     "react-router-relay": "^0.8.0",
