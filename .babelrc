@@ -1,11 +1,11 @@
 {
   "stage": 0,
+  "optional": ["runtime"],
+  "loose": [
+    "es6.classes"
+  ],
   "env": {
     "production": {
-      "optional": [
-        "optimisation.react.inlineElements",
-        "optimisation.react.constantElements"
-      ]
     },
     "development": {
       "plugins": ["react-transform"],
