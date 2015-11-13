@@ -150,7 +150,7 @@ export default {
       feedback: "Rating & Feedback",
       paymentRequested: "Payment requested",
       paymentReleased: "Payment released",
-      completed: "Completed",
+      completed: "Complétée",
       activeTasks: "Tâches actives",
       completedTasks: "Tâches complétées",
       acceptedRelative: "Accepté {formattedAgo}",
@@ -167,13 +167,13 @@ export default {
     },
 
     applicationDetail: {
-      status: "État",
+      status: "Statut",
       agreed: "Prix convenu",
       offer: "Votre offre",
       amount: "Montant",
-      sent: "Sent",
-      requested: "Requested",
-      initiated: "Initiated",
+      sent: "Envoyé",
+      requested: "Requêté",
+      initiated: "Initié",
 
       progressAccepted: "Accepté",
       progressSent: "Paiement envoyé",
