@@ -39,7 +39,7 @@ class PostTaskFormHandler extends Component {
     desc: '',
     descError: null,
     hasDescInput: false,
-    location: this.props.me.privateData.locations[0],
+    locationIndex: 0,
     locationError: null,
     showCreateLocationDialog: false,
     showDeleteLocationDialog: false,
@@ -56,8 +56,8 @@ class PostTaskFormHandler extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.me.privateData.locations.some(l => l === this.state.location)) {
-      this.setState({location: nextProps.me.privateData.locations[0]});
+    if (this.state.locationIndex >= nextProps.me.privateData.locations.length) {
+      this.setState({locationIndex: 0});
     }
   }
 
@@ -75,7 +75,7 @@ class PostTaskFormHandler extends Component {
     );
     this.setState({
       showCreateLocationDialog: false,
-      location: location,
+      locationIndex: this.props.me.privateData.locations.length - 1,
       locationError: null,
     });
   }
@@ -85,9 +85,8 @@ class PostTaskFormHandler extends Component {
   }
 
   _onLocationChanged(event) {
-    const location = this.props.me.privateData.locations[event.target.selectedIndex];
     this.setState({
-      location,
+      locationIndex: event.target.selectedIndex,
       locationError: null,
     });
   }
@@ -109,7 +108,7 @@ class PostTaskFormHandler extends Component {
     Relay.Store.update(
       new DeleteLocationMutation({
         privateData: this.props.me.privateData,
-        index: this.props.me.privateData.locations.indexOf(this.state.location),
+        index: this.state.locationIndex,
       })
     );
     this.setState({showDeleteLocationDialog: false});
@@ -187,8 +186,6 @@ class PostTaskFormHandler extends Component {
 
   _onSubmit(e) {
     e.preventDefault();
-
-    // TODO: TRANSLATION
     let valid = true;
     if (!this._validateTitle()) {
       this.setState({titleError: <FormattedMessage id="post.errorTitle" />});
@@ -227,7 +224,7 @@ class PostTaskFormHandler extends Component {
           category: this.props.params.category,
           desc: this.state.desc,
           priceOffered: parseInt(this.state.priceOffered, 10),
-          location: this.state.location,
+          location: this._getLocation(this.state.locationIndex),
           pictures: this.state.pictures,
         },
       })
@@ -247,6 +244,10 @@ class PostTaskFormHandler extends Component {
     return 'valid';
   }
 
+  _getLocation(index) {
+    return this.props.me.privateData.locations[index];
+  }
+
   _validateTitle() {
     return this.state.title.length >= MIN_TITLE_LENGTH;
   }
@@ -257,7 +258,7 @@ class PostTaskFormHandler extends Component {
   }
 
   _validateLocation() {
-    return !!this.state.location;
+    return !!this._getLocation(this.state.locationIndex);
   }
 
   _validateDescription() {
@@ -285,6 +286,8 @@ class PostTaskFormHandler extends Component {
       );
     });
 
+    const location = this._getLocation(this.state.locationIndex);
+
     return (
       <div styleName="module" className="container">
         <AddLocationDialogView
@@ -299,7 +302,7 @@ class PostTaskFormHandler extends Component {
           <h2><FormattedMessage id="post.deleteLocationTitle" /></h2>
           <p className="dialog-content">
             <FormattedMessage id="post.deleteLocationMessage" values={{
-              name: this.state.location && this.state.location.name,
+              name: location && location.name,
             }} />
           </p>
           <div className="btn-group dialog-buttons">
@@ -367,7 +370,7 @@ class PostTaskFormHandler extends Component {
                   {
                     locations.length ?
                     <select
-                      value={this.props.me.privateData.locations.indexOf(this.state.location)}
+                      value={this.state.locationIndex}
                       onChange={::this._onLocationChanged}
                     >
                       {locations}
@@ -393,10 +396,10 @@ class PostTaskFormHandler extends Component {
                   null
                 }
                 {
-                  this.state.location ?
+                  location ?
                   <div styleName="address">
-                    <div>{this.state.location.streetNumber} {this.state.location.route}</div>
-                    <div>{this.state.location.city}, {this.state.location.postalCode}</div>
+                    <div>{location.streetNumber} {location.route}</div>
+                    <div>{location.city}, {location.postalCode}</div>
                   </div> :
                   null
                 }
