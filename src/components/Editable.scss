@@ -1,6 +1,10 @@
 .editable-component {
   width: 100%;
 
+  textarea {
+    overflow: hidden;
+  }
+
   .editable {
     display: flex;
     align-items: center;
@@ -22,6 +26,8 @@
     flex-shrink: 0;
     align-self: flex-start;
     margin-left: 0.5rem;
+    margin-top: -0.5rem;
+    margin-bottom: -0.5rem;
 
     &:hover {
       .editable-icon {

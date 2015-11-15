@@ -24,6 +24,14 @@ export class EditableBox extends Component {
     editValue: this.props.initialValue,
   }
 
+  componentDidMount() {
+    this._adjustHeight();
+  }
+
+  componentDidUpdate() {
+    this._adjustHeight();
+  }
+
   _onDoneEdit(event) {
     event.preventDefault();
     const newValue = this.state.editValue;
@@ -44,11 +52,19 @@ export class EditableBox extends Component {
     });
   }
 
+  _adjustHeight() {
+    const {textarea} = this.refs;
+    if (textarea) {
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+  }
+
   render() {
     const input = this.props.multiline ?
       <textarea
         value={this.state.editValue}
         onChange={::this._onEditValueChanged}
+        ref="textarea"
       /> :
       <input
         type={this.props.type}
