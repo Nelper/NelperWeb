@@ -59,7 +59,7 @@ class TaskSummaryView extends Component {
         statusIcon = require('images/icons/accepted.png');
         statusText = <FormattedMessage id="nelpcenter.myTasks.nelperAccepted"/>;
         priceText = <FormattedMessage id="nelpcenter.taskDetail.agreedPrice"/>;
-        date = task.acceptedAt;
+        date = task.acceptedApplication.acceptedAt;
         dateText = <FormattedMessage id="nelpcenter.taskDetail.accepted"/>;
         break;
       }
