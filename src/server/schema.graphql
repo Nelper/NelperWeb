@@ -57,7 +57,7 @@ type BankAccountSetting {
 }
 
 type Browse {
-  tasks(sort: BrowseTaskSort, maxDistance: Int, minPrice: Int, categories: [String], location: GeoPointInput, before: String, after: String, first: Int, last: Int): TaskConnection
+  tasks(sort: BrowseTaskSort, maxDistance: Int, minPrice: Int, categories: [String], location: GeoPointInput, after: String, first: Int, before: String, last: Int): TaskConnection
 }
 
 enum BrowseTaskSort {
@@ -384,6 +384,8 @@ type Task implements Node {
   completionState: TaskCompletionState
   transferState: TaskTransferState
   paymentSentAt: String
+  paymentRequestedAt: String
+  paymentReleasedAt: String
   title: String
   desc: String
   category: String
@@ -464,9 +466,9 @@ type User implements Node {
   skills: [UserSkill]
   experience: [UserExperience]
   education: [UserEducation]
-  feedback(before: String, after: String, first: Int, last: Int): FeedbackConnection
-  tasks(before: String, after: String, first: Int, last: Int): TaskConnection
-  applications(before: String, after: String, first: Int, last: Int): ApplicationConnection
+  feedback(after: String, first: Int, before: String, last: Int): FeedbackConnection
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+  applications(after: String, first: Int, before: String, last: Int): ApplicationConnection
   privateData: UserPrivate
 }
 

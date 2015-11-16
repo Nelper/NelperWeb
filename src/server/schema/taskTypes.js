@@ -119,6 +119,16 @@ export const TaskType = new GraphQLObjectType({
       description: 'The date the task has been paid for.',
       resolve: (task) => task.get('paymentSentAt') && task.get('paymentSentAt').toJSON(),
     },
+    paymentRequestedAt: {
+      type: GraphQLString,
+      description: 'The date the payment has been requested by the nelper.',
+      resolve: (task) => task.get('paymentRequestedAt') && task.get('paymentRequestedAt').toJSON(),
+    },
+    paymentReleasedAt: {
+      type: GraphQLString,
+      description: 'The date the payment has been released and the task marked as completed.',
+      resolve: (task) => task.get('paymentReleasedAt') && task.get('paymentReleasedAt').toJSON(),
+    },
     title: {
       type: GraphQLString,
       description: 'The task title',

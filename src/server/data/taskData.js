@@ -11,7 +11,7 @@ import {getMe} from './userData';
 import {transferToBankAccount} from './paymentData';
 
 import {RootValue} from '../graphql';
-import {ParseObject, ParseID} from './parseTypes';
+import {ParseID} from './parseTypes';
 
 export async function getTask({sessionToken}: RootValue, id: ParseID, loadApplications = false) {
   const query = new Parse.Query(Task)
@@ -245,6 +245,7 @@ export async function completeTask({sessionToken, userId}, taskId) {
   await transferToBankAccount({sessionToken, userId}, task);
 
   task.set('completionState', TASK_COMPLETION_STATE.COMPLETED);
+  task.set('paymentReleasedAt', new Date());
   task.get('user').increment('tasksCompleted');
   await task.save(null, {sessionToken});
 
@@ -259,6 +260,7 @@ export async function requestPayment({sessionToken, userId}, taskId) {
   }
 
   task.set('completionState', TASK_COMPLETION_STATE.PAYMENT_REQUESTED);
+  task.set('paymentRequestedAt', new Date());
   await task.save(null, {sessionToken});
 
   return task;

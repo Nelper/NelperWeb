@@ -55,7 +55,7 @@ export class EditableBox extends Component {
   _adjustHeight() {
     const {textarea} = this.refs;
     if (textarea) {
-      textarea.style.height = textarea.scrollHeight + 'px';
+      textarea.style.height = Math.max(textarea.scrollHeight, 100) + 'px';
     }
   }
 

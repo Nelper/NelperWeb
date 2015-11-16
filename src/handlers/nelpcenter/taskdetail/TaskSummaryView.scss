@@ -1,0 +1,52 @@
+@import 'styles/base-module';
+
+:local {
+  .task-summary {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    @include media($medium-screen) {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1rem 6rem;
+    }
+  }
+
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    @include media($medium-screen) {
+      align-items: center;
+
+      &:not(:last-child) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .summary-icon {
+    @include image(2.5rem);
+    margin-right: 1rem;
+  }
+
+  .summary-title {
+    margin-bottom: 0.75rem;
+    color: $color-gray-medium;
+    font-size: 1.1em;
+  }
+
+  .summary-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .summary-text {
+    font-size: 1em;
+  }
+}

@@ -10,7 +10,6 @@ import ConfirmAcceptNelperDialogView from './ConfirmAcceptNelperDialogView';
 import {
   Dialog,
   Editable,
-  PriceTag,
   TaskPictureSlider,
   AddressView,
 } from 'components/index';
@@ -24,8 +23,8 @@ import {
   DeleteTaskMutation,
   RemoveAcceptedApplicantMutation,
 } from 'actions/nelpcenter/index';
-import IntlUtils from 'utils/IntlUtils';
 import TaskCategoryUtils from 'utils/TaskCategoryUtils';
+import TaskSummaryView from './TaskSummaryView';
 
 import styles from './TaskDetailHandler.scss';
 
@@ -312,6 +311,7 @@ class TaskDetailHandler extends Component {
           onAddPicture={::this._onEditPicturesAdd}
           onDeletePicture={::this._onEditPicturesDelete}
         />
+        <TaskSummaryView task={task} />
       <div styleName="detail-container" className="panel">
           <div styleName="other-info-container">
             <div styleName="other-info-col">
@@ -328,51 +328,10 @@ class TaskDetailHandler extends Component {
                   value={task.desc}
                 />
               </div>
-              {
-                acceptedApplication ?
-                <div styleName="other-info-split">
-                  <div styleName="detail-row">
-                    <div styleName="location" />
-                    <div styleName="location-address">
-                      <div>{location.streetNumber} {location.route}</div>
-                      <div>{location.city}, {location.province}</div>
-                      <div>{location.postalCode}</div>
-                    </div>
-                  </div>
-                  <div styleName="detail-row">
-                    <div styleName="agreed-price">Agreed price</div>
-                    <PriceTag price={acceptedApplication.price} />
-                  </div>
-                </div> :
-                <div styleName="other-info-split">
-                  <div styleName="detail-row">
-                    <div styleName="applicants-count" />
-                    <div styleName="detail-text">
-                      <FormattedMessage id="nelpcenter.common.nelperCount" values={{
-                        num: pendingApplications.length,
-                      }}/>
-                    </div>
-                  </div>
-                  <div styleName="detail-row">
-                    <PriceTag price={task.priceOffered} />
-                  </div>
-                  <div styleName="detail-row">
-                    <div styleName="location" />
-                    <AddressView location={location} short />
-                  </div>
-                  <div styleName="detail-row">
-                    <div styleName="calendar" />
-                    <div styleName="detail-text">
-                      <div>
-                        <FormattedMessage id="common.postedRelative" values={{
-                          formattedAgo:
-                            <FormattedRelative value={task.createdAt}>{IntlUtils.lower}</FormattedRelative>,
-                        }}/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              }
+              <div styleName="detail-row">
+                <div styleName="location" />
+                <AddressView location={location} short />
+              </div>
             </div>
             <div styleName="image-col">
               {
@@ -401,18 +360,10 @@ export default Relay.createContainer(TaskDetailHandler, {
   fragments: {
     task: () => Relay.QL`
       fragment on Task {
-        objectId,
-        createdAt,
         title,
         desc,
         category,
-        priceOffered,
-        city,
         completionState,
-        location {
-          latitude,
-          longitude,
-        },
         pictures {
           url,
         },
@@ -422,20 +373,10 @@ export default Relay.createContainer(TaskDetailHandler, {
             route,
             city,
             province,
-            postalCode,
           },
         },
         acceptedApplication {
-          objectId,
-          user {
-            name,
-            pictureURL,
-            rating,
-            tasksCompleted,
-          },
-          price,
-          phone,
-          email,
+          id,
         },
         applications {
           edges {
@@ -459,6 +400,7 @@ export default Relay.createContainer(TaskDetailHandler, {
         ${RestoreApplicantMutation.getFragment('task')},
         ${DeleteTaskMutation.getFragment('task')},
         ${RemoveAcceptedApplicantMutation.getFragment('task')},
+        ${TaskSummaryView.getFragment('task')},
       }
     `,
   },

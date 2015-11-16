@@ -3,7 +3,6 @@
 :local .module {
 
   .detail-container {
-    margin-bottom: 1rem;
     padding: 0 1rem;
   }
 
@@ -99,27 +98,6 @@
     margin-bottom: 2rem;
     margin-left: 2.5rem;
     text-align: justify;
-  }
-
-  .applicants-count {
-    @extend %detail-icon;
-    background-image: url('images/icons/applicants.png');
-  }
-
-  .price-offered {
-    @extend %detail-icon;
-    background-image: url('images/icons/money.png');
-  }
-
-  .agreed-price {
-    margin-right: 1rem;
-    font-weight: bold;
-    color: $color-gray-medium;
-  }
-
-  .calendar {
-    @extend %detail-icon;
-    background-image: url('images/icons/calendar.png');
   }
 
   .location {

@@ -208,6 +208,16 @@ export default {
     },
 
     taskDetail: {
+      status: "Status",
+      offer: "Your offer",
+      agreedPrice: "Agreed price",
+      amount: "Amount",
+      posted: "Task posted",
+      accepted: "Accepted",
+      requested: "Requested",
+      released: "Released",
+      sent: "Sent",
+
       nelperPending: "Nelpers",
       nelperDenied: "Declined Nelpers",
       nelperAccepted: "Accepted Nelper",
