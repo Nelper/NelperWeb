@@ -155,13 +155,13 @@ export async function postTask({sessionToken, userId}: RootValue, title: string,
   parseTask.set('location', new Parse.GeoPoint(roundCoords(location.coords)));
   parseTask.set('city', location.city);
   parseTask.set('user', parseUser);
-  parseTask.set('pictures', pictures.map(p => {
+  parseTask.set('pictures', pictures ? pictures.map(p => {
     return {
       __type: 'File',
       name: p.name,
       url: p.url,
     };
-  }));
+  }) : []);
 
   const acl = new Parse.ACL(parseUser);
   acl.setPublicReadAccess(true);
