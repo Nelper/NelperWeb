@@ -1,8 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
-import {FormattedMessage, FormattedRelative, FormattedNumber} from 'react-intl';
+import {FormattedMessage, FormattedRelative} from 'react-intl';
 
+import PriceTag from 'components/PriceTag';
 import ApplicantStatusView from '../common/ApplicantStatusView';
 import IntlUtils from 'utils/IntlUtils';
 
@@ -67,9 +68,7 @@ class ApplicationSummaryView extends Component {
           <div styleName="summary-item-title">
             {priceTagTitle}
           </div>
-          <div styleName="summary-item-price">
-            <FormattedNumber value={application.price} format="priceTag" />
-          </div>
+          <PriceTag price={application.price} />
         </div>
         <div styleName="summary-item">
           <div styleName="summary-item-title">

@@ -33,12 +33,6 @@
     font-size: 1.1em;
   }
 
-  .summary-item-price {
-    @include price-tag();
-    margin-top: rem(-5px);
-    transform: scale(0.9);
-  }
-
   .summary-item-applied {
     display: flex;
     align-items: center;
