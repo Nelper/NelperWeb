@@ -20,6 +20,9 @@ export default {
     close: "Fermer",
 
     browse: "Parcourir...",
+
+    errorTitle: "Une erreur est survenue... Veuillez réessayer plus tard.",
+    retry: "Réessayer",
   },
 
   categories: {

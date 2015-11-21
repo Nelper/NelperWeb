@@ -1,8 +1,10 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router';
 import Relay from 'react-relay';
+import {FormattedMessage} from 'react-intl';
 
-import Progress from 'components/Progress';
+import LoadingView from 'handlers/common/LoadingView';
+import FailureView from 'handlers/common/FailureView';
 
 import IntlUtils from 'utils/IntlUtils';
 
@@ -88,7 +90,13 @@ function requireAuth(nextState, transition) {
 }
 
 function renderLoading() {
-  return <div className="progress-center"><Progress /></div>;
+  return <LoadingView />;
+}
+
+function renderFailure(error, retry) {
+  return (
+    <FailureView onRetry={retry} />
+  );
 }
 
 function getHomeComponent(loc, cb) {
@@ -173,6 +181,7 @@ export default function getRoutes() {
         forceFetch
         queries={BrowseQueries}
         renderLoading={renderLoading}
+        renderFailure={renderFailure}
       />
       <Route
         breadcrumbs={[
@@ -183,6 +192,7 @@ export default function getRoutes() {
         getComponent={getTaskPosterProfileComponent}
         queries={TaskPosterProfileQueries}
         renderLoading={renderLoading}
+        renderFailure={renderFailure}
       />
       <Route path="/post" getComponent={getPostCategoriesComponent} />
       <Route
@@ -191,6 +201,7 @@ export default function getRoutes() {
         onEnter={requireAuth}
         queries={PostQueries}
         renderLoading={renderLoading}
+        renderFailure={renderFailure}
       />
       <Route path="/center" component={NelpCenterHandler}>
         <Route
@@ -198,12 +209,14 @@ export default function getRoutes() {
           component={ApplicationsHandler}
           queries={ApplicationsQueries}
           renderLoading={renderLoading}
+          renderFailure={renderFailure}
         />
         <Route
           path="tasks"
           component={TasksHandler}
           queries={TasksQueries}
           renderLoading={renderLoading}
+          renderFailure={renderFailure}
         />
       </Route>
       <Route path="/center/tasks/detail/:taskId"
@@ -211,6 +224,7 @@ export default function getRoutes() {
         component={TaskDetailHandler}
         queries={TaskDetailQueries}
         renderLoading={renderLoading}
+        renderFailure={renderFailure}
       />
       <Route
         breadcrumbs={[
@@ -222,6 +236,7 @@ export default function getRoutes() {
         component={TaskApplicationDetailHandler}
         queries={TaskDetailApplicationQueries}
         renderLoading={renderLoading}
+        renderFailure={renderFailure}
       />
       <Route
         breadcrumbs={[IntlUtils.getMessage('routes.nelpcenter'), IntlUtils.getMessage('routes.applicationDetail')]}
@@ -229,6 +244,7 @@ export default function getRoutes() {
         component={ApplicationDetailHandler}
         queries={ApplicationDetailQueries}
         renderLoading={renderLoading}
+        renderFailure={renderFailure}
       />
       <Route
         breadcrumbs={[
@@ -240,6 +256,7 @@ export default function getRoutes() {
         component={ApplicationDetailProfileHandler}
         queries={ApplicationDetailProfileQueries}
         renderLoading={renderLoading}
+        renderFailure={renderFailure}
       />
       <Route
         path="/profile"
@@ -247,6 +264,7 @@ export default function getRoutes() {
         onEnter={requireAuth}
         queries={ProfileQueries}
         renderLoading={renderLoading}
+        renderFailure={renderFailure}
       />
       <Redirect from="/settings" to="/settings/account"/>
       <Route path="/settings" component={SettingsHandler} onEnter={requireAuth}>
@@ -255,24 +273,28 @@ export default function getRoutes() {
           component={AccountSettingsHandler}
           queries={SettingsQueries}
           renderLoading={renderLoading}
+          renderFailure={renderFailure}
         />
         <Route
           path="notifications"
           component={NotificationsSettingsHandler}
           queries={SettingsQueries}
           renderLoading={renderLoading}
+          renderFailure={renderFailure}
         />
         <Route
           path="nelperpay"
           component={NelperPaySettingsHandler}
           queries={SettingsQueries}
           renderLoading={renderLoading}
+          renderFailure={renderFailure}
         />
         <Route
           path="history"
           component={TransactionHistoryHandler}
           queries={SettingsQueries}
           renderLoading={renderLoading}
+          renderFailure={renderFailure}
         />
       </Route>
       <Route path="/howitworks" getComponent={getHowItWorksComponent} />

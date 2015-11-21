@@ -20,6 +20,9 @@ export default {
     close: "Close",
 
     browse: "Browse...",
+
+    errorTitle: "An error occured... Please try again later.",
+    retry: "Retry",
   },
 
   categories: {
