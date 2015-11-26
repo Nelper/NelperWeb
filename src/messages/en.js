@@ -288,8 +288,8 @@ export default {
     taskTitle: "Enter a title",
     taskDescription: "Describe what you are looking for",
     taskOffer: "How much are you offering?",
-    taskLocation: "Select your location",
-    taskPictures: "Attach pictures",
+    taskLocation: "Select a location for your task",
+    taskPictures: "Add pictures",
     post: "Post my task!",
 
     errorTitle: "Please enter a title.",
