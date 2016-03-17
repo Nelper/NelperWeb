@@ -7,11 +7,11 @@ export default class Checkbox extends Component {
     selected: PropTypes.bool,
     onCheck: PropTypes.func,
     title: PropTypes.node,
-  }
+  };
 
   static defaultProps = {
     onCheck: () => {},
-  }
+  };
 
   _onCheck() {
     this.props.onCheck(!this.props.selected);

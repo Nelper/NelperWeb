@@ -5,7 +5,7 @@ import {
 
 const _resolvers = [];
 
-const {nodeInterface, nodeField} = nodeDefinitions(
+export const {nodeInterface, nodeField} = nodeDefinitions(
   async (globalId, info) => {
     const {type, id} = fromGlobalId(globalId);
     for (const resolver of _resolvers) {
@@ -35,15 +35,9 @@ const {nodeInterface, nodeField} = nodeDefinitions(
  * @param {Function} idFetcher    Returns an object by id
  * @param {Function} typeResolver Returns a type for an object
  */
-function addResolver(idFetcher, typeResolver) {
+export function addResolver(idFetcher, typeResolver) {
   _resolvers.push({
     idFetcher,
     typeResolver,
   });
 }
-
-export default {
-  nodeInterface,
-  nodeField,
-  addResolver,
-};

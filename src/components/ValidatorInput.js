@@ -13,7 +13,7 @@ export default class ValidatorInput extends Component {
     styleName: PropTypes.string,
     style: PropTypes.string,
     type: PropTypes.string,
-  }
+  };
 
   getInput() {
     return this.refs.input;

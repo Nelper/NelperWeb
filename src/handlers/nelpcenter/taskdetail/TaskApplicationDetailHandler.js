@@ -2,13 +2,14 @@ import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import cssModules from 'react-css-modules';
 
-import {Rating} from 'components/index';
+import {Rating, PriceTag} from 'components/index';
+import ChatDialogView from '../common/ChatDialogView';
 import UserProfileView from 'handlers/common/UserProfileView';
 
-import styles from './ApplicationDetailProfileHandler.scss';
+import styles from './TaskApplicationDetailHandler.scss';
 
 @cssModules(styles)
-class ApplicationDetailProfileHandler extends Component {
+class TaskApplicationDetailHandler extends Component {
 
   static propTypes = {
     application: PropTypes.object,
@@ -18,12 +19,29 @@ class ApplicationDetailProfileHandler extends Component {
     router: PropTypes.object.isRequired,
   };
 
+  state = {
+    showChatDialog: false,
+  };
+
+  _onOpenChat() {
+    this.setState({showChatDialog: true});
+  }
+
+  _onCloseChat() {
+    this.setState({showChatDialog: false});
+  }
+
   render() {
     const {application} = this.props;
     const user = application.user;
 
     return (
       <div styleName="module" className="container">
+        <ChatDialogView
+          user={user}
+          opened={this.state.showChatDialog}
+          onClose={::this._onCloseChat}
+        />
         <div className="header-panel" styleName="header" >
           <div styleName="header-profile">
             <div
@@ -37,6 +55,14 @@ class ApplicationDetailProfileHandler extends Component {
               <Rating rating={user.rating} number={user.tasksCompleted} />
             </div>
           </div>
+          <div styleName="header-asking-for">
+            Asking for
+            <PriceTag inverse price={application.price} />
+          </div>
+          <div styleName="chat">
+            <div styleName="chat-icon" />
+            <button className="border-btn inverse" onClick={::this._onOpenChat}>Open Chat</button>
+          </div>
         </div>
         <UserProfileView user={user} />
       </div>
@@ -44,14 +70,18 @@ class ApplicationDetailProfileHandler extends Component {
   }
 }
 
-export default Relay.createContainer(ApplicationDetailProfileHandler, {
+export default Relay.createContainer(TaskApplicationDetailHandler, {
   fragments: {
     application: () => Relay.QL`
       fragment on Application {
+        price,
         user {
+          objectId,
           name,
-          rating,
           pictureURL,
+          about,
+          rating,
+          tasksCompleted,
           ${UserProfileView.getFragment('user')},
         }
       }

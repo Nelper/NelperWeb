@@ -12,37 +12,6 @@
     "FB": true
   },
   "rules": {
-    "id-length": [0],
-    "react/sort-comp": [0, {
-      "order": [
-        "displayName",
-        "propTypes",
-        "contextTypes",
-        "childContextTypes",
-        "mixins",
-        "statics",
-        "defaultProps",
-        "getStores",
-        "getPropsFromStores",
-        "showNavBar",
-        "state",
-        "constructor",
-        "getDefaultProps",
-        "getInitialState",
-        "getChildContext",
-        "componentWillMount",
-        "componentDidMount",
-        "componentWillReceiveProps",
-        "shouldComponentUpdate",
-        "componentWillUpdate",
-        "componentDidUpdate",
-        "componentWillUnmount",
-        "/^_?on.+$/",
-        "/^_?get.+$/",
-        "/_(?!render|on|get).+$/",
-        "/^_?render.+$/",
-        "render"
-      ]}],
-    "react/no-multi-comp": [0]
+    "id-length": [0]
   }
 }

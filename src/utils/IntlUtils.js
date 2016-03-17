@@ -50,21 +50,21 @@ export default class IntlUtils {
           require.ensure([
             'intl',
             'intl/locale-data/jsonp/fr-CA',
-            'react-intl/lib/locale-data/fr',
+            'react-intl/locale-data/fr',
             'messages/fr',
           ], (require) => {
             require('intl');
             require('intl/locale-data/jsonp/fr-CA');
-            addLocaleData(require('react-intl/lib/locale-data/fr'));
+            addLocaleData(require('react-intl/locale-data/fr'));
             IntlUtils._messages = flattenMessagesKeys(require('messages/fr'));
             resolve(IntlUtils._messages);
           });
         } else {
           require.ensure([
-            'react-intl/lib/locale-data/fr',
+            'react-intl/locale-data/fr',
             'messages/fr',
           ], (require) => {
-            addLocaleData(require('react-intl/lib/locale-data/fr'));
+            addLocaleData(require('react-intl/locale-data/fr'));
             IntlUtils._messages = flattenMessagesKeys(require('messages/fr'));
             resolve(IntlUtils._messages);
           });

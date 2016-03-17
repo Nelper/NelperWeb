@@ -11,12 +11,12 @@ export default class PriceTag extends Component {
     scale: PropTypes.number,
     inverse: PropTypes.bool,
     gray: PropTypes.bool,
-  }
+  };
 
   static defaultProps = {
     scale: 1,
     inverse: false,
-  }
+  };
 
   render() {
     let style;

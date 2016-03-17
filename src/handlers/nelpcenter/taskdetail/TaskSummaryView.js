@@ -13,14 +13,14 @@ class TaskSummaryView extends Component {
 
   static propTypes = {
     task: PropTypes.object.isRequired,
-  }
+  };
 
   state = {
     showProgressHelpDialog: false,
     showPaymentDialog: false,
     ratingText: '',
     rating: 0,
-  }
+  };
 
   render() {
     const {task} = this.props;

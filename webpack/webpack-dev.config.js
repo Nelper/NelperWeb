@@ -41,7 +41,7 @@ module.exports = merge(shared.config, {
       loaders: ['style', 'css?importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss', 'sass?' + shared.sassPaths],
     }, {
       test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel?plugins=./scripts/babelRelayPlugin'],
+      loaders: ['react-hot', 'babel'],
       include: path.resolve(ROOT_PATH, 'src'),
     }, {
       test: /\.(png|jpg)$/,
