@@ -1,1 +1,1 @@
-export default require.requireActual('../parseTypes');
+module.exports = require.requireActual('../parseTypes');

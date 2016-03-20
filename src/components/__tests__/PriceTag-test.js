@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 
-const PriceTag = require('../PriceTag');
+const PriceTag = require('../PriceTag').default;
 
 describe('PriceTag', () => {
   it('displays the price', () => {

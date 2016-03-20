@@ -36,7 +36,8 @@
       "<rootDir>/node_modules/babel-runtime",
       "<rootDir>/node_modules/graphql",
       "<rootDir>/node_modules/graphql-relay",
-      "<rootDir>/node_modules/parse"
+      "<rootDir>/node_modules/parse",
+      "<rootDir>/node_modules/stripe"
     ]
   },
   "dependencies": {

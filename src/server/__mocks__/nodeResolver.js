@@ -1,1 +1,1 @@
-export default require.requireActual('../nodeResolver');
+module.exports = require.requireActual('../nodeResolver');

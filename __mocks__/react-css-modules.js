@@ -1,3 +1,1 @@
-export default () => {
-  return (Component) => Component;
-};
+export default () => (Component) => Component;

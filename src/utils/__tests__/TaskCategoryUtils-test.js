@@ -1,6 +1,6 @@
 jest.dontMock('../TaskCategoryUtils');
 
-const TaskCategoryUtils = require('../TaskCategoryUtils');
+const TaskCategoryUtils = require('../TaskCategoryUtils').default;
 
 describe('TaskCategoryUtils', () => {
   it('returns the list of categories', () => {

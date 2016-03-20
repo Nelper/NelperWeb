@@ -1,17 +1,12 @@
-const babel = require('babel-core');
+const babelJest = require('babel-jest');
 
-const babelOptions = {
-  retainLines: true,
-  stage: 0,
-  auxiliaryCommentBefore: 'istanbul ignore next',
-  plugins: [],
-};
+require('babel-polyfill');
 
 module.exports = {
   process: (src, filename) => {
-    if (!babel.canCompile(filename)) {
-      return '';
+    if (filename.match(/\.jsx?$/)) {
+      return babelJest.process(src, filename);
     }
-    return babel.transform(src, Object.assign({filename: filename}, babelOptions)).code;
+    return '';
   },
 };

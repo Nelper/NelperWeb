@@ -1,6 +1,6 @@
-const ParseActual = require.requireActual('../parse');
+const ParseActual = require.requireActual('../parse').default;
 
-const ParseMock = jest.genMockFromModule('../parse');
+const ParseMock = jest.genMockFromModule('../parse').default;
 
 let _mockData = {};
 

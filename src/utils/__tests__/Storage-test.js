@@ -1,6 +1,6 @@
 jest.dontMock('../Storage');
 
-const Storage = require('../Storage');
+const Storage = require('../Storage').default;
 
 class FakeLocalStorage {
   _data = {}

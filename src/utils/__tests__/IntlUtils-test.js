@@ -1,6 +1,6 @@
 jest.dontMock('../IntlUtils');
 
-const IntlUtils = require('../IntlUtils');
+const IntlUtils = require('../IntlUtils').default;
 
 describe('IntlUtils', () => {
   it('returns the phone number with only numbers', () => {

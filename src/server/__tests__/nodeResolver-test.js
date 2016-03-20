@@ -35,12 +35,10 @@ const QueryType = new GraphQLObjectType({
     node: nodeField,
     me: {
       type: UserType,
-      resolve: () => {
-        return {
-          id: 1,
-          name: 'Jane Mills',
-        };
-      },
+      resolve: () => ({
+        id: 1,
+        name: 'Jane Mills',
+      }),
     },
   }),
 });

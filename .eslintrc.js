@@ -18,7 +18,7 @@ module.exports = {
   rules: {
     'id-length': OFF,
     'indent': [WARN, 2, {SwitchCase: 0}],
-    'object-curly-spacing': [WARN, 'never'],
+    'object-curly-spacing': OFF,
     'max-len': [WARN, 120],
     'react/jsx-no-bind': [WARN, {allowArrowFunctions: true}],
     'react/prefer-stateless-function': [OFF],

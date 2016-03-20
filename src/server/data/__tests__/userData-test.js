@@ -1,4 +1,5 @@
-jest.dontMock('../userData');
+jest.autoMockOff();
+jest.mock('../parse');
 
 import Parse from '../parse';
 import {UserPrivateData} from '../parseTypes';

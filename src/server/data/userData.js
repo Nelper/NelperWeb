@@ -52,7 +52,7 @@ export async function createAccount(rootValue, type, email, firstName, lastName,
   const {userId, sessionToken} = rootValue;
   const user = new Parse.User();
   user.id = userId;
-  user.set('name', firstName + ' ' + lastName);
+  user.set('name', `${firstName} ${lastName}`);
   user.set('firstName', firstName);
   user.set('lastName', lastName);
   user.set('pictureURL', pictureURL);
@@ -102,7 +102,7 @@ export async function saveGeneralSettings({userId, sessionToken}, email, phone, 
   }
   if (language) {
     if (language !== 'en' && language !== 'fr') {
-      throw Error('Invalid language code ' + language);
+      throw Error(`Invalid language code ${language}`);
     }
     privateData.set('language', language);
   }
@@ -140,7 +140,7 @@ export async function updateNotificationSettings({userId, sessionToken}, setting
   const privateData = user.get('privateData');
   const notifications = privateData.get('notifications');
   if (!notifications[settingId]) {
-    throw Error('Invalid setting type ' + settingId);
+    throw Error(`Invalid setting type ${settingId}`);
   }
   notifications[settingId] = settingValue;
   privateData.set('notifications', notifications);
