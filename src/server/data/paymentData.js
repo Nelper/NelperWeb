@@ -7,13 +7,14 @@ import {getMe, getUserPrivateWithMasterKey} from './userData';
 import {getTask} from './taskData';
 import {TASK_COMPLETION_STATE, TASK_PAYMENT_STATE} from './constants';
 
+import config from '../config';
 import {RootValue} from '../graphql';
 import {ParseObject, ParseID} from './parseTypes';
 
 // The percentage of the total amount charged that is transfered in our account.
 const PLATFORM_FEES_PERCENTAGE = 10;
 
-const stripe = new Stripe('sk_test_JBQSP7eMqdNUqe7rQFYLEFXi');
+const stripe = new Stripe(config.stripe.masterKey);
 
 // TODO(janic): The payment process will need to be logged heavily to debug any issues.
 
@@ -47,10 +48,10 @@ export async function sendPaymentForTask(rootValue: RootValue, taskId: ParseID, 
 
   // Create the charge on stripe.
   const response = await stripe.charges.create({
-    amount: amount,
+    amount,
+    destination,
     currency: 'cad',
     source: token,
-    destination: destination,
     application_fee: applicationFee,
   });
 
@@ -82,8 +83,8 @@ export async function createStripeAccount({sessionToken, userAgent, ip}: RootVal
     managed: true,
     email: privateData.get('email'),
     tos_acceptance: {
+      ip,
       date: Math.floor(new Date().getTime() / 1000),
-      ip: ip,
       user_agent: userAgent,
     },
     transfer_schedule: {
@@ -110,14 +111,14 @@ export async function addBankAccount(rootValue: RootValue, token: string, identi
       legal_entity: {
         type: 'individual',
         address: {
-          line1: identityInfo.address.streetNumber + ' ' + identityInfo.address.route,
+          line1: `${identityInfo.address.streetNumber} ${identityInfo.address.route}`,
           city: identityInfo.address.city,
           state: identityInfo.address.province,
           postal_code: identityInfo.address.postalCode,
           country: 'CA',
         },
         personal_address: {
-          line1: identityInfo.address.streetNumber + ' ' + identityInfo.address.route,
+          line1: `${identityInfo.address.streetNumber} ${identityInfo.address.route}`,
           city: identityInfo.address.city,
           state: identityInfo.address.province,
           postal_code: identityInfo.address.postalCode,
@@ -159,7 +160,7 @@ export async function transferToBankAccount({sessionToken, userId}: RootValue, t
   let response;
   try {
     response = await stripe.transfers.create({
-      amount: amount,
+      amount,
       currency: 'cad',
       destination: 'default_for_currency',
     },
@@ -198,7 +199,7 @@ export async function getBankTransferState(rootValue: RootValue, taskId: ParseID
     state = TASK_PAYMENT_STATE.FAILED;
     break;
   default:
-    throw Error('Unknown task status ' + response.status);
+    throw Error(`Unknown task status ${response.status}`);
   }
 
   return state;

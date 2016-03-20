@@ -51,17 +51,19 @@ export async function getTasksForUser({sessionToken}: RootValue, userId: ParseID
 
   const applications = await applicationsQuery.find({sessionToken});
   return tasks.map((task) => {
-    const taskApplications = applications.filter((a) => {
-      return a.get('task').id === task.id;
-    })
-    .sort((ta1, ta2) => ta1.createdAt < ta2.createdAt ? 1 : -1);
+    const taskApplications = applications
+      .filter((a) => a.get('task').id === task.id)
+      .sort((ta1, ta2) => ta1.createdAt < ta2.createdAt ? 1 : -1);
     taskApplications.forEach(a => a.set('task', task));
     task.set('applications', taskApplications);
     return task;
   });
 }
 
-export async function findTasks({userId, sessionToken}: RootValue, {sort, minPrice, maxDistance, location, categories}: any) {
+export async function findTasks(
+  {userId, sessionToken}: RootValue,
+  {sort, minPrice, maxDistance, location, categories}: any
+) {
   let sortValue = sort;
   let userLoc = location;
   if (sortValue === undefined) {
@@ -142,7 +144,15 @@ function roundCoords(coords) {
   };
 }
 
-export async function postTask({sessionToken, userId}: RootValue, title: string, category: string, desc: string, priceOffered: number, location: any, pictures: [any]) {
+export async function postTask(
+  {sessionToken, userId}: RootValue,
+  title: string,
+  category: string,
+  desc: string,
+  priceOffered: number,
+  location: any,
+  pictures: [any]
+) {
   const parseUser = new Parse.User();
   parseUser.id = userId;
   const parseTask = new Task();
@@ -155,13 +165,11 @@ export async function postTask({sessionToken, userId}: RootValue, title: string,
   parseTask.set('location', new Parse.GeoPoint(roundCoords(location.coords)));
   parseTask.set('city', location.city);
   parseTask.set('user', parseUser);
-  parseTask.set('pictures', pictures ? pictures.map(p => {
-    return {
-      __type: 'File',
-      name: p.name,
-      url: p.url,
-    };
-  }) : []);
+  parseTask.set('pictures', pictures ? pictures.map(p => ({
+    __type: 'File',
+    name: p.name,
+    url: p.url,
+  })) : []);
 
   const acl = new Parse.ACL(parseUser);
   acl.setPublicReadAccess(true);

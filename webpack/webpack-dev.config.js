@@ -5,6 +5,10 @@ const autoprefixer = require('autoprefixer');
 const shared = require('./webpack-shared.js');
 const commonLoaders = require('./common-loaders');
 
+const config = require('../config/clientConfig');
+
+console.log(config);
+
 const ROOT_PATH = path.resolve(__dirname, '..');
 
 module.exports = merge(shared.config, {
@@ -51,9 +55,10 @@ module.exports = merge(shared.config, {
   postcss: [autoprefixer({browsers: ['last 1 Chrome versions']})],
   plugins: [
     new webpack.DefinePlugin({
-      '__CLIENT__': true,
-      '__SERVER__': false,
-      '__DEVELOPMENT__': true,
+      __CLIENT__: true,
+      __SERVER__: false,
+      __DEVELOPMENT__: true,
+      __CLIENT_CONFIG__: JSON.stringify(config),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),

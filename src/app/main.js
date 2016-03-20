@@ -13,6 +13,7 @@ import getRoutes from './getRoutes';
 import formats from 'utils/IntlFormats';
 import Storage from 'utils/Storage';
 import RelayNetworkLayer from './RelayNetworkLayer';
+import config from './config';
 
 import 'normalize.css/normalize.css';
 import 'styles/common.scss';
@@ -20,7 +21,10 @@ import 'file?name=[name].[ext]!images/favicon.ico';
 import 'images/user-no-picture.jpg';
 
 // Initialize Parse
-Parse.initialize('w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN', 'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si');
+Parse.initialize(
+  config.parse.applicationId,
+  config.parse.javascriptKey,
+);
 
 const session = ApiUtils.getUserSession();
 Relay.injectNetworkLayer(
@@ -38,7 +42,7 @@ function getBrowserLang() {
 // Get the language.
 const lang = Storage.getItem('lang') || getBrowserLang();
 // Force Canada locale.
-const locale = lang + '-CA';
+const locale = `${lang}-CA`;
 
 let facebookLoaded = false;
 let intlDataLoaded = false;
@@ -52,9 +56,11 @@ function renderApp() {
 
   // Render the app!
   ReactDOM.render((
-    <RelayRouter history={browserHistory} createElement={(Component, props) => {
-      return <Component {...props} messages={messages} locale={locale} formats={formats} />;
-    }}>
+    <RelayRouter
+      history={browserHistory}
+      createElement={(Component, props) =>
+        <Component {...props} messages={messages} locale={locale} formats={formats} />}
+    >
       {getRoutes()}
     </RelayRouter>
   ), document.getElementById('app'));
@@ -70,9 +76,9 @@ LogUtils.init();
 
 window.fbAsyncInit = () => {
   Parse.FacebookUtils.init({
-    appId: '1446755655626296',  // Facebook App ID
-    cookie: true,               // enable cookies to allow Parse to access the session
-    xfbml: true,                // initialize Facebook social plugins on the page
+    appId: config.facebook.appId, // Facebook App ID
+    cookie: true,                 // enable cookies to allow Parse to access the session
+    xfbml: true,                  // initialize Facebook social plugins on the page
     version: 'v2.4',
   });
 

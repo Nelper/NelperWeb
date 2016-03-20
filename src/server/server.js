@@ -15,24 +15,25 @@
 import fs from 'fs';
 import express from 'express';
 import path from 'path';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import {RoutingContext, match} from 'react-router';
-import createLocation from 'history/lib/createLocation';
+// import React from 'react';
+// import ReactDOMServer from 'react-dom/server';
+// import {RoutingContext, match} from 'react-router';
+// import createLocation from 'history/lib/createLocation';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import compression from 'compression';
 import Parse from 'parse/node';
 
 // import getRoutes from 'app/getRoutes';
-import alt from 'app/alt';
-import ApiUtils from 'utils/ServerApiUtils';
-import IntlUtils from 'utils/IntlUtils';
-import formats from 'utils/IntlFormats';
+// import alt from 'app/alt';
+// import ApiUtils from 'utils/ServerApiUtils';
+// import IntlUtils from 'utils/IntlUtils';
+// import formats from 'utils/IntlFormats';
 import graphql from './graphql';
 import {processStripeEvent} from './data/paymentData';
 
 import template from './template';
+import config from './config';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -45,16 +46,19 @@ const compiledTemplate = template
   .replace('{main}', assets.main.js);
 
 Parse.initialize(
-  'w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN',
-  'x6AWt2EdYFuK7HoDgQVI8xEJs6fsjcn3MHKr22si',
-  'PjVCIvICgrOZjwSG5AiuKCjdyrzHjfalWbAK5mwR'
+  config.parse.applicationId,
+  config.parse.javascriptKey,
+  config.parse.masterKey,
 );
 
 graphql(app);
 
 app.use(compression());
 app.use(express.static(path.resolve(__dirname, '../../src/static'), {index: false}));
-app.use(express.static(path.resolve(__dirname, '../../build/client'), {maxAge: 30 * 24 * 60 * 60 * 1000, index: false}));
+app.use(express.static(
+  path.resolve(__dirname, '../../build/client'),
+  {maxAge: 30 * 24 * 60 * 60 * 1000, index: false})
+);
 
 app.use(morgan('combined'));
 app.use(cookieParser());
@@ -68,35 +72,40 @@ app.post('/api/stripe', async (req, res) => {
   } catch (err) {
     console.error(err.stack);
     // If there is an error stripe will resend the event if we send a > 300 code.
-    return res.sendStatus(500);
+    res.sendStatus(500);
+    return;
   }
 
   res.sendStatus(200);
 });
 
-app.use((req, res, next) => {
+app.use((req, res, /* next */) => {
   if (__DISABLE_SSR__) {
-    return res.send(compiledTemplate.replace('{content}', ''));
+    res.send(compiledTemplate.replace('{content}', ''));
+    return;
   }
 
-  function renderPage(messages, locale) {
+  /* function renderPage(messages, locale) {
     const location = createLocation(req.url);
     match({routes: getRoutes(), location}, (error, redirectLocation, renderProps) => {
       if (redirectLocation) {
-        return res.redirect(redirectLocation.pathname + redirectLocation.search);
+        res.redirect(redirectLocation.pathname + redirectLocation.search);
+        return;
       }
       if (error) {
-        return next(error);
+        next(error);
+        return;
       }
       const html = ReactDOMServer.renderToString(
-        <RoutingContext createElement={(Component, props) => {
-          return (
-            <Component {...props} messages={messages} locale={locale} formats={formats} />
-          );
-        }} {...renderProps} />
+        <RoutingContext
+          createElement={(Component, props) =>
+            <Component {...props} messages={messages} locale={locale} formats={formats} />}
+          {...renderProps}
+        />
       );
       alt.flush();
-      return res.send(compiledTemplate.replace('{content}', html));
+      res.send(compiledTemplate.replace('{content}', html));
+      return;
     });
   }
 
@@ -135,7 +144,7 @@ app.use((req, res, next) => {
       });
   } else {
     loadLocale(getReqLang());
-  }
+  }*/
 });
 
 app.listen(port);

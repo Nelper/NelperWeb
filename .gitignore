@@ -9,3 +9,7 @@ build/
 coverage/
 src/data/schema.graphql
 test_output/
+
+# Config
+config/client.config.yaml
+config/server.config.yaml

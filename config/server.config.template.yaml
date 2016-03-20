@@ -1,0 +1,7 @@
+parse:
+  applicationId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+  javascriptKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+  masterKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
+stripe:
+  masterKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'

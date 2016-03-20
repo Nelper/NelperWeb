@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 
+const config = require('../config/clientConfig');
 const shared = require('./webpack-shared.js');
 const commonLoaders = require('./common-loaders');
 
@@ -40,11 +41,12 @@ module.exports = [
       new ExtractTextPlugin('[hash].styles.css', {allChunks: true}),
       new webpack.DefinePlugin({
         'process.env': {
-          'NODE_ENV': JSON.stringify('production'),
+          NODE_ENV: JSON.stringify('production'),
         },
-        '__CLIENT__': true,
-        '__SERVER__': false,
-        '__DEVELOPMENT__': false,
+        __CLIENT__: true,
+        __SERVER__: false,
+        __DEVELOPMENT__: false,
+        __CLIENT_CONFIG__: config,
       }),
       new webpack.optimize.CommonsChunkPlugin('shared', '[hash].shared.js'),
       new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
@@ -86,10 +88,11 @@ module.exports = [
         { raw: true, entryOnly: false }
       ),
       new webpack.DefinePlugin({
-        '__CLIENT__': false,
-        '__SERVER__': true,
-        '__DISABLE_SSR__': true,
-        '__DEVELOPMENT__': process.env.NODE_ENV !== 'production',
+        __CLIENT__: false,
+        __SERVER__: true,
+        __DISABLE_SSR__: true,
+        __DEVELOPMENT__: process.env.NODE_ENV !== 'production',
+        __CLIENT_CONFIG__: config,
       }),
     ],
     module: {
