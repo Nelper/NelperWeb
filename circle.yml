@@ -2,6 +2,9 @@ machine:
   node:
     version: 5.8.0
 test:
+  pre:
+    - mv ./config/client.config.template.yaml ./config/client.config.yaml
+    - mv ./config/server.config.template.yaml ./config/server.config.yaml
   override:
     - NODE_ENV=test npm test -- --maxWorkers=1
   post:
