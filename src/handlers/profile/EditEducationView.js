@@ -67,18 +67,16 @@ class EditEducationView extends Component {
   render() {
     const {me} = this.props;
 
-    const education = me.education.map((e, i) => {
-      return (
-        <div className="education" key={i}>
-          <Editable
-            deletable
-            onEditDone={(val) => this._onEditEducationDone(e, val)}
-            onDelete={() => this._onDeleteEducation(e)}
-            value={e.title}
-          />
-        </div>
-      );
-    });
+    const education = me.education.map((e, i) =>
+      <div className="education" key={i}>
+        <Editable
+          deletable
+          onEditDone={(val) => this._onEditEducationDone(e, val)}
+          onDelete={() => this._onDeleteEducation(e)}
+          value={e.title}
+        />
+      </div>
+    );
 
     return (
       <div styleName="module" className="panel pad-all profile-section-row">

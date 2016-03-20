@@ -67,18 +67,16 @@ class EditSkillsView extends Component {
   render() {
     const {me} = this.props;
 
-    const skills = me.skills.map((s, i) => {
-      return (
-        <div key={i} styleName="skill">
-          <Editable
-            deletable
-            onEditDone={(val) => this._onEditSkillDone(s, val)}
-            onDelete={() => this._onDeleteSkill(s)}
-            value={s.title}
-          />
-        </div>
-      );
-    });
+    const skills = me.skills.map((s, i) =>
+      <div key={i} styleName="skill">
+        <Editable
+          deletable
+          onEditDone={(val) => this._onEditSkillDone(s, val)}
+          onDelete={() => this._onDeleteSkill(s)}
+          value={s.title}
+        />
+      </div>
+    );
 
     return (
       <div styleName="module" className="panel pad-all profile-section-row">

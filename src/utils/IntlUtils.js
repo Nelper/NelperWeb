@@ -6,8 +6,8 @@ import {addLocaleData} from 'react-intl';
  */
 export default class IntlUtils {
 
-  static _messages = null
-  static _language = null
+  static _messages = null;
+  static _language = null;
 
   /**
    * Loads the data for the specified locale. Includes a polyfill for window.Intl
@@ -31,7 +31,7 @@ export default class IntlUtils {
           const flatObject = flattenMessagesKeys(messages[i]);
           for (const x in flatObject) {
             if (!flatObject.hasOwnProperty(x)) continue;
-            result[i + '.' + x] = flatObject[x];
+            result[`${i}.${x}`] = flatObject[x];
           }
         } else {
           result[i] = messages[i];
@@ -56,7 +56,7 @@ export default class IntlUtils {
             require('intl');
             require('intl/locale-data/jsonp/fr-CA');
             addLocaleData(require('react-intl/locale-data/fr'));
-            IntlUtils._messages = flattenMessagesKeys(require('messages/fr'));
+            IntlUtils._messages = flattenMessagesKeys(require('messages/fr').default);
             resolve(IntlUtils._messages);
           });
         } else {
@@ -65,7 +65,7 @@ export default class IntlUtils {
             'messages/fr',
           ], (require) => {
             addLocaleData(require('react-intl/locale-data/fr'));
-            IntlUtils._messages = flattenMessagesKeys(require('messages/fr'));
+            IntlUtils._messages = flattenMessagesKeys(require('messages/fr').default);
             resolve(IntlUtils._messages);
           });
         }
@@ -79,12 +79,12 @@ export default class IntlUtils {
           ], (require) => {
             require('intl');
             require('intl/locale-data/jsonp/en-CA');
-            IntlUtils._messages = flattenMessagesKeys(require('messages/en'));
+            IntlUtils._messages = flattenMessagesKeys(require('messages/en').default);
             resolve(IntlUtils._messages);
           });
         } else {
           require.ensure(['messages/en'], (require) => {
-            IntlUtils._messages = flattenMessagesKeys(require('messages/en'));
+            IntlUtils._messages = flattenMessagesKeys(require('messages/en').default);
             resolve(IntlUtils._messages);
           });
         }

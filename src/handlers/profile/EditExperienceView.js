@@ -67,18 +67,16 @@ class EditExperienceView extends Component {
   render() {
     const {me} = this.props;
 
-    const experience = me.experience.map((e, i) => {
-      return (
-        <div key={i}>
-          <Editable
-            deletable
-            onEditDone={(val) => this._onEditExperienceDone(e, val)}
-            onDelete={() => this._onDeleteExperience(e)}
-            value={e.title}
-          />
-        </div>
-      );
-    });
+    const experience = me.experience.map((e, i) =>
+      <div key={i}>
+        <Editable
+          deletable
+          onEditDone={(val) => this._onEditExperienceDone(e, val)}
+          onDelete={() => this._onDeleteExperience(e)}
+          value={e.title}
+        />
+      </div>
+    );
 
     return (
       <div styleName="module" className="panel pad-all profile-section-row">

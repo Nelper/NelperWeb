@@ -84,7 +84,7 @@ class AccountSettingsHandler extends Component {
       stripe,
     } = this.state;
 
-    const routingNumber = bankTransit + '-' + institutionNumber;
+    const routingNumber = `${bankTransit}-${institutionNumber}`;
 
     if (!firstName.length) {
       console.log('firstName');
@@ -136,11 +136,9 @@ class AccountSettingsHandler extends Component {
       return null;
     }
     const {user} = this.props;
-    const locations = user.privateData.locations.map((l, i) => {
-      return (
-        <option value={i} key={i}>{l.name}</option>
-      );
-    });
+    const locations = user.privateData.locations.map((l, i) =>
+      <option value={i} key={i}>{l.name}</option>
+    );
 
     return (
       <div className="settings-handler container">
@@ -166,18 +164,26 @@ class AccountSettingsHandler extends Component {
                 onChange={::this._onBirthdayChange}
               />
               Address
-              <select value={user.privateData.locations.indexOf(this.state.location)} onChange={::this._onLocationChange}>
+              <select
+                value={user.privateData.locations.indexOf(this.state.location)}
+                onChange={::this._onLocationChange}
+              >
                 <option key={-1} value={-1}>Choose an address</option>
                 {locations}
               </select>
               Bank transit
               <input value={this.state.bankTransit} onChange={::this._onBankTransitChange} />
               Institution number
-              <input value={this.state.institutionNumber} onChange={::this._onInstitutionNumberChange} />
+              <input
+                value={this.state.institutionNumber}
+                onChange={::this._onInstitutionNumberChange}
+              />
               Account number
               <input value={this.state.accountNumber} onChange={::this._onAccountNumberChange} />
             </form>
-            <button className="primary" onClick={::this._onAddBackAccount}>Add bank account</button>
+            <button className="primary" onClick={::this._onAddBackAccount}>
+              Add bank account
+            </button>
           </div>
         </div>
       </div>

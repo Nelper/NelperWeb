@@ -160,22 +160,26 @@ class AccountSettingsHandler extends Component {
   render() {
     const {user} = this.props;
 
-    const locations = user.privateData.locations.map(l => {
-      return (
-        <div styleName="location-row">
-          <div styleName="name-col">{l.name}</div>
-          <div styleName="address-col">
-            <div>{l.streetNumber} {l.route}</div>
-            <div>{l.city}, {l.province} </div>
-            <div>{l.postalCode}</div>
-          </div>
-          <div styleName="edit-col">
-            <IconButton icon={require('images/icons/edit.svg')} onClick={() => this._onEditLocation(l)}/>
-            <IconButton icon={require('images/icons/delete.svg')} onClick={() => this._onDeleteLocation(l)}/>
-          </div>
+    const locations = user.privateData.locations.map(l =>
+      <div styleName="location-row">
+        <div styleName="name-col">{l.name}</div>
+        <div styleName="address-col">
+          <div>{l.streetNumber} {l.route}</div>
+          <div>{l.city}, {l.province} </div>
+          <div>{l.postalCode}</div>
         </div>
-      );
-    });
+        <div styleName="edit-col">
+          <IconButton
+            icon={require('images/icons/edit.svg')}
+            onClick={() => this._onEditLocation(l)}
+          />
+          <IconButton
+            icon={require('images/icons/delete.svg')}
+            onClick={() => this._onDeleteLocation(l)}
+          />
+        </div>
+      </div>
+    );
 
     return (
       <div styleName="module" className="container">
@@ -183,7 +187,8 @@ class AccountSettingsHandler extends Component {
           opened={this.state.showLocationDialog}
           location={this.state.editedLocation}
           onLocationAdded={::this._onAddLocation}
-          onCancel={::this._onCloseLocationDialog} />
+          onCancel={::this._onCloseLocationDialog}
+        />
         <div className="panel">
           <h2 className="panel-title">
             <FormattedMessage id="settings.account.general" />
@@ -203,8 +208,8 @@ class AccountSettingsHandler extends Component {
             </div>
             <div styleName="setting-row">
               <div styleName="setting-title">
-                <FormattedMessage id="settings.account.phone" /
-                  ></div>
+                <FormattedMessage id="settings.account.phone" />
+              </div>
               <div styleName="setting-input">
                 <InputElement
                   mask="(999) 999-9999"

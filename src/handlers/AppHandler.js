@@ -32,12 +32,11 @@ class AppHandler extends Component {
       messages,
       formats,
     } = this.props;
-    debugger;
     const [lang] = locale.split('-');
     const showNavBar = !children || !children.type.showNavBar || children.type.showNavBar();
     return (
       <IntlProvider locale={locale} messages={messages} formats={formats}>
-        <div className={'main-container lang-' + lang}>
+        <div className={`main-container lang-${lang}`}>
           {
             showNavBar ?
             <NavBar user={me} /> :

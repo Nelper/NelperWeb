@@ -58,9 +58,9 @@
       letter-spacing: 0.5px;
 
       img {
+        max-width: $navigation-height;
         max-height: $navigation-height;
         padding: 8px;
-        max-width: none;
       }
 
       .title {

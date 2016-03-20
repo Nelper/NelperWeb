@@ -62,7 +62,8 @@ class ProfileHandler extends Component {
           <div styleName="picture-picker">
             <div
               styleName="picture"
-              style={{backgroundImage: `url('${me.pictureURL}')`}} />
+              style={{backgroundImage: `url('${me.pictureURL}')`}}
+            />
             <div styleName="edit-picture-overlay">
               <div styleName="edit-picture-icon" />
               <div styleName="edit-picture-text">
