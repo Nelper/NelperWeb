@@ -5,4 +5,5 @@ test:
   override:
     - NODE_ENV=test npm test -- --maxWorkers=1
   post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/test_ouput/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
