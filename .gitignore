@@ -8,3 +8,4 @@ build/
 *.sublime-workspace
 coverage/
 src/data/schema.graphql
+test_output/

@@ -8,7 +8,6 @@ const Checkbox = require('../Checkbox').default;
 
 describe('Checkbox', () => {
   it('onCheck called on click', () => {
-    console.log(1);
     const checked = false;
     const onCheck = jest.genMockFunction();
     const checkbox = TestUtils.renderIntoDocument(
